@@ -1,0 +1,25 @@
+Lokaklasar:
+    Leigusamningur
+    Viðskiptavinur
+    Farartæki
+    Starfsmaður
+    Þjónustubók
+    Áfangastaðir
+    Flugferðir
+    Tengiliður
+
+Orð sem hægt er að nota sem attributes:
+    Reykjavík
+    Nuuk
+    Kulusuk
+    Grænland
+    Thorsahvn
+    Tingwall
+    Longyearbyen
+    Verkstæði
+    Taxtar
+    Réttindi
+    Ástand farartækis
+    Dagsektir
+    Aðgangstýringar
+    Mánaðarlegir reikningar

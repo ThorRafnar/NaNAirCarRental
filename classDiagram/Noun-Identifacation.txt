@@ -1,0 +1,103 @@
+Nafnorð úr texta:
+    Leigusamningar
+    Viðskiptavinur
+    Upplýsingar um samninginn
+    Farartæki
+    Starfsmaður
+    Þjónustubók
+    Mánaðarlegir reikningar
+    Skýrslur
+    Samantektir
+    Flugfélag
+    Áfangastaðir
+    Reykjavík
+    Nuuk
+    Kulusuk
+    Grænland
+    Thorsahvn
+    Tingwall
+    Longyearbyen
+    Bókhaldskerfi
+    Flugferðir
+    Tengiliður
+    Verkstæði
+    Starfsmenn
+    Upplýsingar um Starfsmenn
+    Leigjandi
+    Taxtar
+    Valmynd
+    Réttindi
+    Ástand farartækis
+    Dagsektir
+    reikningar
+    Aðgangstýringar
+    Tímabil
+
+Nafnorð sem koma til greina sem klasar:
+    Leigusamningur
+    Viðskiptavinur
+    Farartæki
+    Starfsmaður
+    Þjónustubók
+    Áfangastaðir
+    Flugferðir
+    Tengiliður
+
+
+Fuzzy orð:
+    Mánaðarlegir reikningar
+    Skýrslur
+    Flugfélag
+
+NONO orð:
+    Upplýsingar um samninginn
+    Samantektir
+    Bókhaldskerfi
+    Upplýsingar um Starfsmenn
+    Leigjandi
+    Valmynd
+    reikningar
+    Tímabil
+
+Orð sem koma til greina sem attributes:
+    Reykjavík
+    Nuuk
+    Kulusuk
+    Grænland
+    Thorsahvn
+    Tingwall
+    Longyearbyen
+    Verkstæði
+    Taxtar
+    Réttindi
+    Ástand farartækis
+    Dagsektir
+    Aðgangstýringar
+
+
+Lokaklasar:
+    Leigusamningur
+    Viðskiptavinur
+    Farartæki
+    Starfsmaður
+    Þjónustubók
+    Áfangastaðir
+    Flugferðir
+    Tengiliður
+
+Orð sem hægt er að nota sem attributes:
+    Reykjavík
+    Nuuk
+    Kulusuk
+    Grænland
+    Thorsahvn
+    Tingwall
+    Longyearbyen
+    Verkstæði
+    Taxtar
+    Réttindi
+    Ástand farartækis
+    Dagsektir
+    Aðgangstýringar
+    Mánaðarlegir reikningar
+
