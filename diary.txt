@@ -1,16 +1,16 @@
 23.11
-Ragnar
+#Ragnar
 
-Arnór
+#Arnór
 Í dag sat ég fundi
 
-Þorsteinn
+#Þorsteinn
 Mega stuð
 
-Árni
+#Árni
 Test Test
 
-Hallfríður
+#Hallfríður
 
-Esther
+#Esther
 
