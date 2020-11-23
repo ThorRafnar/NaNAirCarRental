@@ -2,7 +2,7 @@ Name: Admin fær tekjuyfirlit.
 Number: 3
 Description: Admin fær yfirlit yfir tekjuyfirlit á ákveðnu tímabili, svæði og tegund ökutækis.
 Priority: High
-Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson
+Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
 Source: B-Krafa
 Actors: Chuck Norris/Admin, gagnagrunnur.
 Pre-Condition: Chuck er auðkenndur sem Admin. 

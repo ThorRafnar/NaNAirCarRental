@@ -2,7 +2,7 @@ Name: Skrá nýjan starfsmann
 Number: 1
 Description: Notandi skráir inn nýjan starfsmann og uppl. um hann
 Priority: High
-Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson
+Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
 Source: A-kröfur
 Actors: Starfsmaður, gagnagrunnur?
 Pre-Condition: Starfsmaður er auðkenndur 

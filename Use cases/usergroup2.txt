@@ -2,7 +2,7 @@ Name: Notandi breytir ástandi ökutækis (útleiguhæft eða ekki)
 Number: 2
 Description: Notandi velur ökutæki og breytir ástandi þess 
 Priority: High
-Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson
+Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
 Source: A-krafa
 Actors: Notandi, gagnagrunnur
 Pre-Condition: Að ökutæki sé skráð í kerfinu.
