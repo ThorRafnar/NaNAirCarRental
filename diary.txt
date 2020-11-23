@@ -1,17 +1,25 @@
 23.11
 #Ragnar
+Notkunartilvik, nafnorðagreining, notendahópagreining,
+uppsetning á git, fundir.
 
 #Arnór
-Í dag sat ég fundi
+Notkunartilvik, nafnorðagreining, notendahópagreining,
+uppsetning á git, fundir.
 
 #Þorsteinn
-Mega stuð
+Notkunartilvik, nafnorðagreining, notendahópagreining,
+uppsetning á git, fundir.
 
 #Árni
-Test Test 
-Im in!
+Notkunartilvik, nafnorðagreining, notendahópagreining,
+uppsetning á git, fundir.
 
 #Hallfríður
+Notkunartilvik, nafnorðagreining, notendahópagreining,
+uppsetning á git, fundir.
 
 #Esther
+Notkunartilvik, nafnorðagreining, notendahópagreining,
+uppsetning á git, fundir.
 
