@@ -1,0 +1,56 @@
+Kröfulisti
+
+A kröfur
+Starfsmaður: Nafn, kt , heimasími, gsm, staðsetning, netfang
+
+Áfangastaðir: Land, flugvöllur, símanúmer, opnunartíma(Geta verið breytilegir eftir komum og brottförum véla nan air)
+
+farartæki: Skráninga nr, skrá uppl. ástands
+
+Leigusamningar: Nafn, heimasími, gsm, email, Upphafsdagur, skiladagur, í hvaða landi leigan er, gerð tækis, ástand, hvaða 
+starfsmaður leigði tækið út, Dagsetning útláns og skila (tímasetning), Taxti, heildarupphæð greiðslu, Passa að tvíleigja ekki,
+ef ástand ökutækis er of lélegt er ekki hægt að leigja það
+
+Starfsmenn: Skrá nýja starfsmenn, finna og breyta upplý. um starfsmenn en ekki nafn og kt,  
+hugbúnaðurinn á að geta skráð starfsmenn og hvaða starfi þeir sinna,
+hafa tengiliði sem skrá afhendingu og móttöku við afhendingu faratækis,
+
+farartæki: skrá ný og lista öll faratæki, lista öll faratæki á hverjum stað og ástand þeirra, lista öll faratæki á hverjum stað 
+sem eru laus og hæf til útleigu, breyta ástandi farartækis, skrá nýja og lista alla 
+leigu samninga(upplý um leigjanda, dagsetning á gerð samnings, upplý um farartækið,
+gildistíma leigusamnings og lands, dagsetning og staðsetning á afhendingu farartækis(skráð við afhendingu),
+dagsetning og staðsetning á afhendingu farartækis(skráð við skil)), finna og breyta gildistíma og eða farartæki í leigusamning,
+ógilda leigusaming, skráð nýja og lista áfangastaði, birta prentvæna útgáfu
+
+hafa tengiliði sem skrá afhendingu og móttöku við afhendingu faratækis,
+
+B kröfur
+
+Taxtar og tegundir farartækja(mismunandi flokkar), 
+eikna kostnað við leigusamning, hafa valmynd sem sýnir taxtana fyrir farartækin,
+hægt þarf að vera breyta þessum töxtum og búa til nýjan flokk farartækja með nýjum taxta. 
+Halda utan um réttindi ökuþóra(ath réttindi fyrir sérstök farartæki),
+dagssektir(er taxti sem kemur fram í leigusaming auk álags)
+útbúa út reikning fyrir viðskiptavin þar sem valið er tímabil sem á að rukka
+Ekki er æskilegt að rukka sama samning oft og því ætti bara að vera hægt að rukka samninga sem ekki hafa fengið rukkun
+Gefa norris super user
+skýrsla fyrir hvern stað
+Tegund farartækis, framleiðandi, árgerð, litur, réttindi 
+Skrá og viðhalda leigutaxta fyrir hverja tegund
+skrá dagsektir þegar faratækkjum er ekki skilað á réttum tíma, bæta við nauðsynlegum viðbótum til að tryggja að þær séu reiknaðar með þegar gerðir eru reikningar 
+Búa til aðgangsstýringar fyrir starfsmenn, reykjavík sem sjá um að stofna samninga og breyta þeim og kalla fram prentvæna reikninga og skýrslur
+Starfsmenn í útibúi á hverjum flugvelli sjá um að skrá ný faratæki þegar fjölgar í flotanum, skrá þegar faratæki er afhent og skrá þegar viðskitavinu skilar farartæki. Skrá ástand farartækis
+Chuck vill geta kallað fram eftirfarandi skýrslur í prentvænu viðmóti... Yfirlit yfir tekjur þar sem hægt er að velja tímabil og svo væri gott að sjá sundurliðun á tekjum eftir tegund
+    faratækja og sundurliðun á tekjum útibúa og blöndu af þessum
+yfirlit yfir nýtingu tækja eftir tegund
+yfirlit yfir reikninga á áhveðnu tímabili þar sem hægt er að flokka eftir viðskiptavinum, þar sem hægt er að sjá hvort þeir séu farnir í innheimtu
+
+
+c kröfur
+
+Hugmyndir að viðbótarkröfum sem krefjast ekki breytinga né nýrra gagna:•Viðbótar skýrslur hverskonar, hvað dettur ykkur í hug?
+Bæta við vildarkúna kerfi sem veitir aflætti.
+Vara við kúnum sem skiluðu seint síðast.
+Geta búið tilAscii-artauglýsingar fyrir farartækin.
+Bæta viðAscii-artí prentvænu útgáfuna á samningum / skýrslum.
+Hvað dettur ykkur sniðugt í hug? Berið það bara undir okkur áður en þið útfærið.
