@@ -1,0 +1,24 @@
+Name: Notandi breytir ástandi ökutækis (útleiguhæft eða ekki)
+Number: 2
+Description: Notandi velur ökutæki og breytir ástandi þess 
+Priority: High
+Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson
+Source: A-krafa
+Actors: Notandi, gagnagrunnur
+Pre-Condition: Að ökutæki sé skráð í kerfinu.
+Post-Condition: Ástand ökutækis er breytt.
+Main Success scenario:
+    1. Notandi leita að ökutæki.
+    2. Notandi velur ökutæki
+    3. Notandi velur að breyta ástandi þess.
+    4. Kerfið birtir valmöguleika um ástand.
+    5. Notandi velur viðeigandi valmöguleika.
+    6. Kerfið biður um staðfestingu.
+    7. Notandi staðfestir.
+    8. Ástand ökutækis er breytt í gagnagrunni.
+Extensions:
+    1. a) Notandi finnur ekki ökutæki.
+    7. a) Notandi velur að staðfesta ekki.
+    *. a) Notandi velur að fara til baka.
+    *. b) Notandi velur að fara á Main Menu(t.d "menu").
+
