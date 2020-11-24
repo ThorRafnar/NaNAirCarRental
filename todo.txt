@@ -3,30 +3,30 @@ Stöðurit
 Útlitshönnun sett fram sem "happy path"
 
 
-Today:
+Monday:
 
 Notkunartilvik - Búnir með 3, þarf fleiri?
 Nafnorðagreining fyrir Klasarit
 
 Þriðjudagur:
-Fundur - förum yfir daginn.
-Setja upp Klasarit
-Fínpússa kröfulista
-Notkunartilvik
+Fundur - förum yfir daginn. // Done
+Fínpússa kröfulista // Done
+Notkunartilvik // Done
+Byrja á Stöðuriti
 Skissa upp kerfið / Byrja á Útlitshönnun
+Byrja á skýrslu
 
 Miðvikudagur:
 Fundur - förum yfir daginn.
-Klára Klasarit - Þeir sem klára klasarit, hjálpa til í Útlitshönnun
 Halda áfram með Stöðurit
 Útlitshönnun
-Byrja á Stöðuriti
+Halda áfram með skýrslu
 
 Fimmtudagur:
 Fundur - förum yfir daginn.
 Klára Stöðurit - Hjálpa til í útlisthönnun
 Útlitshönnun
-Byrja á skýrslu.
+Halda áfram með skýrslu.
 
 Föstudagur:
 Fundur - förum yfir daginn.
