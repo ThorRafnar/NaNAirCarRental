@@ -1,0 +1,31 @@
+#############################################################################
+| NaN Air Car Rental                        	                    Vol 1.0 |
+| << Employee name >>                                                       |
+#############################################################################
+|                                                                           |
+|   Owner hereby agrees to rent to Renter a passenger vehicle identified    | 
+|   as follows:
+|
+|   Make: [MAKE]                                VIN: [VIN]
+|
+|   Model: [MODEL]                              Color: [COLOR]
+|
+|   Year: [YEAR]
+|
+|   (hereinafter referred to as “Rental Vehicle”).
+|
+|   ---------------------------------------------------------------------   |
+#
+#   The term of this Car Rental Agreement runs from the 
+#   date and hour of vehicle pickup as indicated just 
+#   above the signature line at the bottom of this 
+#   agreement until the return of the vehicle to Owner, 
+#   and completion of all terms of this agreement by 
+#   both Parties. The estimated rental term is as follows:
+#
+#   Estimated start date: [START DATE]
+#
+#   Estimated end date: [END DATE]
+#
+#   The Parties may shorten or extend the estimate 
+#   term of rental by mutual consent.
