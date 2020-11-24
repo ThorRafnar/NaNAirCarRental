@@ -8,17 +8,15 @@ Actors: Notandi, gagnagrunnur
 Pre-Condition: Að ökutæki sé skráð í kerfinu.
 Post-Condition: Ástand ökutækis er breytt.
 Main Success scenario:
-    1. Notandi leita að ökutæki.
-    2. Notandi velur ökutæki
-    3. Notandi velur að breyta ástandi þess.
-    4. Kerfið birtir valmöguleika um ástand.
-    5. Notandi velur viðeigandi valmöguleika.
-    6. Kerfið biður um staðfestingu.
-    7. Notandi staðfestir.
-    8. Ástand ökutækis er breytt í gagnagrunni.
+    1. Notandi velur ökutæki úr main menu
+    2. Notandi velur að breyta ástandi ökutækis.
+    3. Notandi leitar að ökutæki.
+    4. Notandi velur ökutæki
+    5. Notandi breytir ástandi ökutækis.
+    6. Ástand ökutækis er breytt í gagnagrunni.
 Extensions:
-    1. a) Notandi finnur ekki ökutæki.
-    7. a) Notandi velur að staðfesta ekki.
+    3. a) Notandi finnur ekki ökutæki.
+    5. a) Notandi velur að breyta ekki ástandi ökutækis.
     *. a) Notandi velur að fara til baka.
     *. b) Notandi velur að fara á Main Menu(t.d "menu").
 

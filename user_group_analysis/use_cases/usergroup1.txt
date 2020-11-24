@@ -10,15 +10,16 @@ Actors: Starfsmaður, gagnagrunnur
 Pre-Condition: Starfsmaður er auðkenndur 
 Post-Condition: Nýr starfsmaður er skráður í kerfið með viðeigandi uppl.
 Main success scenarios:
-    1. Notandi velur að búa til nýjan starfsmann 
-    2. Kerfið biður um upplýsingar.
-    3. Notandi slær inn upplýsingar.
-    4. Kerfið biður um staðfestingu.
-    5. Notandi staðfestir að vista breytingar.
-    6. Kerfið tekur inn nýjan starfsmann í gagnagrunn.
+    1. Notandi velur starfsmenn úr main menu.
+    2. Notandi velur að búa til nýjan starfsmann. 
+    3. Kerfið biður um upplýsingar.
+    4. Notandi slær inn upplýsingar.
+    5. Kerfið biður um staðfestingu.
+    6. Notandi staðfestir að vista breytingar.
+    7. Kerfið tekur inn nýjan starfsmann í gagnagrunn.
 Extensions:
-    3. a) Notandi slær inn rangar upplýsingar.
-    5. a) Notandi velur að hætta við.
+    4. a) Notandi slær inn rangar upplýsingar.
+    6. a) Notandi velur að hætta við.
     *. a) Notandi ýtir á BACK(kannski t.d. b/9)
     *. b) Notandi velur að fara aftur á Main menu(t.d "menu").
 

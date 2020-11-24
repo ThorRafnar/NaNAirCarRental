@@ -1,17 +1,24 @@
--------------------------------------------
-Welcome to the NaN air car Rental System
+#####################################################
+| Welcome to the NaN air car Rental System          |
+|                                           Vol 1.0 |
+#####################################################
+|                                                   |
+|   Select your airport code:                       |
+|                                                   |
+|   1. GOH: Nuuk, Greenland                         |
+|   2. KEF: Reykjavik, Iceland                      |
+|   3. KUS: Kulusuk, Greenland                      |
+|   4. FAE: Tórshavn, Faroe Islands                 |
+|   5. LWK: Tingwall, Shetland                      |
+|   6. LYR: Longyearbyen, Svalbard                  |
+|   7. ADM: Administrator                           |
+|                                                   |
+|   Input:                                          |
+|                                                   |
+|   Press 9 to quit                                 |
+|                                                   |
+#####################################################
 
-    GOH: Nuuk, Greenland                                                                      
-    KEF: Reykjavik, Iceland                                                                    
-    KUS: Kulusuk, Greenland                                                                   
-    FAE: Tórshavn, Faroe Islands                                                              
-    LWK: Tingwall, Shetland                                                                   
-    LYR: Longyearbyen, Svalbard                                                               
-    ADM: Administrator  
-
-Enter your airport code:
-
--------------------------------------------
 
 #####################################################
 | NaN Air Car Rental                        Vol 1.0 |

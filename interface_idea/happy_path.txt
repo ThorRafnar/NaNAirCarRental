@@ -1,0 +1,244 @@
+Happy path fyrir notkunartilvik 1
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Tasks:                                          |
+|   1. Contract                                     |
+|   2. Employee                                     |
+|   3. Vehicle                                      |
+|   4. Location                                     |
+|                                                   |
+|   Input: 2                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 1. Notandi velur starfsmenn úr main menu.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee options:                               |
+|   1. Register new employee                        |
+|   2. Change employee's information                |
+|   3. View all employee's                          |
+|                                                   |
+|   Input: 2                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 2. Notandi velur að búa til nýjan starfsmann.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee's information':                        |
+|   Enter employee's first name:                    |
+|                                                   |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 3. Kerfið biður um upplýsingar.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee's information':                        |
+|   Enter employee's home phone number:             |
+|                                                   |
+|   Input: 5885522                                  |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 4. Notandi slær inn upplýsingar.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee's information':                        |
+|   Name: Kalli Bjarni                              |
+|   Social security nr: 060176-2959                 |
+|   Address: Dúfnahólar 10                          |
+|   Home phone: 5885522                             |
+|   Mobile phone: 8007000                           |
+|   Email: kallibjarni@kb.is                        |
+|   Work Area: ICELAND                              |
+|                                                   |
+|   Are these informations correct? (Y/N)           |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 5. Kerfið biður um staðfestingu.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee's information':                        |
+|   Name: Kalli Bjarni                              |
+|   Social security nr: 060176-2959                 |
+|   Address: Dúfnahólar 10                          |
+|   Home phone: 5885522                             |
+|   Mobile phone: 8007000                           |
+|   Email: kallibjarni@kb.is                        |
+|   Work Area: ICELAND                              |
+|                                                   |
+|   Are these informations correct? (Y/N)           |
+|   Input: Y                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 6. Notandi staðfestir að vista breytingar.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee's information':                        |
+|   Name: Kalli Bjarni                              |
+|   Social security nr: 060176-2959                 |
+|   Address: Dúfnahólar 10                          |
+|   Home phone: 5885522                             |
+|   Mobile phone: 8007000                           |
+|   Email: kallibjarni@kb.is                        |
+|   Work Area: ICELAND                              |
+|                                                   |
+|   Employee created.                               |
+|   Enter 0 to go back to main menu                 |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 7. Kerfið tekur inn nýjan starfsmann í gagnagrunn.
+
+
+##########################################################################
+
+Happy path fyrir notkunartilvik 2
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Tasks:                                          |
+|   1. Contract                                     |
+|   2. Employee                                     |
+|   3. Vehicle                                      |
+|   4. Location                                     |
+|                                                   |
+|   Input: 3                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 1. Notandi velur ökutæki úr main menu
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Vehicle options:                                |
+|   1. Register new vehicle                         |
+|   2. Change vehicle's condition                   |
+|   3. View all vehicle's                           |
+|   3. View all available vehicle's                 |
+|                                                   |
+|   Input: 2                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 2. Notandi velur að breyta ástandi ökutækis.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Change vehicle's condition.                     |
+|   Enter vehicle's registration number:            |
+|                                                   |
+|   Input: 2                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 3. Notandi leitar að ökutæki.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Change vehicle's condition.                     |
+|   Type: Toyota Hilux                              |
+|   Model year: 1994                                |
+|   Color: Red                                      |
+|   Registration number: 1Z254-B50                  |
+|   Condition: Rentable                             |
+|                                                   |
+|   Do you want to change information               |
+|   for given vehicle? (Y/N)                        |
+|   Input: Y                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 4. Notandi velur ökutæki.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Change vehicle's condition.                     |
+|   Type: Toyota Hilux                              |
+|   Model year: 1994                                |
+|   Color: Red                                      |
+|   Registration number: 1Z254-B50                  |
+|   Condition: Rentable                             |
+|                                                   |
+|   Change condition from rentable                  |
+|   to out of service? (Y/N)                        |
+|   Input: Y                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 5. Notandi breytir ástandi ökutækis.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Change vehicle's condition.                     |
+|   Type: Toyota Hilux                              |
+|   Model year: 1994                                |
+|   Color: Red                                      |
+|   Registration number: 1Z254-B50                  |
+|   Condition: Out of service                       |
+|                                                   |
+|   The vehicle is now out of service.              |
+|   Enter 0 to go back to main menu                 |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 6. Ástand ökutækis er breytt í gagnagrunni.
+
+###########################################################################
+
+Happy path fyrir notkunartilvik 3
+

@@ -9,7 +9,7 @@
 Kláraði klasarit.
 
 #Arnór
-
+Bjó til 5 notkunartilvik til viðbótar, aðstoðaði við klasarit og grófhönnun og byrjaði á happy path út frá notkunartilvikum.
 
 #Þorsteinn
 Vann í kröfulistanum
