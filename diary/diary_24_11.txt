@@ -2,8 +2,11 @@
 #Allir
 Í gær unnum við öll saman, settum upp github og trello, gerðum notendahópagreiningu og nafnorðagreiningu og byrjuðum á notkunartilvikum og klasariti.
 
-#Ragnar
+#Allir
+Ákveða hönnun á main menu.
 
+#Ragnar
+Kláraði klasarit.
 
 #Arnór
 
