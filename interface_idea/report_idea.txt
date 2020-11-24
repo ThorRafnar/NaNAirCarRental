@@ -1,31 +1,75 @@
-#############################################################################
+_____________________________________________________________________________
 | NaN Air Car Rental                        	                    Vol 1.0 |
 | << Employee name >>                                                       |
-#############################################################################
+|   _____________________________________________________________________   |
+|   1. RENTAL VEHICLE                                                       |
 |                                                                           |
 |   Owner hereby agrees to rent to Renter a passenger vehicle identified    | 
-|   as follows:
-|
-|   Make: [MAKE]                                VIN: [VIN]
-|
-|   Model: [MODEL]                              Color: [COLOR]
-|
-|   Year: [YEAR]
-|
-|   (hereinafter referred to as “Rental Vehicle”).
-|
-|   ---------------------------------------------------------------------   |
-#
-#   The term of this Car Rental Agreement runs from the 
-#   date and hour of vehicle pickup as indicated just 
-#   above the signature line at the bottom of this 
-#   agreement until the return of the vehicle to Owner, 
-#   and completion of all terms of this agreement by 
-#   both Parties. The estimated rental term is as follows:
-#
-#   Estimated start date: [START DATE]
-#
-#   Estimated end date: [END DATE]
-#
-#   The Parties may shorten or extend the estimate 
-#   term of rental by mutual consent.
+|   as follows:                                                             |
+|                                                                           |
+|       Make:   [MAKE]                      VIN:    [VIN]                   |
+|                                                                           |
+|       Model:  [MODEL]                     Color:  [COLOR]                 |
+|                                                                           |
+|       Year:   [YEAR]                                                      |
+|                                                                           |
+|   (hereinafter referred to as “Rental Vehicle”).                          |
+|   _____________________________________________________________________   |
+|   2. RENTAL TERM                                                          |
+|                                                                           |
+|   The term of this Car Rental Agreement runs from the date and hour of    |
+|   vehicle pickup as indicated just above the signature line at the        |
+|   bottom of this agreement until the return of the vehicle to Owner,      |
+|   and completion of all terms of this agreement by both Parties.          |
+|   The estimated rental term is as follows:                                |
+|                                                                           |
+|       Start:  [START DATE]                End:    [END DATE]              |
+|                                                                           |
+|   The Parties may shorten or extend the estimate                          |
+|   term of rental by mutual consent.                                       |
+|   _____________________________________________________________________   |
+|   3. SCOPE OF USE                                                         |
+|                                                                           |
+|   The renter is limited to use the rental vehicle only in the country     |
+|   in which it is rented, [Location.country()]. The renter will not        |
+|   sublease or rent the rental vehicle to another person.                  |
+|                                                                           |
+|   The renter will not permit any other person to operate the rental       |
+|   vehicle unless identified below:                                        |
+|                                                                           |
+|       Primary vehicle operator:   [Person.name]                           |
+|       Drivers licence class:      [Person.licence_class]                  |
+|                                                                           |
+|       Secondary vehicle operator: [Person.name]                           |
+|       Drivers licence class:      [Person.licence_class]                  |
+|   _____________________________________________________________________   |                                                                   
+|   4. RENTAL FEES                                                          |
+|                                                                           |
+|   Rental vehicle is of class [Vehicle.type], which has a rental rate      |
+|   as follows:                                                             |
+|                                                                           |
+|           Rate:   [Vehicle.type_rate]                                     |
+|                                                                           |
+|   _____________________________________________________________________   |
+|   5. SIGNATURE                                                            |
+|                                                                           |
+|   This Car Rental Agreement constitutes the entire agreement between      |
+|   the Parties with respect to this rental arrangement.  No modification   |
+|   to this agreement can be made unless approved by both Parties, in       |
+|   writing.                                                                |
+|   Any notice required to be given to the other party will be made to      |
+|   the contact information below.                                          |
+|                                                                           |
+|   TIME OF VEHICLE PICKUP: [DATE], [TIME]                                  |
+|                                                                           |
+|       - RENTER -                                                          |
+|   Signature: ____________________________     Date: _________________     |
+|                                                                           |
+|       Name:   [Person.name]           Phone:  [Person.phone_number]       |
+|                                                                           |
+|       Email:  [Person.email]          GSM:    [Person.gsm_number]         |
+|                                                                           |
+|       - OWNER -                                                           |
+|   Signature: ____________________________     Date: _________________     |
+|                                                                           |
+|___________________________________________________________________________|
