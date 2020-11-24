@@ -19,7 +19,7 @@ Setja upp mockup report fyrir rental contracts
 
 
 #Hallfríður
-kláruðum klasarit 
+kláruðum klasarit og byrjuðum á stöðuriti
 
 #Esther
 unnum að notkunartilvikum og byrjuðum á stöðuriti
