@@ -1,0 +1,15 @@
+#################################################################################################################################
+|                                                                                                                               |
+|                                        Welcome to the NaN air Rental system                                                   |
+|                                                                                                                               |
+|               Select your Location:                                                                                           |
+|                                     GOH: Nuuk, Greenland                                                                      |
+|                                     KEF: Reykjavik, Iceland                                                                   |
+|                                     KUS: Kulusuk, Greenland                                                                   |
+|                                     FAE: Tórshavn, Faroe Islands                                                              |
+|                                     LWK: Tingwall, Shetland                                                                   |
+|                                     LYR: Longyearbyen, Svalbard                                                               |
+|                                   > ADM: Administrator                                                                        |
+|                                                                                                                               |
+#################################################################################################################################
+ 
