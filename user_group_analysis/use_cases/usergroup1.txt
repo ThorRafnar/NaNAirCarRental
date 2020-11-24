@@ -1,15 +1,16 @@
+####################################################################################
+
 Name: Skrá nýjan starfsmann
 Number: 1
 Description: Notandi skráir inn nýjan starfsmann og uppl. um hann
 Priority: High
 Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
 Source: A-kröfur
-Actors: Starfsmaður, gagnagrunnur?
+Actors: Starfsmaður, gagnagrunnur
 Pre-Condition: Starfsmaður er auðkenndur 
 Post-Condition: Nýr starfsmaður er skráður í kerfið með viðeigandi uppl.
 Main success scenarios:
     1. Notandi velur að búa til nýjan starfsmann 
-        // TODO ákveða hvernig þetta er gert (sub-menu eða aðalvalmynd)
     2. Kerfið biður um upplýsingar.
     3. Notandi slær inn upplýsingar.
     4. Kerfið biður um staðfestingu.
@@ -20,3 +21,55 @@ Extensions:
     5. a) Notandi velur að hætta við.
     *. a) Notandi ýtir á BACK(kannski t.d. b/9)
     *. b) Notandi velur að fara aftur á Main menu(t.d "menu").
+
+####################################################################################
+
+Name: Breyta upplýsingum um starfsmann
+Number: 4
+Description: Notandi finnur starfsmann og breytir upplýsinum um hann
+Priority: High
+Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
+Source: A-kröfur
+Actors: Starfsmaður, gagnagrunnur
+Pre-Condition: Starfsmaður er auðkenndur 
+Post-Condition: Breyttar hafa verið upplýsingar um starfsmann.
+Main success scenarios:
+    1. Notandi velur að leita að starfsmanni.
+    2. Notandi slær inn nafn starfsmanns.
+    3. Notandi velur tiltekinn starfmann.
+    4. Notandi breytir upplýsingum um starfsmann.
+    5. Kerfið biður um staðfestingu á breytingum.
+    6. Notandi staðfestir breytingar.
+    7. Upplýsingum er breytt um starfsmann.
+Extensions:
+    2. a) Notandi slær inn rangt nafn, velur að leita aftur (skref 1)
+    6. a) Notandi sló inn rangar upplýsingar, staðfestir ekki, boðið að skrá nýjar upplýsingar eða hætta.
+    *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
+    
+####################################################################################
+
+Name: Skrá nýjann leigusamning
+Number: 6
+Description: Notandi býr til nýjann leigusamning á faratæki á tilteknum stað fyrir viðskiptavin.
+Priority: High
+Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
+Source: A-kröfur
+Actors: Starfsmaður, viðskiptavinur og gagnagrunnur
+Pre-Condition: Starfsmaður er auðkenndur og viðskiptavinur búinn að velja faratæki á áfangastað.
+Post-Condition: Leigusamningu fyrir faratæki
+Main success scenarios:
+    1. Notandi velur að skrá nýjan leigusamning.
+    2. Notandi velur áfangastað.
+    3. Notandi velur faratæki.
+    4. Notandi skráir viðeigandi upplýsingar um viðskiptavin.
+    5. Notandi velur upphaf og enda leigusamnings.
+    6. Notandi velur að búa til leigusamning.
+    7. Kerfið biður um stafestingu á leigusamningi.
+    8. Notandi staðfestir leigusamning.
+    9. Nýr leigusamningur verður til í kerfinu.
+Extensions:
+    3. a) faratæki er ekki í boði á áfangastað, notanda boðið að velja annað faratæki eða hætta við.
+    7. a) Notandi sló inn rangar upplýsingar, staðfestir ekki, boðið að skrá nýjar upplýsingar eða hætta.
+    *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
+    
+####################################################################################
