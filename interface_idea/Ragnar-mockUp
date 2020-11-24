@@ -1,0 +1,46 @@
+Main menu
+
+-------------------------------------------
+Welcome to the NaN air car Rental System
+
+    GOH: Nuuk, Greenland                                                                      
+    KEF: Reykjavik, Iceland                                                                    
+    KUS: Kulusuk, Greenland                                                                   
+    FAE: Tórshavn, Faroe Islands                                                              
+    LWK: Tingwall, Shetland                                                                   
+    LYR: Longyearbyen, Svalbard                                                               
+    ADM: Administrator  
+
+Enter your airport code:
+
+-------------------------------------------
+
+If the employee is an office employee // Reykjavík employee
+
+--------------------------------------------
+What do you want to do?
+
+1. Create a new contract.
+2. Change an existing contract.
+3. Search an existing contract.
+4. View employee list.
+
+Input: 
+
+---------------------------------------------
+
+If the employee is an Airport employee // Nuuk, Kulusuk, Thorshavn, Tingwall, Longyearbyen
+
+----------------------------------------------
+What do you want to do?
+
+1. Register a new vehicle.
+2. Change a vehicle status.
+3. Check out vehicle.
+4. Check in vehicle.
+5. View employee list.
+
+Input:
+
+----------------------------------------------
+
