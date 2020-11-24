@@ -15,7 +15,8 @@ Nafnorðagreining fyrir Klasarit
 Þriðjudagur:
 Fundur - förum yfir daginn.
 Setja upp Klasarit
-Byrja á Stöðuriti
+Fínpússa kröfulista
+Notkunartilvik
 Skissa upp kerfið / Byrja á Útlitshönnun
 
 Miðvikudagur:
@@ -23,6 +24,7 @@ Fundur - förum yfir daginn.
 Klára Klasarit - Þeir sem klára klasarit, hjálpa til í Útlitshönnun
 Halda áfram með Stöðurit
 Útlitshönnun
+Byrja á Stöðuriti
 
 Fimmtudagur:
 Fundur - förum yfir daginn.
