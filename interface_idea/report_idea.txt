@@ -7,9 +7,9 @@ _____________________________________________________________________________
 |   Owner hereby agrees to rent to Renter a passenger vehicle identified    | 
 |   as follows:                                                             |
 |                                                                           |
-|       Make:   [MAKE]                      VIN:    [VIN]                   |
+|       Make:   [MAKE]                      Licence Plate:  [VIN]           |
 |                                                                           |
-|       Model:  [MODEL]                     Color:  [COLOR]                 |
+|       Model:  [MODEL]                     Color:          [COLOR]         |
 |                                                                           |
 |       Year:   [YEAR]                                                      |
 |                                                                           |
@@ -48,7 +48,7 @@ _____________________________________________________________________________
 |   Rental vehicle is of class [Vehicle.type], which has a rental rate      |
 |   as follows:                                                             |
 |                                                                           |
-|           Rate:   [Vehicle.type_rate]                                     |
+|       Rate:   [Vehicle.type_rate]                                         |
 |                                                                           |
 |   _____________________________________________________________________   |
 |   5. SIGNATURE                                                            |
@@ -62,14 +62,14 @@ _____________________________________________________________________________
 |                                                                           |
 |   TIME OF VEHICLE PICKUP: [DATE], [TIME]                                  |
 |                                                                           |
-|       - RENTER -                                                          |
+| - RENTER -                                                                |
 |   Signature: ____________________________     Date: _________________     |
 |                                                                           |
 |       Name:   [Person.name]           Phone:  [Person.phone_number]       |
 |                                                                           |
 |       Email:  [Person.email]          GSM:    [Person.gsm_number]         |
 |                                                                           |
-|       - OWNER -                                                           |
+| - OWNER -                                                                 |
 |   Signature: ____________________________     Date: _________________     |
 |                                                                           |
 |___________________________________________________________________________|
