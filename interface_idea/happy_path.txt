@@ -27,7 +27,7 @@ Happy path fyrir notkunartilvik 1
 |   2. Change employee's information                |
 |   3. View all employee's                          |
 |                                                   |
-|   Input: 2                                        |
+|   Input: 1                                        |
 |                                                   |
 |   Enter 9 to quit.                                |
 #####################################################
@@ -242,3 +242,268 @@ Happy path fyrir notkunartilvik 2
 
 Happy path fyrir notkunartilvik 3
 
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Tasks:                                          |
+|   1. Contract                                     |
+|   2. Employee                                     |
+|   3. Vehicle                                      |
+|   4. Location                                     |
+|   5. Reports                                      |
+|                                                   |
+|   Input: 5                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 1. Chuck velur skýrslur úr main menu.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Reports options:                                |
+|   1. Profit reports                               |
+|   2. Utilisatation reports                        |
+|   3. Bills                                        |                                
+|                                                   |
+|   Input: 1                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 2. Chuck velur að fá tekjuyfirlit.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Profit report:                                  |
+|   Enter report's starting date (DD/MM/YY):        |                                
+|                                                   |
+|   Input: 22/06/19                                 |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 3. Chuck velur upphafsdagsetningu.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Profit report:                                  |
+|   Enter report's ending date (DD/MM/YY):          |                                
+|                                                   |
+|   Input: 22/06/20                                 |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 4. Chuck velur endadagsetningu.
+
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Profit report from 22/06/19 to 22/06/20:        |
+|                                                   |                                
+|   Total profit: 99.999.999 kr.                    |
+|                                                   |
+|   profit by month:                                |
+|                                                   |
+|  Tafla frá Þorsteini hér!!                        |
+|                                                   |
+|                                                   |
+|   Enter 0 to go back to main menu                 |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 5. Kerfið birtir prentvænar upplýsingar um tekjur.
+
+##################################################################################
+
+Happy path fyrir notkunartilvik 4
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Tasks:                                          |
+|   1. Contract                                     |
+|   2. Employee                                     |
+|   3. Vehicle                                      |
+|   4. Location                                     |
+|                                                   |
+|   Input: 2                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 1. Notandi velur starfsmenn úr main menu.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee options:                               |
+|   1. Register new employee                        |
+|   2. Change employee's information                |
+|   3. View all employee's                          |
+|                                                   |
+|   Input: 2                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 2. Notandi velur að breyta upplýsigum um starfsmann.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Change employee's information:                  |
+|   Enter employee's social security number:        |
+|   (DDMMYY-XXXX)                                   |
+|                                                   |
+|   Input: 060176-2959                              |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 3. Notandi slær inn kennitölu starfsmanns.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee's information':                        |
+|   Name: Kalli Bjarni                              |
+|   Social security nr: 060176-2959                 |
+|   Address: Dúfnahólar 10                          |
+|   Home phone: 5885522                             |
+|   Mobile phone: 8007000                           |
+|   Email: kallibjarni@kb.is                        |
+|   Work Area: ICELAND                              |
+|                                                   |
+|   Is this correct employee? (Y/N)                 |
+|   Input: Y                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 4. Notandi velur tiltekinn starfmann.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   What information do you want to change?         |
+|   1. Name                                         |
+|   2. Social security number                       |
+|   3. Address                                      |
+|   4. Home phone                                   |
+|   5. Mobile phone                                 |
+|   6. Email                                        |
+|   7. Work Area                                    |
+|                                                   |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 5. Kerfið býður notanda að velja hvaða upplýsingum hann vill breyta.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   What information do you want to change?         |
+|   1. Name                                         |
+|   2. Social security number                       |
+|   3. Address                                      |
+|   4. Home phone                                   |
+|   5. Mobile phone                                 |
+|   6. Email                                        |
+|   7. Work Area                                    |
+|                                                   |
+|   Input: 3                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 6. Notandi velur upplýsingar sem hann vill breyta.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   What information do you want to change?         |
+|   Current address: Dufanhólar 10                  |
+|                                                   |
+|   New address: Bessastaðir                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 7. Notandi breytir upplýsingum um starfsmann.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   What information do you want to change?         |
+|   Current address: Dufanhólar 10                  |
+|   New address: Bessastaðir                        |
+|                                                   |
+|   Change current address to new address (Y/N)     |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 8. Kerfið biður um staðfestingu á breytingum.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   What information do you want to change?         |
+|   Current address: Dufanhólar 10                  |
+|   New address: Bessastaðir                        |
+|                                                   |
+|   Change current address to new address (Y/N)     |
+|   Input: Y                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 9. Notandi staðfestir breytingar.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee's information':                        |
+|   Name: Kalli Bjarni                              |
+|   Social security nr: 060176-2959                 |
+|   Address: Bessastaðir                            |
+|   Home phone: 5885522                             |
+|   Mobile phone: 8007000                           |
+|   Email: kallibjarni@kb.is                        |
+|   Work Area: ICELAND                              |
+|                                                   |
+|   Address changed.                                |
+|   Enter 1 to change more information.             |
+|   Enter 0 to go back to main menu.                |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 10. Upplýsingum er breytt um starfsmann. Kerfið býður notanda að breyta fleiri upplýsingum eða hætta.

@@ -35,16 +35,19 @@ Actors: Starfsmaður, gagnagrunnur
 Pre-Condition: Starfsmaður er auðkenndur 
 Post-Condition: Breyttar hafa verið upplýsingar um starfsmann.
 Main success scenarios:
-    1. Notandi velur að leita að starfsmanni.
-    2. Notandi slær inn nafn starfsmanns.
-    3. Notandi velur tiltekinn starfmann.
-    4. Notandi breytir upplýsingum um starfsmann.
-    5. Kerfið biður um staðfestingu á breytingum.
-    6. Notandi staðfestir breytingar.
-    7. Upplýsingum er breytt um starfsmann.
+    1. Notandi velur starfsmann úr main menu.
+    2. Notandi velur að breyta upplýsigum um starfsmann.
+    3. Notandi slær inn kennitölu starfsmanns.
+    4. Notandi velur tiltekinn starfmann.
+    5. Kerfið býður notanda að velja hvaða upplýsingum hann vill breyta.
+    6. Notandi velur upplýsingar sem hann vill breyta.
+    7. Notandi breytir upplýsingum um starfsmann.
+    8. Kerfið biður um staðfestingu á breytingum.
+    9. Notandi staðfestir breytingar.
+    10. Upplýsingum er breytt um starfsmann. Kerfið býður notanda að breyta fleiri upplýsingum eða hætta.
 Extensions:
     2. a) Notandi slær inn rangt nafn, velur að leita aftur (skref 1)
-    6. a) Notandi sló inn rangar upplýsingar, staðfestir ekki, boðið að skrá nýjar upplýsingar eða hætta.
+    7. a) Notandi sló inn rangar upplýsingar, staðfestir ekki, boðið að skrá nýjar upplýsingar eða hætta.
     *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
     
 ####################################################################################

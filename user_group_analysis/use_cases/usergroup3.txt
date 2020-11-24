@@ -8,12 +8,14 @@ Actors: Chuck Norris/Admin, gagnagrunnur.
 Pre-Condition: Chuck er auðkenndur sem Admin. 
 Post-Condition: Chuck hefur fengið tekjuyfirlit fyrir sett skilyrði.
 Main success scenario:
- 1. Chuck velur að fá tekjuyfirlit.
- 2. Chuck velur upphafsdagsetningu, endadagsetningu.
- 3. Kerfið birtir prentvænar upplýsingar um tekjur.
+ 1. Chuck velur skýrslur úr main menu.
+ 2. Chuck velur að fá tekjuyfirlit.
+ 3. Chuck velur upphafsdagsetningu.
+ 4. Chuck velur endadagsetningu.
+ 5. Kerfið birtir prentvænar upplýsingar um tekjur.
 Extension:
- 2. a) Chuck velur svæði(optional)
- 2. b) Chuck velur tegund ökutækis(optional)
- 2. c) Chuck velur að fara til baka og fer aftur á skrefið á undan.
- 2. d) Chuck velur að fara aftur á Main Menu(t.d "menu").
+ 4. a) Chuck velur svæði(optional)
+ 4. b) Chuck velur tegund ökutækis(optional)
+ * a) Chuck velur að fara til baka og fer aftur á skrefið á undan.
+ * d) Chuck velur að fara aftur á Main Menu(t.d "menu").
 
