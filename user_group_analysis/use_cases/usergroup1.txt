@@ -56,7 +56,7 @@ Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esth
 Source: A-kröfur
 Actors: Starfsmaður, viðskiptavinur og gagnagrunnur
 Pre-Condition: Starfsmaður er auðkenndur og viðskiptavinur búinn að velja faratæki á áfangastað.
-Post-Condition: Leigusamningu fyrir faratæki
+Post-Condition: Leigusamningur fyrir faratæki er skráður
 Main success scenarios:
     1. Notandi velur að skrá nýjan leigusamning.
     2. Notandi velur áfangastað.
@@ -73,3 +73,41 @@ Extensions:
     *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
     
 ####################################################################################
+
+Name: Ógilda leigusamning
+Number: 7
+Description: Notandi ógildir leigusamning í lok leigutímabils.
+Priority: High
+Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
+Source: A-kröfur
+Actors: Starfsmaður, viðskiptavinur og gagnagrunnur
+Pre-Condition: Starfsmaður er auðkenndur og viðskiptavinur hefur skilað faratækinu.
+Post-Condition: Leigusamningu er ógildur.
+Main success scenarios:
+    1. Notandi leitar að viðeigandi leigusamningi.
+    2. Notandi velur viðeigandi leigusamning.
+    3. Notandi velur að ógilda leigusamning.
+    4. Kerfið biður notanda um að staðfesta ógildingu.
+    5. Leigusamningur ógildist.
+Extensions:
+    *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
+    
+####################################################################################
+
+Name: Birta prentvæna útgáfu af leigusamningi
+Number: 8
+Description: Notandi skoðar prentanlega útgáfu af leigusamningi.
+Priority: High
+Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
+Source: A-kröfur
+Actors: Starfsmaður, gagnagrunnur
+Pre-Condition: Starfsmaður er auðkenndur og leigusamningur til staðar.
+Post-Condition: Á skjánum er prentanleg útgáfa af leigusamningi.
+Main success scenarios:
+    1. Notandi leitar að leigusamningi.
+    2. Notandi velur viðeigandi leigusamning.
+    3. Notandi velur að skoða leigusamning.
+    4. Kerfið sýnir prentanlega útgáfu af leigusamningi.
+Extensions:
+    1. a) Notandi finnur ekki leigusamning, boðið að leita aftur eða hætta.
+    *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
