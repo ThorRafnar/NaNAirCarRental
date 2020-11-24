@@ -1,0 +1,76 @@
+-------------------------------------------
+Welcome to the NaN air car Rental System
+
+    GOH: Nuuk, Greenland                                                                      
+    KEF: Reykjavik, Iceland                                                                    
+    KUS: Kulusuk, Greenland                                                                   
+    FAE: Tórshavn, Faroe Islands                                                              
+    LWK: Tingwall, Shetland                                                                   
+    LYR: Longyearbyen, Svalbard                                                               
+    ADM: Administrator  
+
+Enter your airport code:
+
+-------------------------------------------
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Tasks:                                          |
+|   1. Contract                                     |
+|   2. Employee                                     |
+|   3. Vehicle                                      |
+|   4. Location                                     |
+|                                                   |
+|   Input:                                          |
+|                                                   |
+#####################################################
+
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Contract:                                       |
+|    1. Create a new contract.                      |
+|    2. Change an existing contract.                |
+|    3. View a specific contract.                   |
+|                                                   |        
+|     Input:                                        |
+|                                                   |
+|                                                   |
+#####################################################
+
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Employee:                                       |
+|    1. Create a new Employee.                      |
+|    2. Change an existing Employee.                |
+|    3. View a specific Employee.                   |
+|                                                   |        
+|    Input:                                         |
+|                                                   |
+|                                                   |
+#####################################################
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Vehicle:                                        |
+|    1. Register a new Vehicle.                     |
+|    2. Change status of existing Vehicle.          |
+|    3. View a specific Vehicle.                    |
+|                                                   |        
+|    Input:                                         |
+|                                                   |
+|                                                   |
+#####################################################
