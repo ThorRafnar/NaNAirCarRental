@@ -22,4 +22,5 @@ Setja upp mockup report fyrir rental contracts
 kláruðum klasarit 
 
 #Esther
+unnum að notkunartilvikum og byrjuðum á stöðuriti
 
