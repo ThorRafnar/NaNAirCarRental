@@ -1,0 +1,58 @@
+#############################################################
+| NaN Air Car Rental                                Vol 1.0 |
+| << Chuck Norris >>                              Nov, 2020 |
+#############################################################
+|                                                           |
+|   Utilization of Vehicles in: Longyearbyen, Svalbard      |
+|           ___________________________                     |
+|   Cars:   |####################     | 80 %                |
+|           ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾                     |
+|   > Mini:                 80 %                            |
+|   > Economy:              75 %                            |
+|   > Intermediate Estate:  67 %                            |
+|   > Intermediate:         89 %                            |
+|   > Standard:             78 %                            |
+|   > Luxyry:               92 %                            |
+|           ___________________________                     |
+|   SUVs:   |#################        | 68 %                |
+|           ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾                     |
+|   > Economy SUV:          59 %                            |
+|   > Intermediate SUV:     72 %                            |
+|   > Full Size SUV:        69 %                            |
+|   > Luxury SUV:           81 %                            |
+|           ___________________________                     |
+|   Vans    |#####################    | 84 %                |
+|           ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾                     |
+|   > Mini Van:             82 %                            |
+|   > Full Size Van:        86 %                            |
+|           ___________________________                     |
+|   Other:  |#######################  | 92 %                |
+|           ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾                     |
+|   > Snowmobile:           98 %                            |
+|   > ATV:                  89 %                            |
+|   > Helicopter:           95 %                            |
+|   > Kayak:                94 %                            |
+|                                                           |
+#############################################################
+
+
+
+
+Vehicle types:
+        Mini
+        Economy
+        Compact
+        Intermediate Estate
+        Intermediate
+        Standard
+        Luxury
+        Economy SUV
+        Intermediate SUV
+        Full size SUV
+        Luxury SUV 
+        Full size Van
+        Snowmobile
+        Helicopter
+        Kayak
+        ATV
+
