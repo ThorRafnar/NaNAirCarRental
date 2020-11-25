@@ -16,7 +16,7 @@ Vann í kröfulistanum
 Setja upp mockup report fyrir rental contracts
 
 #Árni
-
+Vann í stöðuriti og kröfulista ásamt því að gera áhveðna grófhönnunar hugmynd
 
 #Hallfríður
 kláruðum klasarit og byrjuðum á stöðuriti
