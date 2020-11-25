@@ -15,12 +15,16 @@ Setti inn og bjó til beinagrind fyrir Frumgerðarviðtal.
 
 #Þorsteinn
 Vann í kröfulistanum
+Stöðurit fyrir vehicle klasann
+runurit fyrir print_utilization_report fallið
+skoða 3ja laga högun í klasariti
 
 
 #Árni
 
 
 #Hallfríður
+vann í stöðuriti
 
 
 #Esther
