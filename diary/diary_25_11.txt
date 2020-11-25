@@ -6,9 +6,9 @@
 
 
 #Ragnar
-Vann í stöðuritinu, Beinagrind fyrir skýrslu, setja inn Notendahópagreiningu og Kröfulista. 
-Setti inn og bjó til beinagrind fyrir Frumgerðarviðtal.
-
+Vann í stöðuritinu, Beinagrind fyrir skýrslu.
+Setja inn Notendahópagreiningu og Kröfulista í skýrsluna og skrifa nokkur orð þar. 
+Setti inn og bjó til beinagrind fyrir Frumgerðarviðtal með verkefnum og markmiðum.
 
 #Arnór
 
