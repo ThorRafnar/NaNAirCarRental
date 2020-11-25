@@ -20,7 +20,7 @@ ef ástand ökutækis er of lélegt er ekki hægt að leigja það
 
 Starfsmenn: Skrá nýja starfsmenn, finna og breyta upplý. um starfsmenn en ekki nafn og kt,  
 hugbúnaðurinn á að geta skráð starfsmenn og hvaða starfi þeir sinna,
-hafa tengiliði sem skrá afhendingu og móttöku við afhendingu faratækis,
+hafa tengiliði sem skrá afNúhendingu og móttöku við afhendingu faratækis,
 
 farartæki: skrá ný og lista öll faratæki, lista öll faratæki á hverjum stað og ástand þeirra, lista öll faratæki á hverjum stað 
 sem eru laus og hæf til útleigu, breyta ástandi farartækis, skrá nýja og lista alla 

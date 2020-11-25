@@ -6,6 +6,8 @@
 
 
 #Ragnar
+Vann í stöðuritinu, Beinagrind fyrir skýrslu, setja inn Notendahópagreiningu og Kröfulista. 
+Setti inn og bjó til beinagrind fyrir Frumgerðarviðtal.
 
 
 #Arnór
