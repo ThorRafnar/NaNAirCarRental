@@ -36,9 +36,9 @@ Pre-Condition: Starfsmaður er auðkenndur
 Post-Condition: Breyttar hafa verið upplýsingar um starfsmann.
 Main success scenarios:
     1. Notandi velur starfsmann úr main menu.
-    2. Notandi velur að breyta upplýsigum um starfsmann.
+    2. Notandi velur að breyta upplýsingum um starfsmann.
     3. Notandi slær inn kennitölu starfsmanns.
-    4. Notandi velur tiltekinn starfmann.
+    4. Notandi velur tiltekinn starfsmann.
     5. Kerfið býður notanda að velja hvaða upplýsingum hann vill breyta.
     6. Notandi velur upplýsingar sem hann vill breyta.
     7. Notandi breytir upplýsingum um starfsmann.
@@ -53,7 +53,7 @@ Extensions:
 ####################################################################################
 
 Name: Skrá nýjann leigusamning
-Number: 6
+Number: 5
 Description: Notandi býr til nýjann leigusamning á faratæki á tilteknum stað fyrir viðskiptavin.
 Priority: High
 Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
@@ -62,24 +62,23 @@ Actors: Starfsmaður, viðskiptavinur og gagnagrunnur
 Pre-Condition: Starfsmaður er auðkenndur og viðskiptavinur búinn að velja faratæki á áfangastað.
 Post-Condition: Leigusamningur fyrir faratæki er skráður
 Main success scenarios:
-    1. Notandi velur að skrá nýjan leigusamning.
-    2. Notandi velur áfangastað.
-    3. Notandi velur faratæki.
-    4. Notandi skráir viðeigandi upplýsingar um viðskiptavin.
-    5. Notandi velur upphaf og enda leigusamnings.
-    6. Notandi velur að búa til leigusamning.
-    7. Kerfið biður um stafestingu á leigusamningi.
-    8. Notandi staðfestir leigusamning.
-    9. Nýr leigusamningur verður til í kerfinu.
+    1. Notandi velur leigusamninga úr main menu.
+    2. Notandi velur að skrá nýjan leigusamning.
+    3. Notandi velur áfangastað.
+    4. Notandi velur týpu faratækis.
+    5. Notandi skráir viðeigandi upplýsingar um viðskiptavin.
+    6. Notandi velur upphaf og enda leigusamnings.
+    7. Notandi velur að búa til leigusamning.
+    8. Nýr leigusamningur verður til í kerfinu.
 Extensions:
-    3. a) faratæki er ekki í boði á áfangastað, notanda boðið að velja annað faratæki eða hætta við.
+    4. a) faratæki er ekki í boði á áfangastað, notanda boðið að velja annað faratæki eða hætta við.
     7. a) Notandi sló inn rangar upplýsingar, staðfestir ekki, boðið að skrá nýjar upplýsingar eða hætta.
     *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
     
 ####################################################################################
 
 Name: Ógilda leigusamning
-Number: 7
+Number: 6
 Description: Notandi ógildir leigusamning í lok leigutímabils.
 Priority: High
 Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
@@ -88,30 +87,13 @@ Actors: Starfsmaður, viðskiptavinur og gagnagrunnur
 Pre-Condition: Starfsmaður er auðkenndur og viðskiptavinur hefur skilað faratækinu.
 Post-Condition: Leigusamningu er ógildur.
 Main success scenarios:
-    1. Notandi leitar að viðeigandi leigusamningi.
-    2. Notandi velur viðeigandi leigusamning.
-    3. Notandi velur að ógilda leigusamning.
-    4. Kerfið biður notanda um að staðfesta ógildingu.
+    1. Notandi velur leigusamninga úr main menu.
+    2. Notandi velur að ógilda leigusamning.
+    3. Notandi leitar að viðeigandi leigusamningi út frá viðskiptavini.
+    4. Notandi staðfestir að hann vilji ógilda tiltekinn leigusamning.
     5. Leigusamningur ógildist.
 Extensions:
+    4. a) Notandi staðfestir ekki að ógilda. aftur í skref 3.
     *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
     
 ####################################################################################
-
-Name: Birta prentvæna útgáfu af leigusamningi
-Number: 8
-Description: Notandi skoðar prentanlega útgáfu af leigusamningi.
-Priority: High
-Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
-Source: A-kröfur
-Actors: Starfsmaður, gagnagrunnur
-Pre-Condition: Starfsmaður er auðkenndur og leigusamningur til staðar.
-Post-Condition: Á skjánum er prentanleg útgáfa af leigusamningi.
-Main success scenarios:
-    1. Notandi leitar að leigusamningi.
-    2. Notandi velur viðeigandi leigusamning.
-    3. Notandi velur að skoða leigusamning.
-    4. Kerfið sýnir prentanlega útgáfu af leigusamningi.
-Extensions:
-    1. a) Notandi finnur ekki leigusamning, boðið að leita aftur eða hætta.
-    *. a) Notandi velur að fara aftur á Main menu(t.d "menu").

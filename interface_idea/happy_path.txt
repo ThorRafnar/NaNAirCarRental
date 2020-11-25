@@ -305,25 +305,38 @@ Happy path fyrir notkunartilvik 3
 * 4. Chuck velur endadagsetningu.
 
 
-#####################################################
-| NaN Air Car Rental                        Vol 1.0 |
-| << Employee name >>                               |
-#####################################################
-|                                                   |
-|   Profit report from 22/06/19 to 22/06/20:        |
-|                                                   |                                
-|   Total profit: 99.999.999 kr.                    |
-|                                                   |
-|   profit by month:                                |
-|                                                   |
-|  Tafla frá Þorsteini hér!!                        |
-|                                                   |
-|                                                   |
-|   Enter 0 to go back to main menu                 |
-|   Input:                                          |
-|                                                   |
-|   Enter 9 to quit.                                |
-#####################################################
+######################################################################
+| NaN Air Car Rental                                         Vol 1.0 |
+| << Employee name >>                                                |
+######################################################################
+|                                                                    |
+|   Profit report from 22/06/19 to 22/06/20:                         |
+|                                                                    |                                
+|   Total profit: 99.999.999 kr.                                     |
+|                                                                    |
+|   profit by month:                                                 |
+|                                                                    |
+|__________________________________________________                  |
+|                                                 |_100.000.000 kr   |
+|                                                 |                  |
+|                                                 |_ 80.000.000 kr   |
+|         ###                                     |                  |
+|         ### ###                                 |_ 60.000.000 kr   |
+|         ### ###             ###                 |                  |
+| ###     ### ### ###         ### ###             |_ 40.000.000 kr   |
+| ###     ### ### ### ### ### ### ###             |                  |
+| ### ### ### ### ### ### ### ### ### ### ###     |_ 20.000.000 kr   |
+| ### ### ### ### ### ### ### ### ### ### ### ### |                  |
+| ### ### ### ### ### ### ### ### ### ### ### ### |_ 0 kr            |
+|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|                  |
+| Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec |                  |
+|_________________________________________________|                  |
+|                                                                    |
+|   Enter 0 to go back to main menu                                  |
+|   Input:                                                           | 
+|                                                                    |
+|   Enter 9 to quit.                                                 |
+######################################################################
 * 5. Kerfið birtir prentvænar upplýsingar um tekjur.
 
 ##################################################################################
@@ -417,7 +430,8 @@ Happy path fyrir notkunartilvik 4
 |                                                   |
 |   Enter 9 to quit.                                |
 #####################################################
-* 5. Kerfið býður notanda að velja hvaða upplýsingum hann vill breyta.
+* 5. Kerfið býður notanda að velja hvaða upplýsingum
+     hann vill breyta.
 
 #####################################################
 | NaN Air Car Rental                        Vol 1.0 |
@@ -506,4 +520,242 @@ Happy path fyrir notkunartilvik 4
 |                                                   |
 |   Enter 9 to quit.                                |
 #####################################################
-* 10. Upplýsingum er breytt um starfsmann. Kerfið býður notanda að breyta fleiri upplýsingum eða hætta.
+* 10. Upplýsingum er breytt um starfsmann. Kerfið
+  býður notanda að breyta fleiri upplýsingum eða hætta.
+
+######################################################################
+
+Happy path fyrir notkunartilvik 5
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Tasks:                                          |
+|   1. Contract                                     |
+|   2. Employee                                     |
+|   3. Vehicle                                      |
+|   4. Location                                     |
+|                                                   |
+|   Input: 1                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 1. Notandi velur leigusamninga úr main menu.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Contract options:                               |
+|   1. Create new contract                          |
+|   2. Change contract information                  |
+|   3. Terminate contract                           |
+|                                                   |
+|   Input: 1                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 2. Notandi velur að skrá nýjan leigusamning.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Select airport:                                 |
+|   1. GOH: Nuuk, Greenland                         |
+|   2. KEF: Reykjavik, Iceland                      |
+|   3. KUS: Kulusuk, Greenland                      |
+|   4. FAE: Tórshavn, Faroe Islands                 |
+|   5. LWK: Tingwall, Shetland                      |
+|   6. LYR: Longyearbyen, Svalbard                  |
+|   7. ADM: Administrator                           |
+|                                                   |
+|   Input: 1                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 3. Notandi velur áfangastað.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Vehicle type:                                   |
+|   1. Scooter                                      |
+|   2. Two door car                                 |
+|   3. Family car                                   |
+|   4. Road jeep                                    |
+|   5. 4x4 jeep                                     |
+|   5. Mini van                                     |
+|                                                   |
+|   Input: 5                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 4. Notandi velur týpu faratækis.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Customer info:                                  |
+|   Customer's first name:                          |
+|                                                   |
+|   Input: Arnór                                    |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 5. Notandi skráir viðeigandi upplýsingar um 
+     viðskiptavin.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Contract period:                                |
+|   Enter start date (DD/MM/YY):                    |
+|                                                   |
+|   Input: 22/06/21                                 |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 6. Notandi velur upphaf og enda leigusamnings.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Contract information:                           |
+|   Airport: GOH: Nuuk, Greenland                   |
+|   Vehicle type: GOH: 4x4 jeep                     |
+|   Customer: Arnór Ragnarsson                      |
+|   Start date: 22/06/21                            |
+|   End date: 26/06/21                              |
+|                                                   |
+|   Confirm contract (Y/N)                          |
+|   Input: Y                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 7. Notandi velur að búa til leigusamning.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Contract information:                           |
+|   Airport: GOH: Nuuk, Greenland                   |
+|   Vehicle type: GOH: 4x4 jeep                     |
+|   Customer: Arnór Ragnarsson                      |
+|   Start date: 22/06/21                            |
+|   End date: 26/06/21                              |
+|                                                   |
+|   Contract created.                               |
+|   Enter 0 to go back to main menu                 |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 8. Nýr leigusamningur verður til í kerfinu.
+
+###########################################################################
+
+Happy path fyrir notkunartilvik 6
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Tasks:                                          |
+|   1. Contract                                     |
+|   2. Employee                                     |
+|   3. Vehicle                                      |
+|   4. Location                                     |
+|                                                   |
+|   Input: 1                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 1. Notandi velur leigusamninga úr main menu.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Contract options:                               |
+|   1. Create new contract                          |
+|   2. Change contract information                  |
+|   3. Terminate contract                           |
+|                                                   |
+|   Input: 3                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 2. Notandi velur að ógilda leigusamning.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Terminate contract:                             |
+|   Customer's social security number:              |
+|   (DD/MM/YY-XXXX)                                 |
+|                                                   |
+|   Input: 220687-2959                              |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 3. Notandi leitar að viðeigandi leigusamningi út 
+     frá viðskiptavini.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Contract information:                           |
+|   Airport: GOH: Nuuk, Greenland                   |
+|   Vehicle type: GOH: 4x4 jeep                     |
+|   Customer: Arnór Ragnarsson                      |
+|   Start date: 22/06/21                            |
+|   End date: 26/06/21                              |
+|                                                   |
+|   Terminate contract (Y/N):                       |
+|   Input: Y                                        |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 4. Notandi staðfestir að hann vilji ógilda tiltekinn
+     leigusamning.
+
+#####################################################
+| NaN Air Car Rental                        Vol 1.0 |
+| << Employee name >>                               |
+#####################################################
+|                                                   |
+|   Contract information:                           |
+|   Airport: GOH: Nuuk, Greenland                   |
+|   Vehicle type: GOH: 4x4 jeep                     |
+|   Customer: Arnór Ragnarsson                      |
+|   Start date: 22/06/21                            |
+|   End date: 26/06/21                              |
+|                                                   |
+|   Contract terminated.                            |
+|   Enter 0 to go back to main menu                 |
+|   Input:                                          |
+|                                                   |
+|   Enter 9 to quit.                                |
+#####################################################
+* 5. Leigusamningur ógildist.
