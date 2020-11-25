@@ -11,7 +11,7 @@ Setja inn Notendahópagreiningu og Kröfulista í skýrsluna og skrifa nokkur or
 Setti inn og bjó til beinagrind fyrir Frumgerðarviðtal með verkefnum og markmiðum.
 
 #Arnór
-
+Hélt áfram með happy-paths og notkunartilvik. Kláraði fyrir skýrslu og setti það upp í skýrslunni.
 
 #Þorsteinn
 Vann í kröfulistanum
