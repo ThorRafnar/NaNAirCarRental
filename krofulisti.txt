@@ -1,7 +1,14 @@
 Kröfulisti
 
 A kröfur
-Starfsmaður: Nafn, kt , heimasími, gsm, staðsetning, netfang
+
+Starfsmaður 
+    Nafn
+    kt
+    heimasími
+    gsm
+    staðsetning
+    netfang
 
 Áfangastaðir: Land, flugvöllur, símanúmer, opnunartíma(Geta verið breytilegir eftir komum og brottförum véla nan air)
 
@@ -27,7 +34,7 @@ hafa tengiliði sem skrá afhendingu og móttöku við afhendingu faratækis,
 B kröfur
 
 Taxtar og tegundir farartækja(mismunandi flokkar), 
-eikna kostnað við leigusamning, hafa valmynd sem sýnir taxtana fyrir farartækin,
+reikna kostnað við leigusamning, hafa valmynd sem sýnir taxtana fyrir farartækin,
 hægt þarf að vera breyta þessum töxtum og búa til nýjan flokk farartækja með nýjum taxta. 
 Halda utan um réttindi ökuþóra(ath réttindi fyrir sérstök farartæki),
 dagssektir(er taxti sem kemur fram í leigusaming auk álags)
@@ -43,7 +50,7 @@ Starfsmenn í útibúi á hverjum flugvelli sjá um að skrá ný faratæki þeg
 Chuck vill geta kallað fram eftirfarandi skýrslur í prentvænu viðmóti... Yfirlit yfir tekjur þar sem hægt er að velja tímabil og svo væri gott að sjá sundurliðun á tekjum eftir tegund
     faratækja og sundurliðun á tekjum útibúa og blöndu af þessum
 yfirlit yfir nýtingu tækja eftir tegund
-yfirlit yfir reikninga á áhveðnu tímabili þar sem hægt er að flokka eftir viðskiptavinum, þar sem hægt er að sjá hvort þeir séu farnir í innheimtu
+yfirlit yfir reikninga á áhveðnu tímabili þar sem hægt er að flokka eftir viðskiptavinum, þar sem hægt er að sjá hvort þeir séu farnir í innheimtu eða ekki
 
 
 c kröfur
