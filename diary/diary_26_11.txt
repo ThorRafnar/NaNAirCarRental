@@ -12,6 +12,8 @@
 Use cases, viðmótshönnun, kröfulisti, skýrslugerð
 
 #Hallfríður
+fórum yfir það sem að við höfum gert. 
+Héldum áfram að vinna í klasaritunu, use cases og viðmótshönnuninni.
 
 
 #Esther
