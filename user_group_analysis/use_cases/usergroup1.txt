@@ -97,3 +97,25 @@ Extensions:
     *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
     
 ####################################################################################
+
+####################################################################################
+
+Name: Skoða ákveðin leigusamning
+Number: 7
+Description: Notandi skoðar áhveðin leigusamning.
+Priority: High
+Author: Ragnar Smári Ó. , Þorsteinn Rafnar, Arnór Ragnarson, Árni Þ., Esther, Haffí
+Source: A-kröfur
+Actors: Starfsmaður, viðskiptavinur og gagnagrunnur
+Pre-Condition: Starfsmaður er auðkenndur og viðskiptavinur hefur skilað faratækinu.
+Post-Condition: Leigusamningu er ógildur.
+Main success scenarios:
+    1. Notandi velur leigusamninga úr main menu.
+    2. Notandi velur að skoða áhveðin leigusamning.
+    3. Notandi skráir inn númer leigusamnings.
+    4. Notandi skoðar leigusamning.
+Extensions:
+    4. a) Leigusamningur finnst ekki.
+    *. a) Notandi velur að fara aftur á Main menu(t.d "menu").
+    
+####################################################################################
