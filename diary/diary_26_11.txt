@@ -1,5 +1,6 @@
 26.11
 #Allir
+Tókum gott spjall við gylfa varðandi klasaritið okkar, hann sagði okkur að halda því í núverandi mynd
 
 #Ragnar
 
@@ -7,6 +8,8 @@
 Mest öll áhersla lögð á klasarit í dag, hjálpaði örlítið í figma.
 
 #Þorsteinn
+Klasarit, vesen
+Figma útlitshönnun
 
 
 #Árni

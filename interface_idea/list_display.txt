@@ -1,0 +1,9 @@
+##########################################################
+| NaN Air Car Rental                        Vol 1.0      |
+| << ADM >>                                              |
+##########################################################
+|                                                        |
+|   // VEHICLES                                          |
+|  VIN     |  MAKE        | MODEL      | YEAR    |  LOCATION |  RENTABLE  |  TYPE   |
+|  GHB21      TOYOTA        HILUX        2012       KUS         YES          SUV    |
+

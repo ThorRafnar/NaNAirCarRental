@@ -27,6 +27,7 @@ Fimmtudagur:
 Fundur - förum yfir daginn.
 Klára Stöðurit - Hjálpa til í útlisthönnun
 Útlitshönnun
+Klára klasarit
 Halda áfram með skýrslu.
 
 Föstudagur:
