@@ -1,4 +1,10 @@
 26.11
+Kæra dag bók ídag tókum við góðan morgunfund yfir heitum kaffibolla. Fórum yfir það sem við áttum eftir 
+að klára fyrir skýrsluna. Klára klasaitið og undirbúa viðtal við notendur.
+
+Eftir seinni fundinn fóum við og kláruðum að taka frumgerðarviðtöl við líklega notendur af kerfinu okkar. 
+í lokin kláruðum við að fínpússa saman skýrsluna okkar og setja inn niðurstöðurnar úr frumgerðarviðtölunum.
+
 #Allir
 
 #Ragnar
@@ -11,5 +17,6 @@ Byrjaði daginn á að vinna í að klára klasaritið og setja það í skýslu
 #Árni
 
 #Hallfríður
+kláraiði klasarit og tók eitt viðtal við notenda.
 
 #Esther
