@@ -1,6 +1,6 @@
 24.11
-#Allir
-Í gær unnum við öll saman, settum upp github og trello, gerðum notendahópagreiningu og nafnorðagreiningu og byrjuðum á notkunartilvikum og klasariti.
+fórum yfir það sem að við gerðum í gær en við eyddum svolitlum tíma í að setja upp github og trello og kenna öllum að nota það og hvað við viljum hafa þar.
+í gær gerðum við notendahópagreiningu og nafnorðagreiningu og byrjuðum á notkunartilvikum og klasariti.
 
 #Allir
 Ákveða hönnun á main menu.

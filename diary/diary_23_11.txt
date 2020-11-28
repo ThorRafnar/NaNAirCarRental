@@ -1,4 +1,12 @@
 23.11
+Kæra dagbók í dag er fyristi fundurinn okkar og fórum við vel yfir verkefni og ræddum hvernig
+við viljum setja kerfið okkar upp. Hvernig við ætlum að vinn aritin og skýrsluna sem við skilum 
+á föstudaginn. 
+
+Allir í góðu skapi og hressir. Andi góður. 
+Byrjuðum á klasariti og kláruðum nafnorðagreiningu
+
+
 #Ragnar
 Notkunartilvik, nafnorðagreining, notendahópagreining,
 uppsetning á git, fundir.
@@ -23,6 +31,5 @@ uppsetning á git, fundir.
 Notkunartilvik, nafnorðagreining, notendahópagreining,
 uppsetning á git, fundir.
 
-Allir í góðu skapi og hressir. Andi góður. 
-Byrjuðum á klasariti og kláruðum nafnorðagreiningu
+
 
