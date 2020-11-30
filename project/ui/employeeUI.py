@@ -15,4 +15,4 @@ class EmployeeUI:
         e_mail = input("Enter E-mail: ")
         work_area = input("Enter Work Area: ")
         emp = Employee(name,address,postal_code,ssn,home_phone,mobile_phone,e_mail,work_area)
-        LogicAPI.create_new_employee(emp)
+        self.logic_api.create_new_employee(emp)

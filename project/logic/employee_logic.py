@@ -22,9 +22,6 @@ class EmployeeLogic():
                 ret_list.append(emp)
 
         return ret_list
-<<<<<<< HEAD
 
     def create_new(self, emp):
         self.data_api.create_new_employee(emp)
-=======
->>>>>>> efe91c53425670bc46a9fba2179c86439ef175bc

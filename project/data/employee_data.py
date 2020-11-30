@@ -17,13 +17,12 @@ class EmployeeData():
     
     def create_new(self,emp):
         with open("data/data_files/employee.csv", newline="", encoding="utf-8") as file_stream:
-            writer = csv.DictWriter(file_stream)
-            attributes = ["name","address", "postal_code","ssn", "home_phone","mobile_phone","email","work_area",]
+            
+            attributes = ["name", "address", "postal_code", "ssn", "home_phone", "mobile_phone", "email", "work_area"]
             a_list = []
             for attribute in attributes:
-                a_list.append(getattr(emp,attribute))
-            
+                a_list.append(getattr(emp, attribute))
             a_str = ",".join(a_list)
-            writer.writerow(a_str)
+            print(a_str)
             
     
