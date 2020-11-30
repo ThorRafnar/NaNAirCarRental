@@ -10,8 +10,5 @@ class LogicAPI():
     def get_employees(self):
         return self.employee_logic.get_employees()
 
-    def get_administrators(self):
-        return self.employee_logic.get_administrators()
-
-    def create_new_employee(self, emp):
-        self.employee_logic.create_new(emp)
+    def get_filtered_employees(self, attribute_list):
+        return self.employee_logic.get_filtered(attribute_list)

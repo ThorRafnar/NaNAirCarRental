@@ -14,15 +14,3 @@ class EmployeeData():
                 ret_list.append(emp)
                 
         return ret_list 
-    
-    def create_new(self,emp):
-        with open("data/data_files/employee.csv", newline="", encoding="utf-8") as file_stream:
-            
-            attributes = ["name", "address", "postal_code", "ssn", "home_phone", "mobile_phone", "email", "work_area"]
-            a_list = []
-            for attribute in attributes:
-                a_list.append(getattr(emp, attribute))
-            a_str = ",".join(a_list)
-            print(a_str)
-            
-    

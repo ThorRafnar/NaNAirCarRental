@@ -7,6 +7,3 @@ class DataAPI():
 
     def get_employees(self):
         return self.employee_data.get_employees()
-    
-    def create_new_employee(self,emp):
-        self.employee_data.create_new(emp)

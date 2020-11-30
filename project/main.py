@@ -7,4 +7,4 @@ col = "work_area"
 attribute = "Admin"
 attribute_list = [(col, attribute)]
 a.start()
-a.new_employee()
+a.get_filtered_employees(attribute_list)

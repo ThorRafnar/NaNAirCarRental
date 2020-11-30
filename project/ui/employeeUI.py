@@ -1,4 +1,5 @@
-#from project.data.dataAPI import DataAPI
+"""
+from project.data.dataAPI import DataAPI
 from project.logic.logicAPI import LogicAPI
 from project.models.employee import Employee
 class EmployeeUI:
@@ -16,3 +17,4 @@ class EmployeeUI:
         work_area = input("Enter Work Area: ")
         emp = Employee(name,address,postal_code,ssn,home_phone,mobile_phone,e_mail,work_area)
         self.logic_api.create_new_employee(emp)
+        """
