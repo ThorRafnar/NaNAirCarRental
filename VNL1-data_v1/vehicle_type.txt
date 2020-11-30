@@ -1,0 +1,7 @@
+name 				regions			rate
+Light road			All 			700
+Light off-road		All				900
+Light water			All				850
+Medium off-road		Greenland		1800
+Medium off-road 	Svalbard		1400
+Medium water		Faroe Islands 	2200

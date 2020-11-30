@@ -1,0 +1,17 @@
+name phone address email date_from date_to vehicle_id location vehicle_status employee_id loan_date loan_date return_date total loan_status
+
+
+
+
+
+
+
+
+
+Langtíma leigur eða endurkvæmir smaningar: 
+
+ - 1) HR (Reykjavik University) er búið að semja við NaN-Air Rentals um að leigja farartæki alla miðvikudaga - föstudags í hverri viku frá 1 Nóvember 2020 og út Mars mánuð 2021. Þetta á við um bæði Hjaltlands eyjar (Shettland islands) og Færeyjar (Faroe islands).
+ Á Hjaltlands eyjum er samningurinn um að leigja létt innanbæjar (light road) farartæki en á Færeyjum er leigt létt bátur (light water).
+ Það þarf því að skrá efturvirk þessi gögn og búið er að rukka og greiða fyrir þá saminga sem eru eldri en 30 nóv. Faratækjum hefur hingað til verið skilað á réttum tíma og því eiga dagssektir ekki við um eldri samninga. 
+
+ - 2) Geimferðastofnun Íslands hefur nýlega gert saming um að leigja miðlungs götu farartæki (medium road) fyrstu viku hvers mánaðar á Svalbarða, frá og með Nóvember 2020. Ekki hefur verið samið um hvenær þessi standandi pöntun endar en óhæt er að skrá pantanir nokkra mánuði fram í tímann (Mars 2021 amk.). Ekki gekk allt sem skyldi við fyrstu útleigu því faratækinu var skilað 3 dögum of seint við fyrsta útleigu og þarf því að skrá dagssektir á fyrsta samninginn. Til að fullnægja þessum samning hafur NaN-Air Rentals sent til Svalbarða 1st. Forward FWD-ZK125H og er það farartækið sem GSÍ myndi vilja fá. 

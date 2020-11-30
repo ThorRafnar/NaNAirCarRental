@@ -1,0 +1,6 @@
+name						ssn				address			Póstnúmber	phone				e-mail 						Land 
+Reykjavik University		510105-4190		Menntavegi 1	102			+354 599 6200 		travel@ru.is 				IS
+Geimferðastofnun Íslands	710707-2200		Svarthöfða 2 	110			+354 999 3000 		space@gsi.is 				IS
+Adam Alfreðsson				320866-9910		Langamýri 101	210			+354 741 4552		adam.alfreds@heimsnet.is	IS
+Joseph Torvalds				n/a 			Haraldsveij 7	9170		+47 7902191 		jo@fresco.no 				NO
+Henke Gronvold				n/a 			Jespegade 92	8270		+45 1873499087		henke@norice.dk				DK

@@ -1,0 +1,7 @@
+country 			airport 		phone 			hours
+Iceland 			Reykjavik		+354 5555555	09:00 - 17:00
+Greenland			Nuuk			+299 999 000 	10:00 - 16:00
+Greenland			Kulusuk			+299 999 200 	10:30 - 15:30
+Faroe Islands		Tórshafn 		+297 48497		09:30 - 16:00
+Shetland Islands	Tingwall 		+44 1595 0100	10:00 - 15:00
+Svalbard			Longyearbyen	+47 7902500  	12:00 - 14:00

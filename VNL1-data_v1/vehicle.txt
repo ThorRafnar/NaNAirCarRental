@@ -1,0 +1,50 @@
+manufacturer 	model 				type 			status 		man_year 	color 		licence_type 				Location
+TAILG 			Free Fly II 		Medium road		OK			2018		White		Drivers licence             Kulusuk
+TAILG 			Free Fly II 		Medium road		OK			2018		Orange		Drivers licence             Kulusuk
+
+Kayman Kayaks	Crazy 				Light water		OK 			2020		Yellow		None                        Longyearbyen
+Kayman Kayaks	Crazy 				Light water		OK 			2020		Yellow		None                        Thorshavn
+Kayman Kayaks	Crazy HV			Light water		OK 			2020		Yellow		None                        Nuuk
+
+Cani-Fit 		Fat Max 			Light off-road	OK 			2019		Black 		None                        Nuuk
+Cani-Fit 		Fat Max 			Light off-road	OK 			2017		Black 		None                        Thorshavn
+Cani-Fit 		Fat Max 			Light off-road	OK 			2017		Black 		None                        Thorshavn
+Cani-Fit 		Fat Max 			Light off-road	OK 			2020		Black 		None                        Tingwall
+
+Yedoo 			Trexx 				Light road 		OK 			2020		Orange 		None                        Kulusuk
+Yedoo 			Trexx 				Light road 		OK 			2020		Orange 		None                        Thorshavn
+Yedoo 			Trexx 				Light road 		OK 			2020		Orange 		None                        Tingwall
+Yedoo 			Trexx 				Light road 		OK 			2020		Orange 		None                        Longyearbyen
+Yedoo 			Trexx 				Light road 		OK 			2020		Orange 		None                        Nuuk
+Yedoo 			Trexx 				Light road 		OK 			2020		Orange 		None                        Nuuk
+
+WildChild		Fatboy Mini BMX 	Light road 		OK 			2020		Red 		None 						Tingwall
+WildChild		Fatboy Mini BMX 	Light road 		OK 			2020		Red			None                        Longyearbyen
+WildChild		Fatboy Mini BMX 	Light road 		OK 			2020		Red			None                        Kulusuk
+
+Forward 		FWD-ZK125H 			Medium road 	OK 			2019		Blue		Drivers licence 			Longyearbyen 
+Colorado 		Pontoon Boat 		Light water 	OK			2019		Green 		None                        Thorshavn
+A2extreem		Powerboard			Light winter	OK			2018		Black		None                        Nuuk
+Torpedo			3500				Light water		OK 			2019		White 		Diving licence              Thorshavn
+
+
+
+
+
+
+
+(1) https://tailgreenger.en.made-in-china.com/product/QsmJYnfVRZkR/China-New-Arrival-Small-and-Exquisite-Electric-Scooter-with-Long-Distance.html
+
+(2) http://www.kay-man.eu/crazy.html
+
+(3) https://cani-fit.com/product/kickbike-fat-max/
+
+(4) https://8-elephants.com/collections/frontpage/products/yedoo-trexx
+
+(5) https://www.alibaba.com/product-detail/EEC-Approval-Closed-3-Wheels-Electric_60580101419.html
+
+(6) https://www.amazon.com/Classic-Accessories-Colorado-Inflatable-Pontoon/dp/B0001AGYG8/ref=sr_1_11?dchild=1&keywords=Hydrobikes&qid=1606437647&sr=8-11
+
+(7) http://www.a2xtreme.com/2000/paxhtm/0002.htm
+
+(8) https://www.leisurepro.com/p-tor35/torpedo-3500-dive-propulsion-vehicle-dpv
