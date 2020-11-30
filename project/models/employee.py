@@ -1,4 +1,4 @@
-from person import Person
+from project.models.person import Person
 
 class Employee(Person):
 

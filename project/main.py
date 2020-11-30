@@ -1,12 +1,6 @@
-while True:
-    grade = input("Enter total grade for the group: ")
-    try:
-        grade = float(grade)
-        if grade < 9:
-            print("Wrong grade")
-        else:
-            break
-    except ValueError:
-        print("Enter a number")
+import sys
+sys.path.append(sys.path[0] + "/..")
+from project.ui.ui_main import UI_Main
 
-print("Group got a grade of", grade)
+a = UI_Main()
+a.start()
