@@ -4,3 +4,5 @@ from project.ui.ui_main import UI_Main
 
 a = UI_Main()
 a.start()
+a.get_administrators()
+a.new_employee()
