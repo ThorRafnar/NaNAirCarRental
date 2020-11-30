@@ -1,13 +1,11 @@
-manufacturer 	model 				type 			status 		man_year 	color 		licence_type 				Location
-TAILG 			Free Fly II 		Medium road		OK			2018		White		Drivers licence             Kulusuk
-TAILG 			Free Fly II 		Medium road		OK			2018		Orange		Drivers licence             Kulusuk
-
-Kayman Kayaks	Crazy 				Light water		OK 			2020		Yellow		None                        Longyearbyen
-Kayman Kayaks	Crazy 				Light water		OK 			2020		Yellow		None                        Thorshavn
-Kayman Kayaks	Crazy HV			Light water		OK 			2020		Yellow		None                        Nuuk
-
-Cani-Fit 		Fat Max 			Light off-road	OK 			2019		Black 		None                        Nuuk
-Cani-Fit 		Fat Max 			Light off-road	OK 			2017		Black 		None                        Thorshavn
+manufacturer,model,type,status,man_year,color,licence_type,Location
+TAILG,Free Fly II,Medium road,OK,2018,White,Drivers licence,Kulusuk
+TAILG,Free Fly II,Medium road,OK, 2018,Orange,Drivers licence,Kulusuk
+Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Longyearbyen
+Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Thorshavn
+Kayman Kayaks,Crazy HV,Light water,OK,2020,Yellow,None,Nuuk
+Cani-Fit,Fat Max,Light off-road,OK,2019,Black,None,Nuuk
+Cani-Fit,Fat Max,Light off-road,OK 			2017		Black 		None                        Thorshavn
 Cani-Fit 		Fat Max 			Light off-road	OK 			2017		Black 		None                        Thorshavn
 Cani-Fit 		Fat Max 			Light off-road	OK 			2020		Black 		None                        Tingwall
 
