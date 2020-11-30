@@ -8,3 +8,4 @@ attribute = "Admin"
 attribute_list = [(col, attribute)]
 a.start()
 a.new_employee()
+# laga eitthvað
