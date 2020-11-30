@@ -13,9 +13,9 @@ class UI_Main():
         for employee in employees:
             print(employee.name)
         
-    def get_administrators(self):
-        administrators = self.logicAPI.get_administrators()
-        for admin in administrators:
-            print(admin.name)
+    def get_filtered_employees(self, attribute_list):
+        employees = self.logicAPI.get_filtered_employees(attribute_list)
+        for emp in employees:
+            print(emp.name)
 
     
