@@ -1,4 +1,10 @@
 26.11
+Kæra dag bók ídag tókum við góðan morgunfund yfir heitum kaffibolla. Fórum yfir það sem við áttum eftir 
+að klára fyrir skýrsluna. Klára klasaitið og undirbúa viðtal við notendur.
+
+Eftir seinni fundinn fóum við og kláruðum að taka frumgerðarviðtöl við líklega notendur af kerfinu okkar. 
+í lokin kláruðum við að fínpússa saman skýrsluna okkar og setja inn niðurstöðurnar úr frumgerðarviðtölunum.
+
 #Allir
 
 #Ragnar
@@ -6,12 +12,14 @@ Byrjaði daginn á morgunfundi og fór síðan í figma fram að hádegi að vin
 fyrir forritið til að taka viðtöl.
 
 #Arnór
-Byrjaði daginn á að vinna í að klára klasaritið og setja það í skýsluna.
+Byrjaði daginn á að vinna í að klára klasaritið og setja það í skýsluna. Tók hugsa upphátt viðtal og vann síðan í að klára skýsluna fyrir skil.
 
 #Þorsteinn
+Vann í figma frumgerðinni og setti upp fyrir viðtöl.
 
 #Árni
 
 #Hallfríður
+kláraiði klasarit og tók eitt viðtal við notenda.
 
 #Esther
