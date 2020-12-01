@@ -12,6 +12,7 @@ Setti upp project file structure og tengingar milli layer-a, breytti employee.tx
 #Árni
 
 #Hallfríður
+fórum yfir skírsluna okkar. byrjuðum svo á því að setja upp project file structure og tengingar. 
 
 
 #Esther
