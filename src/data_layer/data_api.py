@@ -9,3 +9,7 @@ class DataAPI():
 
     def get_employees(self):
         return self.employee_data.get_employees()
+
+    def register_employee(self, emp):
+        return self.employee_data.register_employee(emp)
+        #test
