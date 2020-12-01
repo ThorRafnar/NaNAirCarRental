@@ -1,9 +1,7 @@
-from models_layer.employee import Employee
+from model_layer.employee import Employee
 import csv
 
 class EmployeeData():
-    def __init__(self):
-        self.emp = Employee()
 
     def get_employees(self):
         ret_list = []
