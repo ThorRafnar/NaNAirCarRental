@@ -9,3 +9,6 @@ class UIAPI():
 
     def get_employees(self):
         self.employee_ui.get_employees()
+
+    def create_employee(self):
+        self.employee_ui.create_employee()

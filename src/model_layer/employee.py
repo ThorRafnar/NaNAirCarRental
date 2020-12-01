@@ -9,3 +9,6 @@ class Employee():
         self.mobile_phone = mobile_phone
         self.email = email
         self.work_area = work_area
+
+    def __str__(self):
+        return f"Name: {self.name}, Work Location: {self.work_area}"
