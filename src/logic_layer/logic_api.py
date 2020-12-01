@@ -10,3 +10,9 @@ class LogicAPI():
 
     def get_employees(self):
         return self.employee_logic.get_employees()
+
+    def check_employee(self, emp):
+        return self.employee_logic.check_employee(emp)
+    
+    def register_employee(self, emp):
+        return self.employee_logic.register_employee(emp)
