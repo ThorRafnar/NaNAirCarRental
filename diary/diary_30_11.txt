@@ -1,0 +1,17 @@
+30.11
+Dagurinn byrjaði á að sitja zoom fund með Gylfa þar sem farið var yfir nokkra hluti varðandi skýsluskilin og framhaldið. Þegar fundurinn var búinn tókum við stöðuna á verkefninu okkar og hófumst handar við að undirbúa forritunarhluta verkefnisins. Settum um file structure og byrjuðum að setja upp tengingar milli hluta í kerfinu (data, logic og ui).
+Við tókum síðan stöðufund með Rúnari sem hjálpaði okkur örlítið með alskonar tengingarvesen. Við ákáðum svo að enda daginn á að forrita saman í upphafi svo við værum öll á sömu blaðsíðunni um hvernig við ætlum að gera þetta í framhaldinu. Gekk það nokkuð vel.
+
+#Ragnar
+
+#Arnór
+Setti upp project file structure og tengingar milli layer-a, breytti employee.txt í employee.csv, hjálapaði til við forritun á fyrstu skrefunum. Setti upp .gitignore fyrir __pycache__ og *.pyc.
+
+#Þorsteinn
+
+#Árni
+
+#Hallfríður
+
+
+#Esther
