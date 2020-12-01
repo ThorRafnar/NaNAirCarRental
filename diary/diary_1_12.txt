@@ -1,0 +1,26 @@
+1.12
+á morgunfundinum fórum við yfir það sem við vorum að gera í gær. Planið í er að skipta upp í hópa og vinna 2 og 2 saman í data,logic og ui.
+um kaffi leitið fórum við yfir það sem að við höfðum gert yfir daginn. Við erum ánægð með afrakstur dagsins þar sem við erum komin vel af stað á öllum stöðum 
+
+
+#Ragnar
+vann í data bace. Gerði contract data klasi og vhicle contract klasa
+
+#Arnór
+
+
+#Þorsteinn
+vann í ui. settum upp notendaviðmótið og kláruðum að setja upp innskáninngu í kerfið fyrir starfsmenn.
+
+
+#Árni
+van í data bace. bjó til register employee, change emloyee info og get emploees
+
+#Hallfríður
+vann í ui. settum upp notendaviðmótið og kláruðum að setja upp innskáninngu í kerfið fyrir starfsmenn.
+
+
+#Esther
+
+
+
