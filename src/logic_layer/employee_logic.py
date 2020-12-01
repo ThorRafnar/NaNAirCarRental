@@ -23,18 +23,25 @@ class EmployeeLogic():
 
         return ret_list
 
-    def does_employee_exist(self, new_emp):
+    def find_employee(self, new_emp):
         ''' Takes Employee from UI and checks if he exist in database '''
-        emp_list = self.get_employees()
-        does_exist = False
-        for emp in emp_list:
-            if emp.ssn == new_emp.ssn:
-                does_exist = True
-                break
-
-        return is_new
+        try:
+            emp_list = self.get_employees()
+            emp_inst = None
+            for emp in emp_list:
+                if emp.ssn == new_emp.ssn:
+                    emp_inst = emp
+                    break
+            return emp_inst               
+        except AttributeError:
+            return None
 
     def register_employee(self, emp):
         ''' Sends Employee to data to write to database '''
         # þarf að fá register_employee frá data api
         self.data_api.register_employee(emp)
+
+    def change_employee_info(self, attribute_list):
+        self.data_api.change_employee_info(attribute_list)
+
+    

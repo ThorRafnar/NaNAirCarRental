@@ -3,4 +3,4 @@ from model_layer.employee import Employee
 
 r = LogicAPI()
 
-r.does_employee_exist(Employee('Jón Jónsson','Melagerð 99','200','300279-1289','+356 5815432','+354 6890012','jj@nan.is','KEF'))
+r.find_employee(Employee('Jón Jónsson','Melagerð 99','200','300279-1289','+356 5815432','+354 6890012','jj@nan.is','KEF'))
