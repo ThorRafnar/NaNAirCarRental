@@ -1,4 +1,4 @@
-from model_layer.vehicle import VehicleLogic
+
 import csv
 import os
 # Hjálp!!!!
@@ -23,10 +23,12 @@ class VehicleData():
     
 
     
-    def new_vehicle(self, manufacturer, model, type, status, man_year, color, licence_type, Location):
-        ''' Opens the vehicle.csv file and writes a new line wich is the new vehicle'''
-        with open("src/data_layer/data_files/vehicle.csv","a", encoding="utf-8") as file_stream:
-            file_stream.writerow(manufacturer, model, type, status, man_year, color, licence_type, Location)
+    def new_vehicle(att):
+    ''' Opens the vehicle.csv file and writes a new line wich is the new vehicle'''
+    a_list = [att.manufacturer,att.model,att.type,att.status,att.man_year,att.color,att.license_type,att.location]
+    with open("src/data_layer/data_files/vehicle.csv","a+", encoding="utf8",newline="") as file_stream:
+        writer = csv.writer(file_stream)
+        writer.writerow(a_list)
             
 
     # def delete_vehicle(self):
@@ -38,3 +40,4 @@ class VehicleData():
         Kannski að gera það bara í logic layernum? - Ragnar
         Allanvega eina sem data layerinn á að gera er að opan skrár, logic getur síðan breytt henni og UI sér um 
         hvað á að koma í staðinn. '''
+        pass
