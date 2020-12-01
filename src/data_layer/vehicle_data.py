@@ -29,8 +29,8 @@ class VehicleData():
             file_stream.writerow(manufacturer, model, type, status, man_year, color, licence_type, Location)
             
 
-    def delete_vehicle(self):
-        ''' Opens the vehicle.csv file and deletes a specific line from it.'''
+    # def delete_vehicle(self):
+        # ''' Opens the vehicle.csv file and deletes a specific line from it.'''
 
     def change_vehicle(self):
         ''' Opens the vehicle.csv file and selects a specific line from it and changes a 
