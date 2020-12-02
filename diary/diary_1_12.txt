@@ -7,7 +7,7 @@ um kaffi leitið fórum við yfir það sem að við höfðum gert yfir daginn. 
 vann í data bace. Gerði contract data klasi og vhicle contract klasa
 
 #Arnór
-
+Ég og Esther pair progrömmuðum klasa og methods í logic layer fyrir bæði employees og vehicles
 
 #Þorsteinn
 vann í ui. settum upp notendaviðmótið og kláruðum að setja upp innskáninngu í kerfið fyrir starfsmenn.
