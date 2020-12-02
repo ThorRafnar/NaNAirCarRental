@@ -1,5 +1,8 @@
 from data_layer.employee_data import EmployeeData
 from data_layer.destination_data import DestinationData
+from data_layer.customer_data import CustomerData
+from data_layer.vehicle_data import VehicleData
+from data_layer.vehicle_type_data import VehicleTypeData
 
 
 class DataAPI():
@@ -7,6 +10,9 @@ class DataAPI():
     def __init__(self):
         self.employee_data = EmployeeData()
         self.destination_data = DestinationData()
+        self.customer_data = CustomerData()
+        self.vehicle_data = VehicleData()
+        self.vehicle_type_data = VehicleTypeData()
         print("Data :^)")
 
     def get_employees(self):

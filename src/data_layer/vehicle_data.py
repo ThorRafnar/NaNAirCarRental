@@ -1,4 +1,4 @@
-from model_layer.vehicle import VehicleLogic
+from model_layer.vehicle import Vehicle
 import csv
 import os
 # Hjálp!!!!
