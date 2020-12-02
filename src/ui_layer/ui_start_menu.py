@@ -1,5 +1,6 @@
-from ui_layer.admin_menu import AdminMenu
+from ui_layer.task_menu import TaskMenu
 from ui_layer.ui_helper import UIHelper
+from logic_layer.logic_api import LogicAPI
 
 class UIStartMenu():
 
@@ -7,9 +8,10 @@ class UIStartMenu():
 
     def __init__(self, width):
         self.width = width
+        self.logic_api = LogicAPI()
         self.ui_helper = UIHelper(self.width)
         self.airport_menu = "Hello, airport"
-        self.admin_menu = AdminMenu(self.ui_helper, self.width)
+        self.task_menu = TaskMenu(self.ui_helper, self.logic_api, self.width)
         self.office_menu = "Office life is 9 to 5"
 
 
@@ -29,18 +31,12 @@ class UIStartMenu():
             staff_type = self.ui_helper.get_user_menu_choice(options_list)
             if staff_type != None:
 
-                if staff_type.lower() == "adm":
-                    self.admin_menu.show_tasks()
-
-                elif staff_type.lower() == "kef":
-                    print(self.office_menu)
-
-                elif staff_type == self.ui_helper.QUIT:
+                if staff_type == self.ui_helper.QUIT:
                     print("Quitting")
                     quit()
 
                 else:
-                    print(self.airport_menu)
+                    self.task_menu.show_tasks(staff_type)
 
             else:
                 #Villuskilabod#
