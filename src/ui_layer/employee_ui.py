@@ -3,14 +3,15 @@ from model_layer.employee import Employee
 
 class EmployeeUI():
 
-    def __init__(self, logic_api):
+    def __init__(self, ui_helper, logic_api):
         self.logic_api = logic_api
+        self.ui_helper = ui_helper
 
 
     def get_employees(self):
         emps = self.logic_api.get_employees()
         for emp in emps:
-            print(emp.name)
+            print(emp)
 
     def check_name(self, name):
         """
@@ -26,6 +27,7 @@ class EmployeeUI():
     def get_name(self):
         a_str = input("Enter name: ")
         name = self.check_name(a_str)
+        return name
 
     def create_employee(self):
         name = self.get_name()
