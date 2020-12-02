@@ -1,7 +1,7 @@
-from model_layer.vehicle_type import VehicleTypeLogic
+from model_layer.vehicle_type import VehicleType
 import csv
 
-class VehyicleTypeData:
+class VehicleTypeData:
 
     def get_all_vehicle_types(self):
         with open("data_layer/data_files/vehicle_type.csv","r",encoding="utf-8") as file_stream:
