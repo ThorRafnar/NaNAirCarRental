@@ -16,15 +16,15 @@ class VehicleData():
             for row in reader:
                 # Here we get an instance of a vehicle (might change)
                 # manufacturer,model,type,status,man_year,color,licence_type,location
-                attb = VehicleLogic(row["manufacturer"], row["model"], row["type"], row
-                ["status"], row["man_year"], row["color"], row["licence_type"], row["Location"])
+                attb = Vehicle(row["manufacturer"], row["model"], row["type"], row
+                ["status"], row["man_year"], row["color"], row["licence_type"], row["location"])
                 vehicle_list.append(attb)
         return vehicle_list
     
 
     
     def new_vehicle(self,att):
-    ''' Opens the vehicle.csv file and writes a new line wich is the new vehicle'''
+        ''' Opens the vehicle.csv file and writes a new line wich is the new vehicle'''
         a_list = [att.manufacturer,att.model,att.type,att.status,att.man_year,att.color,att.license_type,att.location]
         with open("src/data_layer/data_files/vehicle.csv","a+", encoding="utf8",newline="") as file_stream:
             writer = csv.writer(file_stream)
@@ -32,9 +32,8 @@ class VehicleData():
             
 
     def change_vehicle_condition(self, cond_string,ID):
-    ''' Opens the vehicle.csv file and selects a specific vehicle from it
-        and changes the vehicle status/condition, if it is rentable or not.
-        Takes in a string.'''
+        '''doc string'''
+    
         with open ("data_files/vehicle.csv", "r",encoding="utf-8") as file_stream:
             reader = csv.DictReader(file_stream)
             file_list = []
