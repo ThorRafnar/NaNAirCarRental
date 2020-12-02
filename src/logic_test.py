@@ -3,4 +3,4 @@ from model_layer.employee import Employee
 
 r = LogicAPI()
 
-r.find_employee('250645-9999')
+dest = r.destinations_option_list()

@@ -45,6 +45,15 @@ class LogicAPI():
         return self.vehicle_logic.list_vehicles_by_status(status)
 
     # Destination logic
+    def get_destinations(self):
+        return self.destination_logic.get_destinations()
+    
+    def find_destination(self, iata):
+        return self.destination_logic.find_destination(iata)
+
     def create_destination(self, destination):
         ''' Gets an instance of Destination class from UI and sends it to data layer '''
         return self.destination_logic.create_destination(destination)
+    
+    def destinations_option_list(self):
+        return self.destination_logic.destinations_option_list()
