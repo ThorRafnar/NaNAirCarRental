@@ -21,3 +21,6 @@ class DataAPI():
 
     def get_destinations(self):
         return self.destination_data.get_destinations()
+    
+    def create_destination(self, dest):
+        return self.destination_data.create_destination(dest)
