@@ -5,9 +5,11 @@ class EmployeeLogic():
         self.data_api = data_api
 
     def get_employees(self):
+        ''' Returns a list of employees as instances of Employee class from data layer '''
         return self.data_api.get_employees()
 
     def get_filtered(self, attribute_list):
+        ''' Finds employees form given attributes and returns a list of those employees as instances of Employee class '''
         emps = self.get_employees()
         ret_list = []
         for emp in emps:
@@ -23,25 +25,23 @@ class EmployeeLogic():
 
         return ret_list
 
-    def find_employee(self, new_emp):
-        ''' Takes Employee from UI and checks if he exist in database '''
-        try:
-            emp_list = self.get_employees()
-            emp_inst = None
-            for emp in emp_list:
-                if emp.ssn == new_emp.ssn:
-                    emp_inst = emp
-                    break
-            return emp_inst               
-        except AttributeError:
-            return None
+    def find_employee(self, new_ssn):
+        ''' Takes an instance of Employee class for employee from UI and checks if he exist in database, returns an instance of that Employee back if found, else returns None '''
+        emp_list = self.get_employees()
+        emp_inst = None
+        for emp in emp_list:
+            if emp.ssn == new_ssn:
+                emp_inst = emp
+                break
+        print(emp_inst)
+        return emp_inst  
 
     def register_employee(self, emp):
-        ''' Sends Employee to data to write to database '''
-        # þarf að fá register_employee frá data api
+        ''' Sends an instance of Employee class for new employee to data layer to write to database '''
         self.data_api.register_employee(emp)
 
     def change_employee_info(self, attribute_list):
+        ''' Sends a list of attributes to data layer to change given attribute for given employee '''
         self.data_api.change_employee_info(attribute_list)
 
     
