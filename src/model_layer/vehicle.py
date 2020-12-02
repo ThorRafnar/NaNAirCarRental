@@ -1,5 +1,5 @@
 
-class VehicleLogic:
+class Vehicle:
     def __init__(self, manufacturer, model, type, status, man_year, color, license_type, location):
         self.manufacturer = manufacturer
         self.model = model

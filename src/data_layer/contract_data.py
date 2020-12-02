@@ -4,9 +4,10 @@ import csv
 class ContractData:
     def list_all_contracts(self):
         contract_list = []
+        dest_reader = csv.DictReader(file_stream)
         with open("src/data_layer/data_files/contracts.csv",encoding="utf-8") as file_stream:
-            for row in file_stream:
-                info = ContractLogic(row["name"], row["phone"], row["address"], row["email"], row["date_from"], row["date_to"], row["vehicle_id"], row["location"], row["vehicle_status"], row["employee_id"], row["loan_date"], row["return_date"], row["total"], row["loan_status"])
+            for row in dest_reader:
+                info = Contract(row["name"], row["phone"], row["address"], row["email"], row["date_from"], row["date_to"], row["vehicle_id"], row["location"], row["vehicle_status"], row["employee_id"], row["loan_date"], row["return_date"], row["total"], row["loan_status"])
                 contract_list.append(info)
         return contract_list
 
