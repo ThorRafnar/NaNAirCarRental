@@ -21,3 +21,21 @@ class DataAPI():
 
     def get_destinations(self):
         return self.destination_data.get_destinations()
+    
+    def get_all_vehicles(self):
+        return self.vehicle_data.all_vehicles_to_list()
+    
+    def make_new_vehicle(self,info_list):
+        return self.vehicle_data.new_vehicle(info_list)
+    
+    def change_vehicle_condition(self, new_cond, ID):
+        return self.vehicle_data.change_vehicle_condition(new_cond,ID)
+    
+    def get_all_vehicle_types(self):
+        return self.vehicle_type_data.get_all_vehicle_types()
+    
+    def change_vehicle_rate(self, new_rate, vehicle_type):
+        return self.vehicle_type_data.change_vehicle_rate(new_rate, vehicle_type)
+    
+    def new_vehicle_type(self, info):
+        return self.vehicle_type_data.new_vehicle_type(info)
