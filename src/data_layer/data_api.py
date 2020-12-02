@@ -13,3 +13,6 @@ class DataAPI():
     def register_employee(self, emp):
         return self.employee_data.register_employee(emp)
         #test
+
+    def change_employee_info(self, att_list):
+        return self.employee_data.change_employee_info(att_list)
