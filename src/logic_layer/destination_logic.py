@@ -26,8 +26,10 @@ class DestinationLogic():
         options_list = []
         admin = ('ADM', 'Administrator')
         for dest in dest_list:
-            option_tuple = (dest.iata, dest.airport, dest.country)
+            airport_text = '{}, {}'.format(dest.airport, dest.country)
+            option_tuple = (dest.iata, airport_text)
             options_list.append(option_tuple)
         # Adds admin to the back of the list
         options_list.append(admin)
+        print(options_list)
         return options_list
