@@ -6,6 +6,7 @@ Same old á morgunfundinum, 2 og 2 saman í hverjum layer
 
 
 #Arnór
+Ég og Esther pair progrömmuðum í Logic layer, gerðum virkni fyrir employee, vehicle og destination. Einnig unnum við örlítið saman öll í alskonar pælingum varðandi tengingar milli layer-a
 
 
 #Þorsteinn
