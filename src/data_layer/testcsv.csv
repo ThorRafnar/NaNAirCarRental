@@ -1,5 +1,7 @@
-name,address,postal_code,ssn,home_phone,mobile_phone,email,work_area
-Chuck Norris,Svarthöfða 1,110,250645-9999,+354 5555555,+354 6890001,bigc@nan.is,Admin
-Jón Jónsson,Melagerð 99,200,300279-1289,+356 5815432,+354 6890012,arni@gmail.com,KUS
-Guðrún Aradóttir,Bröttubrekku 2a,104,310484-3348,+354 5421212,+354 6890015,gurra@nan.is,KEF
-Sebastian Ventilsson,Múlalund 7,221,101009-2237,+354 5670011,+354 6890011,seven@nan.is,KEF
+country,airport,phone,hours,iata
+Iceland,Reykjavik,+354 5555555,09:00 - 17:00,KEF
+Greenland,Nuuk,+299 999 000,10:00 - 16:00,GOH
+Greenland,Kulusuk,+299 999 200,10:30 - 15:30,KUS
+Faroe Islands,Tórshafn,+297 48497,09:30 - 16:00,FAE
+Shetland Islands,Tingwall,+44 1595 0100,10:00 - 15:00,LWK
+Svalbard,Longyearbyen,+47 7902500,12:00 - 14:00,LYR
