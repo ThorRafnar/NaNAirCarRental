@@ -25,6 +25,12 @@ class DataAPI():
     def change_employee_info(self, att_list):
         return self.employee_data.change_employee_info(att_list)
 
+    def add_customer(self, cust):
+        return self.customer_data.add_customer(cust)
+    
+    def change_customer_info(self, att_list):
+        return self.customer_data.change_customer_info(att_list)
+
     def get_destinations(self):
         return self.destination_data.get_destinations()
     
