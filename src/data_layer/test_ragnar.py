@@ -2,10 +2,21 @@
 # Do not change this shit
 import csv
 
-def new_vehicle_type(self, info):
-    ''' Takes in information about new type in a list and writes it to the
-    vehicle_type.csv file. '''
-    a_list = [info.name,info.regions,info.rate]
-    with open("data_layer/data_files/vehicle_type.csv","w",encoding="utf-8") as file_stream:
-        writer = csv.writer(file_stream)
-        writer.writerow(a_list)
+class Destination():
+    def __init__(self, country, airport, phone, hours, iata):
+        self.country = country
+        self.airport = airport
+        self.phone = phone
+        self.hours = hours
+        self.iata = iata
+
+
+def create_destination(dest):
+    new_dest_list = [dest.country, dest.airport, dest.phone, dest.hours, dest.iata]
+    with open("data_layer/data_files/destinations.csv", 'a+', encoding='utf-8', newline="") as file_stream:
+        destwriter = csv.writer(file_stream)
+        destwriter.writerow(new_dest_list)
+
+
+a = Destination("aaa","aaa","aaa","aaa","aaa")
+create_destination(a)
