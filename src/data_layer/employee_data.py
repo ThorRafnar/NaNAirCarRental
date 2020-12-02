@@ -23,11 +23,6 @@ class EmployeeData():
         #test
     def change_employee_info(self,att_list):
         ''' Takes in a list with attributes, the attributes are values for what to change  '''
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> fd84433562cc89f67ebea3887a085000fb6c2840
         with open("data_layer/data_files/employee.csv",'r' ,encoding="utf-8",) as read_file:
             reader = csv.DictReader(read_file)
             file_list = []
