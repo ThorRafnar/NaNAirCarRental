@@ -4,6 +4,8 @@ class UIHelper():
 
     QUIT = "9"
     BACK = "0"
+    YES = ["y", "yes"]
+    NO = ["n", "no"]
 
     def __init__(self, width):
         self.width = width
@@ -11,6 +13,7 @@ class UIHelper():
         self.half_b = self.half_a
         if self.width % 2 == 1:
             self.half_b += 1
+
 
     def clear(self):
         """ helper function to clear screen """
@@ -26,6 +29,8 @@ class UIHelper():
 
 
     def print_blank_line(self):
+        ''' ‾|_(ツ)_/‾ '''
+        
         print("|" + " " * (self.width - 2) + "|")
 
 
@@ -50,6 +55,7 @@ class UIHelper():
         self.print_line(employee_type)
         self.print_hash_line()
         self.print_blank_line()
+
 
 
     def print_options(self, options_list, opt_str):
@@ -87,10 +93,12 @@ class UIHelper():
         self.print_blank_line()
         self.print_hash_line()
 
-    def get_user_menu_choice(self, options_list):
+    def get_user_menu_choice(self, options_list=None):
         """
         Gets a choice from the user
         """
+        if options_list == None:
+            options_list = []
         user_choice = input("Input: ")
         for option in options_list:
             if option[0].lower() == user_choice.lower().strip():
@@ -99,3 +107,51 @@ class UIHelper():
             return user_choice
         else:
             return None
+
+    def n_columns(self, string_list):
+        '''
+        Takes a list of items to print and divides into columns of roughly equal size
+        '''
+        width = self.width - 2
+        remainder = width % len(string_list)
+        print("|", end="")
+        for a_string in string_list:
+            col_width = width // len(string_list)
+            if remainder > 0:
+                col_width += 1
+                remainder -= 1
+            print("{: ^{width}}".format(a_string, width = col_width), end="")
+            
+        print("|")
+
+    def print_centered_line(self, a_str):
+        ''' prints a string centered on the screen '''
+        print("|{: ^{width}}|".format(a_str, width = self.width - 2))
+
+
+    def quit_prompt(self, header_str):
+        ''' 
+        Asks the user if they really want to quit, 
+        and quits if they do, else returns to previous screen 
+        '''
+        self.clear()
+        self.print_header(header_str)
+        self.print_blank_line()
+        self.print_centered_line("Are you sure you want to quit ? (y/n)")
+        self.print_blank_line()
+        self.print_hash_line()
+        user_choice = input("Enter choice: ")
+        if user_choice.lower() in self.YES:
+            quit()
+        else:
+            return
+    
+        
+
+
+"""
+Roses are red
+Violets are blue
+Expected indented block
+in line 32
+"""

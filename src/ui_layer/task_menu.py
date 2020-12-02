@@ -59,9 +59,7 @@ class TaskMenu():
         else:
             header_str = priviledge
 
-        user_choice = None
-
-        while user_choice != self.ui_helper.QUIT:
+        while True:
 
             self.ui_helper.clear()
 
@@ -79,14 +77,13 @@ class TaskMenu():
                     return
 
                 elif user_choice == self.ui_helper.QUIT:
-                    print("heckin quittin'")
-                    quit()
+                    self.ui_helper.quit_prompt(header_str)
 
                 else:
                     next_menu = available_options[user_choice]
                     if next_menu == "Employees":
-                        self.employee_ui.get_employees()
-                        quit()
+                        self.employee_ui.show_options(header_str)
+                        
                         
                     elif next_menu == "Vehicles":
                         print("Vehicles")
@@ -110,7 +107,6 @@ class TaskMenu():
             
             else:
                 error_msg = "Please select an option from the menu"
-                self.show_tasks(staff_type, error_msg)
 
             
             ### Rest of options ###
