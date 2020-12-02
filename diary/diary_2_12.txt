@@ -15,7 +15,7 @@ Næstu verkefni eru að klára employee viðmótið alveg.
 
 
 #Árni
-
+Vann í database, gerði nokkur föll og klasa í database. líka bug hunt
 
 #Hallfríður
 
