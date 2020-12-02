@@ -22,7 +22,7 @@ class EmployeeData():
             csvwriter.writerow(a_list)
         #test
     def change_employee_info(self,att_list):
-    ''' Takes in a list with attributes, the attributes are values for what to change  '''
+        ''' Takes in a list with attributes, the attributes are values for what to change  '''
     
         with open("data_layer/data_files/employee.csv",'r' ,encoding="utf-8",) as read_file:
             reader = csv.DictReader(read_file)
