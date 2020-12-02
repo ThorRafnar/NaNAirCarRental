@@ -18,9 +18,9 @@ class DestinationData():
                 dest_list.append(dest)
             return dest_list
 
-    def create_destination(self,dest):
+    def create_destination(dest):
         new_dest_list = [dest.country, dest.airport, dest.phone, dest.hours, dest.iata]
-        with open("test.csv", 'a+', encoding='utf-8', newline='') as file_stream:
+        with open("data_layer/data_files/destinations.csv", 'a+', encoding='utf-8', newline="") as file_stream:
             destwriter = csv.writer(file_stream)
             destwriter.writerow(new_dest_list)
 
