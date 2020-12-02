@@ -6,6 +6,7 @@ class VehicleTypeData:
     def get_all_vehicle_types(self):
         with open("data_layer/data_files/vehicle_type.csv","r",encoding="utf-8") as file_stream:
             vehicle_type_list = []
+
             reader = csv.DictReader(file_stream)
             for line in reader:
                 info = VehicleType(line["name"], line["regions"], line["rate"])
@@ -16,6 +17,7 @@ class VehicleTypeData:
         with open("data_layer/data_files/vehicle_type.csv","r",encoding="utf-8") as file_stream:
             reader = csv.DictReader(file_stream)
             file_list = []
+
             for row in reader:
                 print(row)
                 if row["name"] == vehicle_type:

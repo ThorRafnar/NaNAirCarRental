@@ -16,8 +16,8 @@ class VehicleData():
             for row in reader:
                 # Here we get an instance of a vehicle (might change)
                 # manufacturer,model,type,status,man_year,color,licence_type,location
-                attb = Vehicle(row["manufacturer"], row["model"], row["type"], row
-                ["status"], row["man_year"], row["color"], row["licence_type"], row["Location"])
+                attb = Vehicle(row["manufacturer"], row["model"], row["type"], row["status"], row["man_year"], row["color"], row["licence_type"], row["location"])
+
                 vehicle_list.append(attb)
         return vehicle_list
     
@@ -30,6 +30,7 @@ class VehicleData():
             writer = csv.writer(file_stream)
             writer.writerow(a_list)
             
+
 
     def change_vehicle_condition(self,cond_string,ID):
         ''' Opens the vehicle.csv file and selects a specific vehicle from it
