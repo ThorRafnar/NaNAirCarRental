@@ -1,6 +1,7 @@
 from data_layer.data_api import DataAPI
 from logic_layer.employee_logic import EmployeeLogic
 from logic_layer.vehicle_logic import VehicleLogic
+from logic_layer.destination_logic import DestinationLogic
 
 class LogicAPI():
 
@@ -8,7 +9,9 @@ class LogicAPI():
         self.data_api = DataAPI()
         self.employee_logic = EmployeeLogic(self.data_api)
         self.vehicle_logic = VehicleLogic(self.data_api)
+        self.destination_logic = DestinationLogic(self.data_api)
 
+    # Employee logic
     def get_employees(self):
         ''' Returns a list of all employees as instances of Employee class '''
         return self.employee_logic.get_employees()
@@ -25,8 +28,23 @@ class LogicAPI():
         ''' Sends a list containing ssn, attribute it wants to change and the changes for that attribute to data layer, ex. ['220687-2959', 'address', 'Bessastaðir'] '''
         return self.employee_logic.change_employee_info(attribute_list)
 
+    # Vehicle logic
+    def all_vehicles_to_list(self):
+        ''' Sends a list of vehicles as instances of Vehicle class to UI '''
+        return self.vehicle_logic.all_vehicles_to_list()
+
     def register_new_vehicle(self, new_vehicle):
         ''' Sends a instance of Vehicle class for new vehicle to data layer '''
         return self.vehicle_logic.register_new_vehicle(new_vehicle)
 
-    
+    def change_vehicle_condition(self, vehicle_id, status):
+        ''' Sends vehicle id and condition status to data layer '''
+        return self.vehicle_logic.change_vehicle_condition(vehicle_id, status)
+
+    def list_vehicles_by_status(self, status):
+        return self.vehicle_logic.list_vehicles_by_status(status)
+
+    # Destination logic
+    def create_destination(self, destination):
+        ''' Gets an instance of Destination class from UI and sends it to data layer '''
+        return self.destination_logic.create_destination(destination)
