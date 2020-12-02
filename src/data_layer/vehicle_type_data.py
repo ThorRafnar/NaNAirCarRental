@@ -7,7 +7,7 @@ class VehicleTypeData:
         with open("data_layer/data_files/vehicle_type.csv","r",encoding="utf-8") as file_stream:
             vehicle_type_list = []
             for line in file_stream:
-                info = VehicleTypeLogic(line["name"], line["regions"], line["rate"])
+                info = VehicleType(line["name"], line["regions"], line["rate"])
                 line = line.strip()
                 vehicle_type_list.append(info)
             return vehicle_type_list
@@ -16,7 +16,7 @@ class VehicleTypeData:
         with open("data_layer/data_files/vehicle_type.csv","w",encoding="utf-8") as file_stream:
             reader = csv.DictReader(file_stream)
             file_list = []
-            for line in file_stream:
+            for line in reader:
                 if line["name"] == vehicle_type:
                     line["rate"] = new_rate
                 file_list.append(line)
