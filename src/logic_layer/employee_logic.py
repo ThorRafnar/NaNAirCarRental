@@ -25,18 +25,16 @@ class EmployeeLogic():
 
         return ret_list
 
-    def find_employee(self, new_emp):
+    def find_employee(self, new_ssn):
         ''' Takes an instance of Employee class for employee from UI and checks if he exist in database, returns an instance of that Employee back if found, else returns None '''
-        try:
-            emp_list = self.get_employees()
-            emp_inst = None
-            for emp in emp_list:
-                if emp.ssn == new_emp.ssn:
-                    emp_inst = emp
-                    break
-            return emp_inst               
-        except AttributeError:
-            return None
+        emp_list = self.get_employees()
+        emp_inst = None
+        for emp in emp_list:
+            if emp.ssn == new_ssn:
+                emp_inst = emp
+                break
+        print(emp_inst)
+        return emp_inst  
 
     def register_employee(self, emp):
         ''' Sends an instance of Employee class for new employee to data layer to write to database '''

@@ -13,9 +13,9 @@ class LogicAPI():
         ''' Returns a list of all employees as instances of Employee class '''
         return self.employee_logic.get_employees()
 
-    def find_employee(self, emp):
+    def find_employee(self, new_ssn):
         ''' Looks for one employee in employee.csv from ssn, returns a Employee instance if found, else returns None '''
-        return self.employee_logic.find_employee(emp)
+        return self.employee_logic.find_employee(new_ssn)
     
     def register_employee(self, emp):
         ''' Sends a instance of Employee class for new employee to data layer '''
