@@ -44,7 +44,6 @@ class EmployeeLogic():
         ''' Sends a list of attributes to data layer to change given attribute for given employee '''
         changed_line = f'{emp.name},{emp.address},{emp.postal_code},{emp.ssn},{emp.home_phone},{emp.mobile_phone},{emp.email},{emp.work_area}'
         attr_list = [emp.ssn, changed_line]
-        print(attr_list)
 
         self.data_api.change_employee_info(attr_list)
     
