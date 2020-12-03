@@ -161,6 +161,8 @@ class EmployeeUI():
                         self.change_employee_details(emp, header_str)
                     else:
                         return
+
+                    return
                 
                 elif opt_str == self.FIND:         #If the user wants to find an employee and it exists
 
@@ -173,18 +175,20 @@ class EmployeeUI():
                     self.ui_helper.print_footer()
                     print(error_msg)
                     user_choice = input("Input: ")
+                    return
                     
                 
                 elif opt_str == self.CHANGE:        #If the user wants to change an employee and it exists
                     self.change_employee_details(emp, header_str)
-                    break
+                    return
                       
             else:                                   #If the employee does not exist
 
                 if opt_str == self.CREATE:          #If the user wants to create an employee and it does not exist
                     self.create_employee(header_str, ssn)
+                    return
 
-                elif opt_str == self.FIND:          #If the user wants to find an employee and it does not exist
+                elif opt_str == self.FIND or opt_str == self.CHANGE:          #If the user wants to find (or change) an employee and it does not exist
                     self.ui_helper.clear()
                     self.ui_helper.print_header(header_str)
                     self.ui_helper.print_line("No employee with this social security number found")
@@ -194,15 +198,10 @@ class EmployeeUI():
                     print(error_msg)
                     user_choice = input("Input: ")
 
-                elif opt_str == self.CHANGE:        #If the user wants to change and employee and it does not exist
-                    self.ui_helper.clear()
-                    self.ui_helper.print_header(header_str)
-                    self.ui_helper.print_line("No employee with this social security number found")
-                    self.ui_helper.print_line("Do you want to create one? (y/n)")
-                    self.ui_helper.print_blank_line()
-                    self.ui_helper.print_footer()
-                    print(error_msg)
-                    user_choice = input("Input: ")
+                    if user_choice in self.ui_helper.YES:
+                        self.create_employee(header_str, ssn)
+                    
+                    return
 
             user_choice = input("Input: ")
 
@@ -308,7 +307,7 @@ class EmployeeUI():
             print()
             confirm_choice = input("Input: ")
             if confirm_choice in self.ui_helper.YES:
-                #self.logic_api.change_employee_info(employee)
+                self.logic_api.change_employee_info(employee)
                 return
             else:
                 return
@@ -366,8 +365,12 @@ class EmployeeUI():
         self.view_employee_details(emp)
         self.ui_helper.print_blank_line()
         self.ui_helper.print_footer()
-        print()
+        print("Confirm changes? (y/n)")
         user_choice = input("Input: ")
+        if user_choice in self.ui_helper.YES:
+            self.logic_api.register_employee(emp)
+        else:
+            return
         
 
 
