@@ -20,9 +20,8 @@ class EmployeeUI():
 
     def show_options(self, header_str, error_msg=""):
         options_list = [(k, v) for k, v in self.options_dict.items()]
-        user_choice = None
-
-        while user_choice != self.ui_helper.QUIT:
+        
+        while True:
             opt_str = "Select task"
 
             self.ui_helper.clear()
@@ -48,13 +47,12 @@ class EmployeeUI():
                     if self.options_dict[user_choice] == self.VIEW_ALL:
                         self.get_employees(header_str)
 
-                    else:
+                    else:                                                   #Other options share a method, search, change and create
                         opt_str = self.options_dict[user_choice]
                         self.find_employee(header_str, opt_str)
                     
             else:
                 error_msg = "Please select an option from the menu"
-                self.show_options(header_str, error_msg)
 
 
 
@@ -74,8 +72,14 @@ class EmployeeUI():
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
-            if user_choice:
-                pass
+            if user_choice == self.ui_helper.BACK:
+                return
+
+            elif user_choice == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt(header_str)
+                
+            else:
+                error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
 
     def view_employee_details(self, employee):
         ''' shows all details of an employee '''

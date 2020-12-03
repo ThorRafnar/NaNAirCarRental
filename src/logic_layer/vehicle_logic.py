@@ -5,8 +5,7 @@ class VehicleLogic():
 
     def all_vehicles_to_list(self):
         ''' Gets vehicle list from data and sends it to UI '''
-        return self.data_api.all_vehicles_to_list()
-
+        return self.data_api.get_all_vehicles()
     def register_new_vehicle(self, new_vehicle):
         """ sends new vecicle to database to register """
         self.data_api.register_new_vehicle(new_vehicle)
