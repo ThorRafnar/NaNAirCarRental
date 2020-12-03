@@ -15,6 +15,8 @@ class DataAPI():
         self.vehicle_type_data = VehicleTypeData()
         print("Data :^)")
 
+
+# Employee functions
     def get_employees(self):
         return self.employee_data.get_employees()
 
@@ -25,18 +27,21 @@ class DataAPI():
     def change_employee_info(self, att_list):
         return self.employee_data.change_employee_info(att_list)
 
+# Customer functions
     def add_customer(self, cust):
         return self.customer_data.add_customer(cust)
     
     def change_customer_info(self, att_list):
         return self.customer_data.change_customer_info(att_list)
 
+# Destination functions
     def get_destinations(self):
         return self.destination_data.get_destinations()
     
     def create_destination(self, dest):
         return self.destination_data.create_destination(dest)
 
+# Vehicle functions
     def get_all_vehicles(self):
         return self.vehicle_data.all_vehicles_to_list()
     
@@ -46,6 +51,7 @@ class DataAPI():
     def change_vehicle_condition(self, new_cond, ID):
         return self.vehicle_data.change_vehicle_condition(new_cond,ID)
     
+# Vehicle type functions
     def get_all_vehicle_types(self):
         return self.vehicle_type_data.get_all_vehicle_types()
     
