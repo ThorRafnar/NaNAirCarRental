@@ -26,7 +26,7 @@ class EmployeeData():
         ''' Takes in a list with attributes, the attributes are values for what to change  '''
         values = atttribute_list[1].split(",")
         file_list = []
-        with open("test.csv",'r' ,encoding="utf-8") as read_file:
+        with open("data_layer/data_files/employee.csv",'r' ,encoding="utf-8") as read_file:
             reader = csv.DictReader(read_file)
             emp_ssn = atttribute_list[0]
             for row in reader:
@@ -35,7 +35,7 @@ class EmployeeData():
                         row[key] = value
                 file_list.append(row)
 
-        with open("test.csv", "w", encoding='utf-8', newline='') as write_file:
+        with open("data_layer/data_files/employee.csv", "w", encoding='utf-8', newline='') as write_file:
             keys = file_list[0].keys()
             the_writer = csv.DictWriter(write_file,keys)
             the_writer.writeheader()
