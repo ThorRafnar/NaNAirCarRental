@@ -4,6 +4,7 @@ import csv
 class VehicleTypeData:
 
     def get_all_vehicle_types(self):
+        ''' Opens the vehicle_type.csv file and returns all info in a list.'''
         with open("data_layer/data_files/vehicle_type.csv","r",encoding="utf-8") as file_stream:
             vehicle_type_list = []
 
@@ -14,6 +15,8 @@ class VehicleTypeData:
             return vehicle_type_list
     
     def change_vehicle_rate(self,new_rate, vehicle_type):
+        ''' Takes in a new desired rate and a vehicle type then changes the rate of that vehicle type
+        to the new_desired rate.'''
         with open("data_layer/data_files/vehicle_type.csv","r",encoding="utf-8") as file_stream:
             reader = csv.DictReader(file_stream)
             file_list = []
