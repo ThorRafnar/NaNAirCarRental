@@ -3,6 +3,7 @@ from logic_layer.employee_logic import EmployeeLogic
 from logic_layer.vehicle_logic import VehicleLogic
 from logic_layer.destination_logic import DestinationLogic
 from logic_layer.customer_logic import CustomerLogic
+from logic_layer.logic_error_check import LogicErrorCheck
 
 class LogicAPI():
 
@@ -12,6 +13,7 @@ class LogicAPI():
         self.vehicle_logic = VehicleLogic(self.data_api)
         self.destination_logic = DestinationLogic(self.data_api)
         self.customer_logic = CustomerLogic(self.data_api)
+        self.logic_error_check = LogicErrorCheck(self.data_api)
 
     # Employee logic
     def get_employees(self):
@@ -72,3 +74,8 @@ class LogicAPI():
     def add_customer(self, cust):
         ''' Sends a instance of Customer class for new customer to data layer '''
         return self.customer_logic.add_customer(cust)
+    
+
+
+    def check_work_area(self,a_str):
+        return self.logic_error_check.check_work_area(a_str)
