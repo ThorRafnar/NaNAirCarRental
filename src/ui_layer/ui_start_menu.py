@@ -15,7 +15,7 @@ class UIStartMenu():
 
     def show_locations(self, error_msg=""):
         
-        options_list = [("GOH", "Nuuk, Greenland"), ("KEF", "Reykjavík, Iceland"), ("KUS", "Kulusuk, Greenland"), ("FAE", "Tórshavn, Faroe Island"), ("LWK", "Tingwall, Shetland"), ("LYR", "Longyearbyen, Svalbard"), ("ADM", "Administrator")]
+        options_list = self.logic_api.destinations_option_list()
         opt_str = "Please select your airport code:"
 
         while True:
