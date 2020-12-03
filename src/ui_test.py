@@ -9,4 +9,4 @@ height = size.lines
 print(height)
 
 f = UIStartMenu(width)
-f.show_locations()
+f.choose_location()

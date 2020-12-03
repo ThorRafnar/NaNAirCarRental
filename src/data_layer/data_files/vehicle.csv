@@ -1,6 +1,6 @@
-manufacturer,model,type,status,man_year,color,licence_type,Location,ID
+manufacturer,model,type,status,man_year,color,licence_type,location,ID
 TAILG,Free Fly II,Medium road,OK,2018,White,Drivers licence,Kulusuk,000
-TAILG,Free Fly II,Medium road,OK, 2018,Orange,Drivers licence,Kulusuk,001
+TAILG,Free Fly II,Medium road,OK,2018,Orange,Drivers licence,Kulusuk,001
 Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Longyearbyen,002
 Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Thorshavn,003
 Kayman Kayaks,Crazy HV,Light water,OK,2020,Yellow,None,Nuuk,004
@@ -20,4 +20,4 @@ WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Kulusuk,017
 Forward,FWD-ZK125H,Medium road,OK,2019,Blue,Drivers licence,Longyearbyen,018
 Colorado,Pontoon Boat,Light water,OK,2019,Green,None,Thorshavn,019
 A2extreem,Powerboard,Light winter,OK,2018,Black,None,Nuuk,020
-Torpedo,3500,Light water,OK,2019,White,Diving licence,Thorshavnasdasd,021
+Torpedo,3500,Light water,OK,2019,White,Diving licence,Thorshavn,021
