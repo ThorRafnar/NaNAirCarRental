@@ -145,8 +145,34 @@ class UIHelper():
             quit()
         else:
             return
-    
+
+
+    #TODO Move me to logic!
+    def ssn_formatter(self, ssn):
+        ''' Returns a ssn in the correct format, NNNNNN-NNNN. '''
+        if len(ssn) == 10:
+            for num in ssn:
+                if num.isnumeric() == False:
+                    ssn = None
+
+            ssn = ssn[:6] + "-" + ssn[6:]
+
+        elif len(ssn) == 11:
+            for ind, num in enumerate(ssn):
+                if num.isnumeric() == False and ind != 6:
+                    ssn = None
+
+            ssn = ssn[:6] + "-" + ssn[7:]
+
+        else:
+            ssn = None
         
+        return ssn
+            
+    def get_old_attributes(self, a_class_instance, attr_key):
+        ''' gets an attribute from a class instance and returns a tuple with the old attribute key and value '''
+        old_attr_value = getattr(a_class_instance, attr_key)
+        return (attr_key, old_attr_value)
 
 
 """
