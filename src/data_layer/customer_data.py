@@ -22,19 +22,19 @@ class CustomerData():
     def change_customer_info(self, att_list):
         '''Takes in a list with attributes. Uses thous attributes to 
         change certain info about the customer '''
-        values = a_list[1].split(",")
-        file_list = []
-        with open("test.csv",'r' ,encoding="utf-8") as read_file:
+        with open("data_layer/data_files/customers.csv", "r", encoding='utf-8') as read_file:
             reader = csv.DictReader(read_file)
-            emp_ssn = a_list[0]
+            file_list = []
             for row in reader:
-                if row["ssn"] == emp_ssn:
-                    for key, value in zip(row, values):
-                        row[key] = value
+                # Key is the key for the attribute we want to change, and new is the new attribute
+                if row["ssn"] == att_list[0]:
+                    key = att_list[1]
+                    new = att_list[2]
+                    row[key] = new
                 file_list.append(row)
-
-        with open("test.csv", "w", encoding='utf-8', newline='') as write_file:
+                
+        with open("data_layer/data_files/customers.csv", "w", encoding='utf-8', newline='') as write_file:
             keys = file_list[0].keys()
-            the_writer = csv.DictWriter(write_file,keys)
-            the_writer.writeheader()
-            the_writer.writerows(file_list)
+            writer = csv.DictWriter(write_file,keys)
+            writer.writeheader()
+            writer.writerows(file_list)
