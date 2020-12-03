@@ -20,10 +20,10 @@ class EmployeeUI():
 
     def show_options(self, header_str, error_msg=""):
         options_list = [(k, v) for k, v in self.options_dict.items()]
-        opt_str = "Select task"
         user_choice = None
 
         while user_choice != self.ui_helper.QUIT:
+            opt_str = "Select task"
 
             self.ui_helper.clear()
 
@@ -79,14 +79,14 @@ class EmployeeUI():
 
     def view_employee_details(self, employee):
         ''' shows all details of an employee '''
-        self.ui_helper.print_line(f"    NAME:....................{employee.name}")
-        self.ui_helper.print_line(f"    SOCIAL SECURITY NR:......{employee.ssn}")
-        self.ui_helper.print_line(f"    ADDRESS:.................{employee.address}")
-        self.ui_helper.print_line(f"    POSTAL CODE:.............{employee.postal_code}")
-        self.ui_helper.print_line(f"    MOBILE PHONE:...........{employee.mobile_phone}")
-        self.ui_helper.print_line(f"    HOME PHONE:.............{employee.home_phone}")
-        self.ui_helper.print_line(f"    EMAIL:...................{employee.email}")
-        self.ui_helper.print_line(f"    WORK AREA:...............{employee.work_area}")
+        self.ui_helper.print_line(f"        NAME:....................{employee.name}")
+        self.ui_helper.print_line(f"        SOCIAL SECURITY NR:......{employee.ssn}")
+        self.ui_helper.print_line(f"        ADDRESS:.................{employee.address}")
+        self.ui_helper.print_line(f"        POSTAL CODE:.............{employee.postal_code}")
+        self.ui_helper.print_line(f"        MOBILE PHONE:...........{employee.mobile_phone}")
+        self.ui_helper.print_line(f"        HOME PHONE:.............{employee.home_phone}")
+        self.ui_helper.print_line(f"        EMAIL:...................{employee.email}")
+        self.ui_helper.print_line(f"        WORK AREA:...............{employee.work_area}")
         self.ui_helper.print_blank_line()
 
 
@@ -106,79 +106,226 @@ class EmployeeUI():
             if employee exists
                 asks for attributes to change (NOT ssn or name)
         '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line(opt_str)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_line("    Enter employee's social security number")
+            self.ui_helper.print_line("    (DDMMYY-NNNN)")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            ssn = input("Input: ")
+
+            #Check if the user wants to back or quit
+            if ssn == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt(header_str)
+            elif ssn == self.ui_helper.BACK:
+                return
+
+            #TODO Make logic check ssn input
+            ssn = self.ui_helper.ssn_formatter(ssn)     #Formats the ssn correctly
+
+            #If the ssn is invalid
+            if ssn == None:
+                error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
+                continue
+
+            #If the new one is valid we need to reset the error message
+            else:
+                error_msg = ""
+
+            #Searches for employee by ssn, returning none if it doesnt exists, and returning an employee instance if it does
+            emp = self.logic_api.find_employee(ssn)
+            
+            if emp != None:                     #if the employee already exists
+                
+                if opt_str == self.CREATE:      #If the user wants to create the employee but one already exists with that ssn
+
+                    #Shows employee details and asks if user wants to modify it
+                    self.ui_helper.clear()
+                    self.ui_helper.print_header(header_str)
+                    self.ui_helper.print_line("Employee with this social security number already exists!")
+                    self.ui_helper.print_line("Do you wish to modify? (y/n)")
+                    self.ui_helper.print_blank_line()
+                    self.view_employee_details(emp)
+                    self.ui_helper.print_footer()
+                    print(error_msg)
+                    user_choice = input("Input: ")
+                    if user_choice == self.ui_helper.QUIT:
+                        self.ui_helper.quit_prompt(header_str)
+                    elif user_choice == self.ui_helper.BACK:
+                        return
+                    elif user_choice in self.ui_helper.YES:
+                        self.change_employee_details(emp, header_str)
+                    else:
+                        return
+
+                    return
+                
+                elif opt_str == self.FIND:         #If the user wants to find an employee and it exists
+
+                    #Shows employee details
+                    self.ui_helper.clear()
+                    self.ui_helper.print_header(header_str)
+                    self.ui_helper.print_line("Employee information:")
+                    self.ui_helper.print_blank_line()
+                    self.view_employee_details(emp)
+                    self.ui_helper.print_footer()
+                    print(error_msg)
+                    user_choice = input("Input: ")
+                    return
+                    
+                
+                elif opt_str == self.CHANGE:        #If the user wants to change an employee and it exists
+                    self.change_employee_details(emp, header_str)
+                    return
+                      
+            else:                                   #If the employee does not exist
+
+                if opt_str == self.CREATE:          #If the user wants to create an employee and it does not exist
+                    self.create_employee(header_str, ssn)
+                    return
+
+                elif opt_str == self.FIND or opt_str == self.CHANGE:          #If the user wants to find (or change) an employee and it does not exist
+                    self.ui_helper.clear()
+                    self.ui_helper.print_header(header_str)
+                    self.ui_helper.print_line("No employee with this social security number found")
+                    self.ui_helper.print_line("Do you want to create one? (y/n)")
+                    self.ui_helper.print_blank_line()
+                    self.ui_helper.print_footer()
+                    print(error_msg)
+                    user_choice = input("Input: ")
+
+                    if user_choice in self.ui_helper.YES:
+                        self.create_employee(header_str, ssn)
+                    
+                    return
+
+            user_choice = input("Input: ")
+
+
+    def change_employee_details(self, employee, header_str, error_msg=""):
+        ''' shows all details of an employee, with indices and takes user choice in what to change, and changes it, 
+        when user confirms, sends an instance of the employee down to logic '''
+        opt_address = "1"
+        opt_postal_code = "2"
+        opt_mobile = "3"
+        opt_home_phone = "4"
+        opt_email = "5"
+        opt_work_area = "6"
+        opt_undo = "U"
+        opt_save = "S"
+        old_attr_list = []
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line("Change employee")
+            self.ui_helper.print_line("Please select an option:")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_line(f"        NAME:....................{employee.name}")
+            self.ui_helper.print_line(f"        SOCIAL SECURITY NR:......{employee.ssn}")
+            self.ui_helper.print_line(f"    {opt_address}.  ADDRESS:.................{employee.address}")
+            self.ui_helper.print_line(f"    {opt_postal_code}.  POSTAL CODE:.............{employee.postal_code}")
+            self.ui_helper.print_line(f"    {opt_mobile}.  MOBILE PHONE:...........{employee.mobile_phone}")
+            self.ui_helper.print_line(f"    {opt_home_phone}.  HOME PHONE:.............{employee.home_phone}")
+            self.ui_helper.print_line(f"    {opt_email}.  EMAIL:...................{employee.email}")
+            self.ui_helper.print_line(f"    {opt_work_area}.  WORK AREA:...............{employee.work_area}")
+            if old_attr_list != []:         #Undo option if any changes have been made
+                self.ui_helper.print_line(f"    {opt_undo}.  << Undo >>")
+            else:
+                self.ui_helper.print_blank_line()
+            self.ui_helper.print_line(f"    {opt_save}.  << Save Changes >>")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt(header_str)
+            elif user_choice == self.ui_helper.BACK:
+                if old_attr_list != []:      #If the user has unsaved changes
+                    user_choice = self.unsaved_changes(employee, header_str)
+                    if user_choice.lower() in self.ui_helper.YES:
+                        return
+                    else:
+                        continue
+                else:
+                    return
+
+            else:
+
+                if user_choice == opt_address:
+                    old_attr_list.append(self.ui_helper.get_old_attributes(employee, "address"))        #Stores old values before changing
+                    employee.address = input("Enter new address: ")
+
+                elif user_choice == opt_postal_code:
+                    old_attr_list.append(self.ui_helper.get_old_attributes(employee, "postal_code"))    #Stores old values before changing
+                    employee.postal_code = input("Enter new postal code: ")
+
+                elif user_choice == opt_mobile:
+                    old_attr_list.append(self.ui_helper.get_old_attributes(employee, "mobile_phone"))   #Stores old values before changing
+                    employee.mobile_phone = input("Enter new mobile phone number: ")
+
+                elif user_choice == opt_home_phone:
+                    old_attr_list.append(self.ui_helper.get_old_attributes(employee, "home_phone"))     #Stores old values before changing
+                    employee.home_phone = input("Enter new home phone number: ")
+
+                elif user_choice == opt_email:
+                    old_attr_list.append(self.ui_helper.get_old_attributes(employee, "email"))          #Stores old values before changing
+                    employee.email = input("Enter new email address: ")
+
+                elif user_choice == opt_work_area:
+                    old_attr_list.append(self.ui_helper.get_old_attributes(employee, "work_area"))      #Stores old values before changing
+                    employee.work_area = input("Enter new work area: ")
+
+                elif user_choice.upper() == opt_save:
+                    self.confirm_changes(employee, header_str)
+                    return
+
+                elif user_choice.upper() == opt_undo and old_attr_list != []:
+                    ''' Undo the last changes stored in the old attribute list, and removes the last item in the list '''
+                    undo_key = old_attr_list[-1][0]
+                    undo_value = old_attr_list[-1][1]
+                    del old_attr_list[-1]
+                    setattr(employee, undo_key, undo_value)
+                    continue                
+
+                else:
+                    error_msg = "Please select an option from the menu"
+
+
+    def confirm_changes(self, employee, header_str):
+        ''' Asks the user if he wants to save his changes on an employee, and changes it if yes '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.view_employee_details(employee)
+            self.ui_helper.print_line("Are you sure you want to save these changes? (y/n)")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print()
+            confirm_choice = input("Input: ")
+            if confirm_choice in self.ui_helper.YES:
+                self.logic_api.change_employee_info(employee)
+                return
+            else:
+                return
+            
+
+    def unsaved_changes(self, employee, header_str):
+        ''' Asks user if they want to go back without saving their changes '''
         self.ui_helper.clear()
         self.ui_helper.print_header(header_str)
-        self.ui_helper.print_line(opt_str)
+        self.ui_helper.print_line("You have unsaved changes!")
+        self.ui_helper.print_line("Are you sure you want to go back? (y/n)")
+        self.ui_helper.print_line("Your unsaved changes will be lost")
         self.ui_helper.print_blank_line()
-        self.ui_helper.print_line("    Enter employee's social security number")
-        self.ui_helper.print_line("    (DDMMYY-NNNN)")
+        self.view_employee_details(employee)
         self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
-        ssn = input("Input: ")
-        emp = self.logic_api.find_employee(ssn)
-
-        
-        if emp != None:                     #if the employee already exists
-            
-            if opt_str == self.CREATE:      #If the user wants to create the employee but one already exists with that ssn
-                alert_str_a = "Employee with this social security number already exists!"
-                alert_str_b = "Do you wish to modify? (y/n)"
-                self.ui_helper.clear()
-                self.ui_helper.print_header(header_str)
-                self.ui_helper.print_line(alert_str_a)
-                self.ui_helper.print_line(alert_str_b)
-                self.ui_helper.print_blank_line()
-                self.view_employee_details(emp)
-                self.ui_helper.print_footer()
-                print(error_msg)
-            
-            elif opt_str == self.FIND:         #If the user wants to find an employee and it exists
-                message_str = "Employee information:"
-                self.ui_helper.clear()
-                self.ui_helper.print_header(header_str)
-                self.ui_helper.print_line(message_str)
-                self.ui_helper.print_blank_line()
-                self.view_employee_details(emp)
-                self.ui_helper.print_footer()
-                print(error_msg)
-            
-            elif opt_str == self.CHANGE:        #If the user wants to change an employee and it exists
-                self.ui_helper.clear()
-                self.ui_helper.print_header(header_str)
-                self.ui_helper.print_line("Change employee")
-                self.ui_helper.print_line("Please select an option:")
-                self.ui_helper.print_blank_line()
-                self.change_employee_details(emp)
-                self.ui_helper.print_footer()
-                print(error_msg)
-        
-        else:                                   #If the employee does not exist
-
-            if opt_str == self.CREATE:          #If the user wants to create an employee and it does not exist
-                self.create_employee(ssn)
-
-            elif opt_str == self.FIND:          #If the user wants to find an employee and it does not exist
-                pass
-
-            elif opt_str == self.CHANGE:        #If the user wants to change and employee and it does not exist
-                pass
-
-
-
-        self.ui_helper.get_user_menu_choice()
-        
-
-    def change_employee_details(self, employee):
-        ''' shows all details of an employee '''
-        self.ui_helper.print_line(f"        NAME:....................{employee.name}")
-        self.ui_helper.print_line(f"        SOCIAL SECURITY NR:......{employee.ssn}")
-        self.ui_helper.print_line(f"    1.  ADDRESS:.................{employee.address}")
-        self.ui_helper.print_line(f"    2.  POSTAL CODE:.............{employee.postal_code}")
-        self.ui_helper.print_line(f"    3.  MOBILE PHONE:...........{employee.mobile_phone}")
-        self.ui_helper.print_line(f"    4.  HOME PHONE:.............{employee.home_phone}")
-        self.ui_helper.print_line(f"    5.  EMAIL:...................{employee.email}")
-        self.ui_helper.print_line(f"    6.  WORK AREA:...............{employee.work_area}")
-        self.ui_helper.print_blank_line()
+        self.ui_helper.print_hash_line()
+        print()
+        return input("Input: ")
 
 
     def check_name(self, name):
@@ -192,21 +339,39 @@ class EmployeeUI():
                 continue       
         return name
 
+
     def get_name(self):
         a_str = input("Enter name: ")
         name = self.check_name(a_str)
         return name
 
-    def create_employee(self, ssn):
-        name = input("Enter Name: ")
-        address = input("Enter Address: ")
-        postal_code = input("Enter postal code: ")
-        home_phone = input("Enter home phone: ")
-        mobile_phone = input("Enter mobile phone: ")
-        email = input("Enter email: ")
-        work_area = input("Enter work area: ")
-        new_employee = Employee(name, address, postal_code, ssn, home_phone, mobile_phone, email, work_area)
-        self.view_employee_details(new_employee)
+
+    def create_employee(self, header_str, ssn):
+        emp = Employee("", "", "", ssn, ".", ".", "", "")
+        attribute_list = "name", "address", "postal code", "mobile phone", "home phone", "email", "work area"
+        for attribute in attribute_list:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.view_employee_details(emp)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print()
+            attr_value = input(f"Enter employee's {attribute}: ")
+            attr_key = attribute.replace(" ", "_")
+            setattr(emp, attr_key, attr_value)
+
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.view_employee_details(emp)
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+        print("Confirm changes? (y/n)")
+        user_choice = input("Input: ")
+        if user_choice in self.ui_helper.YES:
+            self.logic_api.register_employee(emp)
+        else:
+            return
+        
 
 
     def print_employee_list(self, emp_list):

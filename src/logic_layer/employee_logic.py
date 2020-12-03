@@ -40,8 +40,10 @@ class EmployeeLogic():
         ''' Sends an instance of Employee class for new employee to data layer to write to database '''
         self.data_api.register_employee(emp)
 
-    def change_employee_info(self, attribute_list):
+    def change_employee_info(self, emp):
         ''' Sends a list of attributes to data layer to change given attribute for given employee '''
-        self.data_api.change_employee_info(attribute_list)
+        changed_line = f'{emp.name},{emp.address},{emp.postal_code},{emp.ssn},{emp.home_phone},{emp.mobile_phone},{emp.email},{emp.work_area}'
+        attr_list = [emp.ssn, changed_line]
 
+        self.data_api.change_employee_info(attr_list)
     

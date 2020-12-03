@@ -2,6 +2,7 @@ from data_layer.data_api import DataAPI
 from logic_layer.employee_logic import EmployeeLogic
 from logic_layer.vehicle_logic import VehicleLogic
 from logic_layer.destination_logic import DestinationLogic
+from logic_layer.customer_logic import CustomerLogic
 
 class LogicAPI():
 
@@ -10,6 +11,7 @@ class LogicAPI():
         self.employee_logic = EmployeeLogic(self.data_api)
         self.vehicle_logic = VehicleLogic(self.data_api)
         self.destination_logic = DestinationLogic(self.data_api)
+        self.customer_logic = CustomerLogic(self.data_api)
 
     # Employee logic
     def get_employees(self):
@@ -24,9 +26,9 @@ class LogicAPI():
         ''' Sends a instance of Employee class for new employee to data layer '''
         return self.employee_logic.register_employee(emp)
 
-    def change_employee_info(self, attribute_list):
-        ''' Sends a list containing ssn, attribute it wants to change and the changes for that attribute to data layer, ex. ['220687-2959', 'address', 'Bessastaðir'] '''
-        return self.employee_logic.change_employee_info(attribute_list)
+    def change_employee_info(self, emp):
+        ''' Sends a list containing ssn, attribute it wants to change and the changes for that attribute to data layer '''
+        return self.employee_logic.change_employee_info(emp)
 
     # Vehicle logic
     def all_vehicles_to_list(self):
@@ -57,3 +59,16 @@ class LogicAPI():
     
     def destinations_option_list(self):
         return self.destination_logic.destinations_option_list()
+
+    # Customer Logic
+    def get_customer(self):
+        ''' Returns a list of all customer as instances of Customer class '''
+        return self.customer_logic.get_customers()
+
+    def change_customer_info(self, attribute_list):
+        ''' Sends a list containing ssn, attribute it wants to change and the changes for that attribute to data layer, ex. ['220687-2959', 'address', 'Bessastaðir'] '''
+        return self.customer_logic.change_customer_info(attribute_list)
+
+    def add_customer(self, cust):
+        ''' Sends a instance of Customer class for new customer to data layer '''
+        return self.customer_logic.add_customer(cust)
