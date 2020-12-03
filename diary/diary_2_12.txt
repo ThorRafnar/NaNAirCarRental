@@ -1,9 +1,18 @@
-1.12
+
+2.12
+kæra dagbók tókum stöðuna yfir heitum kaffibolla. Ákvæðum eftir smá spjall við Gylfa í gær að klára eina tenginu saman
+frá UI í logig og þnagað í data og aftur upp í gegnum logig upp í UI. Þar sem við erum búin að vera mjög skipulögð og 
+góð í því að ræða hvernig við viljum setja þetta upp og vinnum þetta skipuleg út frá skýrslunni okkar þá gekk mjög vel 
+að tengja employ og tókst okkur að sækja öll þau gögn sem við höfðum. 
+
+Seinni partinn ákváðum við svo að halda áfaram að vinna í klösunum okkar svo við getum haldið áfram að tengja sama UI, logig 
+og data á morgun.
+
 Same old á morgunfundinum, 2 og 2 saman í hverjum layer
 
 
 #Ragnar
-
+kláraði vehicle type clasann og hélt áfram að vinna í vehicle.
 
 #Arnór
 Ég og Esther pair progrömmuðum í Logic layer, gerðum virkni fyrir employee, vehicle og destination. Einnig unnum við örlítið saman öll í alskonar pælingum varðandi tengingar milli layer-a
@@ -18,7 +27,7 @@ Næstu verkefni eru að klára employee viðmótið alveg.
 Vann í database, gerði nokkur föll og klasa í database. líka bug hunt
 
 #Hallfríður
-
+Hélt áfram að vinna í UI og héldum áfram aðsetja upp menuið okkar. Vorum að vinna við að setja upp menuið fyrir admin.
 
 
 #Esther
