@@ -2,6 +2,7 @@ from data_layer.data_api import DataAPI
 from logic_layer.employee_logic import EmployeeLogic
 from logic_layer.vehicle_logic import VehicleLogic
 from logic_layer.destination_logic import DestinationLogic
+from logic_layer.customer_logic import CustomerLogic
 
 class LogicAPI():
 
@@ -10,6 +11,7 @@ class LogicAPI():
         self.employee_logic = EmployeeLogic(self.data_api)
         self.vehicle_logic = VehicleLogic(self.data_api)
         self.destination_logic = DestinationLogic(self.data_api)
+        self.customer_logic = CustomerLogic(self.data_api)
 
     # Employee logic
     def get_employees(self):
@@ -57,3 +59,13 @@ class LogicAPI():
     
     def destinations_option_list(self):
         return self.destination_logic.destinations_option_list()
+
+    def get_customer(self):
+        ''' Returns a list of all customer as instances of Customer class '''
+        return self.customer_logic.get_customers()
+
+    def change_customer_info(self, attribute_list):
+        return self.customer_logic.change_customer_info(attribute_list)
+
+    def add_customer(self, cust):
+        return self.customer_logic.add_customer(cust)
