@@ -60,12 +60,15 @@ class LogicAPI():
     def destinations_option_list(self):
         return self.destination_logic.destinations_option_list()
 
+    # Customer Logic
     def get_customer(self):
         ''' Returns a list of all customer as instances of Customer class '''
         return self.customer_logic.get_customers()
 
     def change_customer_info(self, attribute_list):
+        ''' Sends a list containing ssn, attribute it wants to change and the changes for that attribute to data layer, ex. ['220687-2959', 'address', 'Bessastaðir'] '''
         return self.customer_logic.change_customer_info(attribute_list)
 
     def add_customer(self, cust):
+        ''' Sends a instance of Customer class for new customer to data layer '''
         return self.customer_logic.add_customer(cust)
