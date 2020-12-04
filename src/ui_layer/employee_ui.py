@@ -148,40 +148,33 @@ class EmployeeUI():
                 if opt_str == self.CREATE:      #If the user wants to create the employee but one already exists with that ssn
 
                     #Shows employee details and asks if user wants to modify it
-                    self.ui_helper.clear()
-                    self.ui_helper.print_header(header_str)
-                    self.ui_helper.print_line("Employee with this social security number already exists!")
-                    self.ui_helper.print_line("Do you wish to modify? (y/n)")
-                    self.ui_helper.print_blank_line()
-                    self.view_employee_details(emp)
-                    self.ui_helper.print_footer()
-                    print(error_msg)
-                    user_choice = input("Input: ")
-                    if user_choice == self.ui_helper.QUIT:
-                        self.ui_helper.quit_prompt(header_str)
-                    elif user_choice == self.ui_helper.BACK:
-                        return
-                    elif user_choice in self.ui_helper.YES:
-                        self.change_employee_details(emp, header_str)
-                    else:
-                        return
+                    while True:
+                        self.ui_helper.clear()
+                        self.ui_helper.print_header(header_str)
+                        self.ui_helper.print_line("Employee with this social security number already exists!")
+                        self.ui_helper.print_line("Do you wish to modify? (y/n)")
+                        self.ui_helper.print_blank_line()
+                        self.view_employee_details(emp)
+                        self.ui_helper.print_footer()
+                        print(error_msg)
+                        user_choice = input("Input: ")
+                        if user_choice == self.ui_helper.QUIT:
+                            self.ui_helper.quit_prompt(header_str)
+                        elif user_choice == self.ui_helper.BACK:
+                            return
+                        elif user_choice in self.ui_helper.YES:
+                            self.change_employee_details(emp, header_str)
+                            return
+                        else:
+                            return
 
-                    return
                 
                 elif opt_str == self.FIND:         #If the user wants to find an employee and it exists
-
-                    #Shows employee details
-                    self.ui_helper.clear()
-                    self.ui_helper.print_header(header_str)
-                    self.ui_helper.print_line("Employee information:")
-                    self.ui_helper.print_blank_line()
-                    self.view_employee_details(emp)
-                    self.ui_helper.print_footer()
-                    print(error_msg)
-                    user_choice = input("Input: ")
+                    self.view_employee(emp, header_str)
                     return
-                    
-                
+                    #Shows employee details
+
+
                 elif opt_str == self.CHANGE:        #If the user wants to change an employee and it exists
                     self.change_employee_details(emp, header_str)
                     return
@@ -208,6 +201,24 @@ class EmployeeUI():
                     return
 
             user_choice = input("Input: ")
+
+    def view_employee(self, employee, header_str, error_msg=""):
+        ''' Shows full view employee interface, returning or quitting based on input'''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line("Employee information:")
+            self.ui_helper.print_blank_line()
+            self.view_employee_details(employee)
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt(header_str)
+            elif user_choice == self.ui_helper.BACK:
+                return
+            else:
+                error_msg = "Please enter 0 to go back or 9 to quit"
 
 
     def change_employee_details(self, employee, header_str, error_msg=""):
@@ -352,7 +363,7 @@ class EmployeeUI():
 
     def create_employee(self, header_str, ssn):
         emp = Employee("", "", "", ssn, ".", ".", "", "")
-        attribute_list = "name", "address", "postal code", "mobile phone", "home phone", "email", "work area"
+        attribute_list = ["name", "address", "postal code", "mobile phone", "home phone", "email", "work area"]
         for attribute in attribute_list:
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
