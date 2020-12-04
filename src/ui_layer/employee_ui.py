@@ -18,6 +18,7 @@ class EmployeeUI():
             "4": self.VIEW_ALL
         }
 
+
     def show_options(self, header_str, error_msg=""):
         options_list = [(k, v) for k, v in self.options_dict.items()]
         
@@ -80,6 +81,7 @@ class EmployeeUI():
                 
             else:
                 error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
+
 
     def view_employee_details(self, employee):
         ''' shows all details of an employee '''
@@ -201,6 +203,7 @@ class EmployeeUI():
                     return
 
             user_choice = input("Input: ")
+
 
     def view_employee(self, employee, header_str, error_msg=""):
         ''' Shows full view employee interface, returning or quitting based on input'''
@@ -328,8 +331,6 @@ class EmployeeUI():
                 return
 
     
-            
-
     def unsaved_changes(self, employee, header_str):
         ''' Asks user if they want to go back without saving their changes '''
         self.ui_helper.clear()

@@ -46,7 +46,16 @@ class VehicleUI():
                         
 
                     elif self.options_dict[user_choice] == self.FIND:
-                        self.find_vehicle(header_str)
+
+                        while True:
+                            the_vehicle = self.find_vehicle(header_str)
+                            if the_vehicle != None:
+                                self.vehicle_options(the_vehicle, header_str)
+                                break
+                            else:
+                                self.vehicle_not_found(header_str)
+                                continue
+                            
                                                
 
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
@@ -75,6 +84,17 @@ class VehicleUI():
             else:
                 error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
             
+
+    def vehicle_not_found(self, header_str):
+        ''' '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_line("    No vehicle with this ID number found!")
+        self.ui_helper.print_line("    Press enter to try again")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+        print()
+        _user_choice = input("Input: ")
 
         
     def print_vehicle_list(self, vehicle_list):
@@ -166,6 +186,7 @@ class VehicleUI():
 
     def find_vehicle(self, header_str, error_msg=""):
         ''' takes vehicle id number from user and finds the vehicle, or none if it doesn't exist '''
+        
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
@@ -180,8 +201,30 @@ class VehicleUI():
                 self.ui_helper.quit_prompt(header_str) 
 
             else:   #Search for the vehicle in database
-                the_vehicle = self.logic_api.find_vehicle(vehicle_id)        
+                return self.logic_api.find_vehicle(vehicle_id)
 
+
+    def vehicle_options(self, the_vehicle, header_str, error_msg=""):
+        ''' Views a vehicle and asks user what to do '''
+        opt_change_status = "1"
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line("    Vehicle details:")
+            self.ui_helper.print_blank_line()
+            self.view_vehicle_details(the_vehicle)
+            self.ui_helper.print_line(f"    {opt_change_status}. Change Vehicle Status")
+            self.ui_helper.print_footer()
+            print()
+            user_choice = input("Input: ")
+            if user_choice == opt_change_status:
+                self.change_vehicle_status(the_vehicle, header_str)
+            elif user_choice == self.ui_helper.BACK:
+                self.unsaved_changes(the_vehicle, header_str)
+            elif user_choice == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt(header_str)
+            else:
+                error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
 
 
     def view_vehicle_details(self, a_vehicle):
@@ -194,6 +237,10 @@ class VehicleUI():
         self.ui_helper.print_line(f"        STATUS:..................{a_vehicle.status}")
         self.ui_helper.print_line(f"        LICENCE REQUIREMENTS:....{a_vehicle.licence_type}")
         self.ui_helper.print_line(f"        LOCATION:................{a_vehicle.location}")
+        if a_vehicle.id != None:
+            self.ui_helper.print_line(f"        ID NUMBER:...............{a_vehicle.id}")
+        else:
+            self.ui_helper.print_blank_line()
         self.ui_helper.print_blank_line()
 
     
@@ -207,3 +254,8 @@ class VehicleUI():
         self.ui_helper.print_hash_line()
         print()
         return input("Input: ")
+    
+
+    def change_vehicle_status(self, a_vehicle, header_str):
+        ''' Asks user what to change vehicle status to and changes it '''
+        pass
