@@ -3,6 +3,7 @@ from logic_layer.employee_logic import EmployeeLogic
 from logic_layer.vehicle_logic import VehicleLogic
 from logic_layer.destination_logic import DestinationLogic
 from logic_layer.customer_logic import CustomerLogic
+from logic_layer.contract_logic import ContractLogic
 from logic_layer.logic_error_check import LogicErrorCheck
 
 class LogicAPI():
@@ -13,6 +14,7 @@ class LogicAPI():
         self.vehicle_logic = VehicleLogic(self.data_api)
         self.destination_logic = DestinationLogic(self.data_api)
         self.customer_logic = CustomerLogic(self.data_api)
+        self.contract_logic = ContractLogic(self.data_api)
         self.logic_error_check = LogicErrorCheck(self.data_api)
 
     # Employee logic
@@ -78,7 +80,25 @@ class LogicAPI():
         ''' Sends a instance of Customer class for new customer to data layer '''
         return self.customer_logic.add_customer(cust)
     
+    # Contract logic
+    def get_all_contracts(self):
+        ''' Returns a list containing intstances of Contract classes for all contracts in database '''
+        return self.contract_logic.get_all_contracts()
 
+    def create_new_contract(self, cont):
+        ''' Takes a instance of Contract for new contract and sends it down to data layer '''
+        return self.contract_logic.create_new_contract(cont)
 
+    def view_customer_contracts(self, ssn):
+        ''' Gets ssn from UI and finds all contracts linked to that ssn in database and returns them as list of Contract classes '''
+        return self.contract_logic.view_customer_contracts(ssn)
+    
+    def find_contract(self, contract_id):
+        ''' Gets contract ID from UI and finds correct contract from given ID and returns the contract to UI if found, else returns None '''
+        return self.contract_logic.find_contract(contract_id)
+
+    # ERROR logic
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)
+
+    
