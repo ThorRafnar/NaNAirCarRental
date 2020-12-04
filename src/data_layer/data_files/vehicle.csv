@@ -1,4 +1,4 @@
-manufacturer,model,type,status,man_year,color,licence_type,location,ID
+manufacturer,model,type,status,man_year,color,licence_type,location,id
 TAILG,Free Fly II,Medium road,OK,2018,White,Drivers licence,Kulusuk,000
 TAILG,Free Fly II,Medium road,OK,2018,Orange,Drivers licence,Kulusuk,001
 Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Longyearbyen,002
