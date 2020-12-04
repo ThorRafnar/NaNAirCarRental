@@ -1,23 +1,24 @@
 manufacturer,model,type,status,man_year,color,licence_type,location,id
-TAILG,Free Fly II,Medium road,OK,2018,White,Drivers licence,Kulusuk,000
-TAILG,Free Fly II,Medium road,OK,2018,Orange,Drivers licence,Kulusuk,001
-Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Longyearbyen,002
-Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Thorshavn,003
-Kayman Kayaks,Crazy HV,Light water,OK,2020,Yellow,None,Nuuk,004
-Cani-Fit,Fat Max,Light off-road,OK,2019,Black,None,Nuuk,005
-Cani-Fit,Fat Max,Light off-road,OK,2017,Black,None,Thorshavn,006
-Cani-Fit,Fat Max,Light off-road,OK,2017,Black,None,Thorshavn,007
-Cani-Fit,Fat Max,Light off-road,OK,2020,Black,None,Tingwall,008
-Yedoo,Trexx,Light road,OK,2020,Orange,None,Kulusuk,009
-Yedoo,Trexx,Light road,OK,2020,Orange,None,Thorshavn,010
-Yedoo,Trexx,Light road,OK,2020,Orange,None,Tingwall,011
-Yedoo,Trexx,Light road,OK,2020,Orange,None,Longyearbyen,012
-Yedoo,Trexx,Light road,OK,2020,Orange,None,Nuuk,013
-Yedoo,Trexx,Light road,OK,2020,Orange,None,Nuuk,014
-WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Tingwall,015
-WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Longyearbyen,016
-WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Kulusuk,017
-Forward,FWD-ZK125H,Medium road,OK,2019,Blue,Drivers licence,Longyearbyen,018
-Colorado,Pontoon Boat,Light water,OK,2019,Green,None,Thorshavn,019
-A2extreem,Powerboard,Light winter,OK,2018,Black,None,Nuuk,020
-Torpedo,3500,Light water,OK,2019,White,Diving licence,Thorshavn,021
+TAILG,Free Fly II,Medium road,OK,2018,White,Drivers licence,Kulusuk,0
+TAILG,Free Fly II,Medium road,OK,2018,Orange,Drivers licence,Kulusuk,1
+Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Longyearbyen,2
+Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Thorshavn,3
+Kayman Kayaks,Crazy HV,Light water,OK,2020,Yellow,None,Nuuk,4
+Cani-Fit,Fat Max,Light off-road,OK,2019,Black,None,Nuuk,5
+Cani-Fit,Fat Max,Light off-road,OK,2017,Black,None,Thorshavn,6
+Cani-Fit,Fat Max,Light off-road,OK,2017,Black,None,Thorshavn,7
+Cani-Fit,Fat Max,Light off-road,OK,2020,Black,None,Tingwall,8
+Yedoo,Trexx,Light road,OK,2020,Orange,None,Kulusuk,9
+Yedoo,Trexx,Light road,OK,2020,Orange,None,Thorshavn,10
+Yedoo,Trexx,Light road,OK,2020,Orange,None,Tingwall,11
+Yedoo,Trexx,Light road,OK,2020,Orange,None,Longyearbyen,12
+Yedoo,Trexx,Light road,OK,2020,Orange,None,Nuuk,13
+Yedoo,Trexx,Light road,OK,2020,Orange,None,Nuuk,14
+WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Tingwall,15
+WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Longyearbyen,16
+WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Kulusuk,17
+Forward,FWD-ZK125H,Medium road,OK,2019,Blue,Drivers licence,Longyearbyen,18
+Colorado,Pontoon Boat,Light water,OK,2019,Green,None,Thorshavn,19
+A2extreem,Powerboard,Light winter,OK,2018,Black,None,Nuuk,20
+Torpedo,3500,Light water,OK,2019,White,Diving licence,Thorshavn,21
+
