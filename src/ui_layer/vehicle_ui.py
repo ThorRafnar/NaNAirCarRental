@@ -87,9 +87,10 @@ class VehicleUI():
         status_str = "<< STATUS >>"
         licence_str = "<< LICENCE >>"
         location_str = "<< LOCATION >>"
+        id_str = "<< ID >>"
         self.ui_helper.print_line("Vehicle overview:")
         self.ui_helper.print_blank_line()
-        self.ui_helper.n_columns([manu_str, model_str, type_str, year_str, color_str, status_str, licence_str, location_str])
+        self.ui_helper.n_columns([manu_str, model_str, type_str, year_str, color_str, status_str, licence_str, location_str, id_str])
 
         for vehicle in vehicle_list:
             manu = vehicle.manufacturer
@@ -100,7 +101,8 @@ class VehicleUI():
             status = vehicle.status
             licence = vehicle.licence_type
             location = vehicle.location
-            self.ui_helper.n_columns([manu, model, vtype, year, color, status, licence, location])
+            id_nr = vehicle.id
+            self.ui_helper.n_columns([manu, model, vtype, year, color, status, licence, location, id_nr])
 
 
     def register_vehicle(self, header_str, error_msg=""):

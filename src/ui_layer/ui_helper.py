@@ -138,6 +138,7 @@ class UIHelper():
         self.print_header(header_str)
         self.print_blank_line()
         self.print_centered_line("Are you sure you want to quit ? (y/n)")
+        self.print_centered_line("Any unsaved changes will be lost!")
         self.print_blank_line()
         self.print_hash_line()
         user_choice = input("Enter choice: ")
