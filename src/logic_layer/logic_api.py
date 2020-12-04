@@ -5,6 +5,7 @@ from logic_layer.destination_logic import DestinationLogic
 from logic_layer.customer_logic import CustomerLogic
 from logic_layer.contract_logic import ContractLogic
 from logic_layer.logic_error_check import LogicErrorCheck
+from logic_layer.chuck_logic import ChuckLogic
 
 class LogicAPI():
 
@@ -16,6 +17,7 @@ class LogicAPI():
         self.customer_logic = CustomerLogic(self.data_api)
         self.contract_logic = ContractLogic(self.data_api)
         self.logic_error_check = LogicErrorCheck(self.data_api)
+        self.chuck_logic = ChuckLogic(self.data_api)
 
     # Employee logic
     def get_employees(self):
@@ -104,5 +106,8 @@ class LogicAPI():
     # ERROR logic
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)
+
+    def get_random_joke(self):
+        return self.chuck_logic.get_random_joke()
 
     
