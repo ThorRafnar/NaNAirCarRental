@@ -96,6 +96,10 @@ class LogicAPI():
     def find_contract(self, contract_id):
         ''' Gets contract ID from UI and finds correct contract from given ID and returns the contract to UI if found, else returns None '''
         return self.contract_logic.find_contract(contract_id)
+    
+    def change_contract_status(self, contract_id, status):
+        ''' Gets id of contract and changes to that contract status and send to data layer for changes to be made '''
+        return self.contract_logic.change_contract_status(contract_id, status)
 
     # ERROR logic
     def check_work_area(self,a_str):

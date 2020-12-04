@@ -23,3 +23,6 @@ class ContractLogic():
             if contract.contract_id == cont_id:
                 correct_contract = contract
         return correct_contract
+    
+    def change_contract_status(self, contract_id, status):
+        self.data_api.change_contract_status(contract_id, status)
