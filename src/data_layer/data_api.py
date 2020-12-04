@@ -4,6 +4,7 @@ from data_layer.customer_data import CustomerData
 from data_layer.vehicle_data import VehicleData
 from data_layer.vehicle_type_data import VehicleTypeData
 from data_layer.contract_data import ContractData
+from data_layer.chuck_data import ChuckData
 
 
 class DataAPI():
@@ -15,6 +16,7 @@ class DataAPI():
         self.vehicle_data = VehicleData()
         self.vehicle_type_data = VehicleTypeData()
         self.contract_data = ContractData()
+        self.chuck_data = ChuckData()
         
 
 
@@ -91,3 +93,7 @@ class DataAPI():
 
     def change_contrac_status(self, contract_id, contract_status):
         return self.contract_data.change_contract_status(contract_id,contract_status)
+
+# Chuck jokes
+    def get_jokes(self):
+        return self.chuck_data.get_jokes()
