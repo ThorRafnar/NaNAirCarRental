@@ -16,7 +16,7 @@ class VehicleData():
             for row in reader:
                 # Here we get an instance of a vehicle (might change)
                 # manufacturer,model,type,status,man_year,color,licence_type,location
-                attb = Vehicle(row["manufacturer"], row["model"], row["type"], row["status"], row["man_year"], row["color"], row["licence_type"], row["location"])
+                attb = Vehicle(row["manufacturer"], row["model"], row["type"], row["status"], row["man_year"], row["color"], row["licence_type"], row["location"], row["id"])
 
                 vehicle_list.append(attb)
         return vehicle_list
@@ -25,7 +25,7 @@ class VehicleData():
     
     def new_vehicle(self,att):
         ''' Opens the vehicle.csv file and writes a new line wich is the new vehicle'''
-        a_list = [att.manufacturer,att.model,att.type,att.status,att.man_year,att.color,att.license_type,att.location]
+        a_list = [att.manufacturer,att.model,att.type,att.status,att.man_year,att.color,att.license_type,att.location,att.id]
         with open("data_layer/data_files/vehicle.csv","a+", encoding="utf8",newline="") as file_stream:
             writer = csv.writer(file_stream)
             writer.writerow(a_list)
