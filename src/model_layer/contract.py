@@ -1,4 +1,4 @@
-class ContractLogic:
+class Contract:
     def __init__(self, name, ssn, phone, address, email, date_from, date_to, vehicle_id, location,
     vehicle_status, employee_id, loan_date, return_date, total, loan_status,contract_id, contract_status):
         self.name = name
