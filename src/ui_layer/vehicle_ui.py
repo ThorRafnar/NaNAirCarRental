@@ -125,11 +125,21 @@ class VehicleUI():
             self.ui_helper.print_footer()
             print()
             user_choice = input("Input: ")
-            if user_choice == self.ui_helper.YES:
-                
+            if user_choice in self.ui_helper.YES:
+                self.logic_api.register_new_vehicle(new_vehicle)
+                return
+
+            elif user_choice == self.ui_helper.BACK:
+                back_choice = self.unsaved_changes(new_vehicle, header_str)
+
+                if back_choice in self.ui_helper.YES:
+                    return
+                else:
+                    continue
 
             elif user_choice == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt(header_str)
+
             else:
                 error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
 

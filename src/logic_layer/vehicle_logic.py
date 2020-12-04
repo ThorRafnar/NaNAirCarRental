@@ -6,8 +6,13 @@ class VehicleLogic():
     def all_vehicles_to_list(self):
         ''' Gets vehicle list from data and sends it to UI '''
         return self.data_api.get_all_vehicles()
+
     def register_new_vehicle(self, new_vehicle):
         """ sends new vecicle to database to register """
+        vehicle_list = self.all_vehicles_to_list()
+        last_id = vehicle_list[-1].id
+        new_id = int(last_id) + 1
+        new_vehicle.id = new_id
         self.data_api.register_new_vehicle(new_vehicle)
 
     def change_vehicle_condition(self, vehicle_id, status):
