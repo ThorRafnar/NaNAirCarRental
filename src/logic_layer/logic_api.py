@@ -41,6 +41,9 @@ class LogicAPI():
         ''' Sends a instance of Vehicle class for new vehicle to data layer '''
         self.vehicle_logic.register_new_vehicle(new_vehicle)
 
+    def find_vehicle(self, veh_id):
+        return self.vehicle_logic.find_vehicle(veh_id)
+
     def change_vehicle_condition(self, vehicle_id, status):
         ''' Sends vehicle id and condition status to data layer '''
         return self.vehicle_logic.change_vehicle_condition(vehicle_id, status)
