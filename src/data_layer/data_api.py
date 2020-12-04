@@ -57,7 +57,7 @@ class DataAPI():
         ''' returns a list of all vehicles as instance of Vehicle class '''
         return self.vehicle_data.all_vehicles_to_list()
     
-    def make_new_vehicle(self,vehicle_ins):
+    def register_new_vehicle(self,vehicle_ins):
         ''' Returns a vehicle instance of Vehicle to datalayer '''
         self.vehicle_data.new_vehicle(vehicle_ins)
     
