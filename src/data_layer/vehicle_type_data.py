@@ -37,7 +37,7 @@ class VehicleTypeData:
         ''' Takes in information about new type in a list and writes it to the
         vehicle_type.csv file. '''
         a_list = [info.name,info.regions,info.rate]
-        with open("data_layer/data_files/vehicle_type.csv","a+",encoding="utf-8") as file_stream:
+        with open("data_layer/data_files/vehicle_type.csv","a+",encoding="utf-8", newline='') as file_stream:
             writer = csv.writer(file_stream)
             writer.writerow(a_list)
 
