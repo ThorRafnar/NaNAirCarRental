@@ -18,6 +18,7 @@ class EmployeeUI():
             "4": self.VIEW_ALL
         }
 
+
     def show_options(self, header_str, error_msg=""):
         options_list = [(k, v) for k, v in self.options_dict.items()]
         
@@ -80,6 +81,7 @@ class EmployeeUI():
                 
             else:
                 error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
+
 
     def view_employee_details(self, employee):
         ''' shows all details of an employee '''
@@ -201,6 +203,7 @@ class EmployeeUI():
                     return
 
             user_choice = input("Input: ")
+
 
     def view_employee(self, employee, header_str, error_msg=""):
         ''' Shows full view employee interface, returning or quitting based on input'''
@@ -326,8 +329,8 @@ class EmployeeUI():
                 return
             else:
                 return
-            
 
+    
     def unsaved_changes(self, employee, header_str):
         ''' Asks user if they want to go back without saving their changes '''
         self.ui_helper.clear()
@@ -362,15 +365,31 @@ class EmployeeUI():
         emp = Employee("", "", "", ssn, ".", ".", "", "")
         attribute_list = ["name", "address", "postal code", "mobile phone", "home phone", "email", "work area"]
         for attribute in attribute_list:
-            self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
-            self.view_employee_details(emp)
-            self.ui_helper.print_blank_line()
-            self.ui_helper.print_footer()
-            print()
-            attr_value = input(f"Enter employee's {attribute}: ")
-            attr_key = attribute.replace(" ", "_")
-            setattr(emp, attr_key, attr_value)
+            while True:
+                placeholder_text = f"<< Enter {attribute} >>"
+                attr_key = attribute.replace(" ", "_")
+                setattr(emp, attr_key, placeholder_text)
+                self.ui_helper.clear()
+                self.ui_helper.print_header(header_str)
+                self.view_employee_details(emp)
+                self.ui_helper.print_blank_line()
+                self.ui_helper.print_footer()
+                print()
+                attr_value = input(f"Enter employee's {attribute}: ")
+                if attr_value == self.ui_helper.BACK:
+                    back_choice = self.unsaved_changes(emp, header_str)
+                    if back_choice.lower() in self.ui_helper.YES:
+                        return
+                    else:
+                        continue
+
+                elif attr_value == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt(header_str)
+                    continue
+
+                else:
+                    setattr(emp, attr_key, attr_value)     #Sets attribute to input
+                    break
 
         self.ui_helper.clear()
         self.ui_helper.print_header(header_str)
@@ -381,9 +400,20 @@ class EmployeeUI():
         user_choice = input("Input: ")
         if user_choice in self.ui_helper.YES:
             self.logic_api.register_employee(emp)
+            self.employee_has_been_registered(header_str, emp)
+            return
         else:
             return
         
+    def employee_has_been_registered(self, header_str, employee):
+        ''' Shows that the employee has been registered '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_line("    Employee has been registered, press enter to continue")
+        self.view_employee_details(employee)
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+        input("Input: ")
 
 
     def print_employee_list(self, emp_list):

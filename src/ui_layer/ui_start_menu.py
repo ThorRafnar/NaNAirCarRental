@@ -140,18 +140,6 @@ class UIStartMenu():
                         
                     else:
                         pass
-                    
-                    
-            
+ 
             else:
                 error_msg = "Please select an option from the menu"
-
-            
-
-
-        
-
-        
-
-#f = UIStartMenu(75)
-#f.show_locations()
