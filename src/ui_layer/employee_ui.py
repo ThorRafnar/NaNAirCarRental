@@ -332,11 +332,8 @@ class EmployeeUI():
         ''' Asks user if they want to go back without saving their changes '''
         self.ui_helper.clear()
         self.ui_helper.print_header(header_str)
-        self.ui_helper.print_line("You have unsaved changes!")
-        self.ui_helper.print_line("Are you sure you want to go back? (y/n)")
-        self.ui_helper.print_line("Your unsaved changes will be lost")
-        self.ui_helper.print_blank_line()
         self.view_employee_details(employee)
+        self.ui_helper.unsaved_prompt()
         self.ui_helper.print_blank_line()
         self.ui_helper.print_hash_line()
         print()

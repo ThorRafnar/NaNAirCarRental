@@ -25,7 +25,7 @@ class VehicleData():
     
     def new_vehicle(self,att):
         ''' Opens the vehicle.csv file and writes a new line wich is the new vehicle'''
-        a_list = [att.manufacturer,att.model,att.type,att.status,att.man_year,att.color,att.license_type,att.location,att.id]
+        a_list = [att.manufacturer,att.model,att.type,att.status,att.year,att.color,att.licence_type,att.location,att.id]
         with open("data_layer/data_files/vehicle.csv","a+", encoding="utf8",newline="") as file_stream:
             writer = csv.writer(file_stream)
             writer.writerow(a_list)

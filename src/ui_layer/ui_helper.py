@@ -174,6 +174,13 @@ class UIHelper():
         old_attr_value = getattr(a_class_instance, attr_key)
         return (attr_key, old_attr_value)
 
+    
+    def unsaved_prompt(self):
+        ''' Informs user of unsaved changes, takes no input and returns nothing '''
+        self.print_line("    You have unsaved changes!")
+        self.print_line("    Are you sure you want to go back? (y/n)")
+        self.print_line("    Your unsaved changes will be lost")
+
 
 """
 Roses are red

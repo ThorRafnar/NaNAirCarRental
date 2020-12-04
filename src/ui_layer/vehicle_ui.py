@@ -46,8 +46,8 @@ class VehicleUI():
                         
 
                     elif self.options_dict[user_choice] == self.FIND:
-                        #self.find_vehicle(header_str)
-                        pass
+                        self.find_vehicle(header_str)
+                                               
 
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
                         self.get_all_vehicles(header_str)
@@ -104,18 +104,36 @@ class VehicleUI():
 
 
     def register_vehicle(self, header_str, error_msg=""):
-        new_vehicle = Vehicle("", "", "", "", "", "", "", "", None)
-        attribute_list = ["manufacturer", "model", "type", "year", "color", "status", "licence_type", "location"]
+        new_vehicle = Vehicle("", "", "", "OK", "", "", "", "", None)
+        attribute_list = ["manufacturer", "model", "type", "year", "color", "licence_type", "location"]
         for attribute in attribute_list:
-            self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
-            self.view_vehicle_details(new_vehicle)
-            self.ui_helper.print_blank_line()
-            self.ui_helper.print_footer()
-            print()
-            attr_value = input(f"Enter vehicles's {attribute}: ")
-            attr_key = attribute.replace(" ", "_")
-            setattr(new_vehicle, attr_key, attr_value)
+            while True:                                           #To make back and quit options functional
+                attr_key = attribute.replace(" ", "_")
+                placeholder_text = f"<< Enter {attribute} >>"
+                setattr(new_vehicle, attr_key, placeholder_text)
+                self.ui_helper.clear()
+                self.ui_helper.print_header(header_str)
+                self.view_vehicle_details(new_vehicle)
+                self.ui_helper.print_blank_line()
+                self.ui_helper.print_footer()
+                print()
+                attr_value = input(f"Enter vehicles's {attribute}: ")
+
+                if attr_value == self.ui_helper.BACK:
+                    back_choice = self.unsaved_changes(new_vehicle, header_str)
+                    if back_choice.lower() in self.ui_helper.YES:
+                        return
+                    else:
+                        continue
+
+                elif attr_value == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt(header_str)
+                    continue
+
+                else:
+                    setattr(new_vehicle, attr_key, attr_value)     #Sets attribute to input
+                    break                                          #Goes to next value in for loop
+            
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
@@ -143,7 +161,24 @@ class VehicleUI():
             else:
                 error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
 
-            
+
+    def find_vehicle(self, header_str, error_msg=""):
+        ''' takes vehicle id number from user and finds the vehicle, or none if it doesn't exist '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line("    Enter vehicle ID number")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            vehicle_id = input("Input: ")
+            if vehicle_id == self.ui_helper.BACK:
+                return 
+            elif vehicle_id == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt(header_str) 
+
+            else:   #Search for the vehicle in database
+                the_vehicle = self.logic_api.find_vehicle(vehicle_id)        
 
 
 
@@ -164,11 +199,8 @@ class VehicleUI():
         ''' Asks user if they want to go back without saving their changes '''
         self.ui_helper.clear()
         self.ui_helper.print_header(header_str)
-        self.ui_helper.print_line("You have unsaved changes!")
-        self.ui_helper.print_line("Are you sure you want to go back? (y/n)")
-        self.ui_helper.print_line("Your unsaved changes will be lost")
-        self.ui_helper.print_blank_line()
         self.view_vehicle_details(a_vehicle)
+        self.ui_helper.unsaved_prompt()
         self.ui_helper.print_blank_line()
         self.ui_helper.print_hash_line()
         print()
