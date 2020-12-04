@@ -3,6 +3,7 @@ from data_layer.destination_data import DestinationData
 from data_layer.customer_data import CustomerData
 from data_layer.vehicle_data import VehicleData
 from data_layer.vehicle_type_data import VehicleTypeData
+from data_layer.contract_data import ContractData
 
 
 class DataAPI():
@@ -13,7 +14,8 @@ class DataAPI():
         self.customer_data = CustomerData()
         self.vehicle_data = VehicleData()
         self.vehicle_type_data = VehicleTypeData()
-        print("Data :^)")
+        self.contract_data = ContractData()
+        
 
 
 # Employee functions
@@ -77,3 +79,15 @@ class DataAPI():
     def new_vehicle_type(self, info):
         ''' Returns an instance of Vehicle down to databse '''
         return self.vehicle_type_data.new_vehicle_type(info)
+
+#Contract data
+    def list_all_contracts(self):
+        ''' returns a list of all contracts as instances  '''
+        return self.contract_data.list_all_contracts()
+
+    def new_contract(self, contr):
+        ''' returns a instance of Contract class down to db '''
+        return self.contract_data.new_contract(contr)
+
+    def change_contrac_status(self, contract_id, contract_status):
+        return self.contract_data.change_contract_status(contract_id,contract_status)
