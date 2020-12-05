@@ -26,3 +26,11 @@ class ContractLogic():
     
     def change_contract_status(self, contract_id, status):
         self.data_api.change_contract_status(contract_id, status)
+
+    def get_contracts_by_attr(self, attr_list):
+        col = attr_list[0]
+        value = attr_list[1]
+        contracts_list = self.get_all_contracts()
+        filtered_list = [c for c in contracts_list if getattr(c, col).lower() == value.lower()]
+        return filtered_list
+        

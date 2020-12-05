@@ -4,6 +4,7 @@ from logic_layer.vehicle_logic import VehicleLogic
 from logic_layer.destination_logic import DestinationLogic
 from logic_layer.customer_logic import CustomerLogic
 from logic_layer.contract_logic import ContractLogic
+from logic_layer.vehicle_type_logic import VehicleTypeLogic
 from logic_layer.logic_error_check import LogicErrorCheck
 from logic_layer.chuck_logic import ChuckLogic
 
@@ -16,6 +17,7 @@ class LogicAPI():
         self.destination_logic = DestinationLogic(self.data_api)
         self.customer_logic = CustomerLogic(self.data_api)
         self.contract_logic = ContractLogic(self.data_api)
+        self.vehicle_type_logic = VehicleTypeLogic(self.data_api)
         self.logic_error_check = LogicErrorCheck(self.data_api)
         self.chuck_logic = ChuckLogic(self.data_api)
 
@@ -102,12 +104,35 @@ class LogicAPI():
     def change_contract_status(self, contract_id, status):
         ''' Gets id of contract and changes to that contract status and send to data layer for changes to be made '''
         return self.contract_logic.change_contract_status(contract_id, status)
+    
+    def get_contracts_by_attr(self, attr_list):
+        ''' Gets a list containing an attribute to filter by and the value to filter it from '''
+        return self.contract_logic.get_contracts_by_attr(attr_list)
+    
+    # Vehcile Types Logic
+    def get_vehicle_types(self):
+        ''' Returns a list of all available vehicle types '''
+        return self.vehicle_type_logic.get_vehicle_types()
+    
+    def create_new_type(self, vehicle_type):
+        ''' Gets an instance of new vehicle type from UI and sends it down to data layer '''
+        return self.vehicle_type_logic.create_new_type(vehicle_type)
+
+    def change_types_rate(self, type_name, new_rate):
+        ''' Gets from UI vehicle type and new rate and sends down to data layer '''
+        return self.vehicle_type_logic.change_types_rate(type_name, new_rate)
+
+    def filter_by_region(self, reg):
+        ''' Gets for UI region to filter by and returns a list of vehicle types available in that given region '''
+        self.vehicle_type_logic.filter_by_region(reg)
 
     # ERROR logic
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)
 
+    # Random Chuck Norris jokes logic
     def get_random_joke(self):
+        ''' Returns one random Chuck Norris joke from chuck_jokes.txt '''
         return self.chuck_logic.get_random_joke()
 
     
