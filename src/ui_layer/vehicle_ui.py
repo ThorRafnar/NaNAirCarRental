@@ -33,7 +33,6 @@ class VehicleUI():
             if user_choice != None:
 
                 if user_choice == self.ui_helper.BACK:
-                    print("I'm back")
                     return
 
                 elif user_choice == self.ui_helper.QUIT:
@@ -220,7 +219,7 @@ class VehicleUI():
             if user_choice == opt_change_status:
                 self.change_vehicle_status(the_vehicle, header_str)
             elif user_choice == self.ui_helper.BACK:
-                self.unsaved_changes(the_vehicle, header_str)
+                return
             elif user_choice == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt(header_str)
             else:
@@ -256,6 +255,47 @@ class VehicleUI():
         return input("Input: ")
     
 
-    def change_vehicle_status(self, a_vehicle, header_str):
+    def change_vehicle_status(self, a_vehicle, header_str, error_msg=""):
         ''' Asks user what to change vehicle status to and changes it '''
-        pass
+        options_dict = {
+            "1": "OK",
+            "2": "In workshop",
+            "3": "Loanded out",
+            "4": "Returned"
+        }
+        options_list = [(k, v) for k, v in options_dict.items()]
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            opt_str = "    What do you want to change the vehicle status to?"
+            self.ui_helper.print_options(options_list, opt_str)
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = self.ui_helper.get_user_menu_choice(options_list)
+            if user_choice == None:
+                error_msg = "Please select an option from the menu"
+            else:
+                if user_choice == self.ui_helper.BACK:
+                    return
+                elif user_choice == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt(header_str)
+                elif user_choice in options_dict:
+                    setattr(a_vehicle, "status", options_dict[user_choice])
+                    confirm_choice = self.confirm_status(a_vehicle, header_str)
+                    if confirm_choice in self.ui_helper.YES:
+                        self.logic_api.change_vehicle_condition(a_vehicle.id, a_vehicle.status)
+                        return
+                    else:
+                        return
+                        
+            
+    def confirm_status(self, a_vehicle, header_str):
+        ''' Asks user to confirm new status, and saves it in the database if yes '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.view_vehicle_details(a_vehicle)
+        self.ui_helper.print_line("    Do you want to confirm these changes? (y/n)")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_hash_line()
+        print()
+        return input("Input: ")

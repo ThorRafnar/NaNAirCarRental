@@ -16,7 +16,7 @@ class VehicleData():
             for row in reader:
                 # Here we get an instance of a vehicle (might change)
                 # manufacturer,model,type,status,man_year,color,licence_type,location
-                attb = Vehicle(row["manufacturer"], row["model"], row["type"], row["status"], row["man_year"], row["color"], row["licence_type"], row["location"], row["id"])
+                attb = Vehicle(row["manufacturer"], row["model"], row["type"], row["status"], row["man_year"], row["color"], row["licence_type"], row["location"], row["ID"])
 
                 vehicle_list.append(attb)
         return vehicle_list

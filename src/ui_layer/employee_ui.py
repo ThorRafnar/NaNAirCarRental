@@ -56,7 +56,6 @@ class EmployeeUI():
                 error_msg = "Please select an option from the menu"
 
 
-
     def get_employees(self, header_str, error_msg=""):
         ''' 
         Gets a list of all employees and displays them for the user, takes input from user,
@@ -404,7 +403,8 @@ class EmployeeUI():
             return
         else:
             return
-        
+
+
     def employee_has_been_registered(self, header_str, employee):
         ''' Shows that the employee has been registered '''
         self.ui_helper.clear()

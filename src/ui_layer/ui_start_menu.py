@@ -52,7 +52,7 @@ class UIStartMenu():
         shows user available airport codes and prompts user for code. 
         Then, calls task menu, showing and accepting only available options 
         '''
-        
+        norris_joke = self.logic_api.get_random_joke()
         options_list = self.logic_api.destinations_option_list()
         opt_str = "Please select your airport code:"
 
@@ -62,7 +62,10 @@ class UIStartMenu():
             self.ui_helper.print_header("Welcome!")
             self.ui_helper.print_options(options_list, opt_str)
             self.ui_helper.print_start_footer()
-            print(error_msg)
+            if error_msg != "":
+                print(error_msg)
+            else:
+                print(norris_joke, end="")
             staff_type = self.ui_helper.get_user_menu_choice(options_list)
             if staff_type != None:
 
