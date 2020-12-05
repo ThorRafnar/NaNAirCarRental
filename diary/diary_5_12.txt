@@ -1,0 +1,4 @@
+Laugardagur, fólk loggar sig inn af vild,
+
+# Arnór
+Tók smá tíma í að búa til basic methods fyrir vehicle type logic
