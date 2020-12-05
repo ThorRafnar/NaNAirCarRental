@@ -1,0 +1,4 @@
+Í dag var unnið í að klára sem flestar A kröfur, Data layer og Logic layer klár með basic virkni fyrir A kröfur og byrjað að hugsa um B. UI layer á góðu skriði, unnum í að tengja layer-ana saman. Heilt yfir mjög öflugur dagur hjá teyminu.
+
+# Arnór
+Vann í logic layer, kláraði virkni fyrir A kröfur og er byrjaður að búa til beinagrind af allskonar B kröfu virkni.
