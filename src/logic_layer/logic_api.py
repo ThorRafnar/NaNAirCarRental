@@ -16,8 +16,8 @@ class LogicAPI():
         self.vehicle_logic = VehicleLogic(self.data_api)
         self.destination_logic = DestinationLogic(self.data_api)
         self.customer_logic = CustomerLogic(self.data_api)
-        self.contract_logic = ContractLogic(self.data_api)
         self.vehicle_type_logic = VehicleTypeLogic(self.data_api)
+        self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic)
         self.logic_error_check = LogicErrorCheck(self.data_api)
         self.chuck_logic = ChuckLogic(self.data_api)
 
@@ -121,6 +121,9 @@ class LogicAPI():
     def change_types_rate(self, type_name, new_rate):
         ''' Gets from UI vehicle type and new rate and sends down to data layer '''
         return self.vehicle_type_logic.change_types_rate(type_name, new_rate)
+    
+    def get_types_rate(self, selected_type):
+        return self.vehicle_type_logic.get_types_rate(selected_type)
 
     def filter_by_region(self, reg):
         ''' Gets for UI region to filter by and returns a list of vehicle types available in that given region '''

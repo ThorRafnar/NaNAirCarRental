@@ -91,8 +91,8 @@ class DataAPI():
         ''' returns a instance of Contract class down to db '''
         return self.contract_data.new_contract(contr)
 
-    def change_contrac_status(self, contract_id, contract_status):
-        return self.contract_data.change_contract_status(contract_id,contract_status)
+    def change_contract_status(self, attribute_list):
+        return self.contract_data.change_contract_status(attribute_list)
 
 # Chuck jokes
     def get_jokes(self):
