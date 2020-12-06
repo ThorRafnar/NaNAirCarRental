@@ -12,6 +12,7 @@ class ContractLogic():
     def create_new_contract(self, contract):
         contract.base_price = self.set_contract_base_price(contract)
         contract.contract_id = self.set_contract_id()
+        self.vehicle_logic.change_vehicle_condition(contract.vehicle_id, 'in_rent')
         self.data_api.new_contract(contract)
     
     def set_contract_base_price(self, contract):
