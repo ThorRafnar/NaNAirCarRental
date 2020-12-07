@@ -138,6 +138,9 @@ class LogicAPI():
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)
 
+    def check_date(self, date_str):
+        return self.logic_error_check.check_date(date_str)
+
     # Random Chuck Norris jokes logic
     def get_random_joke(self):
         ''' Returns one random Chuck Norris joke from chuck_jokes.txt '''

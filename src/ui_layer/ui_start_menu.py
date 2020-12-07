@@ -15,7 +15,7 @@ class UIStartMenu():
         self.employee_ui = EmployeeUI(self.ui_helper, self.logic_api)
         self.vehicle_ui = VehicleUI(self.ui_helper, self.logic_api)
         self.location_ui = LocationUI(self.ui_helper, self.logic_api)
-        self.contract_ui = ContractUI(self.ui_helper, self.logic_api)
+        self.contract_ui = ContractUI(self.ui_helper, self.logic_api, self.employee_ui)
         self.report_ui = ReportUI(self.ui_helper, self.logic_api)
 
         #TODO Make this get locations as dict from logic api
@@ -145,7 +145,8 @@ class UIStartMenu():
                         self.contract_ui.show_options(header_str)
                         
                     elif next_menu == "Reports":
-                        self.report_ui.show_options(header_str)
+                        pass
+                        #self.report_ui.show_options(header_str)
                         
                     else:
                         pass
