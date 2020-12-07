@@ -1,0 +1,46 @@
+Vehicle ui (mögulega vehicle types)
+    Rates:
+    View rates
+    change rates
+
+for airport staff:
+    Make pick up and returns easy
+    pick up: by customer ssn
+    returns: by vehicle id
+    Vehicle ID possible ways: 
+        Airport code + 3 numbers, LYR102, FAE324
+        2 chars + 2 numbers: AB12
+        3 hex numbers: 19F, 234, D12
+    
+Locations menu: 
+    View all
+    View one:
+        Display information, and options:
+        1. View location's staff
+        2. View location's vehicles
+        3. Change opening hours
+    Add location:
+        info needed:
+            Country
+            City
+            phone number
+            opening hours
+            IATA
+        confirm
+    
+Contracts:
+    1. Make contract:
+
+    2. Alter contract:
+
+    3. View all
+    3a. By status (paid/unpaid)
+
+Reports:
+    1. Profits
+    2. Utilization
+    3. Billing
+
+
+
+
