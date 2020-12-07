@@ -64,7 +64,7 @@ class DataAPI():
     
     def create_destination(self, dest):
         ''' Returns a instance of Destinasion class down to data layer'''
-        return self.destination_data.create_destination(dest)
+        self.destination_data.create_destination(dest)
 
 # Vehicle functions
     def get_all_vehicles(self):
