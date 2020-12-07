@@ -1,24 +1,24 @@
 manufacturer,model,type,status,man_year,color,licence_type,location,ID
 TAILG,Free Fly II,Medium road,rentable,2018,White,Drivers licence,Kulusuk,0
 TAILG,Free Fly II,Medium road,in_rent,2018,Orange,Drivers licence,Kulusuk,1
-Kayman Kayaks,Crazy,Light water,OK,2020,Yellow,None,Longyearbyen,2
+Kayman Kayaks,Crazy,Light water,rentable,2020,Yellow,None,Longyearbyen,2
 Kayman Kayaks,Crazy,Light water,rentable,2020,Yellow,None,Thorshavn,3
 Kayman Kayaks,Crazy HV,Light water,rentable,2020,Yellow,None,Nuuk,4
 Cani-Fit,Fat Max,Light off-road,rentable,2019,Black,None,Nuuk,5
-Cani-Fit,Fat Max,Light off-road,OK,2017,Black,None,Thorshavn,6
+Cani-Fit,Fat Max,Light off-road,rentable,2017,Black,None,Thorshavn,6
 Cani-Fit,Fat Max,Light off-road,rentable,2017,Black,None,Thorshavn,7
-Cani-Fit,Fat Max,Light off-road,OK,2020,Black,None,Tingwall,8
+Cani-Fit,Fat Max,Light off-road,rentable,2020,Black,None,Tingwall,8
 Yedoo,Trexx,Light road,in_rent,2020,Orange,None,Kulusuk,9
 Yedoo,Trexx,Light road,rentable,2020,Orange,None,Thorshavn,10
 Yedoo,Trexx,Light road,rentable,2020,Orange,None,Tingwall,11
 Yedoo,Trexx,Light road,in_rent,2020,Orange,None,Longyearbyen,12
-Yedoo,Trexx,Light road,OK,2020,Orange,None,Nuuk,13
-Yedoo,Trexx,Light road,OK,2020,Orange,None,Nuuk,14
-WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Tingwall,15
-WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Longyearbyen,16
+Yedoo,Trexx,Light road,rentable,2020,Orange,None,Nuuk,13
+Yedoo,Trexx,Light road,rentable,2020,Orange,None,Nuuk,14
+WildChild,Fatboy Mini BMX,Light road,rentable,2020,Red,None,Tingwall,15
+WildChild,Fatboy Mini BMX,Light road,rentable,2020,Red,None,Longyearbyen,16
 WildChild,Fatboy Mini BMX,Light road,rentable,2020,Red,None,Kulusuk,17
-Forward,FWD-ZK125H,Medium road,OK,2019,Blue,Drivers licence,Longyearbyen,18
-Colorado,Pontoon Boat,Light water,OK,2019,Green,None,Thorshavn,19
-A2extreem,Powerboard,Light winter,OK,2018,Black,None,Nuuk,20
-Torpedo,3500,Light water,OK,2019,White,Diving licence,Thorshavn,21
-Kawasaki,bike 3,light road,OK,red,red,none,Reykjavik,22
+Forward,FWD-ZK125H,Medium road,rentable,2019,Blue,Drivers licence,Longyearbyen,18
+Colorado,Pontoon Boat,Light water,rentable,2019,Green,None,Thorshavn,19
+A2extreem,Powerboard,Light winter,rentable,2018,Black,None,Nuuk,20
+Torpedo,3500,Light water,rentable,2019,White,Diving licence,Thorshavn,21
+Kawasaki,bike 3,light road,rentable,red,red,none,Reykjavik,22
