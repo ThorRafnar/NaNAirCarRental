@@ -57,8 +57,12 @@ class ContractUI():
                             self.contract_not_found(header_str)
                             
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
-                        pass
-                        #View all contracts
+                        contracts_list = self.logic_api.get_all_contracts()
+                        self.ui_helper.print_header(header_str)
+                        for contract in contracts_list:
+                            self.compact_contract(contract)
+                        self.ui_helper.print_footer()
+                        return input("...")
 
             else:
                 error_msg = "Please select an option from the menu"
@@ -393,10 +397,24 @@ class ContractUI():
         return input("Input: ")
 
 
-    def get_printable_contract(self, the_contract):
-        the_vehicle = self.logic_api.find_vehicle(the_contract.vehicle_id)
-        the_customer = self.logic_api.find_customer(the_contract.customer_ssn)
-        the_employee = self.logic_api.find_employee(the_contract.employee_ssn)
-        the_type = the_vehicle.type
-        the_rate = self.logic_api.get_types_rate(the_type)
-        
+    def compact_contract(self, a_contract):
+        ''' Displays contract information in a compact format '''
+        a_vehicle = self.logic_api.find_vehicle(a_contract.vehicle_id)
+        a_customer = self.logic_api.find_customer(a_contract.customer_ssn)
+        a_employee = self.logic_api.find_employee(a_contract.employee_ssn)
+        person_header = [ f"Contract ID {a_contract.contract_id}:", "<< SSN >>", "<< NAME >>", "<< ADDRESS >>", "<< PHONE NR >>", "<< EMAIL >>"]
+        cust_info_list = [ "Customer -> ",a_customer.ssn, a_customer.name, a_customer.address, a_customer.phone, a_customer.email ]
+        emp_info_list = [ "Employee -> ",a_employee.ssn, a_employee.name, a_employee.address, a_employee.mobile_phone, a_employee.email ]
+        self.ui_helper.n_columns(person_header)
+        self.ui_helper.n_columns(cust_info_list)
+        self.ui_helper.n_columns(emp_info_list)
+        self.ui_helper.print_blank_line()
+
+        '''
+        Upplýsingar um leigjanda.
+        Dagsetning á gerð samnings.
+        Upplýsingar um farartækið.
+        Gildistíma leigusamnings og land.
+        Dagsetning og staðsetning á afhendingu farartækis (skráð við afhendingu).
+        Dagsetning og staðsetning á móttöku farartækis (skráð við skil).
+        '''
