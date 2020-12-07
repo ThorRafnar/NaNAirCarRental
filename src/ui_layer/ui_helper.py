@@ -30,7 +30,6 @@ class UIHelper():
 
     def print_blank_line(self):
         ''' ‾|_(ツ)_/‾ '''
-        
         print("|" + " " * (self.width - 2) + "|")
 
 
