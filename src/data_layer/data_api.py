@@ -5,6 +5,7 @@ from data_layer.vehicle_data import VehicleData
 from data_layer.vehicle_type_data import VehicleTypeData
 from data_layer.contract_data import ContractData
 from data_layer.chuck_data import ChuckData
+from data_layer.profits_data import ProfitsData
 
 
 class DataAPI():
@@ -17,8 +18,14 @@ class DataAPI():
         self.vehicle_type_data = VehicleTypeData()
         self.contract_data = ContractData()
         self.chuck_data = ChuckData()
+        self.profits_data = ProfitsData()
         
 
+
+# profits functions
+
+    def add_profits(self, a_list):
+        return self.profits_data.add_profits(a_list)
 
 # Employee functions
     def get_employees(self):

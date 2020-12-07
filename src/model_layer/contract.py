@@ -1,5 +1,5 @@
 class Contract:
-    def __init__(self, contract_id, customer_ssn, employee_ssn, vehicle_id, loan_date, end_date, base_price=None, return_date=None, extensions=0, total=None, status='active'):
+    def __init__(self, contract_id, customer_ssn, employee_ssn, vehicle_id, loan_date, end_date, base_price=None, return_date=None, extensions=0, total=None, status='pending'):
         self.contract_id = contract_id
         self.customer_ssn = customer_ssn
         self.employee_ssn = employee_ssn
