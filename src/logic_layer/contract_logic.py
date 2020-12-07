@@ -14,6 +14,7 @@ class ContractLogic():
         ''' Does initial operations on new contract like calculating base price, reserving given vehicle and giving contract new ID, than sending that contract to data layer to store in contract.csv '''
         contract.base_price = self.set_contract_base_price(contract)
         contract.contract_id = self.set_contract_id()
+        contract.contract_created = date.today().strftime('%d/%m/%Y')
         self.vehicle_logic.change_vehicle_condition(contract.vehicle_id, 'in_rent')
         self.data_api.new_contract(contract)
     

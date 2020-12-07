@@ -27,6 +27,9 @@ class LogicAPI():
     def get_employees(self):
         ''' Returns a list of all employees as instances of Employee class '''
         return self.employee_logic.get_employees()
+    
+    def get_filtered_employees(self, attribute_list):
+        return self.employee_logic.get_filtered_employees(attribute_list)
 
     def find_employee(self, new_ssn):
         ''' Looks for one employee in employee.csv from ssn, returns a Employee instance if found, else returns None '''
