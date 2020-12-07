@@ -7,6 +7,7 @@ from logic_layer.contract_logic import ContractLogic
 from logic_layer.vehicle_type_logic import VehicleTypeLogic
 from logic_layer.logic_error_check import LogicErrorCheck
 from logic_layer.chuck_logic import ChuckLogic
+from logic_layer.profit_logic import ProfitLogic
 
 class LogicAPI():
 
@@ -20,6 +21,7 @@ class LogicAPI():
         self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic)
         self.logic_error_check = LogicErrorCheck(self.data_api)
         self.chuck_logic = ChuckLogic(self.data_api)
+        self.profit_logic = ProfitLogic(self.data_api)
 
     # Employee logic
     def get_employees(self):

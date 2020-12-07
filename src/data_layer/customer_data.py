@@ -8,7 +8,7 @@ class CustomerData():
         with open("data_layer/data_files/customers.csv", encoding='utf-8') as file_stream:
             cust_reader = csv.DictReader(file_stream)
             for row in cust_reader:
-                cust = Customer(row["name"],row['ssn'], row["address"], row["postal_code"], row["phone"], row["email"], row["country"])
+                cust = Customer(row["name"], row['ssn'], row["address"], row["postal_code"], row["phone"], row["email"], row["country"])
                 cust_list.append(cust)
             return cust_list
 
