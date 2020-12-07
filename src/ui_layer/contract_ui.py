@@ -8,10 +8,11 @@ class ContractUI():
 
 
 
-    def __init__(self, ui_helper, logic_api, employee_ui):
+    def __init__(self, ui_helper, logic_api, employee_ui, vehicle_ui):
         self.ui_helper = ui_helper
         self.logic_api = logic_api
         self.employee_ui = employee_ui
+        self.vehicle_ui = vehicle_ui
         self.options_dict = {
             "1": self.CREATE, 
             "2": self.FIND, 
@@ -42,13 +43,18 @@ class ContractUI():
                 else:
                     
                     if self.options_dict[user_choice] == self.CREATE:
-                        self.new_contract(header_str)
-                        pass
-                        #Create contract                        
+                        self.new_contract(header_str)                      
 
                     elif self.options_dict[user_choice] == self.FIND:
-                        pass
-                        #find contract
+                        contract_id = self.get_contract_id(header_str)
+                        the_contract = self.logic_api.find_contract(contract_id)
+                        if the_contract != None: 
+                            self.get_printable_contract(the_contract)
+                            return input("...")
+                            
+
+                        else:
+                            self.contract_not_found(header_str)
                             
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
                         pass
@@ -56,6 +62,24 @@ class ContractUI():
 
             else:
                 error_msg = "Please select an option from the menu"
+
+    
+    def get_contract_id(self, header_str):
+        ''' Gets contract id from user '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("    Enter contract ID")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+        print()
+        contract_id = input("Input: ")
+        if contract_id.lower() == self.ui_helper.QUIT.lower():
+            self.ui_helper.quit_prompt(header_str)
+        elif contract_id.lower() == self.ui_helper.BACK.lower():
+            return
+        else:
+            return contract_id
 
 
     def view_customer_details(self, the_customer):
@@ -70,11 +94,10 @@ class ContractUI():
         self.ui_helper.print_blank_line()
 
 
-    def view_contract_details(self, the_contract, vehicle_type):
+    def view_contract_details(self, the_contract):
         ''' '''
         self.ui_helper.print_line(f"        CUSTOMER ID:.............{the_contract.customer_ssn}")
         self.ui_helper.print_line(f"        EMPLOYEE ID:.............{the_contract.employee_ssn}")
-        self.ui_helper.print_line(f"        VEHICLE TYPE:............{vehicle_type}")
         self.ui_helper.print_line(f"        VEHICLE ID:..............{the_contract.vehicle_id}")
         self.ui_helper.print_line(f"        START DATE:..............{the_contract.loan_date}")
         self.ui_helper.print_line(f"        END DATE:................{the_contract.end_date}")
@@ -256,7 +279,7 @@ class ContractUI():
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
-            self.ui_helper.print_line(f"    Enter contract {date_type_str} date (DD/MM/YY)")
+            self.ui_helper.print_line(f"    Enter contract {date_type_str} date (DD/MM/YYYY)")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
@@ -271,12 +294,12 @@ class ContractUI():
             if date_str != None:
                 return date_str
             else:
-                error_msg = "Please enter a valid date (DD/MM/YY)"
+                error_msg = "Please enter a valid date (DD/MM/YYYY)"
 
     
     def get_vehicle_type(self, location, header_str, error_msg=""):
         ''' Displays all vehicle types in a given location and allows user to choose '''
-        vehicle_types = self.logic_api.get_filtered_vehicle_types(location)
+        vehicle_types = self.logic_api.filter_by_region(location.country)
         vehicle_type_list = [(str(ind + 1),vtype.name) for ind, vtype in enumerate(vehicle_types)]       
         vehicle_type_dict = dict(vehicle_type_list)
         while True:
@@ -285,6 +308,7 @@ class ContractUI():
             self.ui_helper.print_options(vehicle_type_list, "Select vehicle type:")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
+
             user_choice = self.ui_helper.get_user_menu_choice(vehicle_type_list)
             if user_choice.lower() == self.ui_helper.BACK.lower():
                 return
@@ -295,17 +319,67 @@ class ContractUI():
             else:
                 error_msg = "Fuck off"
 
+    
+    def choose_vehicle(self, start_date, end_date, location, vehicle_type, header_str, error_msg=""):
+        ''' Lists all vehicles that are available for given dates, in a given location of a given type '''
+        #vehicle_list = self.logic_api.get_filtered_vehicles(start_date, end_date, location, vehicle_type)
+        vehicle_list = self.logic_api.all_vehicles_to_list()
+        id_list = [vehicle.id for vehicle in vehicle_list ]
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line("Enter vehicle ID to select")
+            self.ui_helper.print_line("if nothing is chosen one will be selected automatically")
+            self.ui_helper.print_blank_line()
+            self.vehicle_ui.print_vehicle_list(vehicle_list)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            id_choice = input("Input: ")
+            if id_choice in id_list:
+                return id_choice
+            elif id_choice == "":
+                return id_list[0]
+            elif id_choice.lower() == self.ui_helper.QUIT.lower():
+                self.ui_helper.quit_prompt(header_str)
+            elif id_choice.lower() == self.ui_helper.BACK.lower():
+                return id_choice
+            else:
+                error_msg = "Please select a vehicle id from the list"
 
 
     def create_contract(self, the_customer, the_employee, header_str, error_msg=""):
         ''' Gets input from user and creates a new contract '''
         the_contract = Contract(None, the_customer.ssn, the_employee.ssn, "", "", "", "", "")
-        the_contract.start_date = self.get_date("start", header_str)
+        the_contract.loan_date = self.get_date("start", header_str)
         the_contract.end_date = self.get_date("end", header_str)
         location = self.get_location(header_str)
         vehicle_type = self.get_vehicle_type(location, header_str)
-        the_vehicle = self.choose_vehicle(the_contract.start_date, the_contract.end_date, location, vehicle_type, header_str)
+        the_vehicle_id = self.choose_vehicle(the_contract.loan_date, the_contract.end_date, location, vehicle_type, header_str)
+        if the_vehicle_id.lower() == self.ui_helper.BACK.lower():
+            return
+        the_contract.vehicle_id = the_vehicle_id
+        self.view_contract(the_contract, header_str)
+        self.logic_api.create_new_contract(the_contract)
+
         
+    def view_contract(self, the_contract, header_str, error_msg =""):
+        options_list = [("1", "Bite me!")]
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.view_contract_details(the_contract)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = self.ui_helper.get_user_menu_choice(options_list)
+            if user_choice.lower() == self.ui_helper.BACK.lower():
+                return
+            elif user_choice.lower() == self.ui_helper.QUIT.lower():
+                self.ui_helper.quit_prompt(header_str)
+            else:
+                return user_choice
+    
             
     def unsaved_changes(self, the_customer, header_str):
         ''' Asks user if they want to go back without saving their changes '''
@@ -317,3 +391,12 @@ class ContractUI():
         self.ui_helper.print_hash_line()
         print()
         return input("Input: ")
+
+
+    def get_printable_contract(self, the_contract):
+        the_vehicle = self.logic_api.find_vehicle(the_contract.vehicle_id)
+        the_customer = self.logic_api.find_customer(the_contract.customer_ssn)
+        the_employee = self.logic_api.find_employee(the_contract.employee_ssn)
+        the_type = the_vehicle.type
+        the_rate = self.logic_api.get_types_rate(the_type)
+        

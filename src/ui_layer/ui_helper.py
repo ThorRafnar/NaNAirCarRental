@@ -57,13 +57,12 @@ class UIHelper():
 
 
 
-    def print_options(self, options_list, opt_str):
+    def print_options(self, options_list, opt_str=""):
         """ 
         Takes a list of tuples as parameter with an option code (required input)
         and option description and prints it 
         """
-        opt_str = (f"|   {opt_str}")
-        print(opt_str + " " * (self.width - len(opt_str) - 1) + "|")
+        self.print_line(opt_str)
         for option in options_list:
             choice_str = f"    {option[0]}: {option[1]}"
             self.print_line(choice_str)
@@ -142,6 +141,7 @@ class UIHelper():
         self.print_hash_line()
         user_choice = input("Enter choice: ")
         if user_choice.lower() in self.YES:
+            self.clear()
             quit()
         else:
             return
@@ -181,6 +181,10 @@ class UIHelper():
         self.print_line("    Are you sure you want to go back? (y/n)")
         self.print_line("    Your unsaved changes will be lost")
 
+
+    def dict_to_list(self, options_dict):
+        ''' converts a dictionary to a list and returns it '''
+        return [(k, v) for k, v in options_dict.items()]
 
 """
 Roses are red

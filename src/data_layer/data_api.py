@@ -27,6 +27,9 @@ class DataAPI():
     def add_profits(self, a_list):
         return self.profits_data.add_profits(a_list)
 
+    def get_profits(self):
+        return self.profits_data.get_profits()
+
 # Employee functions
     def get_employees(self):
         ''' Retuns list of all employees as instance of Employee class form data layer '''
@@ -61,7 +64,7 @@ class DataAPI():
     
     def create_destination(self, dest):
         ''' Returns a instance of Destinasion class down to data layer'''
-        return self.destination_data.create_destination(dest)
+        self.destination_data.create_destination(dest)
 
 # Vehicle functions
     def get_all_vehicles(self):

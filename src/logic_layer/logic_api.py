@@ -137,6 +137,13 @@ class LogicAPI():
         ''' Gets for UI region to filter by and returns a list of vehicle types available in that given region '''
         return self.vehicle_type_logic.filter_by_region(reg)
 
+    #Profits Logic
+    def get_profits(self):
+        return self.profit_logic.get_profits()
+
+    def calculate_profits(self,start_date, end_date):
+        return self.profit_logic.calculate_profits(start_date, end_date)
+
     # ERROR logic
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)

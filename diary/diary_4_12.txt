@@ -2,3 +2,6 @@
 
 # Arnór
 Vann í logic layer, kláraði virkni fyrir A kröfur og er byrjaður að búa til beinagrind af allskonar B kröfu virkni.
+
+#Hallfríður 
+Var að vinna í UI 

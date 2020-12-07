@@ -1,0 +1,37 @@
+Vehicle ui (mögulega vehicle types)
+    Rates
+    View rates
+    change rates
+
+for airport staff:
+    Make pick up and returns easy
+    pick up: by customer ssn
+    returns: by vehicle id
+
+    
+Locations menu: 
+    View all
+    View one: v
+        Display information, and options:
+        1. View location's staff V
+        2. View location's vehicles V
+        3. Change opening hours 
+
+    Add location
+        
+Contracts:
+    1. Make contract: v
+
+    2. Alter contract:
+
+    3. View all
+    3a. By status (paid/unpaid)
+
+Reports:
+    1. Profits
+    2. Utilization
+    3. Billing
+
+
+
+
