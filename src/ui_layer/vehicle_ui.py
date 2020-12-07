@@ -18,7 +18,7 @@ class VehicleUI():
 
     
     def show_options(self, header_str, error_msg=""):
-        options_list = [(k, v) for k, v in self.options_dict.items()]
+        options_list = self.ui_helper.dict_to_list(self.options_dict)
 
         while True:
             opt_str = "Select task"

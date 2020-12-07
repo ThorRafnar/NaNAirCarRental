@@ -5,8 +5,7 @@ import os
 # of the terminal 
 size = os.get_terminal_size() 
 width = size.columns - 1 
-height = size.lines
-print(height)
+
 
 f = UIStartMenu(width)
 f.choose_location()

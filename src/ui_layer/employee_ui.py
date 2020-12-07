@@ -20,7 +20,7 @@ class EmployeeUI():
 
 
     def show_options(self, header_str, error_msg=""):
-        options_list = [(k, v) for k, v in self.options_dict.items()]
+        options_list = self.ui_helper.list_to_dict(self.options_dict)
         
         while True:
             opt_str = "Select task"
@@ -72,12 +72,15 @@ class EmployeeUI():
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
-            if user_choice.lower() == self.ui_helper.BACK.lower():
-                return
+            if user_choice != None:
+                if user_choice.lower() == self.ui_helper.BACK.lower():
+                    return
 
-            elif user_choice.lower() == self.ui_helper.QUIT.lower():
-                self.ui_helper.quit_prompt(header_str)
-                
+                elif user_choice.lower() == self.ui_helper.QUIT.lower():
+                    self.ui_helper.quit_prompt(header_str)
+                    
+                else:
+                    error_msg = "Please select an option from the menu"
             else:
                 error_msg = "Please select an option from the menu"
 

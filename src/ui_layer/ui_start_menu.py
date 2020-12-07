@@ -14,7 +14,7 @@ class UIStartMenu():
         self.ui_helper = UIHelper(self.width)
         self.employee_ui = EmployeeUI(self.ui_helper, self.logic_api)
         self.vehicle_ui = VehicleUI(self.ui_helper, self.logic_api)
-        self.location_ui = LocationUI(self.ui_helper, self.logic_api)
+        self.location_ui = LocationUI(self.ui_helper, self.logic_api, self.employee_ui, self.vehicle_ui)
         self.contract_ui = ContractUI(self.ui_helper, self.logic_api, self.employee_ui, self.vehicle_ui)
         self.report_ui = ReportUI(self.ui_helper, self.logic_api)
 
@@ -102,7 +102,7 @@ class UIStartMenu():
         opt_str = "Select a task:"
 
         #Because helper functions need a list of tuples
-        options_list = [(k, v) for k, v in available_options.items()]
+        options_list = self.ui_helper.dict_to_list(available_options)
 
         if priviledge == "Airport Employee":
             header_str = f"{priviledge}, {staff_type}"
