@@ -60,7 +60,7 @@ class ContractLogic():
                 cont.extensions = self.calc_extensions(cont.vehicle_id, date_status)
             cont.total = self.get_contract_total_price(cont)
         elif cont.status == 'paid':
-            paid_date = date.today().strftime('%d/%m/%Y')
+            paid_date = date.today()
             profit_log = [paid_date,cont.contract_id,cont.base_price,cont.extensions,cont.total]
             self.data_api.add_profits(profit_log)
             
@@ -83,7 +83,6 @@ class ContractLogic():
         tax = type_rate * 1.5
         return date_status * tax
 
-    
     def get_contract_total_price(self, contract):
         ''' Adds extensions with base price to calculate total price '''
         return int(contract.base_price) + int(contract.extensions)
