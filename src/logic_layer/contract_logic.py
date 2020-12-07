@@ -27,8 +27,8 @@ class ContractLogic():
     def set_contract_id(self):
         ''' Adds new ID on new contract '''
         contr_list = self.get_all_contracts()
-        return len(contr_list) + 1
-        # Breyta aðeins
+        last_id = int(contr_list[-1].contract_id)
+        return last_id + 1
         
     def view_customer_contracts(self, ssn):
         ''' Gets an customer ssn from UI and checks if customer owns contracts in database, returns a list of all contracst for given ssn if found, else returns an empty list '''
