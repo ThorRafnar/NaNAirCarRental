@@ -2,6 +2,9 @@ from ui_layer.ui_helper import UIHelper
 from logic_layer.logic_api import LogicAPI
 from ui_layer.employee_ui import EmployeeUI
 from ui_layer.vehicle_ui import VehicleUI
+from ui_layer.location_ui import LocationUI
+from ui_layer.contract_ui import ContractUI
+from ui_layer.report_ui import ReportUI
 
 class UIStartMenu():
 
@@ -11,6 +14,9 @@ class UIStartMenu():
         self.ui_helper = UIHelper(self.width)
         self.employee_ui = EmployeeUI(self.ui_helper, self.logic_api)
         self.vehicle_ui = VehicleUI(self.ui_helper, self.logic_api)
+        self.location_ui = LocationUI(self.ui_helper, self.logic_api)
+        self.contract_ui = ContractUI(self.ui_helper, self.logic_api)
+        self.report_ui = ReportUI(self.ui_helper, self.logic_api)
 
         #TODO Make this get locations as dict from logic api
         self.priviledge_dict = {
@@ -41,7 +47,9 @@ class UIStartMenu():
             "Airport Employee": {
                 "1": "Employees",
                 "2": "Vehicles",
-                "3": "Locations"
+                "3": "Locations",
+                "4": "Pick ups",
+                "5": "Returns"
             }
         }
 
@@ -69,7 +77,7 @@ class UIStartMenu():
             staff_type = self.ui_helper.get_user_menu_choice(options_list)
             if staff_type != None:
 
-                if staff_type == self.ui_helper.QUIT or staff_type == self.ui_helper.BACK:
+                if staff_type.lower() == self.ui_helper.QUIT.lower() or staff_type.lower() == self.ui_helper.BACK.lower():
                     self.ui_helper.quit_prompt("Welcome!")
 
                 else:
@@ -114,10 +122,10 @@ class UIStartMenu():
             #If user choice is valid, helper class checks this
             if user_choice != None:
 
-                if user_choice == self.ui_helper.BACK:
+                if user_choice.lower() == self.ui_helper.BACK.lower():
                     return
 
-                elif user_choice == self.ui_helper.QUIT:
+                elif user_choice.lower() == self.ui_helper.QUIT.lower():
                     self.ui_helper.quit_prompt(header_str)
 
                 else:
@@ -130,16 +138,14 @@ class UIStartMenu():
                         self.vehicle_ui.show_options(header_str)
 
                     elif next_menu == "Locations":
-                        #Do location things
+                        self.location_ui.show_options(header_str)
                         print("Locations")
                         
                     elif next_menu == "Contracts":
-                        #Do contract things
-                        print("Contracts")
+                        self.contract_ui.show_options(header_str)
                         
                     elif next_menu == "Reports":
-                        #Do report things
-                        print("Reports")
+                        self.report_ui.show_options(header_str)
                         
                     else:
                         pass
