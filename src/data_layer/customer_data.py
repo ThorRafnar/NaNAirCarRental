@@ -8,13 +8,13 @@ class CustomerData():
         with open("data_layer/data_files/customers.csv", encoding='utf-8') as file_stream:
             cust_reader = csv.DictReader(file_stream)
             for row in cust_reader:
-                cust = Customer(row["name"],row['ssn'] row["address"], row["postal_code"], row["phone"], row["email"], row["country"])
+                cust = Customer(row["name"],row['ssn'], row["address"], row["postal_code"], row["phone"], row["email"], row["country"])
                 cust_list.append(cust)
             return cust_list
 
     def add_customer(self, cust):
         ''' writes new customer to database '''
-        customer_list = [cust.name,cust.ssn cust.address, cust.postal_code, cust.phone, cust.email, cust.country]
+        customer_list = [cust.name, cust.ssn, cust.address, cust.postal_code, cust.phone, cust.email, cust.country]
         with open("data_layer/data_files/customers.csv", 'a+', encoding="utf-8", newline='') as file_stream:
             cust_writer = csv.writer(file_stream)
             cust_writer.writerow(customer_list)
