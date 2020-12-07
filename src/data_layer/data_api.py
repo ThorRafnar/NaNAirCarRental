@@ -72,9 +72,9 @@ class DataAPI():
         ''' Returns a vehicle instance of Vehicle to datalayer '''
         self.vehicle_data.new_vehicle(vehicle_ins)
     
-    def change_vehicle_condition(self, new_cond, ID):
+    def change_vehicle_condition(self, new_cond, id_str):
         ''' Returns id of a vehicle and what condision it should have in database '''
-        return self.vehicle_data.change_vehicle_condition(new_cond,ID)
+        return self.vehicle_data.change_vehicle_condition(new_cond, id_str)
     
 # Vehicle type functions
     def get_all_vehicle_types(self):

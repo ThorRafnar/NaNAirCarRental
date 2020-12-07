@@ -258,10 +258,8 @@ class VehicleUI():
     def change_vehicle_status(self, a_vehicle, header_str, error_msg=""):
         ''' Asks user what to change vehicle status to and changes it '''
         options_dict = {
-            "1": "OK",
-            "2": "In workshop",
-            "3": "Loanded out",
-            "4": "Returned"
+            "1": "Rentable",
+            "2": "In workshop"
         }
         options_list = [(k, v) for k, v in options_dict.items()]
         while True:

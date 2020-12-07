@@ -32,7 +32,7 @@ class VehicleData():
             
 
 
-    def change_vehicle_condition(self,cond_string,ID):
+    def change_vehicle_condition(self, cond_string, id_str):
         ''' Opens the vehicle.csv file and selects a specific vehicle from it
         and changes the vehicle status/condition, if it is rentable or not.
         Takes in a string.'''
@@ -40,7 +40,7 @@ class VehicleData():
             reader = csv.DictReader(file_stream)
             file_list = []
             for line in reader:
-                if line["ID"] == ID:
+                if line["ID"] == id_str:
                     line["status"] = cond_string
                 file_list.append(line)
         
