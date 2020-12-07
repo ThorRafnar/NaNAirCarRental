@@ -58,6 +58,9 @@ class LogicAPI():
 
     def list_vehicles_by_status(self, status):
         return self.vehicle_logic.list_vehicles_by_status(status)
+    
+    def get_filtered_vehicle(self,start_date,end_date,location,vehicle_type):
+        return self.vehicle_logic.get_filtered_vehicle(start_date,end_date,location,vehicle_type)
 
     # Destination logic
     def get_destinations(self):
@@ -140,7 +143,6 @@ class LogicAPI():
 
     def calculate_profits(self,start_date, end_date):
         return self.profit_logic.calculate_profits(start_date, end_date)
-
 
     # ERROR logic
     def check_work_area(self,a_str):
