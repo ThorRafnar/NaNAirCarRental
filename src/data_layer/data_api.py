@@ -22,6 +22,11 @@ class DataAPI():
         
 
 
+# profits functions
+
+    def add_profits(self, a_list):
+        return self.profits_data.add_profits(a_list)
+
 # Employee functions
     def get_employees(self):
         ''' Retuns list of all employees as instance of Employee class form data layer '''
