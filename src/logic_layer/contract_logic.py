@@ -62,7 +62,7 @@ class ContractLogic():
         elif cont.status == 'paid':
             paid_date = date.today().strftime('%d/%m/%Y')
             profit_log = [paid_date,cont.contract_id,cont.base_price,cont.extensions,cont.total]
-            self.data_api.create_profit_log(profit_log)
+            self.data_api.add_profits(profit_log)
             
         attr_str = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
         attr_list = [cont.contract_id, attr_str]
