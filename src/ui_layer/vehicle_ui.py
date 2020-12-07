@@ -70,6 +70,8 @@ class VehicleUI():
             vehicles = self.logic_api.all_vehicles_to_list()
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line("Vehicle overview:")
+            self.ui_helper.print_blank_line()
             self.print_vehicle_list(vehicles)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
@@ -107,9 +109,7 @@ class VehicleUI():
         licence_str = "<< LICENCE >>"
         location_str = "<< LOCATION >>"
         id_str = "<< ID >>"
-        self.ui_helper.print_line("Vehicle overview:")
-        self.ui_helper.print_blank_line()
-        self.ui_helper.n_columns([manu_str, model_str, type_str, year_str, color_str, status_str, licence_str, location_str, id_str])
+        self.ui_helper.n_columns([id_str, manu_str, model_str, type_str, year_str, color_str, status_str, licence_str, location_str])
 
         for vehicle in vehicle_list:
             manu = vehicle.manufacturer
@@ -121,7 +121,7 @@ class VehicleUI():
             licence = vehicle.licence_type
             location = vehicle.location
             id_nr = vehicle.id
-            self.ui_helper.n_columns([manu, model, vtype, year, color, status, licence, location, id_nr])
+            self.ui_helper.n_columns([id_nr, manu, model, vtype, year, color, status, licence, location])
 
 
     def register_vehicle(self, header_str, error_msg=""):

@@ -132,7 +132,7 @@ class LogicAPI():
 
     def filter_by_region(self, reg):
         ''' Gets for UI region to filter by and returns a list of vehicle types available in that given region '''
-        self.vehicle_type_logic.filter_by_region(reg)
+        return self.vehicle_type_logic.filter_by_region(reg)
 
     #Profits Logic
     def get_profits(self):

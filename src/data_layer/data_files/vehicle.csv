@@ -17,9 +17,10 @@ Yedoo,Trexx,Light road,OK,2020,Orange,None,Nuuk,14
 WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Tingwall,15
 WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Longyearbyen,16
 WildChild,Fatboy Mini BMX,Light road,OK,2020,Red,None,Kulusuk,17
-Forward,FWD-ZK125H,Medium road,OK,2019,Blue,Drivers licence,Longyearbyen,18
+Forward,FWD-ZK125H,Medium road,in_rent,2019,Blue,Drivers licence,Longyearbyen,18
 Colorado,Pontoon Boat,Light water,OK,2019,Green,None,Thorshavn,19
 A2extreem,Powerboard,Light winter,OK,2018,Black,None,Nuuk,20
 Torpedo,3500,Light water,Returned,2019,White,Diving licence,Thorshavn,21
 Kawasaki,bike 3,light road,OK,red,red,none,Reykjavik,22
-Kawasaki,Turbobike 3,Light road,OK,2021,Red,Drivers licence,Tingwall,23
+Kawasaki,Turbobike 3,Light road,in_rent,2021,Red,Drivers licence,Tingwall,23
+Lada,Sport,Medium road,in_rent,1984,White,Drivers licence,Kulusuk,24

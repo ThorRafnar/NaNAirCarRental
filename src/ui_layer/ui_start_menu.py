@@ -15,7 +15,7 @@ class UIStartMenu():
         self.employee_ui = EmployeeUI(self.ui_helper, self.logic_api)
         self.vehicle_ui = VehicleUI(self.ui_helper, self.logic_api)
         self.location_ui = LocationUI(self.ui_helper, self.logic_api)
-        self.contract_ui = ContractUI(self.ui_helper, self.logic_api, self.employee_ui)
+        self.contract_ui = ContractUI(self.ui_helper, self.logic_api, self.employee_ui, self.vehicle_ui)
         self.report_ui = ReportUI(self.ui_helper, self.logic_api)
 
         #TODO Make this get locations as dict from logic api
