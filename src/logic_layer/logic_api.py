@@ -75,6 +75,9 @@ class LogicAPI():
     def get_customer(self):
         ''' Returns a list of all customer as instances of Customer class '''
         return self.customer_logic.get_customers()
+    
+    def find_customer(self, ssn):
+        return self.customer_logic.find_customer(ssn)
 
     def change_customer_info(self, attribute_list):
         ''' Sends a list containing ssn, attribute it wants to change and the changes for that attribute to data layer, ex. ['220687-2959', 'address', 'Bessastaðir'] '''
