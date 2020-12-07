@@ -10,8 +10,10 @@ r = LogicAPI()
 # veh = Vehicle('Yedoo','Trexx','Light road','OK','2020','Orange',None,'KUS',None)
 # dest = r.find_vehicle('1')
 # print(dest)
+
 # con = Contract(None,'320866-9910','250645-9999','4','01/12/2020','03/12/2020')
 # amm = r.create_new_contract(con)
+
 #blah = r.change_contract_status('5','paid')
 # ty = r.get_types_rate('Medium off-road')
 # print(ty)
