@@ -2,8 +2,8 @@ import os
 
 class UIHelper():
 
-    QUIT = "9"
-    BACK = "0"
+    QUIT = "Q"
+    BACK = "B"
     YES = ["y", "yes"]
     NO = ["n", "no"]
 
@@ -76,7 +76,7 @@ class UIHelper():
         """
         Prints the footer with a quit option 
         """
-        quit_str = (f"    {self.QUIT}: Quit")
+        quit_str = (f"    ({self.QUIT})uit")
         self.print_line(quit_str)
         self.print_blank_line()
         self.print_hash_line()
@@ -86,9 +86,9 @@ class UIHelper():
         """
         Prints the footer with a quit and back option 
         """
-        quit_str = (f"    {self.QUIT}: Quit")
+        quit_str = (f"    ({self.QUIT})uit")
         self.print_line(quit_str)
-        back_str = (f"    {self.BACK}: Back")
+        back_str = (f"    ({self.BACK})ack")
         self.print_line(back_str)
         self.print_blank_line()
         self.print_hash_line()
@@ -103,7 +103,7 @@ class UIHelper():
         for option in options_list:
             if option[0].lower() == user_choice.lower().strip():
                 return option[0]
-        if user_choice == self.QUIT or user_choice == self.BACK:
+        if user_choice.lower() == self.QUIT.lower() or user_choice.lower() == self.BACK.lower():
             return user_choice
         else:
             return None
