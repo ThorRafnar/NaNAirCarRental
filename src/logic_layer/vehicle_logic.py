@@ -57,6 +57,7 @@ class VehicleLogic():
         return status_list
     
     def get_filtered_vehicle(self,start_date,end_date,location,vehicle_type):
+        ''' Filters vehicles to find if vehicle is available for rent '''
         vehicle_list = self.all_vehicles_to_list()
         filtered_list = []
         for vehicle in vehicle_list:
@@ -67,6 +68,7 @@ class VehicleLogic():
         return filtered_list
     
     def check_vehicle_availability(self,vehicle,start_date,end_date):
+        ''' Check vehicle availability from status first, then potential loan dates '''
         s_date = datetime.strptime(start_date, '%d/%m/%Y')
         e_date = datetime.strptime(end_date, '%d/%m/%Y')
         is_available = False

@@ -78,6 +78,7 @@ class ContractLogic():
         return delta.days
     
     def calc_extensions(self, vehicle_id, date_status):
+        ''' Gets vehicle type for given vehicle and adds 50% on top of it then calculates that with number of days in late return '''
         vehicle = self.vehicle_logic.find_vehicle(vehicle_id)
         type_rate = int(self.type_logic.get_types_rate(vehicle.type))
         tax = type_rate * 1.5
