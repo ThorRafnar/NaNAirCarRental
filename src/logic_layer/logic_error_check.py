@@ -128,7 +128,7 @@ class LogicErrorCheck():
         day = date_str[0:2]
         if length == 8:
             month = date_str[2:4]
-            year = date_str[4:6]
+            year = date_str[4:]
         else:
             month = date_str[3:5]
             year = date_str[6:]

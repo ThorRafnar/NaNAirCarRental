@@ -131,15 +131,39 @@ class LocationUI():
             elif user_choice in options_dict:
 
                 if options_dict[user_choice] == view_staff:
-                    self.employee_ui.get_employees(header_str)
-                    continue
+                    self.view_location_emps(the_dest, header_str)
+                    
 
                 elif options_dict[user_choice] == view_vehicles:
-                    self.vehicle_ui.get_all_vehicles(header_str)
+                    self.vehicle_ui.get_all_vehicles(the_dest, header_str)
 
                 elif options_dict[user_choice] == opening_hours:
                     pass
 
+            else:
+                error_msg = "Please select an option from the menu"
+
+
+    def view_location_emps(self, the_dest, header_str):
+        filter_attributes = ["work_area", the_dest.iata]
+        emps = self.logic_api.get_filtered_employees()
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.print_employee_list(emps)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = self.ui_helper.get_user_menu_choice(options_list)
+            if user_choice != None:
+                if user_choice.lower() == self.ui_helper.BACK.lower():
+                    return
+
+                elif user_choice.lower() == self.ui_helper.QUIT.lower():
+                    self.ui_helper.quit_prompt(header_str)
+                    
+                else:
+                    error_msg = "Please select an option from the menu"
             else:
                 error_msg = "Please select an option from the menu"
 
@@ -224,7 +248,7 @@ class LocationUI():
         self.ui_helper.print_footer()
         print("Confirm changes (y/n)?")
         user_choice = input("Input: ")
-        if user_choice.lower in self.ui_helper.YES:
+        if user_choice.lower() in self.ui_helper.YES:
             self.logic_api.create_destination(the_dest)
             return
         else:

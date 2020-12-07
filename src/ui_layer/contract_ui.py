@@ -304,12 +304,14 @@ class ContractUI():
     def get_vehicle_type(self, location, header_str, error_msg=""):
         ''' Displays all vehicle types in a given location and allows user to choose '''
         vehicle_types = self.logic_api.filter_by_region(location.country)
-        vehicle_type_list = [(str(ind + 1),vtype.name) for ind, vtype in enumerate(vehicle_types)]       
+        vehicle_type_list = [(str(ind + 1), vtype) for ind, vtype in enumerate(vehicle_types)]       
         vehicle_type_dict = dict(vehicle_type_list)
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
-            self.ui_helper.print_options(vehicle_type_list, "Select vehicle type:")
+            self.ui_helper.print_line("Select vehicle type:")
+            for line in vehicle_type_list:
+                self.ui_helper.print_line(f"    {line[0]}. {line[1].name}")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
 
@@ -320,14 +322,14 @@ class ContractUI():
                 self.ui_helper.quit_prompt(header_str)
             elif user_choice in vehicle_type_dict:
                 return vehicle_type_dict[user_choice]
+                
             else:
                 error_msg = "Fuck off"
 
     
-    def choose_vehicle(self, start_date, end_date, location, vehicle_type, header_str, error_msg=""):
+    def choose_vehicle(self, start_date, end_date, location, a_vehicle_type, header_str, error_msg=""):
         ''' Lists all vehicles that are available for given dates, in a given location of a given type '''
-        #vehicle_list = self.logic_api.get_filtered_vehicles(start_date, end_date, location, vehicle_type)
-        vehicle_list = self.logic_api.all_vehicles_to_list()
+        vehicle_list = self.logic_api.get_filtered_vehicle(start_date, end_date, location, a_vehicle_type)
         id_list = [vehicle.id for vehicle in vehicle_list ]
         while True:
             self.ui_helper.clear()
