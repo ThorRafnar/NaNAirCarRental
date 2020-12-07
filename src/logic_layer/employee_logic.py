@@ -8,7 +8,7 @@ class EmployeeLogic():
         ''' Returns a list of employees as instances of Employee class from data layer '''
         return self.data_api.get_employees()
 
-    def get_filtered(self, attribute_list):
+    def get_filtered_employees(self, attribute_list):
         ''' Finds employees form given attributes and returns a list of those employees as instances of Employee class '''
         emps = self.get_employees()
         ret_list = []
