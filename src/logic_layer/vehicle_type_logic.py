@@ -22,6 +22,6 @@ class VehicleTypeLogic():
 
     def filter_by_region(self, reg):
         types_list = self.data_api.get_all_vehicle_types()
-        region_list = [t for t in types_list if t.region == reg]
+        region_list = [t for t in types_list if t.regions.lower() == reg.lower() or t.regions.lower() == 'all']
         return region_list
 
