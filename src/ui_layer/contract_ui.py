@@ -145,7 +145,7 @@ class ContractUI():
             else:
                 error_msg = ""
 
-            return self.logic_api.get_customer(ssn), ssn
+            return self.logic_api.find_customer(ssn), ssn
 
     
     def employee_for_contract(self, header_str, error_msg=""):
