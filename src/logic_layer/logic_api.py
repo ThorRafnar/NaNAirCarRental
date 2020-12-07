@@ -7,6 +7,7 @@ from logic_layer.contract_logic import ContractLogic
 from logic_layer.vehicle_type_logic import VehicleTypeLogic
 from logic_layer.logic_error_check import LogicErrorCheck
 from logic_layer.chuck_logic import ChuckLogic
+from logic_layer.profit_logic import ProfitLogic
 
 class LogicAPI():
 
@@ -16,10 +17,11 @@ class LogicAPI():
         self.vehicle_logic = VehicleLogic(self.data_api)
         self.destination_logic = DestinationLogic(self.data_api)
         self.customer_logic = CustomerLogic(self.data_api)
-        self.contract_logic = ContractLogic(self.data_api)
         self.vehicle_type_logic = VehicleTypeLogic(self.data_api)
+        self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic)
         self.logic_error_check = LogicErrorCheck(self.data_api)
         self.chuck_logic = ChuckLogic(self.data_api)
+        self.profit_logic = ProfitLogic(self.data_api)
 
     # Employee logic
     def get_employees(self):
@@ -75,6 +77,9 @@ class LogicAPI():
     def get_customer(self):
         ''' Returns a list of all customer as instances of Customer class '''
         return self.customer_logic.get_customers()
+    
+    def find_customer(self, ssn):
+        return self.customer_logic.find_customer(ssn)
 
     def change_customer_info(self, attribute_list):
         ''' Sends a list containing ssn, attribute it wants to change and the changes for that attribute to data layer, ex. ['220687-2959', 'address', 'Bessastaðir'] '''
@@ -121,14 +126,28 @@ class LogicAPI():
     def change_types_rate(self, type_name, new_rate):
         ''' Gets from UI vehicle type and new rate and sends down to data layer '''
         return self.vehicle_type_logic.change_types_rate(type_name, new_rate)
+    
+    def get_types_rate(self, selected_type):
+        return self.vehicle_type_logic.get_types_rate(selected_type)
 
     def filter_by_region(self, reg):
         ''' Gets for UI region to filter by and returns a list of vehicle types available in that given region '''
-        self.vehicle_type_logic.filter_by_region(reg)
+        return self.vehicle_type_logic.filter_by_region(reg)
+
+    #Profits Logic
+    def get_profits(self):
+        return self.profit_logic.get_profits()
+
+    def calculate_profits(self,start_date, end_date):
+        return self.profit_logic.calculate_profits(start_date, end_date)
+
 
     # ERROR logic
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)
+
+    def check_date(self, date_str):
+        return self.logic_error_check.check_date(date_str)
 
     # Random Chuck Norris jokes logic
     def get_random_joke(self):

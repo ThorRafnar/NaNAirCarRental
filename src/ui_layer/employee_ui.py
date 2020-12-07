@@ -35,11 +35,11 @@ class EmployeeUI():
 
             if user_choice != None:
 
-                if user_choice == self.ui_helper.BACK:
+                if user_choice.lower() == self.ui_helper.BACK.lower():
                     print("I'm back")
                     return
 
-                elif user_choice == self.ui_helper.QUIT:
+                elif user_choice.lower() == self.ui_helper.QUIT.lower():
                     self.ui_helper.quit_prompt(header_str)
 
                 #The actual options
@@ -72,14 +72,14 @@ class EmployeeUI():
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
-            if user_choice == self.ui_helper.BACK:
+            if user_choice.lower() == self.ui_helper.BACK.lower():
                 return
 
-            elif user_choice == self.ui_helper.QUIT:
+            elif user_choice.lower() == self.ui_helper.QUIT.lower():
                 self.ui_helper.quit_prompt(header_str)
                 
             else:
-                error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
+                error_msg = "Please select an option from the menu"
 
 
     def view_employee_details(self, employee):
@@ -124,9 +124,9 @@ class EmployeeUI():
             ssn = input("Input: ")
 
             #Check if the user wants to back or quit
-            if ssn == self.ui_helper.QUIT:
+            if ssn.lower() == self.ui_helper.QUIT.lower():
                 self.ui_helper.quit_prompt(header_str)
-            elif ssn == self.ui_helper.BACK:
+            elif ssn.lower() == self.ui_helper.BACK.lower():
                 return
 
             #TODO Make logic check ssn input
@@ -159,9 +159,9 @@ class EmployeeUI():
                         self.ui_helper.print_footer()
                         print(error_msg)
                         user_choice = input("Input: ")
-                        if user_choice == self.ui_helper.QUIT:
+                        if user_choice.lower() == self.ui_helper.QUIT.lower():
                             self.ui_helper.quit_prompt(header_str)
-                        elif user_choice == self.ui_helper.BACK:
+                        elif user_choice.lower() == self.ui_helper.BACK.lower():
                             return
                         elif user_choice in self.ui_helper.YES:
                             self.change_employee_details(emp, header_str)
@@ -215,12 +215,12 @@ class EmployeeUI():
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = input("Input: ")
-            if user_choice == self.ui_helper.QUIT:
+            if user_choice.lower() == self.ui_helper.QUIT.lower():
                 self.ui_helper.quit_prompt(header_str)
-            elif user_choice == self.ui_helper.BACK:
+            elif user_choice.lower() == self.ui_helper.BACK.lower():
                 return
             else:
-                error_msg = "Please enter 0 to go back or 9 to quit"
+                error_msg = f"Select either {self.ui_helper.QUIT} to quit or {self.ui_helper.BACK} to go back"
 
 
     def change_employee_details(self, employee, header_str, error_msg=""):
@@ -258,9 +258,9 @@ class EmployeeUI():
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = input("Input: ")
-            if user_choice == self.ui_helper.QUIT:
+            if user_choice.lower() == self.ui_helper.QUIT.lower():
                 self.ui_helper.quit_prompt(header_str)
-            elif user_choice == self.ui_helper.BACK:
+            elif user_choice.lower() == self.ui_helper.BACK.lower():
                 if old_attr_list != []:      #If the user has unsaved changes
                     user_choice = self.unsaved_changes(employee, header_str)
                     if user_choice.lower() in self.ui_helper.YES:
@@ -375,14 +375,14 @@ class EmployeeUI():
                 self.ui_helper.print_footer()
                 print()
                 attr_value = input(f"Enter employee's {attribute}: ")
-                if attr_value == self.ui_helper.BACK:
+                if attr_value.lower() == self.ui_helper.BACK.lower():
                     back_choice = self.unsaved_changes(emp, header_str)
                     if back_choice.lower() in self.ui_helper.YES:
                         return
                     else:
                         continue
 
-                elif attr_value == self.ui_helper.QUIT:
+                elif attr_value.lower() == self.ui_helper.QUIT.lower():
                     self.ui_helper.quit_prompt(header_str)
                     continue
 

@@ -32,10 +32,10 @@ class VehicleUI():
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
             if user_choice != None:
 
-                if user_choice == self.ui_helper.BACK:
+                if user_choice.lower() == self.ui_helper.BACK.lower():
                     return
 
-                elif user_choice == self.ui_helper.QUIT:
+                elif user_choice.lower() == self.ui_helper.QUIT.lower():
                     self.ui_helper.quit_prompt(header_str)
 
                 else:
@@ -70,15 +70,17 @@ class VehicleUI():
             vehicles = self.logic_api.all_vehicles_to_list()
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line("Vehicle overview:")
+            self.ui_helper.print_blank_line()
             self.print_vehicle_list(vehicles)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
-            if user_choice == self.ui_helper.BACK:
+            if user_choice.lower() == self.ui_helper.BACK.lower():
                 return
 
-            elif user_choice == self.ui_helper.QUIT:
+            elif user_choice.lower() == self.ui_helper.QUIT.lower():
                 self.ui_helper.quit_prompt(header_str)
             else:
                 error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
@@ -107,9 +109,7 @@ class VehicleUI():
         licence_str = "<< LICENCE >>"
         location_str = "<< LOCATION >>"
         id_str = "<< ID >>"
-        self.ui_helper.print_line("Vehicle overview:")
-        self.ui_helper.print_blank_line()
-        self.ui_helper.n_columns([manu_str, model_str, type_str, year_str, color_str, status_str, licence_str, location_str, id_str])
+        self.ui_helper.n_columns([id_str, manu_str, model_str, type_str, year_str, color_str, status_str, licence_str, location_str])
 
         for vehicle in vehicle_list:
             manu = vehicle.manufacturer
@@ -121,7 +121,7 @@ class VehicleUI():
             licence = vehicle.licence_type
             location = vehicle.location
             id_nr = vehicle.id
-            self.ui_helper.n_columns([manu, model, vtype, year, color, status, licence, location, id_nr])
+            self.ui_helper.n_columns([id_nr, manu, model, vtype, year, color, status, licence, location])
 
 
     def register_vehicle(self, header_str, error_msg=""):
@@ -140,14 +140,14 @@ class VehicleUI():
                 print()
                 attr_value = input(f"Enter vehicles's {attribute}: ")
 
-                if attr_value == self.ui_helper.BACK:
+                if attr_value.lower() == self.ui_helper.BACK.lower():
                     back_choice = self.unsaved_changes(new_vehicle, header_str)
                     if back_choice.lower() in self.ui_helper.YES:
                         return
                     else:
                         continue
 
-                elif attr_value == self.ui_helper.QUIT:
+                elif attr_value.lower() == self.ui_helper.QUIT.lower():
                     self.ui_helper.quit_prompt(header_str)
                     continue
 
@@ -168,7 +168,7 @@ class VehicleUI():
                 self.logic_api.register_new_vehicle(new_vehicle)
                 return
 
-            elif user_choice == self.ui_helper.BACK:
+            elif user_choice.lower() == self.ui_helper.BACK.lower():
                 back_choice = self.unsaved_changes(new_vehicle, header_str)
 
                 if back_choice in self.ui_helper.YES:
@@ -176,7 +176,7 @@ class VehicleUI():
                 else:
                     continue
 
-            elif user_choice == self.ui_helper.QUIT:
+            elif user_choice.lower() == self.ui_helper.QUIT.lower():
                 self.ui_helper.quit_prompt(header_str)
 
             else:
@@ -194,9 +194,9 @@ class VehicleUI():
             self.ui_helper.print_footer()
             print(error_msg)
             vehicle_id = input("Input: ")
-            if vehicle_id == self.ui_helper.BACK:
+            if vehicle_id.lower() == self.ui_helper.BACK.lower():
                 return 
-            elif vehicle_id == self.ui_helper.QUIT:
+            elif vehicle_id.lower() == self.ui_helper.QUIT.lower():
                 self.ui_helper.quit_prompt(header_str) 
 
             else:   #Search for the vehicle in database
@@ -218,9 +218,9 @@ class VehicleUI():
             user_choice = input("Input: ")
             if user_choice == opt_change_status:
                 self.change_vehicle_status(the_vehicle, header_str)
-            elif user_choice == self.ui_helper.BACK:
+            elif user_choice.lower() == self.ui_helper.BACK.lower():
                 return
-            elif user_choice == self.ui_helper.QUIT:
+            elif user_choice.lower() == self.ui_helper.QUIT.lower():
                 self.ui_helper.quit_prompt(header_str)
             else:
                 error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
@@ -258,10 +258,8 @@ class VehicleUI():
     def change_vehicle_status(self, a_vehicle, header_str, error_msg=""):
         ''' Asks user what to change vehicle status to and changes it '''
         options_dict = {
-            "1": "OK",
-            "2": "In workshop",
-            "3": "Loanded out",
-            "4": "Returned"
+            "1": "Rentable",
+            "2": "In workshop"
         }
         options_list = [(k, v) for k, v in options_dict.items()]
         while True:
@@ -275,10 +273,12 @@ class VehicleUI():
             if user_choice == None:
                 error_msg = "Please select an option from the menu"
             else:
-                if user_choice == self.ui_helper.BACK:
+                if user_choice.lower() == self.ui_helper.BACK.lower():
                     return
-                elif user_choice == self.ui_helper.QUIT:
+
+                elif user_choice.lower() == self.ui_helper.QUIT.lower():
                     self.ui_helper.quit_prompt(header_str)
+
                 elif user_choice in options_dict:
                     setattr(a_vehicle, "status", options_dict[user_choice])
                     confirm_choice = self.confirm_status(a_vehicle, header_str)

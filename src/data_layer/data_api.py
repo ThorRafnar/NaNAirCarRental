@@ -5,6 +5,7 @@ from data_layer.vehicle_data import VehicleData
 from data_layer.vehicle_type_data import VehicleTypeData
 from data_layer.contract_data import ContractData
 from data_layer.chuck_data import ChuckData
+from data_layer.profits_data import ProfitsData
 
 
 class DataAPI():
@@ -17,8 +18,17 @@ class DataAPI():
         self.vehicle_type_data = VehicleTypeData()
         self.contract_data = ContractData()
         self.chuck_data = ChuckData()
+        self.profits_data = ProfitsData()
         
 
+
+# profits functions
+
+    def add_profits(self, a_list):
+        return self.profits_data.add_profits(a_list)
+
+    def get_profits(self):
+        return self.profits_data.get_profits()
 
 # Employee functions
     def get_employees(self):
@@ -65,9 +75,9 @@ class DataAPI():
         ''' Returns a vehicle instance of Vehicle to datalayer '''
         self.vehicle_data.new_vehicle(vehicle_ins)
     
-    def change_vehicle_condition(self, new_cond, ID):
+    def change_vehicle_condition(self, new_cond, id_str):
         ''' Returns id of a vehicle and what condision it should have in database '''
-        return self.vehicle_data.change_vehicle_condition(new_cond,ID)
+        return self.vehicle_data.change_vehicle_condition(new_cond, id_str)
     
 # Vehicle type functions
     def get_all_vehicle_types(self):
@@ -91,8 +101,8 @@ class DataAPI():
         ''' returns a instance of Contract class down to db '''
         return self.contract_data.new_contract(contr)
 
-    def change_contrac_status(self, contract_id, contract_status):
-        return self.contract_data.change_contract_status(contract_id,contract_status)
+    def change_contract_status(self, attribute_list):
+        return self.contract_data.change_contract_status(attribute_list)
 
 # Chuck jokes
     def get_jokes(self):

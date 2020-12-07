@@ -42,7 +42,7 @@ class VehicleLogic():
 
     def change_vehicle_condition(self, vehicle_id, status):
         ''' Sends vehicle id and condition status to data layer '''
-        self.data_api.change_vehicle_condition(vehicle_id, status)
+        self.data_api.change_vehicle_condition(status, vehicle_id)
     
     def list_vehicles_by_status(self, status):
         ''' Gets status to filter by from UI and finds vehicles by status in vehicle list '''

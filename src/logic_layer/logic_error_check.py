@@ -121,4 +121,34 @@ class LogicErrorCheck():
         
         return final_str
 
+    def check_date(self, date_str):
+        ''' checks if a date is correctly formatted and returns none if it is not '''
+        length = len(date_str)
+        shorter_months = [4, 6, 9, 11]
+        day = date_str[0:2]
+        if length == 8:
+            month = date_str[2:4]
+            year = date_str[4:6]
+        else:
+            month = date_str[3:5]
+            year = date_str[6:]
+        
+        if int(month) > 12:
+            return None
+
+        if int(month) == 2 and int(day) > 29:   #Leap years are a lie
+            return None
+
+        if int(month) in shorter_months and int(day) > 30:
+            return None
+        
+        if int(day) > 31:
+            return None
+
+        return f"{day}/{month}/{year}"
+
+
+        
+
+
     
