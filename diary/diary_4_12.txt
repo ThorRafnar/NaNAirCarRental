@@ -5,3 +5,6 @@ Vann í logic layer, kláraði virkni fyrir A kröfur og er byrjaður að búa t
 
 #Hallfríður 
 Var að vinna í UI 
+
+#árni
+Vann með öllum í a kröfum

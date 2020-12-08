@@ -12,7 +12,7 @@ kæra dagbók morguninn byrjað á því að fara yfir það sem hefur verið ge
 
 
 #Árni
-
+Brjálað að gera í data
 
 #Hallfríður
 Var að vinna í UI með tenginar.
