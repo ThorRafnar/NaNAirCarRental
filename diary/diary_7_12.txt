@@ -6,7 +6,7 @@ kæra dagbók morguninn byrjað á því að fara yfir það sem hefur verið ge
 
 
 #Arnór
-
+Hélt áfram á fullu í logic layer, kláraði fullt af contract logic og bætti við slatta af annari logic út frá kröfum frá UI
 
 #Þorsteinn
 
