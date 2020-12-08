@@ -165,6 +165,12 @@ class LogicAPI():
     def calculate_profits(self,start_date, end_date):
         return self.profit_logic.calculate_profits(start_date, end_date)
 
+    def calculate_profits_by_location(self, start_date, end_date):
+        return self.profit_logic.calculate_profits_by_locataion(start_date, end_date)
+
+    def caluclate_profits_by_vehicle(self, start_date, end_date):
+        return self.profit_logic.calculate_profits_by_vehicle(start_date, end_date)
+
     # ERROR logic
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)
