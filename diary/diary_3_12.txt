@@ -12,6 +12,7 @@ Festist í vinnu og gat lítið gert í dag, lagaði þó aðeins logic layer me
 
 
 #Árni
+model layer / database
 
 
 #Hallfríður
