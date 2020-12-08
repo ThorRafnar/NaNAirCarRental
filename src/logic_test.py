@@ -22,6 +22,8 @@ r = LogicAPI()
 # veh = VehicleType('Medium road','All','1100')
 
 
+r.change_contract_status('5', 'paid')
+
 # r.get_filtered_vehicle('28/11/2020', '01/12/2020',loc,veh)
 #r.change_contract_dates('4','02/12/2020','10/12/2020')
 
