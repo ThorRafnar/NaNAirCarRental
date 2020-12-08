@@ -25,6 +25,6 @@ class ProfitLogic():
             c_y, c_m, c_d = int(profit.date[0:4]), int(profit.date[5:7]), int(profit.date[8:])
             check_date = date(c_y, c_m, c_d)
             if s_date <= check_date <= e_date:
-                total += float(profit.total)
+                total += int(profit.total)
         return str(total)
 

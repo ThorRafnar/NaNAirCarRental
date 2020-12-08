@@ -1,8 +1,8 @@
 from data_layer.data_api import DataAPI
 from logic_layer.employee_logic import EmployeeLogic
+from logic_layer.customer_logic import CustomerLogic
 from logic_layer.vehicle_logic import VehicleLogic
 from logic_layer.destination_logic import DestinationLogic
-from logic_layer.customer_logic import CustomerLogic
 from logic_layer.contract_logic import ContractLogic
 from logic_layer.vehicle_type_logic import VehicleTypeLogic
 from logic_layer.logic_error_check import LogicErrorCheck
@@ -14,9 +14,9 @@ class LogicAPI():
     def __init__(self):
         self.data_api = DataAPI()
         self.employee_logic = EmployeeLogic(self.data_api)
-        self.vehicle_logic = VehicleLogic(self.data_api)
-        self.destination_logic = DestinationLogic(self.data_api)
         self.customer_logic = CustomerLogic(self.data_api)
+        self.vehicle_logic = VehicleLogic(self.data_api,self.customer_logic)
+        self.destination_logic = DestinationLogic(self.data_api)
         self.vehicle_type_logic = VehicleTypeLogic(self.data_api)
         self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic)
         self.logic_error_check = LogicErrorCheck(self.data_api)
@@ -64,6 +64,12 @@ class LogicAPI():
     
     def get_filtered_vehicle(self,start_date,end_date,location,vehicle_type):
         return self.vehicle_logic.get_filtered_vehicle(start_date,end_date,location,vehicle_type)
+    
+    def match_licenses(self, customer_ssn, vehicle_id):
+        return self.vehicle_logic.match_licenses(customer_ssn,vehicle_id)
+    
+    def licenses_options_list(self):
+        return self.vehicle_logic.licenses_options_list()
 
     # Destination logic
     def get_destinations(self):
@@ -108,6 +114,9 @@ class LogicAPI():
         ''' Gets ssn from UI and finds all contracts linked to that ssn in database and returns them as list of Contract classes '''
         return self.contract_logic.view_customer_contracts(ssn)
     
+    def get_pending_contracts(self, ssn):
+        return self.contract_logic.get_pending_contracts(ssn)
+    
     def find_contract(self, contract_id):
         ''' Gets contract ID from UI and finds correct contract from given ID and returns the contract to UI if found, else returns None '''
         return self.contract_logic.find_contract(contract_id)
@@ -120,11 +129,14 @@ class LogicAPI():
         return self.contract_logic.change_contract_dates(contract_id,start_date,end_date)
     
     def change_contract_vehicle(self,contract_id, veh_id):
-        return self.contract.logic.change_contract_vehicle(contract_id, veh_id)
+        return self.contract_logic.change_contract_vehicle(contract_id, veh_id)
     
     def get_contracts_by_attr(self, attr_list):
         ''' Gets a list containing an attribute to filter by and the value to filter it from '''
         return self.contract_logic.get_contracts_by_attr(attr_list)
+
+    def get_unpaid_contracts(self, ssn, start_date, end_date):
+        return self.contract_logic.get_unpaid_contracts( ssn, start_date, end_date)
     
     # Vehcile Types Logic
     def get_vehicle_types(self):

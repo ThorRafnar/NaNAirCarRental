@@ -15,7 +15,7 @@ class ContractLogic():
         contract.base_price = self.set_contract_base_price(contract)
         contract.contract_id = self.set_contract_id()
         contract.contract_created = date.today().strftime('%d/%m/%Y')
-        
+        self.vehicle_logic.change_vehicle_condition(contract.vehicle_id, 'in_rent')
         self.data_api.new_contract(contract)
     
     def set_contract_base_price(self, contract):
@@ -49,15 +49,11 @@ class ContractLogic():
                 correct_contract = contract
         return correct_contract
     
-    #hreinsa til method
     def change_contract_status(self, contract_id, status):
         ''' Changes contract status for given contract by ID '''
         cont = self.find_contract(contract_id)
         cont.status = status.lower()
-        if cont.status == 'active':
-            cont.pickup_date = date.today().strftime('%d/%m/%Y')
-            self.vehicle_logic.change_vehicle_condition(contract.vehicle_id, 'in_rent')
-        elif cont.status == 'returned':
+        if cont.status == 'returned':
             cont.return_date = date.today().strftime('%d/%m/%Y')
             self.vehicle_logic.change_vehicle_condition(cont.vehicle_id, 'rentable')
             date_status = self.calculate_number_of_days(cont.end_date, cont.return_date)
@@ -68,12 +64,10 @@ class ContractLogic():
             paid_date = date.today()
             profit_log = [paid_date,cont.contract_id,cont.base_price,cont.extensions,cont.total]
             self.data_api.add_profits(profit_log)
-        elif cont.status == 'terminated':
-            self.data_api.terminate_contract(cont.contract_id)
             
         attr_str = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
         attr_list = [cont.contract_id, attr_str]
-        self.data_api.change_contract_attributes(attr_list)
+        self.data_api.change_contract_status(attr_list)
     
     def calculate_number_of_days(self, start_date, end_date):
         ''' Calculates how many days are between given dates '''
@@ -88,36 +82,12 @@ class ContractLogic():
         ''' Gets vehicle type for given vehicle and adds 50% on top of it then calculates that with number of days in late return '''
         vehicle = self.vehicle_logic.find_vehicle(vehicle_id)
         type_rate = int(self.type_logic.get_types_rate(vehicle.type))
-        tax = type_rate * 1.2
+        tax = type_rate * 1.5
         return date_status * tax
 
     def get_contract_total_price(self, contract):
         ''' Adds extensions with base price to calculate total price '''
         return int(contract.base_price) + int(contract.extensions)
-    
-    def change_contract_dates(self,contract_id,start_date,end_date):
-        cont = self.find_contract(contract_id)
-        cont.loan_date = start_date
-        cont.end_date = end_date
-
-        attr_str = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
-        attr_list = [cont.contract_id, attr_str]
-
-        self.data_api.change_contract_attributes(attr_list)
-    
-    def change_contract_vehicle(self,contract_id, veh_id):
-        cont = self.find_contract(contract_id)
-        is_available = self.vehicle_logic.check_vehicle_availability(veh_id,cont.loan_date,cont.end_date)
-
-        if is_available:
-            cont.vehicle_id = veh_id
-
-            attr_str = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
-            attr_list = [cont.contract_id, attr_str]
-
-            self.data_api.change_contract_attributes(attr_list)
-        else:
-            print('gekk ekki upp')
 
     def get_contracts_by_attr(self, attr_list):
         ''' Returns a list of contracts from given attributes '''
@@ -126,3 +96,23 @@ class ContractLogic():
         contracts_list = self.get_all_contracts()
         filtered_list = [c for c in contracts_list if getattr(c, col).lower() == value.lower()]
         return filtered_list
+
+    def get_unpaid_contracts(self, ssn, start_date, end_date):
+        '''Retunrs a list of contracts instances that have yet to pay thair contract '''
+
+        ret_list = [] 
+        d,m,y = int(start_date[:2]),int(start_date[3:5]),int(start_date[6:])
+        e_d,e_m,e_y = int(end_date[:2]),int(end_date[3:5]),int(end_date[6:])
+        start = date(y, m, d)
+        end = date(e_y, e_m, e_d)
+
+        contracts = self.get_all_contracts()
+        for contract in contracts:
+            d_r, m_r, y_r = int(contract.return_date[0:2]), int(contract.return_date[3:5]), int(contract.return_date[6:])
+            return_date = date(y_r, m_r, d_r)
+            if start <= return_date <= end and contract.status.lower() == 'returned' and contract.ssn == ssn:
+                ret_list.append(contract)
+        return ret_list
+
+            
+
