@@ -6,5 +6,5 @@ class ChuckLogic():
 
     def get_random_joke(self):
         chuck_jokes = self.data_api.get_jokes()
-        random_number = random.randint(0,len(chuck_jokes))
+        random_number = random.randint(0,len(chuck_jokes) - 1)
         return chuck_jokes[random_number]
