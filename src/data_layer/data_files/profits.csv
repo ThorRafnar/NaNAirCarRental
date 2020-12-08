@@ -1,10 +1,10 @@
 date,contract_id,base_price,extensions,total,vehicle_type,location
 2020-12-15,5,17600,13200.0,17600,Light road,Kulusuk
-2020-12-16,5,17600,paid,17600,Medium off-road,Tingwall
-2020-12-04,5,17600,paid,17600,Light road,Longyearbyen
-2020-12-03,5,17600,paid,17600,Light road,Kulusuk
-2020-12-11,5,17600,paid,17600,bla,Tórshafn
-2020-12-02,5,17600,paid,17600,Light off-road,Tingwall
-2020-12-01,5,17600,paid,17600,Light road,Tórshafn
-2020-12-12,5,17600,paid,17600,Medium water,Nuuk
+2020-12-16,5,17600,13200.0,17600,Medium off-road,Tingwall
+2020-12-04,5,17600,13200.0,17600,Light road,Longyearbyen
+2020-12-03,5,17600,13200.0,17600,Light road,Kulusuk
+2020-12-11,5,17600,13200.0,17600,bla,Tórshafn
+2020-12-02,5,17600,13200.0,17600,Light off-road,Tingwall
+2020-12-01,5,17600,13200.0,17600,Light road,Tórshafn
+2020-12-12,5,17600,13200.0,17600,Medium water,Nuuk
 
