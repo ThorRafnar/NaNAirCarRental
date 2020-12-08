@@ -135,8 +135,8 @@ class LogicAPI():
         ''' Gets a list containing an attribute to filter by and the value to filter it from '''
         return self.contract_logic.get_contracts_by_attr(attr_list)
 
-    def get_unpaid_contracts(self, start_date, end_date):
-        return self.contract_logic.get_unpaid_contracts(start_date, end_date)
+    def get_unpaid_contracts(self, ssn, start_date, end_date):
+        return self.contract_logic.get_unpaid_contracts( ssn, start_date, end_date)
     
     # Vehcile Types Logic
     def get_vehicle_types(self):
