@@ -20,7 +20,7 @@ class EmployeeUI():
 
 
     def show_options(self, header_str, error_msg=""):
-        options_list = self.ui_helper.list_to_dict(self.options_dict)
+        options_list = self.ui_helper.dict_to_list(self.options_dict)
         
         while True:
             opt_str = "Select task"
