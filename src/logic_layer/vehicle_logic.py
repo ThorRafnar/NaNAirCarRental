@@ -62,33 +62,37 @@ class VehicleLogic():
         filtered_list = []
         for vehicle in vehicle_list:
             if vehicle.location.lower() == location.airport.lower() and vehicle.type.lower() == vehicle_type.name.lower():
-                is_available = self.check_vehicle_availability(vehicle,start_date,end_date)
+                is_available = self.check_vehicle_availability(vehicle.id,start_date,end_date)
                 if is_available:
                     filtered_list.append(vehicle)
         return filtered_list
     
-    def check_vehicle_availability(self,vehicle,start_date,end_date):
+    def check_vehicle_availability(self,veh_id,start_date,end_date):
         ''' Check vehicle availability from status first, then potential loan dates '''
         s_date = datetime.strptime(start_date, '%d/%m/%Y')
         e_date = datetime.strptime(end_date, '%d/%m/%Y')
         is_available = False
-        if vehicle.status.lower() == 'rentable':
-            is_available = True
 
-        elif vehicle.status.lower() == 'in_rent':
-            contract_list = self.data_api.list_all_contracts()
-            veh_contract = None
-            for cont in contract_list:
-                if cont.vehicle_id == vehicle.id:
-                    veh_contract = cont
+        contract_list = self.data_api.list_all_contracts()
+        veh_contracts = []
+
+        for cont in contract_list:
+            if cont.vehicle_id == veh_id:
+                veh_contracts.append(cont)
+
+        if not veh_contracts:
+            is_available = True
+        else:
+            for veh_cont in veh_contracts:
+                veh_start_date = datetime.strptime(veh_cont.loan_date, '%d/%m/%Y')
+                veh_end_date = datetime.strptime(veh_cont.end_date, '%d/%m/%Y')
+
+                if s_date > veh_end_date or e_date < veh_start_date:
+                    is_available = True
+                else:
+                    is_available = False
                     break
 
-            veh_start_date = datetime.strptime(veh_contract.loan_date, '%d/%m/%Y')
-            veh_end_date = datetime.strptime(veh_contract.end_date, '%d/%m/%Y')
-
-            if s_date > veh_end_date or e_date < veh_start_date:
-                is_available = True
-        
         return is_available
             
         
