@@ -4,9 +4,11 @@ Vehicle ui (mögulega vehicle types)
     change rates
 
 for airport staff:
-    Make pick up and returns easy
-    pick up: by customer ssn
-    returns: by vehicle id
+    Make pick up and returns easy   v
+    pick up: by customer ssn    v
+    returns: by vehicle id      v
+
+    //TODO, connect to logic properly
     
 Locations menu: 
     View all

@@ -117,7 +117,7 @@ class VehicleLogic():
         for vehicle in vehicles_list:
             if vehicle.license_type not in licenses_list and vehicle.license_type.lower() != 'none':
                 licenses_list.append(vehicle.license_type)
-        print(licenses_list)
+        return licenses_list
             
         
         
