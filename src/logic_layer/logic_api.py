@@ -120,7 +120,7 @@ class LogicAPI():
         return self.contract_logic.change_contract_dates(contract_id,start_date,end_date)
     
     def change_contract_vehicle(self,contract_id, veh_id):
-        return self.contract.logic.change_contract_vehicle(contract_id, veh_id)
+        return self.contract_logic.change_contract_vehicle(contract_id, veh_id)
     
     def get_contracts_by_attr(self, attr_list):
         ''' Gets a list containing an attribute to filter by and the value to filter it from '''

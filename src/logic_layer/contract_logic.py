@@ -56,7 +56,7 @@ class ContractLogic():
         cont.status = status.lower()
         if cont.status == 'active':
             cont.pickup_date = date.today().strftime('%d/%m/%Y')
-            self.vehicle_logic.change_vehicle_condition(contract.vehicle_id, 'in_rent')
+            self.vehicle_logic.change_vehicle_condition(cont.vehicle_id, 'in_rent')
         elif cont.status == 'returned':
             cont.return_date = date.today().strftime('%d/%m/%Y')
             self.vehicle_logic.change_vehicle_condition(cont.vehicle_id, 'rentable')
@@ -70,9 +70,10 @@ class ContractLogic():
             self.data_api.add_profits(profit_log)
         elif cont.status == 'terminated':
             self.data_api.terminate_contract(cont.contract_id)
-            
-        attr_str = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
-        attr_list = [cont.contract_id, attr_str]
+        
+        attr_string = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.contract_created},{cont.pickup_date},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
+
+        attr_list = [cont.contract_id, attr_string]
         self.data_api.change_contract_attributes(attr_list)
     
     def calculate_number_of_days(self, start_date, end_date):
@@ -99,25 +100,23 @@ class ContractLogic():
         cont = self.find_contract(contract_id)
         cont.loan_date = start_date
         cont.end_date = end_date
+        cont.base_price = self.set_contract_base_price(cont)
 
-        attr_str = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
-        attr_list = [cont.contract_id, attr_str]
+        attr_string = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.contract_created},{cont.pickup_date},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
+
+        attr_list = [cont.contract_id, attr_string]
 
         self.data_api.change_contract_attributes(attr_list)
     
     def change_contract_vehicle(self,contract_id, veh_id):
         cont = self.find_contract(contract_id)
-        is_available = self.vehicle_logic.check_vehicle_availability(veh_id,cont.loan_date,cont.end_date)
+        cont.vehicle_id = veh_id
 
-        if is_available:
-            cont.vehicle_id = veh_id
+        attr_string = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.contract_created},{cont.pickup_date},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
 
-            attr_str = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
-            attr_list = [cont.contract_id, attr_str]
+        attr_list = [cont.contract_id, attr_string]
 
-            self.data_api.change_contract_attributes(attr_list)
-        else:
-            print('gekk ekki upp')
+        self.data_api.change_contract_attributes(attr_list)
 
     def get_contracts_by_attr(self, attr_list):
         ''' Returns a list of contracts from given attributes '''
