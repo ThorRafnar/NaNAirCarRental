@@ -11,7 +11,8 @@ yrja á að debugga forritið okkar. Einnig aðbyrja á því að fara yfir ský
 Frábær dagur í dag hjá okkur Árna niðri í Logic layer, kláruðum allar a kröfur og langt komnir með b kröfur, lifi lógíkin!
 
 #Þorsteinn
-
+Fullt að gerast í ui, A kröfur eru svona 90% komnar, smá teningingar eftir, B kröfur á góðri leið líka.
+Er að hreinsa til í kóðanum líka
 
 #Árni
 
