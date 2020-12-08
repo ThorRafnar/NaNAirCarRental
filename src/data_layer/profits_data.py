@@ -11,7 +11,7 @@ class ProfitsData():
             csv_writer.writerow(a_list)
 
     def get_profits(self):
-        ''' Returns Profits intstances to logig '''
+        ''' Returns Profits intstances to logic'''
         ret_list = []
         with open('data_layer/data_files/profits.csv', 'r', encoding='utf-8') as file_stream:
             csv_reader = csv.DictReader(file_stream)
