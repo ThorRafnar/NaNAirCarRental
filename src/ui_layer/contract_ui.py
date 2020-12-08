@@ -57,8 +57,12 @@ class ContractUI():
                             self.contract_not_found(header_str)
                             
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
-                        pass
-                        #View all contracts
+                        contracts_list = self.logic_api.get_all_contracts()
+                        self.ui_helper.print_header(header_str)
+                        for contract in contracts_list:
+                            self.compact_contract(contract)
+                        self.ui_helper.print_footer()
+                        return input("...")
 
             else:
                 error_msg = "Please select an option from the menu"
@@ -300,12 +304,14 @@ class ContractUI():
     def get_vehicle_type(self, location, header_str, error_msg=""):
         ''' Displays all vehicle types in a given location and allows user to choose '''
         vehicle_types = self.logic_api.filter_by_region(location.country)
-        vehicle_type_list = [(str(ind + 1),vtype.name) for ind, vtype in enumerate(vehicle_types)]       
+        vehicle_type_list = [(str(ind + 1), vtype) for ind, vtype in enumerate(vehicle_types)]       
         vehicle_type_dict = dict(vehicle_type_list)
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
-            self.ui_helper.print_options(vehicle_type_list, "Select vehicle type:")
+            self.ui_helper.print_line("Select vehicle type:")
+            for line in vehicle_type_list:
+                self.ui_helper.print_line(f"    {line[0]}. {line[1].name}")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
 
@@ -316,14 +322,14 @@ class ContractUI():
                 self.ui_helper.quit_prompt(header_str)
             elif user_choice in vehicle_type_dict:
                 return vehicle_type_dict[user_choice]
+                
             else:
                 error_msg = "Fuck off"
 
     
-    def choose_vehicle(self, start_date, end_date, location, vehicle_type, header_str, error_msg=""):
+    def choose_vehicle(self, start_date, end_date, location, a_vehicle_type, header_str, error_msg=""):
         ''' Lists all vehicles that are available for given dates, in a given location of a given type '''
-        #vehicle_list = self.logic_api.get_filtered_vehicles(start_date, end_date, location, vehicle_type)
-        vehicle_list = self.logic_api.all_vehicles_to_list()
+        vehicle_list = self.logic_api.get_filtered_vehicle(start_date, end_date, location, a_vehicle_type)
         id_list = [vehicle.id for vehicle in vehicle_list ]
         while True:
             self.ui_helper.clear()
@@ -393,10 +399,24 @@ class ContractUI():
         return input("Input: ")
 
 
-    def get_printable_contract(self, the_contract):
-        the_vehicle = self.logic_api.find_vehicle(the_contract.vehicle_id)
-        the_customer = self.logic_api.find_customer(the_contract.customer_ssn)
-        the_employee = self.logic_api.find_employee(the_contract.employee_ssn)
-        the_type = the_vehicle.type
-        the_rate = self.logic_api.get_types_rate(the_type)
-        
+    def compact_contract(self, a_contract):
+        ''' Displays contract information in a compact format '''
+        a_vehicle = self.logic_api.find_vehicle(a_contract.vehicle_id)
+        a_customer = self.logic_api.find_customer(a_contract.customer_ssn)
+        a_employee = self.logic_api.find_employee(a_contract.employee_ssn)
+        person_header = [ f"Contract ID {a_contract.contract_id}:", "<< SSN >>", "<< NAME >>", "<< ADDRESS >>", "<< PHONE NR >>", "<< EMAIL >>"]
+        cust_info_list = [ "Customer -> ",a_customer.ssn, a_customer.name, a_customer.address, a_customer.phone, a_customer.email ]
+        emp_info_list = [ "Employee -> ",a_employee.ssn, a_employee.name, a_employee.address, a_employee.mobile_phone, a_employee.email ]
+        self.ui_helper.n_columns(person_header)
+        self.ui_helper.n_columns(cust_info_list)
+        self.ui_helper.n_columns(emp_info_list)
+        self.ui_helper.print_blank_line()
+
+        '''
+        Upplýsingar um leigjanda.
+        Dagsetning á gerð samnings.
+        Upplýsingar um farartækið.
+        Gildistíma leigusamnings og land.
+        Dagsetning og staðsetning á afhendingu farartækis (skráð við afhendingu).
+        Dagsetning og staðsetning á móttöku farartækis (skráð við skil).
+        '''
