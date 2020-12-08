@@ -18,3 +18,4 @@ Brjálað að gera í data
 Var að vinna í UI með tenginar.
 
 #Esther
+Vorum að vinna í UI við við tengingar við logic.

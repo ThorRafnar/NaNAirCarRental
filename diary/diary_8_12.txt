@@ -1,0 +1,23 @@
+8.12
+Kæra dagbók, með morgun kaffibollanum ákvðum við að skipta okkur upp í hópa
+2 og 2 saman og vinna í því sem eftir er sem er í UI að tengja á milli, setja inn meiri virkni í logic. B
+yrja á að debugga forritið okkar. Einnig aðbyrja á því að fara yfir skýrsluna sem við gerðum í byrjun og breyta 
+því sem þarf að breyta fyrir lokaskil. 
+
+#Ragnar
+
+
+#Arnór
+
+#Þorsteinn
+
+
+#Árni
+
+
+#Hallfríður
+Byrjuðum að debugga kerfið okkar og einnig byrjaði ég á því að
+fara yfir skýrsluna okkar og laga hana til fyrir lokaskilin.
+
+#Esther
+byrjaði á að vinna við að debugga kerfið

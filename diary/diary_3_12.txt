@@ -1,4 +1,4 @@
-1.12
+3.12
 kæra dagbók í dag héldum við áfram að vinna í ui, logig og data. Verkefni dagsins var að tengja meira á milli ui í logig og í data. 
 Við kláruðum að tengja employee og byrjuðum svo á vhicle. 
 
@@ -19,3 +19,4 @@ model layer / database
 vorum að vinna við að tengja á milli. Einnig að vinna í ui.
 
 #Esther
+var að vinna í logic

@@ -8,3 +8,6 @@ Var að vinna í UI
 
 #árni
 Vann með öllum í a kröfum
+
+# Ester
+Vann í logic við að klára virkni fyrir A kröfur 
