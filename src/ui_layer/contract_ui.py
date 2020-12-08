@@ -51,8 +51,8 @@ class ContractUI():
                         
                             
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
-                        contracts_list = self.logic_api.get_all_contracts()
-                        self.list_all_contracts(contract_list, header_str)
+                        contract_list = self.logic_api.get_all_contracts()
+                        self.list_contracts(contract_list, header_str)
 
             else:
                 error_msg = "Please select an option from the menu"
@@ -513,14 +513,150 @@ class ContractUI():
                         
                         ### The contracts <3 ###
                         contract_list = self.logic_api.view_customer_contracts(ssn)
-                        self.list_contracts(contract_list, header_str)
+                        if contract_list == []:
+                            pass
+                            #No contract for this customer today
+
+                        else:
+                            returning_choice = self.customer_vehicle_selection(contract_list, header_str)   #To return to menu if user finished a task
+                            if returning_choice == self.ui_helper.BACK.lower():
+                                return
 
                     else:
                         continue
 
-
-
-
                 else:                       #If customer is not found
                     error_msg = "No customer with this ssn found!"
                     continue
+
+
+    def customer_vehicle_selection(self, contract_list, header_str, error_msg=""):
+        ''' Displays vehicles in a list and allows user to select (A)ll or one at a time to lend them out '''
+        activate_list = []
+        undo_list = []
+        activate_all = "a"
+        save = "s"
+        undo = "u"
+        while True:
+            vehicle_id_dict =  { contract.vehicle_id: contract for contract in contract_list }      #Contains vehicle id as key and contract as value, updates if user activates a contract
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line(f"    ({activate_all.upper()})ll: Activate all contracts")
+            self.ui_helper.print_line("        --OR--")
+            self.ui_helper.print_line("    Enter vehicle ID to activate contract")
+            self.ui_helper.print_blank_line()
+            if contract_list != []:
+                self.ui_helper.print_centered_line_dash("<< PENDING >>")
+                self.list_vehicle_and_contract_info(contract_list)
+                self.ui_helper.print_blank_line()
+            if activate_list != []:
+                self.ui_helper.print_centered_line_dash("<< TO ACTIVATE >>")
+                self.list_vehicle_and_contract_info(activate_list)
+                self.ui_helper.print_blank_line()
+                self.ui_helper.print_line(f"    ({save.upper()})ave: Save changes")
+            if undo_list != []:
+                self.ui_helper.print_line(f"    ({undo.upper()})ndo: Undo last change")
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.QUIT.lower():
+                self.ui_helper.quit_prompt(header_str)
+
+            elif user_choice.lower() == self.ui_helper.BACK.lower():
+                return
+
+            elif user_choice.lower() == undo:
+
+                if isinstance(undo_list[-1], list):             #if the last item in undo list is a list
+                    contract_list.extend(undo_list[-1])
+                    for contract in undo_list[-1]:
+                        activate_list.remove(contract)
+                    undo_list.pop()
+
+                else:                                           #if it is not
+                    contract_list.append(undo_list[-1])
+                    activate_list.remove(undo_list[-1])
+                    undo_list.pop()
+            
+            elif user_choice.lower() == save:                   #Saves changes through logic API
+                for contract in activate_list:
+                    self.logic_api.change_contract_status(contract.contract_id, "Active")
+                self.contracts_activated(header_str)
+                return self.ui_helper.BACK.lower()              #Makes user return to staff type menu if they finish the task
+
+            else:
+                if user_choice.lower() == activate_all:
+                    activate_list.extend(contract_list)     #in case user has added some and then wants to add all
+                    undo_list.append(contract_list)         #Appends list to undo, so user can undo all changes at once
+                    contract_list = []
+                
+                elif user_choice in vehicle_id_dict:
+                    activate_list.append(vehicle_id_dict[user_choice])
+                    undo_list.append(vehicle_id_dict[user_choice])
+                    contract_list.remove(vehicle_id_dict[user_choice])
+                else:
+                    error_msg = "Please select an option from the menu"
+                    continue
+                
+    
+    def contracts_activated(self, header_str):
+        ''' Confirm screen to tell user contracts have been activated '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_line("Contract(s) have been activated")
+        self.ui_helper.print_line("Press enter to return")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+        print()
+        return input("Input: ")
+    
+    def list_vehicle_and_contract_info(self, contract_list):
+        ''' Lists info about vehicles and rates for pickup '''
+        header_list = ["<< VEHICLE ID >>", "<< TYPE >>", "<< MAKE >>", "<< MODEL >>", "<< RETURN DATE >>", "<< RATE >>", "<< PRICE >>", "<< CONTRACT ID >>"]
+        self.ui_helper.n_columns(header_list)
+        for contract in contract_list:
+            vehicle = self.logic_api.find_vehicle(contract.vehicle_id)
+            self.logic_api.get_types_rate(vehicle.type)
+            self.ui_helper.n_columns([vehicle.id, vehicle.type, vehicle.manufacturer, vehicle.model, contract.end_date, self.logic_api.get_types_rate(vehicle.type), contract.base_price, contract.contract_id])
+
+
+    def returns_menu(self, header_str):
+        ''' Guides user through returning a vehicle '''
+        contract_list = []
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line("Returning vehicle(s), enter vehicle ID:")
+            self.ui_helper.print_blank_line()
+            if contract_list != []:
+                self.ui_helper.print_centered_line_dash("<< RETURNING VEHICLES >>")
+                self.list_vehicle_and_contract_info(contract_list)
+                self.ui_helper.print_blank_line()
+                self.ui_helper.print_line(f"    ({self.ui_helper.SAVE.upper()})ave: Save changes")
+                self.ui_helper.print_line(f"    ({self.ui_helper.UNDO.upper()})ndo: Undo last change")
+            else:
+                self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print()
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.QUIT.lower():
+                self.ui_helper.quit_prompt(header_str)
+
+            elif user_choice.lower() == self.ui_helper.BACK.lower():
+                return
+
+            elif user_choice.lower() == self.ui_helper.SAVE:
+                pass #TODO Register contracts as returned
+
+            elif user_choice.lower() == self.ui_helper.UNDO:
+                contract_list.pop()
+
+            else:
+                contracts = self.logic_api.get_contracts_by_attr(["vehicle_id", user_choice])
+                if contracts != []:
+                    contract_list.extend(contracts)
+
+                else:               #If vehicle contract doesn't exist
+                    self.no_contract_exists(header_str)
+
+                 
