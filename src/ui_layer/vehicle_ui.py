@@ -239,7 +239,7 @@ class VehicleUI():
         self.ui_helper.print_line(f"        MODEL YEAR:..............{a_vehicle.year}")
         self.ui_helper.print_line(f"        COLOR:...................{a_vehicle.color}")
         self.ui_helper.print_line(f"        STATUS:..................{a_vehicle.status}")
-        self.ui_helper.print_line(f"        LICENCE REQUIREMENTS:....{a_vehicle.licence_type}")
+        self.ui_helper.print_line(f"        LICENCE REQUIREMENTS:....{a_vehicle.license_type}")
         self.ui_helper.print_line(f"        LOCATION:................{a_vehicle.location}")
         if a_vehicle.id != None:
             self.ui_helper.print_line(f"        ID NUMBER:...............{a_vehicle.id}")
