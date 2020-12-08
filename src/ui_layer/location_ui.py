@@ -154,7 +154,7 @@ class LocationUI():
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
-            user_choice = self.ui_helper.get_user_menu_choice(options_list)
+            user_choice = self.ui_helper.get_user_menu_choice()
             if user_choice != None:
                 if user_choice.lower() == self.ui_helper.BACK.lower():
                     return

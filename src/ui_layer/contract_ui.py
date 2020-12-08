@@ -47,25 +47,24 @@ class ContractUI():
 
                     elif self.options_dict[user_choice] == self.FIND:
                         contract_id = self.get_contract_id(header_str)
-                        the_contract = self.logic_api.find_contract(contract_id)
-                        if the_contract != None: 
-                            self.get_printable_contract(the_contract)
-                            return input("...")
-                            
-
-                        else:
-                            self.contract_not_found(header_str)
+                        self.search_by_id(contract_id, header_str)
+                        
                             
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
-                        contracts_list = self.logic_api.get_all_contracts()
-                        self.ui_helper.print_header(header_str)
-                        for contract in contracts_list:
-                            self.compact_contract(contract)
-                        self.ui_helper.print_footer()
-                        return input("...")
+                        self.list_all_contracts(header_str)
 
             else:
                 error_msg = "Please select an option from the menu"
+
+
+    def search_by_id(self, contract_id, header_str, error_msg=""):
+        the_contract = self.logic_api.find_contract(contract_id)
+        if the_contract != None: 
+            self.view_contract(the_contract, header_str)
+            return input("...")
+        else:
+            #self.contract_not_found(header_str)
+            pass
 
     
     def get_contract_id(self, header_str):
@@ -100,13 +99,67 @@ class ContractUI():
 
     def view_contract_details(self, the_contract):
         ''' '''
-        self.ui_helper.print_line(f"        CUSTOMER ID:.............{the_contract.customer_ssn}")
-        self.ui_helper.print_line(f"        EMPLOYEE ID:.............{the_contract.employee_ssn}")
-        self.ui_helper.print_line(f"        VEHICLE ID:..............{the_contract.vehicle_id}")
-        self.ui_helper.print_line(f"        START DATE:..............{the_contract.loan_date}")
-        self.ui_helper.print_line(f"        END DATE:................{the_contract.end_date}")
+        currency = "Kr."
+        the_vehicle = self.logic_api.find_vehicle(the_contract.vehicle_id)
+        the_customer = self.logic_api.find_customer(the_contract.customer_ssn)
+        the_employee = self.logic_api.find_employee(the_contract.employee_ssn)
+        self.ui_helper.print_line(f"    Contract {the_contract.contract_id} details:")
+        self.ui_helper.seperator()
+        self.ui_helper.print_line("1. RENTAL VEHICLE")
+        self.ui_helper.print_line("    Nan air rentals hereby agree to rent to Renter a vehicle,")
+        self.ui_helper.print_line("    identified as follows:")
         self.ui_helper.print_blank_line()
-
+        self.ui_helper.left_aligned_columns([f"           MAKE:   {the_vehicle.manufacturer}", f"MODEL:  {the_vehicle.model}"])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.left_aligned_columns([f"           COLOR:  {the_vehicle.color}", f"YEAR:   {the_vehicle.year}"])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line(f"        ID Nr:  {the_vehicle.id}")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("(hereinafter referred to as “Rental Vehicle”).")
+        self.ui_helper.seperator()
+        self.ui_helper.print_line("2. RENTAL TERM")
+        self.ui_helper.print_line("    The term of this rental contract runs from the date of pickup")
+        self.ui_helper.print_line("    as indicated below, until the return of the vehicle to Owner")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.left_aligned_columns([f"           START DATE: {the_contract.loan_date}", f"END DATE:  {the_contract.end_date}"])
+        self.ui_helper.seperator()
+        self.ui_helper.print_line("3. SCOPE OF USE")
+        self.ui_helper.print_line("    The renter is limited to use the rental vehicle only in the city in ")
+        #TODO Get city as well ---------------------------------------v
+        self.ui_helper.print_line(f"    which it is rented, {the_vehicle.location}, and the general vicinity. The renter")
+        self.ui_helper.print_line("    will not sublease or rent the rental vehicle to another person.")
+        self.ui_helper.seperator()
+        self.ui_helper.print_line("4. RENTAL FEES")
+        self.ui_helper.print_line(f"    Rental vehicle is of class {the_vehicle.type}, which has a rental rate of:")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line(f"        RATE:      {self.logic_api.get_types_rate(the_vehicle.type)} {currency} per day")
+        self.ui_helper.print_line(f"        PRICE:     {the_contract.base_price} {currency}")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line(f"    Failure to return the vehicle on time will result in an extra charge of")
+        self.ui_helper.print_line(f"    20% in addition to the rate, per day")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line(f"        LATE FEES: {self.logic_api.get_types_rate(the_vehicle.type) * 1.2} {currency} per late day")
+        self.ui_helper.seperator()
+        self.ui_helper.print_line("5. SIGNATURE")
+        self.ui_helper.print_line(f"    This vehicle rental agreement constitutes the entire agreement between the")
+        self.ui_helper.print_line(f"    Parties with respect to this rental arrangement")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_centered_line_dash("<< CUSTOMER >>")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.left_aligned_columns([f"     NAME:  {the_customer.name}", f"ADDRESS:  {the_customer.address}"])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.left_aligned_columns([f"     EMAIL: {the_customer.email}", f"PHONE:   {the_customer.phone}"])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("   SIGNATURE:___________________________     DATE:________________")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_centered_line_dash("<< EMPLOYEE >>")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.left_aligned_columns([f"     NAME:  {the_employee.name}", f"WORK AREA:  {the_employee.work_area}"])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.left_aligned_columns([f"     EMAIL: {the_employee.email}", f"PHONE:   {the_employee.mobile_phone}"])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("   SIGNATURE:___________________________     DATE:________________")
+        
 
     def create_customer(self, ssn, header_str, error_msg =""):
         ''' Creates a new customer and passes it along to logic '''
@@ -372,11 +425,14 @@ class ContractUI():
     def view_contract(self, the_contract, header_str, error_msg =""):
         options_list = [("1", "Bite me!")]
         while True:
+            old_width = self.ui_helper.width
+            self.ui_helper.width = 84                   #Sets ui window width to about A4 size
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
             self.view_contract_details(the_contract)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
+            self.ui_helper.width = old_width            #Resets ui window width
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
             if user_choice.lower() == self.ui_helper.BACK.lower():
@@ -399,18 +455,34 @@ class ContractUI():
         return input("Input: ")
 
 
+    def list_all_contracts(self, header_str):
+        ''' Lists all contracts in a compact view and allows user to choose one to view '''
+        contracts_list = self.logic_api.get_all_contracts()
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_line("    Enter contract ID for more information")
+        self.ui_helper.print_blank_line()
+        contract_header = ["<< ID >>", "<< STATUS >>", "<< TOTAL PRICE >>", "<< TYPE >>", "<< VEHICLE >>", "<< NAME >>", "<< SSN >>", "<< START DATE >>", "<< RETURN DATE >>"]
+        self.ui_helper.n_columns(contract_header)
+        for contract in contracts_list:
+            self.compact_contract(contract)
+        self.ui_helper.print_footer()
+        user_choice = input("Input: ")
+        if user_choice.lower() == self.ui_helper.BACK.lower():
+            return
+        elif user_choice.lower() == self.ui_helper.QUIT.lower():
+            self.ui_helper.quit_prompt(header_str)
+        else:
+            self.search_by_id(user_choice, header_str)
+
+
     def compact_contract(self, a_contract):
         ''' Displays contract information in a compact format '''
         a_vehicle = self.logic_api.find_vehicle(a_contract.vehicle_id)
         a_customer = self.logic_api.find_customer(a_contract.customer_ssn)
-        a_employee = self.logic_api.find_employee(a_contract.employee_ssn)
-        person_header = [ f"Contract ID {a_contract.contract_id}:", "<< SSN >>", "<< NAME >>", "<< ADDRESS >>", "<< PHONE NR >>", "<< EMAIL >>"]
-        cust_info_list = [ "Customer -> ",a_customer.ssn, a_customer.name, a_customer.address, a_customer.phone, a_customer.email ]
-        emp_info_list = [ "Employee -> ",a_employee.ssn, a_employee.name, a_employee.address, a_employee.mobile_phone, a_employee.email ]
-        self.ui_helper.n_columns(person_header)
-        self.ui_helper.n_columns(cust_info_list)
-        self.ui_helper.n_columns(emp_info_list)
-        self.ui_helper.print_blank_line()
+        contract_column = [a_contract.contract_id, a_contract.status, a_contract.total, a_vehicle.type, f"{a_vehicle.manufacturer} {a_vehicle.model}", a_customer.name, a_customer.ssn, a_contract.loan_date, a_contract.end_date]
+        self.ui_helper.n_columns(contract_column)
+
 
         '''
         Upplýsingar um leigjanda.

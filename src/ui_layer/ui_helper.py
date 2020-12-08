@@ -9,10 +9,6 @@ class UIHelper():
 
     def __init__(self, width):
         self.width = width
-        self.half_a = width // 2
-        self.half_b = self.half_a
-        if self.width % 2 == 1:
-            self.half_b += 1
 
 
     def clear(self):
@@ -21,6 +17,26 @@ class UIHelper():
             os.system("cls")
         else:
             os.system("clear")
+
+    
+    def seperator(self):
+        print("|   " + "_" * (self.width - 8) + "   |")
+
+
+    def left_aligned_columns(self, string_list):
+        ''' prints columns left aligned '''
+        width = self.width - 2
+        remainder = width % len(string_list)
+        print("|", end="")
+        for a_string in string_list:
+            col_width = width // len(string_list)
+            if remainder > 0:
+                col_width += 1
+                remainder -= 1
+            print("{: <{width}}".format(a_string, width = col_width), end="")
+            
+        print("|")
+
     
     def print_line(self, a_str):
         """ Prints a line with | on either side, with one string, left aligned 3 spaces, 4 including the |. """
@@ -38,10 +54,14 @@ class UIHelper():
 
     def print_line_2_strings(self, a_str, b_str):
         """ Prints a line of length width, takes two strings and aligns them on either side, 3 spaces from the edge, | """
+        half_a = self.width // 2
+        half_b = half_a
+        if self.width % 2 == 1:
+            half_b += 1
         a_str = "|   " + a_str
         b_str = b_str + "   |"     
-        print("{: <{width}}".format(a_str, width = self.half_a), end="")
-        print("{: >{width}}".format(b_str, width = self.half_b))
+        print("{: <{width}}".format(a_str, width = half_a), end="")
+        print("{: >{width}}".format(b_str, width = half_b))
 
 
     def print_header(self, a_str):
@@ -125,6 +145,11 @@ class UIHelper():
     def print_centered_line(self, a_str):
         ''' prints a string centered on the screen '''
         print("|{: ^{width}}|".format(a_str, width = self.width - 2))
+
+    
+    def print_centered_line_dash(self, a_str):
+        ''' prints a string centered , padded with dashes on the screen '''
+        print("|   {:-^{width}}   |".format(a_str, width = self.width - 8))
 
 
     def quit_prompt(self, header_str):
