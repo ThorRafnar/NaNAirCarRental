@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime,date
 
 class ContractLogic():
     def __init__(self, data_api, vehicle_logic, type_logic):
@@ -39,6 +39,16 @@ class ContractLogic():
             if contract.customer_ssn == ssn:
                 customer_contracts.append(contract)
         return customer_contracts
+    
+    def get_pending_contracts(self, ssn):
+        customer_contracts = self.view_customer_contracts(ssn)
+        pending_contracts = []
+        for contract in customer_contracts:
+            contract_date = datetime.strptime(contract.loan_date, '%d/%m/%Y')
+            today = datetime.today()
+            if today >= contract_date and contract.status.lower() == 'pending':
+                pending_contracts.append(contract)
+        return pending_contracts
     
     def find_contract(self, cont_id):
         ''' Searches for a contract from given contract ID and returns an instance of contract class if found, else returns None '''
@@ -110,7 +120,7 @@ class ContractLogic():
         for contract in contracts:
             d_r, m_r, y_r = int(contract.return_date[0:2]), int(contract.return_date[3:5]), int(contract.return_date[6:])
             return_date = date(y_r, m_r, d_r)
-            if start <= return_date <= end and contract.status == 'returned':
+            if start <= return_date <= end and contract.status.lower() == 'returned':
                 ret_list.append(contract)
         return ret_list
 
