@@ -1,14 +1,17 @@
 class ReportUI():
+    ### CLASS  CONSTANTS ###
+    ## FOR MENU SELECTION ##
+    PROFIT_REPORTS = "Profits"
+    UTILIZATION_REPORTS = "Utilization Reports"
+    BILLS = "Bills"
 
     def __init__(self, ui_helper, logic_api):
-        PROFIT_REPORTS = "Profits"
-        UTIL_REPORTS = "Utilization Reports"
-        BILLS = "Bills"
+
         self.ui_helper = ui_helper
         self.logic_api = logic_api
         self.options_dict = {
             "1": self.PROFIT_REPORTS,
-            "2": self.UTIL_REPORTS,
+            "2": self.UTILIZATION_REPORTS,
             "3": self.BILLS,
         }
     
@@ -22,10 +25,13 @@ class ReportUI():
             else:
                 if self.options_dict[user_choice] == self.PROFIT_REPORTS:
                     # Call a function wich deals with profit reports
-                elif self.options_dict[user_choice] == self.UTIL_REPORST:
+                    pass
+                elif self.options_dict[user_choice] == self.UTILIZATION_REPORTS:
                     # Call a function wich deals with utilizitation reports
+                    pass
                 elif self.options_dict[user_choice] == self.BILLS:
                     # Call a function wich deals with bills.
+                    pass
 
     
     def show_options(self, header_str, error_msg=""):
