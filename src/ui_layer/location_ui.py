@@ -144,13 +144,13 @@ class LocationUI():
                 error_msg = "Please select an option from the menu"
 
 
-    def view_location_emps(self, the_dest, header_str):
-        filter_attributes = ["work_area", the_dest.iata]
-        emps = self.logic_api.get_filtered_employees()
+    def view_location_emps(self, the_dest, header_str, error_msg=""):
+        filter_attributes = [("work_area", the_dest.iata)]
+        emps = self.logic_api.get_filtered_employees(filter_attributes)
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header(header_str)
-            self.print_employee_list(emps)
+            self.employee_ui.print_employee_list(emps)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)

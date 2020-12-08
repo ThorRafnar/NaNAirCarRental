@@ -50,12 +50,39 @@ class LogicErrorCheck():
         return None
 
 
-    def check_email(self, a_str):
-        # Maybe add valid email domains in future?
-        if "@" not in a_str:
+    def check_email(self, email_address):
+        ''' 
+        Checks if email address is valid, that it contains:
+        exactly one @
+        no consec dots
+        exactly one dot after @
+        '''
+        email_address 
+        if email_address[0] == ".":
             return None
-        
-        return a_str
+
+        if email_address.count("@") != 1:
+            return None
+
+        for i in range(len(email_address ) - 1):
+            if email_address[i] == "." and email_address[i + 1] == "@":
+                return None
+            if email_address[i] == "." and email_address[i + 1] == ".":
+                return None
+
+            if email_address[i] == "@":
+                if email_address[i:].count(".") != 1:
+                    return None
+                if "." not in email_address[i:]:
+                    return None
+                    
+        if email_address[-1] == "@":
+            return None
+        if "@" in email_address[0]:
+            return None
+
+        return email_address
+
     
     #This function can be used whenever a string has to be only numbers with no spaces
     def check_if_number(self, a_str):
@@ -149,6 +176,7 @@ class LogicErrorCheck():
 
 
         
+
 
 
     
