@@ -48,6 +48,7 @@ class ReportUI():
         self.ui_helper.print_blank_line()
         self.ui_helper.print_line("    Profit Reports:")
         ReportUI.ask_end_and_start_date(header_str)
+        pass
         # How do they look? O.o
 
     def ask_end_and_start_date(self, header_str):
