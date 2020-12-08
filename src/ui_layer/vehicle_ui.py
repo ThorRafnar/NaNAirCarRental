@@ -299,3 +299,53 @@ class VehicleUI():
         self.ui_helper.print_hash_line()
         print()
         return input("Input: ")
+    
+    def rates_menu(self, header_str, error_msg=""):
+        ''' Prompts user with choices to change or view vehicle type rates. '''
+        options_dict = {
+            "1": "View Rates",
+            "2": "Change Rates"
+        }
+        option_list = self.ui_helper.dict_to_list(options_dict)
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_options(option_list, "Which task do you want to perform on vehicle type rates?")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = self.ui_helper.get_user_menu_choice(option_list)
+            if user_choice.lower() == self.ui_helper.BACK.lower():
+                return
+            elif user_choice.lower() == self.ui_helper.QUIT.lower():
+                return self.ui_helper.quit_prompt(header_str)
+            else:
+                if options_dict[user_choice] == "View Rates":
+                    user_choice = view_rates(header_str)
+                elif options_dict[user_choice] == "Change Rates":
+                    pass
+
+
+
+    
+    def view_rates(self, header_str):
+        vehicle_type_str = " << TYPE >>"
+        vehicle_region_str = " << REGION >>"
+        vehicle_rate_str = " << RATE >>"
+        vehicle_type_list = self.logic_api.get_vehicle_types()
+
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("    Vehicle Types:")
+        self.ui_helper.n_columns([vehicle_type, vehicle_region, vehicle_rate])
+        for vehicle_type in vehicle_type_list:
+            v_type = vehicle_type.name
+            v_region = vehicle_type.regions
+            v_rate = vehicle_type.rate
+            self.ui_helper.n_columns([v_type, v_region, v_rate])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_hash_line()
+        user_choice = input("Input: ")
+        return user_choice
