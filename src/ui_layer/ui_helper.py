@@ -4,6 +4,8 @@ class UIHelper():
 
     QUIT = "Q"
     BACK = "B"
+    SAVE = "s"
+    UNDO = "u"
     YES = ["y", "yes"]
     NO = ["n", "no"]
 
