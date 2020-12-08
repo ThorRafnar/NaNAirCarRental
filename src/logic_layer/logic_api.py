@@ -172,6 +172,9 @@ class LogicAPI():
     def check_date(self, date_str):
         return self.logic_error_check.check_date(date_str)
 
+    def check_ssn(self, ssn):
+        return self.logic_error_check.ssn_formatter(ssn)
+
     # Random Chuck Norris jokes logic
     def get_random_joke(self):
         ''' Returns one random Chuck Norris joke from chuck_jokes.txt '''

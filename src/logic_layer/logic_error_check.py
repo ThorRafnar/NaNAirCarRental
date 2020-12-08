@@ -50,6 +50,28 @@ class LogicErrorCheck():
         return None
 
 
+    def ssn_formatter(self, ssn):
+        ''' Returns a ssn in the correct format, NNNNNN-NNNN. '''
+        if len(ssn) == 10:
+            for num in ssn:
+                if num.isnumeric() == False:
+                    ssn = None
+
+            ssn = ssn[:6] + "-" + ssn[6:]
+
+        elif len(ssn) == 11 and (ssn[6].isspace() or ssn[6] == "-"):
+            for ind, num in enumerate(ssn):
+                if num.isnumeric() == False and ind != 6:
+                    ssn = None
+
+            ssn = ssn[:6] + "-" + ssn[7:]
+
+        else:
+            ssn = None
+        
+        return ssn
+
+
     def check_email(self, email_address):
         ''' 
         Checks if email address is valid, that it contains:
@@ -117,36 +139,6 @@ class LogicErrorCheck():
         else:
             return None
     
-    def check_ssn_inpunt(self, a_str):
-        ''' Takes in a string that is supposed to be social security number 
-        and checks if it is valid or not.'''
-        new_str = ""
-        final_str = ""
-        for char in a_str:
-            if char.isspace():
-                pass
-            new_str += char
-        
-        if len(new_str) > 10:
-            return None
-        
-        try:
-            numb = int(new_str)
-        except ValueError:
-            return None
-        
-        birtday = new_str[0:6]
-        if (int(new_str[0:2]) > 31) or (int(new_str[2:4]) > 12):
-            return None
-        
-        counter = 0
-        for char in new_str:
-            counter += 1
-            final_str += char
-            if counter == 6:
-                final_str += "-"
-        
-        return final_str
 
     def check_date(self, date_str):
         ''' checks if a date is correctly formatted and returns none if it is not '''
