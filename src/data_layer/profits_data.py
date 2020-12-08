@@ -16,6 +16,6 @@ class ProfitsData():
         with open('data_layer/data_files/profits.csv', 'r', encoding='utf-8') as file_stream:
             csv_reader = csv.DictReader(file_stream)
             for row in csv_reader:
-                profits = Profit(row["date"], row["contract_id"], row["base_price"], row["extensions"], row["total"])
+                profits = Profit(row["date"], row["contract_id"], row["base_price"], row["extensions"], row["total"], row["vehicle_type"], row["locations"])
                 ret_list.append(profits)
             return ret_list
