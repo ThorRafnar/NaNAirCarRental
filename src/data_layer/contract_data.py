@@ -20,7 +20,7 @@ class ContractData():
             writer = csv.writer(file_stream)
             writer.writerow(contr_list)
 
-    def change_contract_status(self, attribute_list):
+    def change_contract_attributes(self, attribute_list):
         values = attribute_list[1].split(",")
         file_list = []
         with open("data_layer/data_files/contracts.csv","r",encoding="utf-8") as file_stream:
@@ -37,3 +37,19 @@ class ContractData():
             the_writer = csv.DictWriter(file_stream, keys)
             the_writer.writeheader()
             the_writer.writerows(file_list)
+
+    def terminate_contract(self, contract_id):
+        ''' Terminates contract by removing the contract from db '''
+        file_list = []
+        with open("data_layer/data_files/contracts.csv", 'r', encoding='utf-8') as file_stream:
+            csv_reader = csv.DictReader(file_stream)
+            for row in csv_reader:
+                if row["contract_id"] != contract_id:
+                    file_list.append(row)
+        with open("data_layer/data_files/contracts.csv", "w", encoding="utf-8", newline="") as file_stream:
+            keys = file_list[0].keys()
+            the_writer = csv.DictWriter(file_stream, keys)
+            the_writer.writeheader()
+            the_writer.writerows(file_list)
+            
+
