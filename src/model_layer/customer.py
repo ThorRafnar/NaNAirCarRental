@@ -1,5 +1,5 @@
 class Customer():
-    def __init__(self, name, ssn, address, postal_code, phone, email, country):
+    def __init__(self, name, ssn, address, postal_code, phone, email, country, licenses):
         self.name = name
         self.ssn = ssn
         self.address = address
@@ -7,3 +7,4 @@ class Customer():
         self.phone = phone
         self.email = email
         self.country = country
+        self.licenses = licenses

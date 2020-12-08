@@ -1,6 +1,6 @@
-manufacturer,model,type,status,man_year,color,licence_type,location,ID
-TAILG,Free Fly II,Medium road,rentable,2018,White,Drivers licence,Kulusuk,0
-TAILG,Free Fly II,Medium road,in_rent,2018,Orange,Drivers licence,Kulusuk,1
+manufacturer,model,type,status,man_year,color,license_type,location,ID
+TAILG,Free Fly II,Medium road,rentable,2018,White,Drivers,Kulusuk,0
+TAILG,Free Fly II,Medium road,in_rent,2018,Orange,Drivers,Kulusuk,1
 Kayman Kayaks,Crazy,Light water,rentable,2020,Yellow,None,Longyearbyen,2
 Kayman Kayaks,Crazy,Light water,rentable,2020,Yellow,None,Thorshavn,3
 Kayman Kayaks,Crazy HV,Light water,rentable,2020,Yellow,None,Nuuk,4
@@ -17,8 +17,8 @@ Yedoo,Trexx,Light road,rentable,2020,Orange,None,Nuuk,14
 WildChild,Fatboy Mini BMX,Light road,rentable,2020,Red,None,Tingwall,15
 WildChild,Fatboy Mini BMX,Light road,rentable,2020,Red,None,Longyearbyen,16
 WildChild,Fatboy Mini BMX,Light road,rentable,2020,Red,None,Kulusuk,17
-Forward,FWD-ZK125H,Medium road,rentable,2019,Blue,Drivers licence,Longyearbyen,18
+Forward,FWD-ZK125H,Medium road,rentable,2019,Blue,Drivers,Longyearbyen,18
 Colorado,Pontoon Boat,Light water,rentable,2019,Green,None,Thorshavn,19
 A2extreem,Powerboard,Light winter,rentable,2018,Black,None,Nuuk,20
-Torpedo,3500,Light water,rentable,2019,White,Diving licence,Thorshavn,21
+Torpedo,3500,Light water,rentable,2019,White,Diving,Thorshavn,21
 Kawasaki,bike 3,light road,rentable,red,red,none,Reykjavik,22
