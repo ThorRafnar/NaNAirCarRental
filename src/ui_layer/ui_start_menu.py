@@ -146,7 +146,7 @@ class UIStartMenu():
                         
                     elif next_menu == "Reports":
                         pass
-                        #self.report_ui.show_options(header_str)
+                        self.report_ui.reports_menu(header_str)
                         
                     elif next_menu == "Pick ups":
                         self.contract_ui.pick_up_vehicle(header_str)
