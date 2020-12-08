@@ -657,6 +657,16 @@ class ContractUI():
                     contract_list.extend(contracts)
 
                 else:               #If vehicle contract doesn't exist
-                    self.no_contract_exists(header_str)
+                    self.contract_not_found(header_str)
 
-                 
+    
+    def contract_not_found(self, header_str):
+        ''' Displays that no contract was found, returning after user presses enter, not saving input '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_line("No contract found")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+        print()
+        _x = input("Input: ")
+        return 
