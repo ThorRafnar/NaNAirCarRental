@@ -8,6 +8,7 @@ yrja á að debugga forritið okkar. Einnig aðbyrja á því að fara yfir ský
 
 
 #Arnór
+Frábær dagur í dag hjá okkur Árna niðri í Logic layer, kláruðum allar a kröfur og langt komnir með b kröfur, lifi lógíkin!
 
 #Þorsteinn
 
