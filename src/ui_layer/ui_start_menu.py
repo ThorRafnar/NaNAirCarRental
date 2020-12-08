@@ -148,6 +148,12 @@ class UIStartMenu():
                         pass
                         #self.report_ui.show_options(header_str)
                         
+                    elif next_menu == "Pick ups":
+                        self.contract_ui.pick_up_vehicle(header_str)
+
+                    elif next_menu == "Returns":
+                        pass
+
                     else:
                         pass
  

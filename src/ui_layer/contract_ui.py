@@ -51,7 +51,8 @@ class ContractUI():
                         
                             
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
-                        self.list_all_contracts(header_str)
+                        contracts_list = self.logic_api.get_all_contracts()
+                        self.list_all_contracts(contract_list, header_str)
 
             else:
                 error_msg = "Please select an option from the menu"
@@ -150,7 +151,7 @@ class ContractUI():
         self.ui_helper.print_blank_line()
         self.ui_helper.left_aligned_columns([f"     EMAIL: {the_customer.email}", f"PHONE:   {the_customer.phone}"])
         self.ui_helper.print_blank_line()
-        self.ui_helper.print_line("   SIGNATURE:___________________________     DATE:________________")
+        self.ui_helper.print_line("  SIGNATURE:___________________________     DATE:________________")
         self.ui_helper.print_blank_line()
         self.ui_helper.print_centered_line_dash("<< EMPLOYEE >>")
         self.ui_helper.print_blank_line()
@@ -158,7 +159,8 @@ class ContractUI():
         self.ui_helper.print_blank_line()
         self.ui_helper.left_aligned_columns([f"     EMAIL: {the_employee.email}", f"PHONE:   {the_employee.mobile_phone}"])
         self.ui_helper.print_blank_line()
-        self.ui_helper.print_line("   SIGNATURE:___________________________     DATE:________________")
+        self.ui_helper.print_line("  SIGNATURE:___________________________     DATE:________________")
+        self.ui_helper.seperator()
         
 
     def create_customer(self, ssn, header_str, error_msg =""):
@@ -455,16 +457,15 @@ class ContractUI():
         return input("Input: ")
 
 
-    def list_all_contracts(self, header_str):
+    def list_contracts(self, contract_list, header_str):
         ''' Lists all contracts in a compact view and allows user to choose one to view '''
-        contracts_list = self.logic_api.get_all_contracts()
         self.ui_helper.clear()
         self.ui_helper.print_header(header_str)
         self.ui_helper.print_line("    Enter contract ID for more information")
         self.ui_helper.print_blank_line()
         contract_header = ["<< ID >>", "<< STATUS >>", "<< TOTAL PRICE >>", "<< TYPE >>", "<< VEHICLE >>", "<< NAME >>", "<< SSN >>", "<< START DATE >>", "<< RETURN DATE >>"]
         self.ui_helper.n_columns(contract_header)
-        for contract in contracts_list:
+        for contract in contract_list:
             self.compact_contract(contract)
         self.ui_helper.print_footer()
         user_choice = input("Input: ")
@@ -484,11 +485,42 @@ class ContractUI():
         self.ui_helper.n_columns(contract_column)
 
 
-        '''
-        Upplýsingar um leigjanda.
-        Dagsetning á gerð samnings.
-        Upplýsingar um farartækið.
-        Gildistíma leigusamnings og land.
-        Dagsetning og staðsetning á afhendingu farartækis (skráð við afhendingu).
-        Dagsetning og staðsetning á móttöku farartækis (skráð við skil).
-        '''
+    def pick_up_vehicle(self, header_str, error_msg=""):
+        ''' Menu for when a customer is picking up a vehicle, asks for ssn and goes through the steps '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_line("    Enter customer ssn:")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.BACK.lower():
+                return
+            elif user_choice.lower() == self.ui_helper.QUIT.lower():
+                self.ui_helper.quit_prompt(header_str)
+            ssn = self.ui_helper.ssn_formatter(user_choice)
+            if ssn == None:
+                error_msg = "Please enter a valid social security number (DDMMYY-NNNM)"
+                continue
+            
+            else:
+                the_customer = self.logic_api.find_customer(ssn)
+
+                if the_customer != None:
+                    conf_choice = self.confirm_customer(the_customer, header_str)
+                    if conf_choice.lower() in self.ui_helper.YES:                   #If the customer is confirmed
+                        
+                        ### The contracts <3 ###
+                        contract_list = self.logic_api.view_customer_contracts(ssn)
+                        self.list_contracts(contract_list, header_str)
+
+                    else:
+                        continue
+
+
+
+
+                else:                       #If customer is not found
+                    error_msg = "No customer with this ssn found!"
+                    continue
