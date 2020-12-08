@@ -67,11 +67,16 @@ class ContractLogic():
             cont.pickup_date = date.today().strftime('%d/%m/%Y')
             self.vehicle_logic.change_vehicle_condition(cont.vehicle_id, 'in_rent')
         elif cont.status == 'returned':
-            cont.return_date = date.today().strftime('%d/%m/%Y')
+            today = date.today().strftime('%d/%m/%Y')
+            cont.return_date = today
             self.vehicle_logic.change_vehicle_condition(cont.vehicle_id, 'rentable')
             date_status = self.calculate_number_of_days(cont.end_date, cont.return_date)
             if date_status > 0:
                 cont.extensions = self.calc_extensions(cont.vehicle_id, date_status)
+            # græja utilization method
+            vehicle = self.vehicle_logic.find_vehicle(cont.vehicle_id)
+            util_list = [today,vehicle.location,vehicle.type,vehicle.manufacturer,vehicle.model,cont.pickup_date,cont.return_date]
+            self.data_api.add_utilization_log(util_list)
             cont.total = self.get_contract_total_price(cont)
         elif cont.status == 'paid':
             paid_date = date.today()

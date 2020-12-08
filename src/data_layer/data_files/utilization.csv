@@ -1,1 +1,2 @@
-date,location,vehicle_type,pick_up,return_date
+date,location,vehicle_type,manufacturer,modelpick_up,return_date
+08/12/2020,Thorshavn,Light off-road,Cani-Fit,Fat Max,01/12/2020,08/12/2020
