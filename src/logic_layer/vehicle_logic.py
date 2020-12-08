@@ -2,8 +2,9 @@ from datetime import datetime, date
 
 class VehicleLogic():
 
-    def __init__(self, data_api):
+    def __init__(self, data_api, customer_logic):
         self.data_api = data_api
+        self.customer_logic = customer_logic
 
     def all_vehicles_to_list(self):
         ''' Gets vehicle list from data and sends it to UI '''
@@ -94,6 +95,29 @@ class VehicleLogic():
                     break
 
         return is_available
+
+    def match_licenses(self, customer_ssn, vehicle_id):
+        cust = self.customer_logic.find_customer(customer_ssn)
+        vehicle = self.find_vehicle(vehicle_id)
+        customer_licenses = cust.licenses.split('-')
+        vehicle_license = vehicle.license_type
+        does_match = False
+        if vehicle_license.lower() == 'none':
+            does_match = True
+        else:
+            for c_license in customer_licenses:
+                if c_license.lower() == vehicle_license.lower():
+                    does_match = True
+        
+        return does_match
+
+    def licenses_options_list(self):
+        vehicles_list = self.all_vehicles_to_list()
+        licenses_list = []
+        for vehicle in vehicles_list:
+            if vehicle.license_type not in licenses_list and vehicle.license_type.lower() != 'none':
+                licenses_list.append(vehicle.license_type)
+        print(licenses_list)
             
         
         
