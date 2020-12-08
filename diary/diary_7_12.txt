@@ -12,7 +12,7 @@ Hélt áfram á fullu í logic layer, kláraði fullt af contract logic og bætt
 
 
 #Árni
-
+Brjálað að gera í data
 
 #Hallfríður
 Var að vinna í UI með tenginar.
