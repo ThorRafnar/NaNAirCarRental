@@ -21,7 +21,7 @@ r = LogicAPI()
 # loc = Destination('Greenland','Kulusuk','+299 999 200','10:30 - 15:30','KUS')
 # veh = VehicleType('Medium road','All','1100')
 
-r.get_pending_contracts('320866-9910')
+r.change_contract_status('5', 'paid')
 # r.get_filtered_vehicle('28/11/2020', '01/12/2020',loc,veh)
 #r.change_contract_dates('4','02/12/2020','10/12/2020')
 
