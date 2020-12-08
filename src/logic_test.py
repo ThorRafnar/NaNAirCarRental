@@ -22,7 +22,7 @@ r = LogicAPI()
 # veh = VehicleType('Medium road','All','1100')
 
 # r.get_filtered_vehicle('28/11/2020', '01/12/2020',loc,veh)
-r.change_contract_vehicle('7', '9')
+r.change_contract_dates('4','02/12/2020','10/12/2020')
 
 # hey = r.calculate_profits("01/12/2020", "10/12/2020")
 
