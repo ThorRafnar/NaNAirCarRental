@@ -123,7 +123,7 @@ class VehicleUI():
             year = vehicle.year
             color = vehicle.color
             status = vehicle.status
-            licence = vehicle.licence_type
+            licence = vehicle.license_type
             location = vehicle.location
             id_nr = vehicle.id
             self.ui_helper.n_columns([id_nr, manu, model, vtype, year, color, status, licence, location])

@@ -152,7 +152,7 @@ class UIStartMenu():
                         self.contract_ui.pick_up_vehicle(header_str)
 
                     elif next_menu == "Returns":
-                        pass
+                        self.contract_ui.returns_menu(header_str)
 
                     else:
                         pass
