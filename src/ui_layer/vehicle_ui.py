@@ -6,6 +6,7 @@ class VehicleUI():
     REGISTER = "Register new vehicle"
     FIND = "Find a vehicle"
     VIEW_ALL = "View all vehicles"
+    VIEW_VEHICLE_TYPES = "View vehicle types"
 
     def __init__(self, ui_helper, logic_api):
         self.logic_api = logic_api
@@ -14,6 +15,7 @@ class VehicleUI():
             "1": self.REGISTER, 
             "2": self.FIND, 
             "3": self.VIEW_ALL,
+            "4": self.VIEW_VEHICLE_TYPES
         }
 
     
@@ -59,6 +61,9 @@ class VehicleUI():
 
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
                         self.get_all_vehicles(header_str)
+                    
+                    elif self.options_dict[user_choice] == self.VIEW_VEHICLE_TYPES:
+                        self.view_vehicle_types(header_str)
             else:
                 error_msg = "Please select an option from the menu"
 
@@ -299,3 +304,57 @@ class VehicleUI():
         self.ui_helper.print_hash_line()
         print()
         return input("Input: ")
+    
+
+
+
+    def view_vehicle_types(self, header_str):
+        ''' The vehicle type rate menu, shows all available vehicle types'''
+        # TODO --> add ID to vehicle types.
+        vehicle_type_str = " << TYPE >>"
+        vehicle_region_str = " << REGION >>"
+        vehicle_rate_str = " << RATE >>"
+        vehicle_type_list = self.logic_api.get_vehicle_types()
+
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("    Vehicle Types:")
+        self.ui_helper.n_columns([vehicle_type_str, vehicle_region_str, vehicle_rate_str])
+        for vehicle_type in vehicle_type_list:
+            v_type = vehicle_type.name
+            v_region = vehicle_type.regions
+            v_rate = vehicle_type.rate
+            self.ui_helper.n_columns([v_type, v_region, v_rate])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+        user_choice = input("Input: ")
+        return user_choice
+    
+    
+    def change_vehicle_type_rate(self, header_str, id_str):
+        ''' Takes in a vehicle type id and changes the rate for 
+        that particular vehicle type.'''
+        # TODO Change this function, on hold.
+        vehicle_type_str = " << TYPE >>"
+        vehicle_region_str = " << REGION >>"
+        vehicle_rate_str = " << RATE >>"
+        # Remember to change this line
+        vehicle_type_list = self.logic_api.get_vehicle_types()
+        #
+        self.ui_helper.clear()
+        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("    Enter a new rate for this particular vehicle type:")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.n_columns([vehicle_type_str, vehicle_region_str, vehicle_rate_str])
+        for vehicle_type in vehicle_type_list:
+            v_type = vehicle_type.name
+            v_region = vehicle_type.regions
+            v_rate = vehicle_type.rate
+            self.ui_helper.n_columns([v_type, v_region, v_rate])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+
+
+

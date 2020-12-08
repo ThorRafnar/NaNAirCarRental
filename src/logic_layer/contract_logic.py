@@ -97,7 +97,7 @@ class ContractLogic():
         filtered_list = [c for c in contracts_list if getattr(c, col).lower() == value.lower()]
         return filtered_list
 
-    def get_unpaid_contracts(self, start_date, end_date):
+    def get_unpaid_contracts(self, ssn, start_date, end_date):
         '''Retunrs a list of contracts instances that have yet to pay thair contract '''
 
         ret_list = [] 
@@ -110,7 +110,7 @@ class ContractLogic():
         for contract in contracts:
             d_r, m_r, y_r = int(contract.return_date[0:2]), int(contract.return_date[3:5]), int(contract.return_date[6:])
             return_date = date(y_r, m_r, d_r)
-            if start <= return_date <= end and contract.status == 'returned':
+            if start <= return_date <= end and contract.status.lower() == 'returned' and contract.ssn == ssn:
                 ret_list.append(contract)
         return ret_list
 
