@@ -97,12 +97,14 @@ class ContractUI():
         change_end = "Change end date"
         change_vehicle = "Change vehicle"
         terminate = "Terminate contract"
+        printable = "View printable contract"
 
         contract_options_dict = {
             "1": change_start,
             "2": change_end,
             "3": change_vehicle,
-            "4": terminate
+            "4": terminate,
+            "5": printable
         }
         contract_options_list = self.ui_helper.dict_to_list(contract_options_dict)
         options_string = "Please select an option"
@@ -173,6 +175,9 @@ class ContractUI():
 
                     elif contract_options_dict[user_choice] == terminate:
                         pass
+
+                    elif contract_options_dict[user_choice] == printable:
+                        self.view_contract(a_contract, header_str)
 
             else:
                 error_msg = "Please select an option from the menu"

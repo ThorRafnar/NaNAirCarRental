@@ -14,7 +14,7 @@ class VehicleTypeData:
                 vehicle_type_list.append(info)
             return vehicle_type_list
     
-    def change_vehicle_rate(self,new_rate, vehicle_type):
+    def change_vehicle_rate(self, new_rate, vehicle_type, type_location):
         ''' Takes in a new desired rate and a vehicle type then changes the rate of that vehicle type
         to the new_desired rate.'''
         with open("data_layer/data_files/vehicle_type.csv","r",encoding="utf-8") as file_stream:
@@ -23,7 +23,7 @@ class VehicleTypeData:
 
             for row in reader:
                 print(row)
-                if row["name"] == vehicle_type:
+                if row["name"] == vehicle_type and row["regions"] == type_location: 
                     row["rate"] = new_rate
                 file_list.append(row)
         

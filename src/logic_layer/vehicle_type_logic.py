@@ -10,9 +10,9 @@ class VehicleTypeLogic():
         ''' Creates a new vehicle type in database '''
         self.data_api.new_vehicle_type(vehicle_type)
 
-    def change_types_rate(self, type_name, new_rate):
+    def change_types_rate(self, type_name, type_location, new_rate):
         ''' finds a given vehicle type and changes its rate from given parameters '''
-        self.data_api.change_vehicle_rate(new_rate, type_name)
+        self.data_api.change_vehicle_rate(new_rate, type_name, type_location)
     
     def get_types_rate(self, selected_type):
         ''' Searches for a vehicle type and returns it rate '''
