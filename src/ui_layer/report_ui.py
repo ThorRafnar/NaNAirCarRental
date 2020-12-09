@@ -19,8 +19,8 @@ class ReportUI():
 # Menu section
     def reports_menu(self):
         ''' Shows the option menu from the reports section'''
-        user_choice = ReportUI.show_options(self)
         while True:
+            user_choice = ReportUI.show_options(self)
             if self.options_dict[user_choice].lower() == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
 
@@ -29,13 +29,23 @@ class ReportUI():
 
             else:
                 if self.options_dict[user_choice] == self.PROFIT_REPORTS:
-                    # Call a function wich deals with profit reports
+                    start_date, end_date = self.ask_end_and_start_date()
+                    if start_date == self.ui_helper.BACK or end_date == self.ui_helper.BACK:
+                        return
+                    elif start_date == self.ui_helper.QUIT or end_date == self.ui_helper.QUIT:
+                        self.ui_helper.quit_prompt()
+                    
                     pass
 
                 elif self.options_dict[user_choice] == self.UTILIZATION_REPORTS:
-                    start_date, end_date = ReportUI.ask_end_and_start_date(self)
-                    location = ReportUI.ask_location(self)
-                    ReportUI.show_utilization_report(self, start_date, end_date,location)
+                    start_date, end_date = self.ask_end_and_start_date()
+                    if start_date == self.ui_helper.BACK or end_date == self.ui_helper.BACK:
+                        return
+                    elif start_date == self.ui_helper.QUIT or end_date == self.ui_helper.QUIT:
+                        self.ui_helper.quit_prompt()
+
+                    location = self.ask_location()
+                    self.show_utilization_report(start_date, end_date,location)
                     pass
 
                 elif self.options_dict[user_choice] == self.BILLS:
@@ -59,12 +69,19 @@ class ReportUI():
 
 # Start of profit section
     def show_profit_reports(self):
+        total_profits_str = "<< TOTAL PROFITS >>"
+        profits_by_vehicle_str= "<< TOTAL PROFITS BY VEHICLE"
+        profits_by_location_str = "<< TOTAL PROFITS BY LOCATION"
+        profit_reports = self.logic_api.get_profits()
         self.ui_helper.clear()
         self.ui_helper.print_header()
-        self.ui_helper.print_blank_line()
         self.ui_helper.print_line("    Profit Reports:")
-        pass
-        # Call a function wich calculates the profit report
+        self.ui_helper.print_line("    From: {}")
+        self.ui_helper.print_line("    To:   {}")
+        self.ui_helper.n_columns([total_profits_str, profits_by_vehicle_str, profits_by_location_str])
+        for profit in profit_reports:
+            print(profit)
+        
 
 # End on profit section
 
@@ -80,7 +97,9 @@ class ReportUI():
         self.ui_helper.print_footer()
         start_date = input("Input: ")
         end_date = input("Input: ")
+
         return start_date, end_date
+
     
     def ask_location(self):
         valid_locations = self.logic_api.destinations_option_list()
@@ -101,14 +120,16 @@ class ReportUI():
             return None
         else:
             for location in valid_locations:
-                if user_choice == location[0]:
+                if user_choice == location[0].lower():
                     return location
     
 
     def show_utilization_report(self, start_date, end_date, location):
-        all_vehicle_types = self.logic_api.get_vehicle_types()
         if location == None:
             location = "all locations"
+            util_logs = self.logic_api.get_utilization_logs()
+        else:
+            util_logs = self.logic_api.get_utilization_for_location(location)
         self.ui_helper.clear()
         self.ui_helper.print_header()
         self.ui_helper.print_blank_line()
@@ -116,6 +137,8 @@ class ReportUI():
         self.ui_helper.print_line(f"    {location}")
         self.ui_helper.print_line(f"    From: {start_date}")
         self.ui_helper.print_line(f"    To:   {end_date}")
+        for util in util_logs:
+            self.ui_helper.print_line(f"{util.vehicle_type}:    {} {}")
         # Let's forget this until logic has done their part >:(
     
 # End of utilization section
