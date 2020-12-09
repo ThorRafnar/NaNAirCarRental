@@ -486,7 +486,7 @@ class ContractUI():
             elif ssn.lower() == self.ui_helper.BACK:
                 return
 
-            ssn = self.ui_helper.ssn_formatter(ssn)
+            ssn = self.logic_api.check_ssn(ssn)
             if ssn == None:
                 error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
                 continue
@@ -518,7 +518,7 @@ class ContractUI():
             elif ssn.lower() == self.ui_helper.BACK:
                 return
 
-            ssn = self.ui_helper.ssn_formatter(ssn)
+            ssn = self.logic_api.check_ssn(ssn)
             if ssn == None:
                 error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
                 continue
@@ -537,7 +537,7 @@ class ContractUI():
             the_customer = self.create_customer(ssn)    #Creates new customer
     
         conf = self.confirm_customer(the_customer)             #Asks user to confirm
-        if conf.lower not in self.ui_helper.YES:
+        if conf.lower() not in self.ui_helper.YES:
             return
 
         the_employee = self.employee_for_contract() 
@@ -547,7 +547,7 @@ class ContractUI():
             the_employee = self.logic_api.find_employee(ssn)
 
         conf = self.confirm_employee(the_employee)
-        if conf.lower not in self.ui_helper.YES:
+        if conf.lower() not in self.ui_helper.YES:
             return
 
         self.create_contract(the_customer, the_employee)              #Creates contract with the customer
@@ -787,7 +787,7 @@ class ContractUI():
             elif user_choice.lower() == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
 
-            ssn = self.ui_helper.ssn_formatter(user_choice)
+            ssn = self.logic_api.check_ssn(user_choice)
             if ssn == None:
                 error_msg = "Please enter a valid social security number (DDMMYY-NNNM)"
                 continue
@@ -937,7 +937,10 @@ class ContractUI():
                 return
 
             elif user_choice.lower() == self.ui_helper.SAVE:
-                pass #TODO Register contracts as returned
+                for contract in contract_list:
+                    self.logic_api.change_contract_status(contract.contract_id,"returned")
+                self.vehicle_has_been_returned()
+                return
 
             elif user_choice.lower() == self.ui_helper.UNDO:
                 contract_list.pop()
@@ -956,8 +959,22 @@ class ContractUI():
         self.ui_helper.clear()
         self.ui_helper.print_header()
         self.ui_helper.print_line("No contract found")
+        self.ui_helper.print_line("Press enter to go back.")
         self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
+        self.ui_helper.print_hash_line()
         print()
         _x = input("Input: ")
         return 
+    
+    def vehicle_has_been_returned(self):
+        ''' Displays that vehicle has been returned '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header()
+        self.ui_helper.print_line("Vehicles have been returned.")
+        self.ui_helper.print_line("Press enter to go back.")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_hash_line()
+        print()
+        _x = input("Input: ")
+        return
+    
