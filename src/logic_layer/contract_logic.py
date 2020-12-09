@@ -139,6 +139,18 @@ class ContractLogic():
     def change_contract(self, cust):
         self.data_api.change_contract(cust)
 
-
-    
+    def get_paid_and_unpaid_contracts(self, ssn, start_date, end_date):
+        '''returns a dictonary of certain customer with all paid contracts and unpaid contracts with in given time  '''
+        customer_bill_dict = {}
+        contracts = self.get_all_contracts()
+        for contract in contracts:
+            if contract.customer_ssn == ssn:
+                if contract.status == 'returned' or contract.status == 'paid':
+                    if contract.status not in customer_bill_dict:
+                        customer_bill_dict[contract.status] = [contract]
+                    else:
+                        customer_bill_dict[contract.status].append(contract)
+                        
+        print(customer_bill_dict)
+        return customer_bill_dict
 

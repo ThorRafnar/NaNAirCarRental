@@ -140,6 +140,9 @@ class LogicAPI():
     def change_contract(self, cust):
         self.contract_logic.change_contract(cust)
     
+    def get_paid_and_unpaid_contracts(self, ssn, start_date, end_date):
+        self.contract_logic.get_paid_and_unpaid_contracts(ssn, start_date, end_date)
+    
     # Vehcile Types Logic
     def get_vehicle_types(self):
         ''' Returns a list of all available vehicle types '''

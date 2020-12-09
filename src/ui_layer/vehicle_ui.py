@@ -2,25 +2,34 @@ from model_layer.vehicle import Vehicle
 from model_layer.vehicle_type import VehicleType
 
 class VehicleUI():
-
     REGISTER = "Register new vehicle"
     FIND = "Find a vehicle"
     VIEW_ALL = "View all vehicles"
-    VIEW_VEHICLE_TYPES = "View vehicle types"
+    VEHICLE_RATES = "View vehicle types"
 
     def __init__(self, ui_helper, logic_api):
         self.logic_api = logic_api
         self.ui_helper = ui_helper
-        self.options_dict = {
-            "1": self.REGISTER, 
-            "2": self.FIND, 
-            "3": self.VIEW_ALL,
-            "4": self.VIEW_VEHICLE_TYPES
-        }
+
 
     
     def show_options(self, error_msg=""):
-        options_list = self.ui_helper.dict_to_list(self.options_dict)
+
+        if self.ui_helper.header_string == "Office Employee" or self.ui_helper.header_string == "Administrator":
+            options_dict = {
+                "1": self.REGISTER, 
+                "2": self.FIND, 
+                "3": self.VIEW_ALL,
+                "4": self.VEHICLE_RATES
+            }
+        else:
+            options_dict = {
+                "1": self.REGISTER, 
+                "2": self.FIND, 
+                "3": self.VIEW_ALL
+            }
+
+        options_list = self.ui_helper.dict_to_list(options_dict)
 
         while True:
             opt_str = "Select task"
@@ -42,11 +51,11 @@ class VehicleUI():
 
                 else:
                     
-                    if self.options_dict[user_choice] == self.REGISTER:
+                    if options_dict[user_choice] == self.REGISTER:
                         self.register_vehicle()
                         
 
-                    elif self.options_dict[user_choice] == self.FIND:
+                    elif options_dict[user_choice] == self.FIND:
 
                         while True:
                             the_vehicle = self.find_vehicle()
@@ -57,10 +66,10 @@ class VehicleUI():
                                 self.vehicle_not_found()
                                 continue
                             
-                    elif self.options_dict[user_choice] == self.VIEW_ALL:
+                    elif options_dict[user_choice] == self.VIEW_ALL:
                         self.get_all_vehicles()
                     
-                    elif self.options_dict[user_choice] == self.VIEW_VEHICLE_TYPES:
+                    elif options_dict[user_choice] == self.VEHICLE_RATES:
                         self.view_vehicle_types()
 
             else:
