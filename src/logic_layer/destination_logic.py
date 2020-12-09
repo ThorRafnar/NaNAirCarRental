@@ -33,3 +33,12 @@ class DestinationLogic():
         options_list.append(admin)
         print(options_list)
         return options_list
+
+    def city_to_iata(self, city):
+        ''' Returns iata code for a given city, or none if it is not found '''
+        dest_list = self.get_destinations()
+        for dest in dest_list:
+            if dest.airport.lower() == city.lower():
+                return dest.iata 
+            
+        return None
