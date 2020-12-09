@@ -19,65 +19,65 @@ class EmployeeUI():
         }
 
 
-    def show_options(self, header_str, error_msg=""):
+    def show_options(self, error_msg=""):
         options_list = self.ui_helper.dict_to_list(self.options_dict)
         
         while True:
-            opt_str = "Select task"
-
             self.ui_helper.clear()
-
-            self.ui_helper.print_header(header_str)
-            self.ui_helper.print_options(options_list, opt_str)
+            self.ui_helper.print_header()
+            self.ui_helper.print_options(options_list, "Select task:")
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
 
             if user_choice != None:
 
-                if user_choice.lower() == self.ui_helper.BACK.lower():
-                    print("I'm back")
+                if user_choice.lower() == self.ui_helper.BACK:
                     return
 
-                elif user_choice.lower() == self.ui_helper.QUIT.lower():
-                    self.ui_helper.quit_prompt(header_str)
+                elif user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
 
                 #The actual options
                 else:
                     
                     if self.options_dict[user_choice] == self.VIEW_ALL:
-                        self.get_employees(header_str)
+                        self.get_employees()
 
-                    else:                                                   #Other options share a method, search, change and create
-                        opt_str = self.options_dict[user_choice]
-                        self.find_employee(header_str, opt_str)
+                    elif self.options_dict[user_choice] == self.CREATE:
+                        self.new_employee()
+
+                    elif self.options_dict[user_choice] == self.CHANGE:
+                        self.modify_employee()
+
+                    elif self.options_dict[user_choice] == self.FIND:
+                        self.find_employee()
                     
             else:
                 error_msg = "Please select an option from the menu"
 
 
-    def get_employees(self, header_str, error_msg=""):
+    def get_employees(self, error_msg=""):
         ''' 
         Gets a list of all employees and displays them for the user, takes input from user,
         to navigate back or quit
         '''
-        
         while True:
             options_list = []
-            emps = self.logic_api.get_employees()
+            emps = self.logic_api.get_employees()   #Gets all employees from logic
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.print_employee_list(emps)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
             if user_choice != None:
-                if user_choice.lower() == self.ui_helper.BACK.lower():
+                if user_choice.lower() == self.ui_helper.BACK:
                     return
 
-                elif user_choice.lower() == self.ui_helper.QUIT.lower():
-                    self.ui_helper.quit_prompt(header_str)
+                elif user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
                     
                 else:
                     error_msg = "Please select an option from the menu"
@@ -98,26 +98,12 @@ class EmployeeUI():
         self.ui_helper.print_blank_line()
 
 
-    def find_employee(self, header_str, opt_str, error_msg=""):
-        '''
-        Used for find, create and change employee,
-        If the user chose find:
-            returns and prints the employee information
-        if the user chose to create:
-            if the employee doesnt exist, goes to create emlpoyee,
-            to prevent employees with the same ssn
-            if the employee exists, shows employee information and
-            asks the user if they want to modify
-        if the user chose to change:
-            if the employee doesnt exist:
-                asks user if they want to create
-            if employee exists
-                asks for attributes to change (NOT ssn or name)
-        '''
+    def check_if_employee_exists(self, option, error_msg=""):
+        ''' Gets ssn from user and returns an employee if it exists and none if it doesn't '''
         while True:
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
-            self.ui_helper.print_line(opt_str)
+            self.ui_helper.print_header()
+            self.ui_helper.print_line(option)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_line("    Enter employee's social security number")
             self.ui_helper.print_line("    (DDMMYY-NNNN)")
@@ -125,108 +111,126 @@ class EmployeeUI():
             self.ui_helper.print_footer()
             print(error_msg)
             ssn = input("Input: ")
-
-            #Check if the user wants to back or quit
-            if ssn.lower() == self.ui_helper.QUIT.lower():
-                self.ui_helper.quit_prompt(header_str)
-            elif ssn.lower() == self.ui_helper.BACK.lower():
+            if ssn.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+            elif ssn.lower() == self.ui_helper.BACK:
                 return
+            
+            ssn = self.logic_api.check_ssn(ssn)         #Formats and checks ssn, returning none if invalid
 
-            #TODO Make logic check ssn input
-            ssn = self.ui_helper.ssn_formatter(ssn)     #Formats the ssn correctly
-
-            #If the ssn is invalid
+            #Checks ssn is valid or not
             if ssn == None:
                 error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
                 continue
 
-            #If the new one is valid we need to reset the error message
-            else:
-                error_msg = ""
-
-            #Searches for employee by ssn, returning none if it doesnt exists, and returning an employee instance if it does
-            emp = self.logic_api.find_employee(ssn)
-            
-            if emp != None:                     #if the employee already exists
-                
-                if opt_str == self.CREATE:      #If the user wants to create the employee but one already exists with that ssn
-
-                    #Shows employee details and asks if user wants to modify it
-                    while True:
-                        self.ui_helper.clear()
-                        self.ui_helper.print_header(header_str)
-                        self.ui_helper.print_line("Employee with this social security number already exists!")
-                        self.ui_helper.print_line("Do you wish to modify? (y/n)")
-                        self.ui_helper.print_blank_line()
-                        self.view_employee_details(emp)
-                        self.ui_helper.print_footer()
-                        print(error_msg)
-                        user_choice = input("Input: ")
-                        if user_choice.lower() == self.ui_helper.QUIT.lower():
-                            self.ui_helper.quit_prompt(header_str)
-                        elif user_choice.lower() == self.ui_helper.BACK.lower():
-                            return
-                        elif user_choice in self.ui_helper.YES:
-                            self.change_employee_details(emp, header_str)
-                            return
-                        else:
-                            return
-
-                
-                elif opt_str == self.FIND:         #If the user wants to find an employee and it exists
-                    self.view_employee(emp, header_str)
-                    return
-                    #Shows employee details
+            return self.logic_api.find_employee(ssn), ssn    #finds employee with the ssn, returning none if it doesnt exist, returning the ssn as well
 
 
-                elif opt_str == self.CHANGE:        #If the user wants to change an employee and it exists
-                    self.change_employee_details(emp, header_str)
-                    return
-                      
-            else:                                   #If the employee does not exist
-
-                if opt_str == self.CREATE:          #If the user wants to create an employee and it does not exist
-                    self.create_employee(header_str, ssn)
-                    return
-
-                elif opt_str == self.FIND or opt_str == self.CHANGE:          #If the user wants to find (or change) an employee and it does not exist
-                    self.ui_helper.clear()
-                    self.ui_helper.print_header(header_str)
-                    self.ui_helper.print_line("No employee with this social security number found")
-                    self.ui_helper.print_line("Do you want to create one? (y/n)")
-                    self.ui_helper.print_blank_line()
-                    self.ui_helper.print_footer()
-                    print(error_msg)
-                    user_choice = input("Input: ")
-
-                    if user_choice in self.ui_helper.YES:
-                        self.create_employee(header_str, ssn)
-                    
-                    return
-
+    def emp_not_found(self, ssn):
+        ''' Says employee doesnt exist and asks if user wants to create it '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("No employee with this social security number found")
+            self.ui_helper.print_line("Do you want to create one? (y/n)")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print()
             user_choice = input("Input: ")
+            if user_choice.lower() in self.ui_helper.YES:
+                self.create_employee(ssn)
+                return
+            else:
+                return
 
 
-    def view_employee(self, employee, header_str, error_msg=""):
+    def find_employee(self, error_msg=""):
+        '''
+        Searches for an employee and displays it if it exists
+        if it doesn't, asks the user if they want to create it
+        '''
+        emp, ssn = self.check_if_employee_exists(self.FIND)
+            
+        if emp != None:                     #if the employee already exists
+            self.view_employee(emp)
+            return
+                
+        else:                                   #If the employee does not exist
+            self.emp_not_found(ssn)             #Tells user and asks if they want to create a new one
+            return
+
+
+    def modify_employee(self, error_msg=""):
+        ''' 
+        Gets ssn from user and checks if emp exists, if it does, goes to change employee details,
+        if emp doesn't exist, asks if user wants to create it 
+        '''
+        emp, ssn = self.check_if_employee_exists(self.FIND)
+            
+        if emp != None:                     #if the employee exists
+            self.change_employee_details(emp)
+            return
+                
+        else:                               #If employee doesn't exist
+            self.emp_not_found(ssn)         #Tells user and asks if they want to create a new one
+            return
+
+
+    def new_employee(self, error_msg=""):
+        '''
+        Searches for an employee and if it does not exists, allows user to create.
+        if it already exists, asks user if they want to modify
+        '''
+        emp, ssn = self.check_if_employee_exists(self.FIND)
+            
+        if emp != None:                     #if the employee already exists
+            self.emp_already_exists(emp)
+            return
+                
+        else:                                   #If the employee does not exist
+            self.create_employee(ssn)             #Tells user and asks if they want to create a new one
+            return
+
+    
+    def emp_already_exists(self, emp):
+        ''' Informs user that an employee already exists and asks if the user wants to change it '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("An employee with this social security already exists")
+            self.ui_helper.print_line("Do you want to modify? (y/n)")
+            self.ui_helper.print_blank_line()
+            self.view_employee_details(emp)
+            self.ui_helper.print_footer()
+            print()
+            user_choice = input("Input: ")
+            if user_choice.lower() in self.ui_helper.YES:
+                self.change_employee_details(emp)
+                return
+            else:
+                return
+
+
+    def view_employee(self, employee, error_msg=""):
         ''' Shows full view employee interface, returning or quitting based on input'''
         while True:
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.ui_helper.print_line("Employee information:")
             self.ui_helper.print_blank_line()
             self.view_employee_details(employee)
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = input("Input: ")
-            if user_choice.lower() == self.ui_helper.QUIT.lower():
-                self.ui_helper.quit_prompt(header_str)
-            elif user_choice.lower() == self.ui_helper.BACK.lower():
+            if user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+            elif user_choice.lower() == self.ui_helper.BACK:
                 return
             else:
-                error_msg = f"Select either {self.ui_helper.QUIT} to quit or {self.ui_helper.BACK} to go back"
+                error_msg = f"Select either {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
 
 
-    def change_employee_details(self, employee, header_str, error_msg=""):
+    def change_employee_details(self, employee, error_msg=""):
         ''' shows all details of an employee, with indices and takes user choice in what to change, and changes it, 
         when user confirms, sends an instance of the employee down to logic '''
         opt_address = "1"
@@ -235,12 +239,10 @@ class EmployeeUI():
         opt_home_phone = "4"
         opt_email = "5"
         opt_work_area = "6"
-        opt_undo = "U"
-        opt_save = "S"
         old_attr_list = []
         while True:
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.ui_helper.print_line("Change employee")
             self.ui_helper.print_line("Please select an option:")
             self.ui_helper.print_blank_line()
@@ -253,19 +255,19 @@ class EmployeeUI():
             self.ui_helper.print_line(f"    {opt_email}.  EMAIL:...................{employee.email}")
             self.ui_helper.print_line(f"    {opt_work_area}.  WORK AREA:...............{employee.work_area}")
             if old_attr_list != []:         #Undo option if any changes have been made
-                self.ui_helper.print_line(f"    {opt_undo}.  << Undo >>")
+                self.ui_helper.print_line(f"    ({self.ui_helper.UNDO.upper()})ndo: Undo last changes")
             else:
                 self.ui_helper.print_blank_line()
-            self.ui_helper.print_line(f"    {opt_save}.  << Save Changes >>")
+            self.ui_helper.print_line(f"    ({self.ui_helper.SAVE.upper()})ave: Save Changes")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = input("Input: ")
-            if user_choice.lower() == self.ui_helper.QUIT.lower():
-                self.ui_helper.quit_prompt(header_str)
-            elif user_choice.lower() == self.ui_helper.BACK.lower():
+            if user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+            elif user_choice.lower() == self.ui_helper.BACK:
                 if old_attr_list != []:      #If the user has unsaved changes
-                    user_choice = self.unsaved_changes(employee, header_str)
+                    user_choice = self.unsaved_changes(employee)
                     if user_choice.lower() in self.ui_helper.YES:
                         return
                     else:
@@ -299,11 +301,11 @@ class EmployeeUI():
                     old_attr_list.append(self.ui_helper.get_old_attributes(employee, "work_area"))      #Stores old values before changing
                     employee.work_area = input("Enter new work area: ")
 
-                elif user_choice.upper() == opt_save:
-                    self.confirm_changes(employee, header_str)
+                elif user_choice.lower() == self.ui_helper.SAVE:
+                    self.confirm_changes(employee)
                     return
 
-                elif user_choice.upper() == opt_undo and old_attr_list != []:
+                elif user_choice.lower() == self.ui_helper.UNDO and old_attr_list != []:
                     ''' Undo the last changes stored in the old attribute list, and removes the last item in the list '''
                     undo_key = old_attr_list[-1][0]
                     undo_value = old_attr_list[-1][1]
@@ -315,28 +317,28 @@ class EmployeeUI():
                     error_msg = "Please select an option from the menu"
 
 
-    def confirm_changes(self, employee, header_str):
+    def confirm_changes(self, employee):
         ''' Asks the user if he wants to save his changes on an employee, and changes it if yes '''
         while True:
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.view_employee_details(employee)
             self.ui_helper.print_line("Are you sure you want to save these changes? (y/n)")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print()
             confirm_choice = input("Input: ")
-            if confirm_choice in self.ui_helper.YES:
+            if confirm_choice.lower() in self.ui_helper.YES:
                 self.logic_api.change_employee_info(employee)
                 return
             else:
                 return
 
     
-    def unsaved_changes(self, employee, header_str):
+    def unsaved_changes(self, employee):
         ''' Asks user if they want to go back without saving their changes '''
         self.ui_helper.clear()
-        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_header()
         self.view_employee_details(employee)
         self.ui_helper.unsaved_prompt()
         self.ui_helper.print_blank_line()
@@ -345,25 +347,7 @@ class EmployeeUI():
         return input("Input: ")
 
 
-    def check_name(self, name):
-        """
-        Takes user input for a name, checks that all characters are either alphabetical or spaces,
-        if input has invalid characters, returns none
-        """
-        for char in name:
-            if char.isalpha() == False and char != " ":
-                name = None
-                continue       
-        return name
-
-
-    def get_name(self):
-        a_str = input("Enter name: ")
-        name = self.check_name(a_str)
-        return name
-
-
-    def create_employee(self, header_str, ssn):
+    def create_employee(self, ssn):
         emp = Employee("", "", "", ssn, ".", ".", "", "")
         attribute_list = ["name", "address", "postal code", "mobile phone", "home phone", "email", "work area"]
         for attribute in attribute_list:
@@ -372,21 +356,21 @@ class EmployeeUI():
                 attr_key = attribute.replace(" ", "_")
                 setattr(emp, attr_key, placeholder_text)
                 self.ui_helper.clear()
-                self.ui_helper.print_header(header_str)
+                self.ui_helper.print_header()
                 self.view_employee_details(emp)
                 self.ui_helper.print_blank_line()
                 self.ui_helper.print_footer()
                 print()
                 attr_value = input(f"Enter employee's {attribute}: ")
-                if attr_value.lower() == self.ui_helper.BACK.lower():
-                    back_choice = self.unsaved_changes(emp, header_str)
+                if attr_value.lower() == self.ui_helper.BACK:
+                    back_choice = self.unsaved_changes(emp)
                     if back_choice.lower() in self.ui_helper.YES:
                         return
                     else:
                         continue
 
-                elif attr_value.lower() == self.ui_helper.QUIT.lower():
-                    self.ui_helper.quit_prompt(header_str)
+                elif attr_value.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
                     continue
 
                 else:
@@ -394,7 +378,7 @@ class EmployeeUI():
                     break
 
         self.ui_helper.clear()
-        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_header()
         self.view_employee_details(emp)
         self.ui_helper.print_blank_line()
         self.ui_helper.print_footer()
@@ -402,16 +386,16 @@ class EmployeeUI():
         user_choice = input("Input: ")
         if user_choice in self.ui_helper.YES:
             self.logic_api.register_employee(emp)
-            self.employee_has_been_registered(header_str, emp)
+            self.employee_has_been_registered(emp)
             return
         else:
             return
 
 
-    def employee_has_been_registered(self, header_str, employee):
-        ''' Shows that the employee has been registered '''
+    def employee_has_been_registered(self, employee):
+        ''' Shows that the employee has been registered, enter to continue '''
         self.ui_helper.clear()
-        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_header()
         self.ui_helper.print_line("    Employee has been registered, press enter to continue")
         self.view_employee_details(employee)
         self.ui_helper.print_blank_line()

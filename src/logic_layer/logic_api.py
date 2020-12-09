@@ -8,6 +8,7 @@ from logic_layer.vehicle_type_logic import VehicleTypeLogic
 from logic_layer.logic_error_check import LogicErrorCheck
 from logic_layer.chuck_logic import ChuckLogic
 from logic_layer.profit_logic import ProfitLogic
+from logic_layer.utilization_logic import UtilizationLogic
 
 class LogicAPI():
 
@@ -22,6 +23,7 @@ class LogicAPI():
         self.logic_error_check = LogicErrorCheck(self.data_api)
         self.chuck_logic = ChuckLogic(self.data_api)
         self.profit_logic = ProfitLogic(self.data_api)
+        self.utilization_logic = UtilizationLogic(self.data_api)
 
     # Employee logic
     def get_employees(self):
@@ -165,12 +167,28 @@ class LogicAPI():
     def calculate_profits(self,start_date, end_date):
         return self.profit_logic.calculate_profits(start_date, end_date)
 
+    def calculate_profits_by_location(self, start_date, end_date):
+        return self.profit_logic.calculate_profits_by_locataion(start_date, end_date)
+
+    def caluclate_profits_by_vehicle(self, start_date, end_date):
+        return self.profit_logic.calculate_profits_by_vehicle(start_date, end_date)
+
+    # Utilization logic
+    def get_utilization_logs(self):
+        return self.utilization_logic.get_utilization_logs()
+    
+    def get_utilization_for_location(self, location):
+        return self.utilization_logic.get_utilization_for_location(location)
+
     # ERROR logic
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)
 
     def check_date(self, date_str):
         return self.logic_error_check.check_date(date_str)
+
+    def check_ssn(self, ssn):
+        return self.logic_error_check.ssn_formatter(ssn)
 
     # Random Chuck Norris jokes logic
     def get_random_joke(self):

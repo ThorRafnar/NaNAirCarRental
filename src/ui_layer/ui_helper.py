@@ -2,15 +2,16 @@ import os
 
 class UIHelper():
 
-    QUIT = "Q"
-    BACK = "B"
+    QUIT = "q"
+    BACK = "b"
     SAVE = "s"
     UNDO = "u"
     YES = ["y", "yes"]
     NO = ["n", "no"]
 
-    def __init__(self, width):
+    def __init__(self, width, header_str):
         self.width = width
+        self.header_string = header_str
 
 
     def clear(self):
@@ -66,9 +67,9 @@ class UIHelper():
         print("{: >{width}}".format(b_str, width = half_b))
 
 
-    def print_header(self, a_str):
+    def print_header(self):
         """ prints header of width width, takes a string as parameter for a display message """
-        employee_type = "<< " + a_str + " >>"
+        employee_type = f"<< {self.header_string} >>"
         comp_str = "Nan Air Rentals"
         version = "Vol 1.0"
         self.print_hash_line()
@@ -96,7 +97,7 @@ class UIHelper():
         """
         Prints the footer with a quit option 
         """
-        quit_str = (f"    ({self.QUIT})uit")
+        quit_str = (f"    ({self.QUIT.upper()})uit")
         self.print_line(quit_str)
         self.print_blank_line()
         self.print_hash_line()
@@ -106,9 +107,9 @@ class UIHelper():
         """
         Prints the footer with a quit and back option 
         """
-        quit_str = (f"    ({self.QUIT})uit")
+        quit_str = (f"    ({self.QUIT.upper()})uit")
         self.print_line(quit_str)
-        back_str = (f"    ({self.BACK})ack")
+        back_str = (f"    ({self.BACK.upper()})ack")
         self.print_line(back_str)
         self.print_blank_line()
         self.print_hash_line()
@@ -154,13 +155,13 @@ class UIHelper():
         print("|   {:-^{width}}   |".format(a_str, width = self.width - 8))
 
 
-    def quit_prompt(self, header_str):
+    def quit_prompt(self):
         ''' 
         Asks the user if they really want to quit, 
         and quits if they do, else returns to previous screen 
         '''
         self.clear()
-        self.print_header(header_str)
+        self.print_header()
         self.print_blank_line()
         self.print_centered_line("Are you sure you want to quit ? (y/n)")
         self.print_centered_line("Any unsaved changes will be lost!")
@@ -174,28 +175,6 @@ class UIHelper():
             return
 
 
-    #TODO Move me to logic!
-    def ssn_formatter(self, ssn):
-        ''' Returns a ssn in the correct format, NNNNNN-NNNN. '''
-        if len(ssn) == 10:
-            for num in ssn:
-                if num.isnumeric() == False:
-                    ssn = None
-
-            ssn = ssn[:6] + "-" + ssn[6:]
-
-        elif len(ssn) == 11:
-            for ind, num in enumerate(ssn):
-                if num.isnumeric() == False and ind != 6:
-                    ssn = None
-
-            ssn = ssn[:6] + "-" + ssn[7:]
-
-        else:
-            ssn = None
-        
-        return ssn
-            
     def get_old_attributes(self, a_class_instance, attr_key):
         ''' gets an attribute from a class instance and returns a tuple with the old attribute key and value '''
         old_attr_value = getattr(a_class_instance, attr_key)
