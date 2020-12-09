@@ -125,11 +125,9 @@ class LocationUI():
         ''' Displays a single location and displays options, allows user to select a task '''
         view_staff = "View location's staff"
         view_vehicles = "View location's vehicles"
-        opening_hours = "Change opening hours"
         options_dict = {
             "1": view_staff,
             "2": view_vehicles,
-            "3": opening_hours
         }
         options_list = self.ui_helper.dict_to_list(options_dict)
         while True:
@@ -158,9 +156,6 @@ class LocationUI():
 
                     elif options_dict[user_choice] == view_vehicles:
                         self.vehicle_ui.get_all_vehicles(the_dest)
-
-                    elif options_dict[user_choice] == opening_hours:
-                        pass
 
             else:
                 error_msg = "Please select an option from the menu"
