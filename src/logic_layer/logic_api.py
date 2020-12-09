@@ -190,6 +190,12 @@ class LogicAPI():
     def check_ssn(self, ssn):
         return self.logic_error_check.ssn_formatter(ssn)
 
+    def check_phone(self, phone):
+        return self.logic_error_check.check_phone(phone)
+
+    def check_hours(self, hours):
+        return self.logic_error_check.check_hours(hours)
+
     # Random Chuck Norris jokes logic
     def get_random_joke(self):
         ''' Returns one random Chuck Norris joke from chuck_jokes.txt '''

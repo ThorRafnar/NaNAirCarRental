@@ -91,7 +91,7 @@ class VehicleUI():
                     self.ui_helper.quit_prompt()
 
                 else:
-                    self.vehicle_options(vehicle_dict[user_choice])<
+                    self.vehicle_options(vehicle_dict[user_choice])
 
             else:
                 error_msg = f"Please enter a valid vehicle ID, or {self.ui_helper.QUIT.upper()} to quit and {self.ui_helper.BACK.upper()} to go back"
