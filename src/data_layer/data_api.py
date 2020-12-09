@@ -105,6 +105,10 @@ class DataAPI():
     def terminate_contract(self, contract_id):
         self.contract_data.terminate_contract(contract_id)
 
+    def change_contract(self, cust):
+        self.contract_data.change_contract(cust)
+    
+
     # Utilization data
     def add_utilization_log(self, a_list):
         self.utilization_data.add_utilization_log(a_list)

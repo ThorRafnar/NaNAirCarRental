@@ -159,5 +159,9 @@ class ContractLogic():
                 ret_list.append(contract)
         return ret_list
 
-            
+    def change_contract(self, cust):
+        self.data_api.change_contract(cust)
+
+
+    
 
