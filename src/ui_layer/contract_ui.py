@@ -155,39 +155,156 @@ class ContractUI():
         }
         contract_options_list = self.ui_helper.dict_to_list(contract_options_dict)
         options_string = "Please select an option"
+        undo_list = []
+        _change_list = []
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
             self.view_full_display_contract(a_contract)
             self.ui_helper.print_options(contract_options_list, options_string)
+            self.ui_helper.print_line(f"    ({self.ui_helper.QUIT.upper()})ave: Save changes")
+            if undo_list == []:
+                self.ui_helper.print_blank_line()
+            else:
+                self.ui_helper.print_line(f"    ({self.ui_helper.UNDO.upper()})ndo: Undo last change")
             self.ui_helper.print_footer()
 
             ### input decision making ###
-            user_choice = self.ui_helper.get_user_menu_choice(contract_options_list)
+            user_choice = input("Input: ")
             if user_choice != None:
+
                 if user_choice.lower() == self.ui_helper.QUIT:
                     self.ui_helper.quit_prompt()
+
                 elif user_choice.lower() == self.ui_helper.BACK:
+                    return
+
+                elif user_choice.lower() == self.ui_helper.UNDO:
+                    setattr(a_contract, undo_list[-1][0], undo_list[-1][1])
+
+                elif user_choice.lower() == self.ui_helper.SAVE:
+                    #self.logic_api.change_contract(a_contract)
                     return
 
                 else:       #Actual options
                     if contract_options_dict[user_choice] == change_start:
-                        _new_start = self.get_user_input("Enter new start date (DD/MM/YYYY)")
+                        undo_list.append(self.change_contract_start_date(a_contract))
 
                     elif contract_options_dict[user_choice] == change_end:
-                        _new_end = self.get_user_input("Enter new end date (DD/MM/YYYY)")
+                        undo_list.append(self.change_contract_end_date(a_contract))
 
                     elif contract_options_dict[user_choice] == change_vehicle:
-                        pass
+                        undo_list.append(self.change_contract_vehicle(a_contract))
 
                     elif contract_options_dict[user_choice] == terminate:
-                        pass
+                        terminated = self.terminate_contract(a_contract)
+                        if terminated:
+                            return
+                        
 
                     elif contract_options_dict[user_choice] == printable:
                         self.view_contract(a_contract)
 
             else:
                 error_msg = "Please select an option from the menu"
+
+
+    def change_contract_start_date(self, a_contract, error_msg=""):
+        ''' Changes contract start date with input from user '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("    Enter new start date (DD/MM/YYYY)")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            new_date = input("Input: ")
+            if new_date.lower() == self.ui_helper.BACK:
+                return
+
+            elif new_date.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+
+            else:
+                new_date = self.logic_api.check_date(new_date)
+
+                if new_date != None:
+                    old_attr = ("loan_date", getattr(a_contract, "loan_date")) 
+                    setattr(a_contract, "loan_date", new_date)
+                    return old_attr
+
+                else:
+                    error_msg = "Please enter a valid date"
+
+
+    def change_contract_end_date(self, a_contract, error_msg=""):
+        ''' Changes contract end date with input from user '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("    Enter new end date (DD/MM/YYYY)")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            new_date = input("Input: ")
+            if new_date.lower() == self.ui_helper.BACK:
+                return
+
+            elif new_date.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+
+            else:
+                new_date = self.logic_api.check_date(new_date)
+
+                if new_date != None:
+                    old_attr = ("end_date", getattr(a_contract, "end_date"))
+                    setattr(a_contract, "end_date", new_date)
+                    return old_attr
+
+                else:
+                    error_msg = "Please enter a valid date"
+
+    
+    def change_contract_vehicle(self, a_contract, error_msg=""):
+        ''' Changes contract vehicle with input from user '''
+        while True:
+            iata = self.logic_api.city_to_iata(self.logic_api.find_vehicle(a_contract.vehicle_id).location)
+            location = self.logic_api.find_destination(iata)
+            the_type = self.get_vehicle_type(a_contract.loan_date, a_contract.end_date, location)
+            if the_type != None:
+
+                while True:
+                    new_vehicle = self.choose_vehicle(a_contract.loan_date, a_contract.end_date, location, the_type)
+
+                    if new_vehicle != None:
+                        old_attr = ("vehicle_id", getattr(a_contract, "vehicle_id"))
+                        setattr(a_contract, "vehicle_id", new_vehicle.id)
+                        return old_attr
+
+                    else:               #Goes back to select type if back in vehicle selection
+                        break
+
+            else:
+                return
+
+
+    def terminate_contract(self, a_contract):
+        ''' Asks user if they want to terminate a contract '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line(f"    Are you sure you want to terminate contract {a_contract.contract_id}? (y/n)")
+            self.ui_helper.print_line("    This change cannot be undone")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print()
+            user_choice = input("Input: ")
+            if user_choice.lower() in self.ui_helper.YES:
+                self.logic_api.change_contract_status(a_contract.contract_id, "terminated")
+                return True
+
+            else:
+                return False
 
 
     def get_user_input(self, prompt_str):
@@ -199,7 +316,6 @@ class ContractUI():
         self.ui_helper.print_footer()
         print()
         return input("Input: ")
-
 
 
     def view_customer_details(self, the_customer):
@@ -352,9 +468,6 @@ class ContractUI():
                 return "-".join(licence_list)
                 
 
-
-
-
     def find_customer(self, error_msg=""):
         ''' Searches for a customer, returning none if no customer exists with that ssn '''
         while True:
@@ -416,8 +529,7 @@ class ContractUI():
                 error_msg = ""
 
             return self.logic_api.find_employee(ssn)
-
-            
+       
 
     def new_contract(self, error_msg=""):
         ''' Composite method for creating a contract'''
@@ -529,12 +641,16 @@ class ContractUI():
             self.ui_helper.print_footer()
 
             user_choice = self.ui_helper.get_user_menu_choice(vehicle_type_list)
-            if user_choice.lower() == self.ui_helper.BACK:
-                return
-            elif user_choice.lower() == self.ui_helper.QUIT:
-                self.ui_helper.quit_prompt()
-            elif user_choice in vehicle_type_dict:
-                return vehicle_type_dict[user_choice]
+            if user_choice != None:
+
+                if user_choice.lower() == self.ui_helper.BACK:
+                    return
+
+                elif user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
+
+                else:
+                    return vehicle_type_dict[user_choice]
                 
             else:
                 error_msg = "Please select a vehicle type from the list"
@@ -565,7 +681,7 @@ class ContractUI():
                 self.ui_helper.quit_prompt()
 
             elif id_choice.lower() == self.ui_helper.BACK:
-                return id_choice
+                return 
 
             else:
                 error_msg = "Please select a vehicle id from the list"

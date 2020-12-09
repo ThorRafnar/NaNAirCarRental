@@ -87,6 +87,9 @@ class LogicAPI():
     def destinations_option_list(self):
         return self.destination_logic.destinations_option_list()
 
+    def city_to_iata(self, city):
+        return self.destination_logic.city_to_iata(city)
+
     # Customer Logic
     def get_customer(self):
         ''' Returns a list of all customer as instances of Customer class '''

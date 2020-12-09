@@ -409,7 +409,7 @@ class EmployeeUI():
         name_header = "<< NAME >>"
         ssn_header = "<< SOCIAL SECURITY NR >>"
         mobile_header = "<< MOBILE NR >>"
-        email_header = "<< E MAIL >>"
+        email_header = "<< E-MAIL >>"
         work_area_header = "<< WORK AREA >>"
         max_name_length = max(len(emp.name) for emp in emp_list)
         max_email_length = max(len(emp.email) for emp in emp_list)
