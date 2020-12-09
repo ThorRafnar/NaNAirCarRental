@@ -1,42 +1,36 @@
+Has to be done next few minutes
+
 Vehicle ui (mögulega vehicle types)
-    Rates                           semi
-    View rates                      V
-    change rates                    V
+    Rates                           
+    change rates                    
 
 for airport staff:
-    Make pick up and returns easy   v
-    pick up: by customer ssn    v
-    returns: by vehicle id      v
+    Make pick up and returns easy   
+    pick up: by customer ssn    
+    returns: by vehicle id      
 
     //TODO, connect to logic properly
     
 Locations menu: 
-    View all
-    View one: v
+    View one: 
         Display information, and options:
-        1. View location's staff x
         2. View location's vehicles x
         3. Change opening hours 
 
-    Add location V
         
 Contracts:
-    1. Make contract: V
+    1. Make contract: buggy
 
     LOCATION, get available from logic
 
     2. View contract
-        1. terminate
         2. change contract dates
         3. change contract vehicle
 
-    3. View all V
     3a. By status (paid/unpaid)
 
-    4. Print contract  V
 
 Reports:
-    1. Profits
     2. Utilization
     3. Billing
 
