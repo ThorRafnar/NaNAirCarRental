@@ -27,4 +27,6 @@ r = LogicAPI()
 # r.get_filtered_vehicle('28/11/2020', '01/12/2020',loc,veh)
 #r.change_contract_dates('4','02/12/2020','10/12/2020')
 
+
 r.filter_by_region('Kulusuk','01/12/2020','08/12/2020')
+

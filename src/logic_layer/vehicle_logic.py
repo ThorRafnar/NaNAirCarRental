@@ -118,6 +118,24 @@ class VehicleLogic():
             if vehicle.license_type not in licenses_list and vehicle.license_type.lower() != 'none':
                 licenses_list.append(vehicle.license_type)
         return licenses_list
+
+    def get_vehicle_by_location(self, location):
+        '''returns a list with instances of all vehicles in set location'''
+        ret_list = []
+        vehicles = self.all_vehicles_to_list()
+        for vehicle in vehicles:
+            if vehicle.location == location:
+                ret_list.append(vehicle)
+        return ret_list
+        
+
+        
+
+
+
+
+
+    
             
         
         
