@@ -138,7 +138,8 @@ class ReportUI():
         self.ui_helper.print_line(f"    From: {start_date}")
         self.ui_helper.print_line(f"    To:   {end_date}")
         for util in util_logs:
-            self.ui_helper.print_line(f"{util.vehicle_type}:    {} {}")
+            #self.ui_helper.print_line(f"{util.vehicle_type}:    {} {}")
+            pass
         # Let's forget this until logic has done their part >:(
     
 # End of utilization section

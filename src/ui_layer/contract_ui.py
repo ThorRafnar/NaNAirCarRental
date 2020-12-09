@@ -143,15 +143,13 @@ class ContractUI():
         change_start = "Change start date"
         change_end = "Change end date"
         change_vehicle = "Change vehicle"
-        terminate = "Terminate contract"
-        printable = "View printable contract"
+        terminate = "t"
+        printable = "p"
 
         contract_options_dict = {
             "1": change_start,
             "2": change_end,
             "3": change_vehicle,
-            "4": terminate,
-            "5": printable
         }
         contract_options_list = self.ui_helper.dict_to_list(contract_options_dict)
         options_string = "Please select an option"
@@ -162,7 +160,9 @@ class ContractUI():
             self.ui_helper.print_header()
             self.view_full_display_contract(a_contract)
             self.ui_helper.print_options(contract_options_list, options_string)
-            self.ui_helper.print_line(f"    ({self.ui_helper.QUIT.upper()})ave: Save changes")
+            self.ui_helper.print_line(f"    ({printable.upper()})rint: View contract in a printer friendly format")
+            self.ui_helper.print_line(f"    ({terminate.upper()})erminate: Terminate contract")
+            self.ui_helper.print_line(f"    ({self.ui_helper.SAVE.upper()})ave: Save changes")
             if undo_list == []:
                 self.ui_helper.print_blank_line()
             else:
@@ -186,6 +186,14 @@ class ContractUI():
                     #self.logic_api.change_contract(a_contract)
                     return
 
+                elif user_choice.lower() == terminate:
+                        terminated = self.terminate_contract(a_contract)
+                        if terminated:
+                            return
+                
+                elif user_choice.lower() == printable:
+                    self.print_contract(a_contract)
+
                 else:       #Actual options
                     if contract_options_dict[user_choice] == change_start:
                         undo_list.append(self.change_contract_start_date(a_contract))
@@ -195,16 +203,7 @@ class ContractUI():
 
                     elif contract_options_dict[user_choice] == change_vehicle:
                         undo_list.append(self.change_contract_vehicle(a_contract))
-
-                    elif contract_options_dict[user_choice] == terminate:
-                        terminated = self.terminate_contract(a_contract)
-                        if terminated:
-                            return
-                        
-
-                    elif contract_options_dict[user_choice] == printable:
-                        self.view_contract(a_contract)
-
+                    
             else:
                 error_msg = "Please select an option from the menu"
 
@@ -699,12 +698,11 @@ class ContractUI():
             return
 
         the_contract.vehicle_id = the_vehicle_id
-        self.view_contract(the_contract)
+        self.single_contract_options(the_contract)
         self.logic_api.create_new_contract(the_contract)
 
         
-    def view_contract(self, the_contract, error_msg =""):
-        options_list = [("1", "Bite me!")]
+    def print_contract(self, the_contract, error_msg =""):
         while True:
             old_width = self.ui_helper.width
             self.ui_helper.width = 84                   #Sets ui window width to about A4 size
@@ -715,7 +713,7 @@ class ContractUI():
             self.ui_helper.print_footer()
             self.ui_helper.width = old_width            #Resets ui window width
             print(error_msg)
-            user_choice = self.ui_helper.get_user_menu_choice(options_list)
+            user_choice = input("Input: ")
 
             if user_choice.lower() == self.ui_helper.BACK:
                 return
@@ -724,7 +722,7 @@ class ContractUI():
                 self.ui_helper.quit_prompt()
 
             else:
-                return user_choice
+                return
     
             
     def unsaved_changes(self, the_customer):
