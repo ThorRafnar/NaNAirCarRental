@@ -1,6 +1,8 @@
 from datetime import datetime,date
 
 class ContractLogic():
+    TODAY = date.today().strftime('%d/%m/%Y')
+
     def __init__(self, data_api, vehicle_logic, type_logic):
         self.data_api = data_api
         self.vehicle_logic = vehicle_logic
@@ -14,7 +16,7 @@ class ContractLogic():
         ''' Does initial operations on new contract like calculating base price, reserving given vehicle and giving contract new ID, than sending that contract to data layer to store in contract.csv '''
         contract.base_price = self.set_contract_base_price(contract)
         contract.contract_id = self.set_contract_id()
-        contract.contract_created = date.today().strftime('%d/%m/%Y')
+        contract.contract_created = TODAY
         self.data_api.new_contract(contract)
     
     def set_contract_base_price(self, contract):
@@ -40,12 +42,13 @@ class ContractLogic():
         return customer_contracts
     
     def get_pending_contracts(self, ssn):
+        ''' Returns pending contracts by customer ssn '''
         customer_contracts = self.view_customer_contracts(ssn)
         pending_contracts = []
         for contract in customer_contracts:
             contract_date = datetime.strptime(contract.loan_date, '%d/%m/%Y')
-            today = datetime.today()
-            if today >= contract_date and contract.status.lower() == 'pending':
+            
+            if TODAY >= contract_date and contract.status.lower() == 'pending':
                 pending_contracts.append(contract)
         return pending_contracts
     
@@ -59,36 +62,29 @@ class ContractLogic():
         return correct_contract
     
     def change_contract_status(self, contract_id, status):
-        ''' Changes contract status for given contract by ID '''
+        ''' Changes contract status for given contract by ID and does expected behavior for given status '''
         cont = self.find_contract(contract_id)
         cont.status = status.lower()
+
         if cont.status == 'active':
-            cont.pickup_date = date.today().strftime('%d/%m/%Y')
+            cont.pickup_date = TODAY
             self.vehicle_logic.change_vehicle_condition(cont.vehicle_id, 'in_rent')
         elif cont.status == 'returned':
-            today = date.today().strftime('%d/%m/%Y')
-            cont.return_date = today
+            cont.return_date = TODAY
             self.vehicle_logic.change_vehicle_condition(cont.vehicle_id, 'rentable')
             date_status = self.calculate_number_of_days(cont.end_date, cont.return_date)
+
             if date_status > 0:
                 cont.extensions = self.calc_extensions(cont.vehicle_id, date_status)
-            # græja utilization method
-            vehicle = self.vehicle_logic.find_vehicle(cont.vehicle_id)
-            util_list = [vehicle.id,today,vehicle.location,vehicle.type,vehicle.manufacturer,vehicle.model,cont.pickup_date,cont.return_date]
-            self.data_api.add_utilization_log(util_list)
+            self.add_utilization_log(cont) # Adds utilization log for vehicle in utilization.csv
             cont.total = self.get_contract_total_price(cont)
         elif cont.status == 'paid':
-            paid_date = date.today()
-            vehicle = self.vehicle_logic.find_vehicle(cont.vehicle_id)
-            profit_log = [paid_date,cont.contract_id,cont.base_price,cont.extensions,cont.total,vehicle.type,vehicle.location]
-            self.data_api.add_profits(profit_log)
+            self.add_profit_log(cont)
         elif cont.status == 'terminated':
             self.data_api.terminate_contract(cont.contract_id)
 
-        attr_string = f'{cont.contract_id},{cont.customer_ssn},{cont.employee_ssn},{cont.vehicle_id},{cont.loan_date},{cont.end_date},{cont.base_price},{cont.contract_created},{cont.pickup_date},{cont.return_date},{cont.extensions},{cont.total},{cont.status}'
-
-        attr_list = [cont.contract_id, attr_string]
-        self.data_api.change_contract_attributes(attr_list)
+        if cont.status != 'terminated':
+            self.change_contract(cont)
             
     
     def calculate_number_of_days(self, start_date, end_date):
@@ -118,6 +114,16 @@ class ContractLogic():
         contracts_list = self.get_all_contracts()
         filtered_list = [c for c in contracts_list if getattr(c, col).lower() == value.lower()]
         return filtered_list
+    
+    def add_utilization_log(self, contract):
+        vehicle = self.vehicle_logic.find_vehicle(contract.vehicle_id)
+        util_list = [vehicle.id, TODAY, vehicle.location, vehicle.type, vehicle.manufacturer, vehicle.model, contract.pickup_date, contract.return_date]
+        self.data_api.add_utilization_log(util_list)
+    
+    def add_profit_log(self, contract):
+        vehicle = self.vehicle_logic.find_vehicle(contract.vehicle_id)
+        profit_log = [TODAY,contract.contract_id,contract.base_price,contract.extensions,contract.total,vehicle.type,vehicle.location]
+        self.data_api.add_profits(profit_log)
 
     def get_unpaid_contracts(self, ssn, start_date, end_date):
         '''Retunrs a list of contracts instances that have yet to pay thair contract '''
@@ -136,8 +142,8 @@ class ContractLogic():
                 ret_list.append(contract)
         return ret_list
 
-    def change_contract(self, cust):
-        self.data_api.change_contract(cust)
+    def change_contract(self, contract):
+        self.data_api.change_contract(contract)
 
     def get_paid_and_unpaid_contracts(self, ssn, start_date, end_date):
         '''returns a dictonary of certain customer with all paid contracts and unpaid contracts with in given time  '''
@@ -151,6 +157,5 @@ class ContractLogic():
                     else:
                         customer_bill_dict[contract.status].append(contract)
                         
-        print(customer_bill_dict)
         return customer_bill_dict
 
