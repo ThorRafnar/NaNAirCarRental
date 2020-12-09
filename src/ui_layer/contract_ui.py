@@ -101,7 +101,7 @@ class ContractUI():
         self.ui_helper.print_blank_line()
         self.ui_helper.left_aligned_columns([f"       START DATE: {a_contract.loan_date}", f"END DATE: {a_contract.end_date}", f"LOCATION: {a_vehicle.location}", f"STATUS: {a_contract.status}"])
         self.ui_helper.print_blank_line()
-        self.ui_helper.left_aligned_columns([f"       RATE: {self.logic_api.get_types_rate(a_vehicle.type)}",f"BASE PRICE: {a_contract.base_price}", f"TOTAL PRICE: {a_contract.total}", "REGISTRATION DATE: N/A"])
+        self.ui_helper.left_aligned_columns([f"       RATE: {self.logic_api.get_types_rate(a_vehicle.type)}",f"BASE PRICE: {a_contract.base_price}", f"TOTAL PRICE: {a_contract.total}", f"REGISTRATION DATE: {a_contract.contract_created}"])
         self.ui_helper.print_blank_line()
         self.ui_helper.seperator()
         self.ui_helper.print_line("    << CUSTOMER >>")
@@ -183,7 +183,7 @@ class ContractUI():
                     setattr(a_contract, undo_list[-1][0], undo_list[-1][1])
 
                 elif user_choice.lower() == self.ui_helper.SAVE:
-                    #self.logic_api.change_contract(a_contract)
+                    self.logic_api.change_contract(a_contract)
                     return
 
                 elif user_choice.lower() == terminate:
@@ -486,16 +486,12 @@ class ContractUI():
             elif ssn.lower() == self.ui_helper.BACK:
                 return
 
-            ssn = self.ui_helper.ssn_formatter(ssn)
-            if ssn == None:
-                error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
-                continue
+            ssn = self.logic_api.check_ssn(ssn)
+            if ssn != None:
+                return self.logic_api.find_customer(ssn), ssn
 
-            #If the new one is valid we need to reset the error message
             else:
-                error_msg = ""
-
-            return self.logic_api.find_customer(ssn), ssn
+                error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
 
     
     def employee_for_contract(self, error_msg=""):
@@ -518,17 +514,13 @@ class ContractUI():
             elif ssn.lower() == self.ui_helper.BACK:
                 return
 
-            ssn = self.ui_helper.ssn_formatter(ssn)
-            if ssn == None:
-                error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
-                continue
+            ssn = self.logic_api.check_ssn(ssn)
+            if ssn != None:
+                return self.logic_api.find_employee(ssn), ssn
 
-            #If the new one is valid we need to reset the error message
             else:
-                error_msg = ""
-
-            return self.logic_api.find_employee(ssn)
-       
+                error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
+  
 
     def new_contract(self, error_msg=""):
         ''' Composite method for creating a contract'''
@@ -537,17 +529,18 @@ class ContractUI():
             the_customer = self.create_customer(ssn)    #Creates new customer
     
         conf = self.confirm_customer(the_customer)             #Asks user to confirm
-        if conf.lower not in self.ui_helper.YES:
+
+        if conf.lower() not in self.ui_helper.YES:
             return
 
-        the_employee = self.employee_for_contract() 
+        the_employee, ssn = self.employee_for_contract() 
 
         if the_employee == None:                                    #If emp doesn't exists, create it
             self.employee_ui.create_employee(ssn)
             the_employee = self.logic_api.find_employee(ssn)
 
         conf = self.confirm_employee(the_employee)
-        if conf.lower not in self.ui_helper.YES:
+        if conf.lower() not in self.ui_helper.YES:
             return
 
         self.create_contract(the_customer, the_employee)              #Creates contract with the customer
@@ -581,14 +574,20 @@ class ContractUI():
         
     def get_location(self, error_msg=""):
         ''' Gets a location from the user '''
+        valid_locations = self.logic_api.destinations_option_list()
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
-            self.ui_helper.print_line("    Enter contract location")
+            self.ui_helper.print_line("Enter contract location")
+            for iata, location in valid_locations:
+                if iata != "ADM" and iata != "KEF":
+                    self.ui_helper.print_line(f"    {iata}: {location}")
+                else:
+                    valid_locations.remove((iata, location))
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
-            user_input = input("Input: ")
+            user_input = self.ui_helper.get_user_menu_choice(valid_locations)
             if user_input.lower() == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
 
@@ -688,7 +687,7 @@ class ContractUI():
 
     def create_contract(self, the_customer, the_employee, error_msg=""):
         ''' Gets input from user and creates a new contract '''
-        the_contract = Contract(None, the_customer.ssn, the_employee.ssn, "", "", "", "", "")
+        the_contract = Contract(None, the_customer.ssn, the_employee.ssn, "", "", "")
         the_contract.loan_date = self.get_date("start")
         the_contract.end_date = self.get_date("end")
         location = self.get_location()
@@ -787,7 +786,7 @@ class ContractUI():
             elif user_choice.lower() == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
 
-            ssn = self.ui_helper.ssn_formatter(user_choice)
+            ssn = self.logic_api.check_ssn(user_choice)
             if ssn == None:
                 error_msg = "Please enter a valid social security number (DDMMYY-NNNM)"
                 continue
