@@ -50,5 +50,25 @@ class ContractData():
             the_writer = csv.DictWriter(file_stream, keys)
             the_writer.writeheader()
             the_writer.writerows(file_list)
+
+    def change_contract(self,cont):
+        ''' overwrites the contracts with "new" contract '''
+        #contract_id, customer_ssn, employee_ssn, vehicle_id, loan_date, end_date, base_price=None, contract_created=None, pickup_date=None, return_date=None, extensions=0, total=None, status='pending'
+        cont_list = [cont.contract_id, cont.customer_ssn, cont.employee_ssn, cont.vehicle_id, cont.loan_date, cont.end_date, 
+        cont.base_price, cont.contract_created, cont.pickup_date, cont.return_date, cont.extensions, cont.total, cont.status]
+        file_list = []
+        with open("data_layer/data_files/contracts.csv", 'r', encoding='utf-8') as file_stream:
+            csv_reader = csv.DictReader(file_stream)
+            for row in csv_reader:
+                if row["contract_id"] == cont.contract_id:
+                    for key, value in zip(row.keys(), cont_list):
+                        row[key] = value
+                file_list.append(row)
+
+        with open("data_layer/data_files/contracts.csv", 'w', encoding='utf-8', newline='') as file_stream:
+            keys = file_list[0].keys()
+            the_writer = csv.DictWriter(file_stream, keys)
+            the_writer.writeheader()
+            the_writer.writerows(file_list)
             
 
