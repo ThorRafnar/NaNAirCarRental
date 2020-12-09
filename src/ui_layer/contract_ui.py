@@ -487,6 +487,7 @@ class ContractUI():
                 return
 
             ssn = self.logic_api.check_ssn(ssn)
+
             if ssn != None:
                 return self.logic_api.find_customer(ssn), ssn
 
@@ -515,6 +516,7 @@ class ContractUI():
                 return
 
             ssn = self.logic_api.check_ssn(ssn)
+
             if ssn != None:
                 return self.logic_api.find_employee(ssn), ssn
 
@@ -936,7 +938,10 @@ class ContractUI():
                 return
 
             elif user_choice.lower() == self.ui_helper.SAVE:
-                pass #TODO Register contracts as returned
+                for contract in contract_list:
+                    self.logic_api.change_contract_status(contract.contract_id,"returned")
+                self.vehicle_has_been_returned()
+                return
 
             elif user_choice.lower() == self.ui_helper.UNDO:
                 contract_list.pop()
@@ -955,8 +960,22 @@ class ContractUI():
         self.ui_helper.clear()
         self.ui_helper.print_header()
         self.ui_helper.print_line("No contract found")
+        self.ui_helper.print_line("Press enter to go back.")
         self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
+        self.ui_helper.print_hash_line()
         print()
         _x = input("Input: ")
         return 
+    
+    def vehicle_has_been_returned(self):
+        ''' Displays that vehicle has been returned '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header()
+        self.ui_helper.print_line("Vehicles have been returned.")
+        self.ui_helper.print_line("Press enter to go back.")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_hash_line()
+        print()
+        _x = input("Input: ")
+        return
+    
