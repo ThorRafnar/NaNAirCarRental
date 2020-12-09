@@ -149,9 +149,9 @@ class LogicAPI():
         ''' Gets an instance of new vehicle type from UI and sends it down to data layer '''
         return self.vehicle_type_logic.create_new_type(vehicle_type)
 
-    def change_types_rate(self, type_name, new_rate):
+    def change_types_rate(self, type_name, type_location, new_rate):
         ''' Gets from UI vehicle type and new rate and sends down to data layer '''
-        return self.vehicle_type_logic.change_types_rate(type_name, new_rate)
+        return self.vehicle_type_logic.change_types_rate(type_name, type_location, new_rate)
     
     def get_types_rate(self, selected_type):
         return self.vehicle_type_logic.get_types_rate(selected_type)
@@ -189,6 +189,12 @@ class LogicAPI():
 
     def check_ssn(self, ssn):
         return self.logic_error_check.ssn_formatter(ssn)
+
+    def check_phone(self, phone):
+        return self.logic_error_check.check_phone(phone)
+
+    def check_hours(self, hours):
+        return self.logic_error_check.check_hours(hours)
 
     # Random Chuck Norris jokes logic
     def get_random_joke(self):

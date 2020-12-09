@@ -49,6 +49,27 @@ class LogicErrorCheck():
             
         return None
 
+    
+    def check_hours(self, hours):
+        ''' Checks if supplied hours are in avalid fomrat, returning none if not '''
+        hours_list = hours.split(" - ")
+        for time in hours_list:
+            if len(time) != 5:
+                return None
+            else:
+                hour = time[:2]
+                minutes = time[3:]
+                if int(hour) > 24:
+                    return None
+                
+                if int(minutes) > 60:
+                    return None
+                
+                if time[2] != ":":
+                    return None
+        
+        return hours
+
 
     def ssn_formatter(self, ssn):
         ''' Returns a ssn in the correct format, NNNNNN-NNNN. '''

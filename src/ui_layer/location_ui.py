@@ -18,51 +18,46 @@ class LocationUI():
             "3": self.VIEW_ALL,
         }
 
-    def show_options(self, header_str, error_msg=""):
+    def show_options(self, error_msg=""):
         ''' Main loop in location ui, displays options and allows user to select a task '''
-        options_list = [(k, v) for k, v in self.options_dict.items()]
+        options_list = self.ui_helper.dict_to_list(self.options_dict)
         while True:
-            opt_str = "Select task"
-
             self.ui_helper.clear()
-
-            self.ui_helper.print_header(header_str)
-            self.ui_helper.print_options(options_list, opt_str)
+            self.ui_helper.print_header()
+            self.ui_helper.print_options(options_list, "Select task")
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
             if user_choice != None:
 
-                if user_choice.lower() == self.ui_helper.BACK.lower():
+                if user_choice.lower() == self.ui_helper.BACK:
                     return
 
-                elif user_choice.lower() == self.ui_helper.QUIT.lower():
-                    self.ui_helper.quit_prompt(header_str)
+                elif user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
 
                 else:
                     
                     if self.options_dict[user_choice] == self.CREATE:
-                        self.create_location(header_str)
+                        self.new_location()
 
                     elif self.options_dict[user_choice] == self.FIND:
-                        the_location = self.find_location(header_str)
-                        self.single_location_options(the_location, header_str)
-                                                                  
+                        self.find_location()                                                                  
 
                     elif self.options_dict[user_choice] == self.VIEW_ALL:
                         location_list = self.logic_api.get_destinations()
-                        self.view_all_locations(location_list, header_str)
+                        self.view_location_list(location_list)
 
             else:
                 error_msg = "Please select an option from the menu"
 
 
-    def view_all_locations(self, location_list,header_str, error_msg = ""):
-        ''' Gets all locations and displays them '''
+    def view_location_list(self, location_list, error_msg = ""):
+        ''' Displays a list of locations, allows user to enter iata to view more '''
         headers = ["<< COUNTRY >>", "<< CITY >>", "<< PHONE >>", "<< OPENING HOURS >>", "<< IATA >>"]
         while True:
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.ui_helper.n_columns(headers)
             for location in location_list:
                 self.ui_helper.n_columns([location.country, location.airport, location.phone, location.hours, location.iata])
@@ -70,38 +65,63 @@ class LocationUI():
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = input("Input: ")
-            if user_choice.lower() == self.ui_helper.QUIT.lower():
-                self.ui_helper.quit_prompt(header_str)
-            elif user_choice.lower() == self.ui_helper.BACK.lower():
+            if user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+
+            elif user_choice.lower() == self.ui_helper.BACK:
                 return
+
             else:
                 return
 
-    def find_location(self, header_str, error_msg=""):
+
+    def find_location(self, error_msg=""):
         """ Asks user for airportcode and returns a destination instance """
         while True:
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.ui_helper.print_line("    Please enter an airport code: ")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
             airport_code = input("Input: ")
             
-            if airport_code.lower() == self.ui_helper.QUIT.lower():
-                self.ui_helper.quit_prompt(header_str)
-            elif airport_code.lower() == self.ui_helper.BACK.lower():
+            if airport_code.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+
+            elif airport_code.lower() == self.ui_helper.BACK:
                 return 
+
             else:
                 the_dest = self.logic_api.find_destination(airport_code.upper())
                 if the_dest != None:
-                    return the_dest
+                    self.single_location_options(the_dest)
+                    return
+
                 else:
-                    error_msg = "Please enter a valid airport code!"
-                    continue
+                    self.no_location_found(airport_code)
+                    return
+
+    
+    def no_location_found(self, iata, error_msg =""):
+        ''' Informs user that no location was found, and asks if they want to create one '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line(f"    No location {iata} found, do you wish to create it? (y/n)")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_hash_line()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice.lower() in self.ui_helper.YES:
+                self.create_location(iata)
+                return
+
+            else:
+                return
 
 
-    def single_location_options(self, the_dest, header_str, error_msg=""):
+    def single_location_options(self, the_dest, error_msg=""):
         ''' Displays a single location and displays options, allows user to select a task '''
         view_staff = "View location's staff"
         view_vehicles = "View location's vehicles"
@@ -114,7 +134,7 @@ class LocationUI():
         options_list = self.ui_helper.dict_to_list(options_dict)
         while True:
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.ui_helper.print_line("Location details:")
             self.display_location(the_dest)
             self.ui_helper.print_blank_line()
@@ -122,45 +142,47 @@ class LocationUI():
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(options_list)
-            if user_choice.lower() == self.ui_helper.BACK.lower():
-                return
+            if user_choice != None:
 
-            elif user_choice.lower() == self.ui_helper.QUIT.lower():
-                self.ui_helper.quit_prompt(header_str)
-                
-            elif user_choice in options_dict:
+                if user_choice.lower() == self.ui_helper.BACK:
+                    return
 
-                if options_dict[user_choice] == view_staff:
-                    self.view_location_emps(the_dest, header_str)
+                elif user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
                     
+                else:
 
-                elif options_dict[user_choice] == view_vehicles:
-                    self.vehicle_ui.get_all_vehicles(the_dest, header_str)
+                    if options_dict[user_choice] == view_staff:
+                        self.view_location_emps(the_dest)
+                        
 
-                elif options_dict[user_choice] == opening_hours:
-                    pass
+                    elif options_dict[user_choice] == view_vehicles:
+                        self.vehicle_ui.get_all_vehicles(the_dest)
+
+                    elif options_dict[user_choice] == opening_hours:
+                        pass
 
             else:
                 error_msg = "Please select an option from the menu"
 
 
-    def view_location_emps(self, the_dest, header_str, error_msg=""):
+    def view_location_emps(self, the_dest, error_msg=""):
         filter_attributes = [("work_area", the_dest.iata)]
         emps = self.logic_api.get_filtered_employees(filter_attributes)
         while True:
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.employee_ui.print_employee_list(emps)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice()
             if user_choice != None:
-                if user_choice.lower() == self.ui_helper.BACK.lower():
+                if user_choice.lower() == self.ui_helper.BACK:
                     return
 
-                elif user_choice.lower() == self.ui_helper.QUIT.lower():
-                    self.ui_helper.quit_prompt(header_str)
+                elif user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
                     
                 else:
                     error_msg = "Please select an option from the menu"
@@ -168,81 +190,155 @@ class LocationUI():
                 error_msg = "Please select an option from the menu"
 
 
-    def create_location(self, header_str, error_msg=""):
-        ''' Gets user input for all components of a destination and creates it '''
-        iata = input("Input: ")
-        the_dest = self.logic_api.find_destination(iata)
-        if the_dest == None:
-            the_dest = Destination("", "", ".", "", iata)
-            the_dest.country = self.get_country(the_dest, header_str)
-            the_dest.airport = self.get_city(the_dest, header_str)
-            the_dest.phone = self.get_phone(the_dest, header_str)
-            the_dest.hours = self.get_hours(the_dest, header_str)
-            self.confirm_dest(the_dest, header_str)
-        else:
-            self.single_location_options(the_dest, header_str)
+    def new_location(self, error_msg=""):
+        ''' Gets user input for all components of a destination and creates it, if it exists, shows the location's menu '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("    Enter airport code (iata)")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            iata = input("Input: ")
+            if iata.lower() == self.ui_helper.BACK:
+                return
+
+            elif iata.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+                
+            else:
+                the_dest = self.logic_api.find_destination(iata)
+                if the_dest == None: 
+                    self.create_location(iata)
+
+                else:
+                    self.single_location_options(the_dest)
 
 
-    def get_country(self, the_dest, header_str, error_msg=""):
+    def create_location(self, iata, error_msg=""):
+        ''' Creates a new location with an airport code '''
+        the_dest = Destination("", "", ".", "", iata)
+        the_dest.country = self.get_country(the_dest)
+        if the_dest.country == None:
+            return
+
+        the_dest.airport = self.get_city(the_dest)
+        if the_dest.airport == None:
+            return
+
+        the_dest.phone = self.get_phone(the_dest)
+        if the_dest.phone == None:
+            return
+
+        the_dest.hours = self.get_hours(the_dest)
+        if the_dest.hours == None:
+            return
+
+        self.confirm_dest(the_dest)
+
+
+    def get_country(self, the_dest, error_msg=""):
         ''' Gets country from user '''
         while True:
             placeholder_text = f"<< Enter country >>"
             setattr(the_dest, "country", placeholder_text)
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.display_location(the_dest)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
-            print()
-            return input("Enter location's country: ")
+            print(error_msg)
+            country = input("Enter location's country: ")
+            if country.lower() == self.ui_helper.BACK:
+                return
+
+            elif country.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+                
+            else:
+                return country.capitalize()
 
 
-    def get_city(self, the_dest, header_str, error_msg=""):
+    def get_city(self, the_dest, error_msg=""):
         ''' Gets city from user '''
         while True:
             placeholder_text = f"<< Enter city >>"
             setattr(the_dest, "airport", placeholder_text)
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.display_location(the_dest)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print()
-            return input("Enter location's city: ")
+            city = input("Enter location's city: ")
+            if city.lower() == self.ui_helper.BACK:
+                return
+
+            elif city.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+                
+            else:
+                return city.capitalize()
 
     
-    def get_phone(self, the_dest, header_str, error_msg=""):
+    def get_phone(self, the_dest, error_msg=""):
         ''' gets phone number from user '''
         while True:
             placeholder_text = f"<< Enter phone nr >>"
             setattr(the_dest, "phone", placeholder_text)
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.display_location(the_dest)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print()
-            return input("Enter location's phone nr: ")
+            phone_nr =  input("Enter location's phone nr: ")
+            if phone_nr.lower() == self.ui_helper.BACK:
+                return
+
+            elif phone_nr.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+                
+            else:
+                phone_nr = self.logic_api.check_phone(phone_nr)
+                if phone_nr != None:
+                    return phone_nr
+                
+                else:
+                    error_msg = "Please enter a valid phone number"
 
         
-    def get_hours(self, the_dest, header_str, error_msg=""):
+    def get_hours(self, the_dest, error_msg=""):
         ''' gets phone number from user '''
         while True:
             placeholder_text = f"<< Enter opening hours >>"
             setattr(the_dest, "hours", placeholder_text)
             self.ui_helper.clear()
-            self.ui_helper.print_header(header_str)
+            self.ui_helper.print_header()
             self.display_location(the_dest)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print()
-            return input("Enter location's opening hours (HH:MM - HH:MM): ")
+            hours = input("Enter location's opening hours (HH:MM - HH:MM): ")
+            if hours.lower() == self.ui_helper.BACK:
+                return
+
+            elif hours.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+                
+            else:
+                hours = self.logic_api.check_hours(hours)
+                if hours != None:
+                    return hours
+                
+                else:
+                    error_msg = "Please enter opening hours in a valid format, eg. 08:15 - 12:30"
 
 
-    def confirm_dest(self, the_dest, header_str):
+    def confirm_dest(self, the_dest):
         ''' Asks user if they want to save their location/destination '''
         self.ui_helper.clear()
-        self.ui_helper.print_header(header_str)
+        self.ui_helper.print_header()
         self.display_location(the_dest)
         self.ui_helper.print_blank_line()
         self.ui_helper.print_footer()

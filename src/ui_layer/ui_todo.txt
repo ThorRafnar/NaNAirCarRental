@@ -1,7 +1,7 @@
 Vehicle ui (mögulega vehicle types)
-    Rates
-    View rates
-    change rates
+    Rates                           semi
+    View rates                      V
+    change rates                    V
 
 for airport staff:
     Make pick up and returns easy   v
@@ -22,6 +22,8 @@ Locations menu:
         
 Contracts:
     1. Make contract: V
+
+    LOCATION, get available from logic
 
     2. View contract
         1. terminate
