@@ -28,10 +28,14 @@ r = LogicAPI()
 #r.change_contract_dates('4','02/12/2020','10/12/2020')
 
 # hey = Contract("1",'320866-9910','250645-9999','2','01/12/2020','05/12/2020',"sadf","sadf","sadfafsd","sadf","sadf","sadfafsd" )
-r.get_utilization_for_location('Thorshavn')
-# r.change_contract(hey)
+# r.get_utilization_for_location('Thorshavn')
+# # r.change_contract(hey)
 
-hey = Contract("2",'320866-9910','250645-9999','2','01/12/2020','05/12/2020',"sadf","sadf","sadfafsd","sadf","sadf","sadfafsd" )
+# hey = Contract("2",'320866-9910','250645-9999','2','01/12/2020','05/12/2020',"sadf","sadf","sadfafsd","sadf","sadf","sadfafsd" )
 
-r.get_paid_and_unpaid_contracts("320866-9910", "01/12/2010", "01/12/2021")
+# r.get_paid_and_unpaid_contracts("320866-9910", "01/12/2010", "01/12/2021")
+hey = r.get_vehicle_by_location("Kulusuk")
+print(hey)
 
+for i in hey:
+    print(i.location)

@@ -73,6 +73,9 @@ class LogicAPI():
     def licenses_options_list(self):
         return self.vehicle_logic.licenses_options_list()
 
+    def get_vehicle_by_location(self, location):
+        return self.vehicle_logic.get_vehicle_by_location(location)
+
     # Destination logic
     def get_destinations(self):
         return self.destination_logic.get_destinations()
