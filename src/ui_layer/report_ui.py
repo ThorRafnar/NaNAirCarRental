@@ -29,6 +29,8 @@ class ReportUI():
 
             else:
                 if self.options_dict[user_choice] == self.PROFIT_REPORTS:
+                    self.profits_menu()
+                    '''
                     start_date, end_date = self.ask_end_and_start_date()
                     if start_date == self.ui_helper.BACK or end_date == self.ui_helper.BACK:
                         return
@@ -36,6 +38,7 @@ class ReportUI():
                         self.ui_helper.quit_prompt()
                     self.show_profit_reports(start_date, end_date)
                     pass
+                    '''
 
                 elif self.options_dict[user_choice] == self.UTILIZATION_REPORTS:
                     start_date, end_date = self.ask_end_and_start_date()
@@ -52,6 +55,10 @@ class ReportUI():
                     # Call a function wich deals with bills.
                     pass
 
+
+    def profits_menu(self, error_msg=""):
+        ''' Asks user if they want to view profits for vehicle types or locations '''
+        pass
     
     def show_options(self, error_msg=""):
         options_list = self.ui_helper.dict_to_list(self.options_dict)
