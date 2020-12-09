@@ -13,7 +13,7 @@ r = LogicAPI()
 # veh = Vehicle('Yedoo','Trexx','Light road','OK','2020','Orange',None,'KUS',None)
 # dest = r.find_vehicle('1')
 # print(dest)
-con = Contract(None,'320866-9910','250645-9999','2','01/12/2020','05/12/2020')
+# con = Contract(None,'320866-9910','250645-9999','2','01/12/2020','05/12/2020')
 # amm = r.create_new_contract(con)
 #blah = r.change_contract_status('5','paid')
 # ty = r.get_types_rate('Medium off-road')
@@ -27,10 +27,7 @@ con = Contract(None,'320866-9910','250645-9999','2','01/12/2020','05/12/2020')
 # r.get_filtered_vehicle('28/11/2020', '01/12/2020',loc,veh)
 #r.change_contract_dates('4','02/12/2020','10/12/2020')
 
-#r.get_utilization_for_location('Thorshavn')
+r.get_utilization_for_location('Thorshavn')
 
-r = r.calculate_profits('15/11/2020','31/12/2020')
-
-print(r)
-
+# hey = r.calculate_profits("01/12/2020", "10/12/2020")
 
