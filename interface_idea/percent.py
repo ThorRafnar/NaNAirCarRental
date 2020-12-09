@@ -11,7 +11,7 @@ def print_percent(percent_list, length):
 
 
     # THIS IS JUST A TEST TO SEE IF IT CAN FEASIBLY BE DONE #
-length = 25
+length = 100
 perc_list1 = [("Scooter", 80),("2 door car", 75),("Family car", 67),("Road jeep", 89),("4x4 jeep", 78),("Mini van", 85)]
 
 

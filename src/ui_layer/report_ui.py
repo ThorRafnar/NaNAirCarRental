@@ -24,10 +24,10 @@ class ReportUI():
 
             if user_choice != None:
 
-                if self.options_dict[user_choice].lower() == self.ui_helper.QUIT:
+                if user_choice.lower() == self.ui_helper.QUIT:
                     self.ui_helper.quit_prompt()
 
-                elif self.options_dict[user_choice].lower() == self.ui_helper.BACK:
+                elif user_choice.lower() == self.ui_helper.BACK:
                     return
 
                 else:
@@ -37,15 +37,8 @@ class ReportUI():
           
 
                     elif self.options_dict[user_choice] == self.UTILIZATION_REPORTS:
-                        start_date, end_date = self.ask_end_and_start_date()
-                        if start_date == self.ui_helper.BACK or end_date == self.ui_helper.BACK:
-                            return
-                        elif start_date == self.ui_helper.QUIT or end_date == self.ui_helper.QUIT:
-                            self.ui_helper.quit_prompt()
-
-                        location = self.ask_location()
-                        self.show_utilization_report(start_date, end_date,location)
-                        pass
+                        
+                        self.uitilization_menu()
 
                     elif self.options_dict[user_choice] == self.BILLS:
                         # Call a function wich deals with bills.
@@ -88,8 +81,7 @@ class ReportUI():
         self.ui_helper.clear()
         self.ui_helper.print_header()
         self.ui_helper.print_blank_line()
-        self.ui_helper.print_line("    Tasks:")
-        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("Select Task:")
         for option in options_list:
             self.ui_helper.print_line(f"    {option[0]}. {option[1]}")
         self.ui_helper.print_blank_line()
@@ -99,7 +91,7 @@ class ReportUI():
 # End of menu section
 
 # Start of profit section
-    def show_profit_reports(self, start_date, end_date):
+    def show_profit_reports(self, start_date, end_date, error_msg=""):
         profit_reports = self.logic_api.calculate_profits(start_date, end_date)
         total_profits = profit_reports[0]
         vehicle_profit_dict = profit_reports[1]
@@ -107,12 +99,29 @@ class ReportUI():
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
-            self.ui_helper.print_line(f"    Profit Report from {start_date} to {end_date}")
+            self.ui_helper.print_centered_line_dash(f"<< Profit Report from {start_date} to {end_date} >>")
             self.ui_helper.print_blank_line()
-            self.ui_helper.print_line(f"    TOTAL PROFITS {total_profits}")
+            self.ui_helper.print_centered_line_dash("<< PROFITS BY LOCATION >>----------------------")
             self.ui_helper.print_blank_line()
             self.print_profts(location_profit_dict)
-            return input("...")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_centered_line_dash("<< PROFITS BY VEHICLE TYPE >>------------------")
+            self.ui_helper.print_blank_line()
+            self.print_profts(vehicle_profit_dict)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_line(f"TOTAL PROFITS FROM {start_date} TO {end_date}: {total_profits}")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = self.ui_helper.get_user_menu_choice([])
+            if user_choice != None:
+                if user_choice.lower() == self.ui_helper.BACK:
+                    return
+                elif user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
+            else:
+                error_msg = f"Please enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
+
 
     def make_scale(self, top_of_scale, steps):
         ''' Returns a scale (list) in reverse order '''
@@ -131,17 +140,16 @@ class ReportUI():
         symbol = "Kr."
         
         max_val = max(val for key, val in profits_dict.items())
-        steps = max_val // 9
-        top_of_scale = max_val + max_val % 9
-        column_width = 3
-        grapth_width = (column_width + 2) * len(profits_dict)
-        scale = self.make_scale(top_of_scale, steps)
+        steps = max_val // 10
+        column_width = 15
+        grapth_width = (column_width + 1) * len(profits_dict) + 1
+        scale = self.make_scale(max_val, steps)
 
         #prints columns
         for ind, row in enumerate(scale):
             if ind == 0:
-                a_str = "_" * (grapth_width - 2)
-                a_str += f"_{row} {symbol}"
+                a_str = " " + "_" * (grapth_width)
+                a_str += f"__{row} {symbol}"
             else:
                 a_str = "| "
                 for _key, val in profits_dict.items():
@@ -158,30 +166,26 @@ class ReportUI():
             
             self.ui_helper.print_line(a_str)
         
-        self.ui_helper.seperator()
-        
+        self.ui_helper.print_line("|" + ("‾" * (grapth_width) + "|"))     
         #Prints keys
-        key_str = ""
-        for key in profits_dict:
-            key = self.logic_api.city_to_iata(key)
-            if len(key) > column_width:
-                for i in range(column_width):
-                    key_str += key[i]
-                key_str += " "
-                
-            else:
-                spaces = column_width - len(key) + 1
-                key_str = key + (" " * spaces)
+        key_str = "| "
+        val_str = "| "
+        for key, val in profits_dict.items():
+            #key = self.logic_api.city_to_iata(key)
+            key_str += "{: ^{width}}".format(key, width = column_width + 1)
 
+            val = f"{str(val)} {symbol}"
+            val_str += "{: ^{width}}".format(val, width = column_width + 1)
+
+        key_str += "|"
+        val_str += "|"
         self.ui_helper.print_line(key_str)
-        self.ui_helper.seperator()
-
-
-
-        
+        self.ui_helper.print_line(val_str)
+        self.ui_helper.print_line("|" + ("_" * (grapth_width) + "|"))
 
         
     def get_date(self, a_str):
+        ''' gets a date from user and error checks it '''
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
@@ -202,47 +206,80 @@ class ReportUI():
 
     
 # Start of utilization section
-    def ask_location(self):
+    def uitilization_menu(self):
+        location = self.get_location()
+        if location != None:
+            self.show_utilization_report(location)
+            
+        else:
+            return
+
+
+    def get_location(self, error_msg=""):
+        ''' Gets a location from user, allowing only valid existing locations '''
         valid_locations = self.logic_api.destinations_option_list()
-        self.ui_helper.clear()
-        self.ui_helper.print_header()
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_line("    Enter location (optional):")
-        self.ui_helper.print_blank_line()
-        for location in valid_locations:
-            user_input = location[0]
-            location_str = location[1]
-            final_str = f"{user_input}: {location_str}"
-            self.ui_helper.print_line(f"    {final_str}")
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
-        user_choice = input("Input: ")
-        if user_choice == "":
-            return None
-        else:
-            for location in valid_locations:
-                if user_choice == location[0].lower():
-                    return location
+        valid_locations.append(("ALL", "All locations"))
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_line("    Select location for utilization report:")
+            for iata, location in valid_locations:
+                if iata != "ADM" and iata != "KEF":
+                    self.ui_helper.print_line(f"    {iata}: {location}")
+                else:
+                    valid_locations.remove((iata, location))
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            user_choice = self.ui_helper.get_user_menu_choice(valid_locations)
+            if user_choice != None:
+
+                if user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
+
+                elif user_choice.lower() == self.ui_helper.BACK:
+                    return
+
+                else:
+                    return user_choice
+
+            else:
+                error_msg = "Please select an option from the menu"
     
 
-    def show_utilization_report(self, start_date, end_date, location):
-        if location == None:
-            location = "all locations"
-            util_logs = self.logic_api.get_utilization_logs()
+    def show_utilization_report(self, location):
+        ''' Shows utilization reports per vehicle for either all locations or just one'''
+        padding = 48
+        scale_length = 50
+        if location == "All":
+            #util_logs = self.logic_api.get_utilization_logs()
+            pass
         else:
-            util_logs = self.logic_api.get_utilization_for_location(location)
-        self.ui_helper.clear()
-        self.ui_helper.print_header()
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_line("    Vehicle uitilization report in:")
-        self.ui_helper.print_line(f"    {location}")
-        self.ui_helper.print_line(f"    From: {start_date}")
-        self.ui_helper.print_line(f"    To:   {end_date}")
-        # Let's forget this until logic has done their part >:(
-    
-# End of utilization section
-    
+            util_logs = {
+                "Medium road" : [ ["1", "TAILIG free fly II", "05/07/2019", "07/12/2020", 70] ]
+            }
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_centered_line_dash("<< VEHICLE UTILIZATION >>---------------")
+            self.ui_helper.print_blank_line()
+            for vehicle_type, values in util_logs.items():
+                self.ui_helper.print_line(vehicle_type.upper())
+                self.ui_helper.print_line(" " * padding + "_" * scale_length)
+                for vehicle in values:
+                    vehicle_id = vehicle[0]
+                    vehicle_name = vehicle[1]
+                    first_use_date = vehicle[2]
+                    recent_use_date = vehicle[3]
+                    percent = vehicle[4]
+                    ratio = percent // 2
+                    info_str = f"{vehicle_id} {vehicle_name} {first_use_date} {recent_use_date}"
+                    info_string = "{: <{width}}".format(info_str, width = padding)
+                    percent_string = ("|" + "#" * ratio + " " * (scale_length - ratio) + f"| {str(percent)} %")
+                    self.ui_helper.print_line(f"{info_string}{percent_string}")
 
-        
-    
+            return input("...")
+
+
 
