@@ -139,7 +139,7 @@ class ContractUI():
 
 
     def single_contract_options(self, a_contract, error_msg =""):
-        ''' Shows a contract in a compacted view and allows user to choose options, what to do '''
+        ''' Shows a contract in a compacted view and allows user to choose options to change it '''
         change_start = "Change start date"
         change_end = "Change end date"
         change_vehicle = "Change vehicle"
@@ -154,12 +154,12 @@ class ContractUI():
         contract_options_list = self.ui_helper.dict_to_list(contract_options_dict)
         options_string = "Please select an option"
         undo_list = []
-        _change_list = []
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
             self.view_full_display_contract(a_contract)
             self.ui_helper.print_options(contract_options_list, options_string)
+            self.ui_helper.print_blank_line()
             self.ui_helper.print_line(f"    ({printable.upper()})rint: View contract in a printer friendly format")
             self.ui_helper.print_line(f"    ({terminate.upper()})erminate: Terminate contract")
             self.ui_helper.print_line(f"    ({self.ui_helper.SAVE.upper()})ave: Save changes")
@@ -273,11 +273,11 @@ class ContractUI():
             if the_type != None:
 
                 while True:
-                    new_vehicle = self.choose_vehicle(a_contract.loan_date, a_contract.end_date, location, the_type)
+                    new_vehicle_id = self.choose_vehicle(a_contract.loan_date, a_contract.end_date, location, the_type)
 
-                    if new_vehicle != None:
+                    if new_vehicle_id != None:
                         old_attr = ("vehicle_id", getattr(a_contract, "vehicle_id"))
-                        setattr(a_contract, "vehicle_id", new_vehicle.id)
+                        setattr(a_contract, "vehicle_id", new_vehicle_id)
                         return old_attr
 
                     else:               #Goes back to select type if back in vehicle selection
@@ -295,7 +295,7 @@ class ContractUI():
             self.ui_helper.print_line(f"    Are you sure you want to terminate contract {a_contract.contract_id}? (y/n)")
             self.ui_helper.print_line("    This change cannot be undone")
             self.ui_helper.print_blank_line()
-            self.ui_helper.print_footer()
+            self.ui_helper.print_hash_line()
             print()
             user_choice = input("Input: ")
             if user_choice.lower() in self.ui_helper.YES:
@@ -357,10 +357,10 @@ class ContractUI():
         self.ui_helper.left_aligned_columns([f"           START DATE: {the_contract.loan_date}", f"END DATE:  {the_contract.end_date}"])
         self.ui_helper.seperator()
         self.ui_helper.print_line("3. SCOPE OF USE")
-        self.ui_helper.print_line("    The renter is limited to use the rental vehicle only in the city in ")
-        #TODO Get city as well ---------------------------------------v
-        self.ui_helper.print_line(f"    which it is rented, {the_vehicle.location}, and the general vicinity. The renter")
-        self.ui_helper.print_line("    will not sublease or rent the rental vehicle to another person.")
+        self.ui_helper.print_line("    The renter is limited to use the rental vehicle only in the city in")
+        self.ui_helper.print_line(f"    which it is rented, {the_vehicle.location}, {self.logic_api.find_destination(self.logic_api.city_to_iata(the_vehicle.location)).country}, and the general")
+        self.ui_helper.print_line("    vicinity. The renter will not sublease or rent the rental vehicle")
+        self.ui_helper.print_line("    to another person.")
         self.ui_helper.seperator()
         self.ui_helper.print_line("4. RENTAL FEES")
         self.ui_helper.print_line(f"    Rental vehicle is of class {the_vehicle.type}, which has a rental rate of:")
@@ -368,20 +368,24 @@ class ContractUI():
         self.ui_helper.print_line(f"        RATE:      {self.logic_api.get_types_rate(the_vehicle.type)} {currency} per day")
         self.ui_helper.print_line(f"        PRICE:     {the_contract.base_price} {currency}")
         self.ui_helper.print_blank_line()
-        self.ui_helper.print_line(f"    Failure to return the vehicle on time will result in an extra charge of")
-        self.ui_helper.print_line(f"    20% in addition to the rate, per day")
+        self.ui_helper.print_line(f"    Failure to return the vehicle on time will result in an extra")
+        self.ui_helper.print_line(f"    charge of 20% in addition to the rate, per day")
         self.ui_helper.print_blank_line()
         self.ui_helper.print_line(f"        LATE FEES: {self.logic_api.get_types_rate(the_vehicle.type) * 1.2} {currency} per late day")
         self.ui_helper.seperator()
         self.ui_helper.print_line("5. SIGNATURE")
-        self.ui_helper.print_line(f"    This vehicle rental agreement constitutes the entire agreement between the")
-        self.ui_helper.print_line(f"    Parties with respect to this rental arrangement")
+        self.ui_helper.print_line(f"    This vehicle rental agreement constitutes the entire agreement")
+        self.ui_helper.print_line(f"    between the Parties with respect to this rental arrangement")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line(f"        THIS CONTRACT WAS REGISTERED ON {the_contract.contract_created}")
         self.ui_helper.print_blank_line()
         self.ui_helper.print_centered_line_dash("<< CUSTOMER >>")
         self.ui_helper.print_blank_line()
         self.ui_helper.left_aligned_columns([f"     NAME:  {the_customer.name}", f"ADDRESS:  {the_customer.address}"])
         self.ui_helper.print_blank_line()
-        self.ui_helper.left_aligned_columns([f"     EMAIL: {the_customer.email}", f"PHONE:   {the_customer.phone}"])
+        self.ui_helper.print_line(f"  EMAIL: {the_customer.email}")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line(f"  PHONE:   {the_customer.phone}")
         self.ui_helper.print_blank_line()
         self.ui_helper.print_line("  SIGNATURE:___________________________     DATE:________________")
         self.ui_helper.print_blank_line()
@@ -389,7 +393,9 @@ class ContractUI():
         self.ui_helper.print_blank_line()
         self.ui_helper.left_aligned_columns([f"     NAME:  {the_employee.name}", f"WORK AREA:  {the_employee.work_area}"])
         self.ui_helper.print_blank_line()
-        self.ui_helper.left_aligned_columns([f"     EMAIL: {the_employee.email}", f"PHONE:   {the_employee.mobile_phone}"])
+        self.ui_helper.print_line(f"  EMAIL: {the_employee.email}")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line(f"  PHONE:   {the_employee.mobile_phone}")
         self.ui_helper.print_blank_line()
         self.ui_helper.print_line("  SIGNATURE:___________________________     DATE:________________")
         self.ui_helper.seperator()
@@ -487,6 +493,7 @@ class ContractUI():
                 return
 
             ssn = self.logic_api.check_ssn(ssn)
+
             if ssn != None:
                 return self.logic_api.find_customer(ssn), ssn
 
@@ -515,6 +522,7 @@ class ContractUI():
                 return
 
             ssn = self.logic_api.check_ssn(ssn)
+
             if ssn != None:
                 return self.logic_api.find_employee(ssn), ssn
 
@@ -626,8 +634,7 @@ class ContractUI():
     
     def get_vehicle_type(self, start_date, end_date, location,  error_msg=""):
         ''' Displays all vehicle types in a given location and allows user to choose '''
-        vehicle_types = self.logic_api.filter_by_region(location.country)                                                                     
-        vehicle_type_list = [ (str(ind + 1), vtype) for ind, vtype in enumerate(vehicle_types) if (self.logic_api.get_filtered_vehicle(start_date, end_date, location, vtype) != []) ]       
+        vehicle_types_list = self.logic_api.filter_by_region(location.airport, start_date, end_date)                                                                            
         vehicle_type_dict = dict(vehicle_type_list)
         while True:
             self.ui_helper.clear()
@@ -704,7 +711,7 @@ class ContractUI():
     def print_contract(self, the_contract, error_msg =""):
         while True:
             old_width = self.ui_helper.width
-            self.ui_helper.width = 84                   #Sets ui window width to about A4 size
+            self.ui_helper.width = 80                  #Sets ui window width to about A4 size
             self.ui_helper.clear()
             self.ui_helper.print_header()
             self.view_contract_details(the_contract)
@@ -721,7 +728,7 @@ class ContractUI():
                 self.ui_helper.quit_prompt()
 
             else:
-                return
+                error_msg = f"Enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
     
             
     def unsaved_changes(self, the_customer):
@@ -746,6 +753,7 @@ class ContractUI():
         self.ui_helper.n_columns(contract_header)
         for contract in contract_list:
             self.compact_contract(contract)
+        self.ui_helper.print_blank_line()
         self.ui_helper.print_footer()
         print(error_msg)
         user_choice = input("Input: ")
@@ -936,7 +944,10 @@ class ContractUI():
                 return
 
             elif user_choice.lower() == self.ui_helper.SAVE:
-                pass #TODO Register contracts as returned
+                for contract in contract_list:
+                    self.logic_api.change_contract_status(contract.contract_id, "returned")
+                self.vehicle_has_been_returned()
+                return
 
             elif user_choice.lower() == self.ui_helper.UNDO:
                 contract_list.pop()
@@ -955,8 +966,23 @@ class ContractUI():
         self.ui_helper.clear()
         self.ui_helper.print_header()
         self.ui_helper.print_line("No contract found")
+        self.ui_helper.print_line("Press enter to continue")
         self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
+        self.ui_helper.print_hash_line()
         print()
         _x = input("Input: ")
         return 
+    
+
+    def vehicle_has_been_returned(self):
+        ''' Displays that vehicle has been returned '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header()
+        self.ui_helper.print_line("Vehicles have been returned.")
+        self.ui_helper.print_line("Press enter to continue")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_hash_line()
+        print()
+        _x = input("Input: ")
+        return
+    

@@ -10,7 +10,7 @@ class VehicleTypeData:
 
             reader = csv.DictReader(file_stream)
             for line in reader:
-                info = VehicleType(line["name"], line["regions"], line["rate"])
+                info = VehicleType(line["name"], line["rate"])
                 vehicle_type_list.append(info)
             return vehicle_type_list
     
@@ -22,8 +22,7 @@ class VehicleTypeData:
             file_list = []
 
             for row in reader:
-                print(row)
-                if row["name"] == vehicle_type and row["regions"] == type_location: 
+                if row["name"] == vehicle_type: 
                     row["rate"] = new_rate
                 file_list.append(row)
         
@@ -36,7 +35,7 @@ class VehicleTypeData:
     def new_vehicle_type(self,info):
         ''' Takes in information about new type in a list and writes it to the
         vehicle_type.csv file. '''
-        a_list = [info.name,info.regions,info.rate]
+        a_list = [info.name,info.rate]
         with open("data_layer/data_files/vehicle_type.csv","a+",encoding="utf-8", newline='') as file_stream:
             writer = csv.writer(file_stream)
             writer.writerow(a_list)

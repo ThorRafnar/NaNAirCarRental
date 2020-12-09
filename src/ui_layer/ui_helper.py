@@ -192,6 +192,19 @@ class UIHelper():
         ''' converts a dictionary to a list and returns it '''
         return [(k, v) for k, v in options_dict.items()]
 
+    def n_columns_width(self, columns, wid):
+        ''' Formats n columns in a given width, returns a string'''
+        remainder = wid % len(columns)
+        ret_str = ""
+        for a_string in columns:
+            col_width = wid // len(columns)
+            if remainder > 0:
+                col_width += 1
+                remainder -= 1
+            ret_str += "{: ^{width}}".format(a_string, width = col_width)
+            
+        return ret_str
+
 """
 Roses are red
 Violets are blue

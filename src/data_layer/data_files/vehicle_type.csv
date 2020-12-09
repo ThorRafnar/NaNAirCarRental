@@ -1,8 +1,7 @@
-name,regions,rate
-Light road,All,2200
-Light off-road,All,900
-Light water,All,850
-Medium road,All,1100
-Medium off-road,Greenland,1800
-Medium off-road,Svalbard,1400
-Medium water,Faroe Islands,2200
+name,rate
+Light road,2200
+Light off-road,900
+Light water,850
+Medium road,1100
+Medium off-road,1800
+Medium water,2200

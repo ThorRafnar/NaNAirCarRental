@@ -137,8 +137,13 @@ class UIStartMenu():
                         self.vehicle_ui.show_options()
 
                     elif next_menu == "Locations":
-                        self.location_ui.show_options()
-                        print("Locations")
+
+                        if self.priviledge_dict[staff_type].lower() == "airport employee":          #Airport staff only goes to see all locations if they select locations
+                            location_list = self.logic_api.get_destinations()
+                            self.location_ui.view_location_list(location_list)
+
+                        else:                                                                       #Office and admin can create and find specific locations
+                            self.location_ui.show_options()
                         
                     elif next_menu == "Contracts":
                         self.contract_ui.show_options()
