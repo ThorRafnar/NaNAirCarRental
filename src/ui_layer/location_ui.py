@@ -165,6 +165,10 @@ class LocationUI():
             else:
                 error_msg = "Please select an option from the menu"
 
+    
+    def display_location_vehicles(self, location):
+        ''' Gets all vehicles in a given location and prints them out '''
+
 
     def view_location_emps(self, the_dest, error_msg=""):
         filter_attributes = [("work_area", the_dest.iata)]

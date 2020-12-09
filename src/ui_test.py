@@ -1,4 +1,3 @@
-from ui_layer.ui_api import UIAPI
 from ui_layer.ui_start_menu import UIStartMenu
 import os  
 # Get the size 
