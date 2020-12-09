@@ -22,7 +22,7 @@ class LogicAPI():
         self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic)
         self.logic_error_check = LogicErrorCheck(self.data_api)
         self.chuck_logic = ChuckLogic(self.data_api)
-        self.profit_logic = ProfitLogic(self.data_api)
+        self.profit_logic = ProfitLogic(self.data_api, self.destination_logic, self.vehicle_type_logic)
         self.utilization_logic = UtilizationLogic(self.data_api)
 
     # Employee logic
