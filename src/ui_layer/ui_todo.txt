@@ -1,6 +1,7 @@
 Has to be done next few minutes
 
 Vehicle ui (mögulega vehicle types)
+    Remove region
     Rates                           
     change rates                    
 
@@ -11,8 +12,6 @@ Locations menu:
 
         
 Contracts:
-    1. Make contract: buggy
-
     LOCATION, get available from logic
 
     2. View contract
@@ -23,9 +22,13 @@ Contracts:
 
 
 Reports:
-    2. Utilization
+    2. Utilization Checkity check
     3. Billing
 
-
+RAGGI :~)
+    Þeir eru aðeins að breyta vehicle types:
+                                                                                                                                          v-----------------t.d name, phone, ssn
+    Endilega hentu error checkinu í gang, gott ef það er hægt að kalla á fallið með attribute og streng, t.d. self.logic_api.check_attr(attribute, a_str)
+                                                                                                                                                    ^-----------user input
 
 

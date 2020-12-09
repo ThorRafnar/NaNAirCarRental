@@ -96,6 +96,11 @@ class ReportUI():
         total_profits = profit_reports[0]
         vehicle_profit_dict = profit_reports[1]
         location_profit_dict = profit_reports[2]
+        
+        if total_profits == 0: 
+            self.no_data_to_report(f"No data to report on from {start_date} to {end_date}")
+            return
+
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
@@ -207,6 +212,7 @@ class ReportUI():
     
 # Start of utilization section
     def uitilization_menu(self):
+        ''' Gets location and then shows utilization report for it '''
         location = self.get_location()
         if location != None:
             self.show_utilization_report(location)
@@ -219,16 +225,16 @@ class ReportUI():
         ''' Gets a location from user, allowing only valid existing locations '''
         valid_locations = self.logic_api.destinations_option_list()
         valid_locations.append(("ALL", "All locations"))
+        valid_locations.remove(("KEF", "Reykjavik, Iceland"))
+        valid_locations.remove(("ADM", "Administrator"))
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
             self.ui_helper.print_blank_line()
-            self.ui_helper.print_line("    Select location for utilization report:")
+            self.ui_helper.print_line("Select location for utilization report:")
             for iata, location in valid_locations:
-                if iata != "ADM" and iata != "KEF":
-                    self.ui_helper.print_line(f"    {iata}: {location}")
-                else:
-                    valid_locations.remove((iata, location))
+                self.ui_helper.print_line(f"    {iata}: {location}")
+
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             user_choice = self.ui_helper.get_user_menu_choice(valid_locations)
@@ -247,39 +253,76 @@ class ReportUI():
                 error_msg = "Please select an option from the menu"
     
 
-    def show_utilization_report(self, location):
+    def show_utilization_report(self, location_name, error_msg=""):
         ''' Shows utilization reports per vehicle for either all locations or just one'''
-        padding = 48
-        scale_length = 50
-        if location == "All":
-            #util_logs = self.logic_api.get_utilization_logs()
-            pass
+        padding = 70
+        scale_length = 100
+        
+        if location_name.lower() == "all":
+            util_logs = {}
+
         else:
-            util_logs = {
-                "Medium road" : [ ["1", "TAILIG free fly II", "05/07/2019", "07/12/2020", 70] ]
-            }
-        while True:
-            self.ui_helper.clear()
-            self.ui_helper.print_header()
-            self.ui_helper.print_blank_line()
-            self.ui_helper.print_centered_line_dash("<< VEHICLE UTILIZATION >>---------------")
-            self.ui_helper.print_blank_line()
-            for vehicle_type, values in util_logs.items():
-                self.ui_helper.print_line(vehicle_type.upper())
-                self.ui_helper.print_line(" " * padding + "_" * scale_length)
-                for vehicle in values:
-                    vehicle_id = vehicle[0]
-                    vehicle_name = vehicle[1]
-                    first_use_date = vehicle[2]
-                    recent_use_date = vehicle[3]
-                    percent = vehicle[4]
-                    ratio = percent // 2
-                    info_str = f"{vehicle_id} {vehicle_name} {first_use_date} {recent_use_date}"
-                    info_string = "{: <{width}}".format(info_str, width = padding)
-                    percent_string = ("|" + "#" * ratio + " " * (scale_length - ratio) + f"| {str(percent)} %")
-                    self.ui_helper.print_line(f"{info_string}{percent_string}")
+            location = self.logic_api.find_destination(location_name)
+            util_logs = self.logic_api.get_utilization_for_location(location.airport)
 
-            return input("...")
+        if util_logs != {}:
 
+            while True:
+                self.ui_helper.clear()
+                self.ui_helper.print_header()
+                self.ui_helper.print_blank_line()
+                if location_name.lower() != "all":
+                    self.ui_helper.print_centered_line_dash(f"<< VEHICLE UTILIZATION IN {location.airport}, {location.country} >>---------------")
+                else:
+                    self.ui_helper.print_centered_line_dash(f"<< VEHICLE UTILIZATION IN ALL LOCATIONS >>---------------")
+
+                #DO NOT TOUCH THIS LINE!!!
+                header = "{: ^6}{: ^38}{: ^12}{: ^12}{: ^100}".format("ID", "MAKE, MODEL", "FIRST USE", "LAST RETURN", "UTILIZATION PERCENTAGE")
+                self.ui_helper.print_blank_line()
+                self.ui_helper.print_line(header)
+                for vehicle_type, values in util_logs.items():
+                    self.ui_helper.seperator()
+                    self.ui_helper.print_line(vehicle_type.upper())
+                    self.ui_helper.print_line(" " * padding + "_" * (scale_length + 2))
+                    for vehicle in values:
+                        vehicle_id = vehicle[0]
+                        vehicle_name = vehicle[1]
+                        first_use_date = vehicle[2].strftime("%d/%m/%y")
+                        recent_use_date = vehicle[3].strftime("%d/%m/%y")
+                        percent = vehicle[4]
+                        ratio = percent 
+
+                        #DO NOT TOUCH THIS LINE!!!
+                        info_str = "{: ^6}{: ^38}{: ^12}{: ^12}  ".format(vehicle_id, vehicle_name, first_use_date, recent_use_date)
+                        percent_string = ("|" + "#" * ratio + " " * (scale_length - ratio) + f"| {str(percent)} %")
+                        self.ui_helper.print_line(f"{info_str}{percent_string}")
+                    self.ui_helper.print_line(" " * padding + "‾" * (scale_length + 2))
+                self.ui_helper.print_footer()
+                print()
+                user_choice = input("Input: ")
+                if user_choice.lower() == self.ui_helper.BACK:
+                    return
+                elif user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
+                else:
+                    error_msg = f"Enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
+
+        else:
+            self.no_data_to_report(f"No data to display in {location_iata}")
+            return
+
+
+    def no_data_to_report(self, a_str):
+        ''' Informs user that location has no data to report '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header()
+        self.ui_helper.print_line(a_str)
+        self.ui_helper.print_line("Press enter to continue")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_hash_line()
+        print()
+        _x = input("Input: ")
+        return
+    
 
 
