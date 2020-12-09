@@ -34,7 +34,7 @@ class ReportUI():
                         return
                     elif start_date == self.ui_helper.QUIT or end_date == self.ui_helper.QUIT:
                         self.ui_helper.quit_prompt()
-                    
+                    self.show_profit_reports(start_date, end_date)
                     pass
 
                 elif self.options_dict[user_choice] == self.UTILIZATION_REPORTS:
@@ -68,7 +68,7 @@ class ReportUI():
 # End of menu section
 
 # Start of profit section
-    def show_profit_reports(self):
+    def show_profit_reports(self,start_date, end_date):
         total_profits_str = "<< TOTAL PROFITS >>"
         profits_by_vehicle_str= "<< TOTAL PROFITS BY VEHICLE"
         profits_by_location_str = "<< TOTAL PROFITS BY LOCATION"
@@ -76,17 +76,17 @@ class ReportUI():
         self.ui_helper.clear()
         self.ui_helper.print_header()
         self.ui_helper.print_line("    Profit Reports:")
-        self.ui_helper.print_line("    From: {}")
-        self.ui_helper.print_line("    To:   {}")
-        self.ui_helper.n_columns([total_profits_str, profits_by_vehicle_str, profits_by_location_str])
+        self.ui_helper.print_line(f"    From: {start_date}")
+        self.ui_helper.print_line(f"    To:   {end_date}")
         for profit in profit_reports:
-            print(profit)
+            for a in profit:
+                print(a)
+    
         
 
 # End on profit section
 
 
-# Start of utilization section
     def ask_end_and_start_date(self):
         self.ui_helper.clear()
         self.ui_helper.print_header()
@@ -99,8 +99,8 @@ class ReportUI():
         end_date = input("Input: ")
 
         return start_date, end_date
-
     
+# Start of utilization section
     def ask_location(self):
         valid_locations = self.logic_api.destinations_option_list()
         self.ui_helper.clear()
@@ -137,8 +137,6 @@ class ReportUI():
         self.ui_helper.print_line(f"    {location}")
         self.ui_helper.print_line(f"    From: {start_date}")
         self.ui_helper.print_line(f"    To:   {end_date}")
-        for util in util_logs:
-            self.ui_helper.print_line(f"{util.vehicle_type}:    {} {}")
         # Let's forget this until logic has done their part >:(
     
 # End of utilization section
