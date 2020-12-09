@@ -27,7 +27,9 @@ r = LogicAPI()
 # r.get_filtered_vehicle('28/11/2020', '01/12/2020',loc,veh)
 #r.change_contract_dates('4','02/12/2020','10/12/2020')
 
-r.get_utilization_for_location('Thorshavn')
 
-# hey = r.calculate_profits("01/12/2020", "10/12/2020")
+
+hey = r.calculate_profits("01/12/2020", "31/12/2020")
+
+print(hey)
 
