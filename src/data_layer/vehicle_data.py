@@ -22,7 +22,6 @@ class VehicleData():
         return vehicle_list
     
 
-    
     def new_vehicle(self,att):
         ''' Opens the vehicle.csv file and writes a new line wich is the new vehicle'''
         a_list = [att.manufacturer,att.model,att.type,att.status,att.year,att.color,att.license_type,att.location,att.id]
@@ -30,7 +29,6 @@ class VehicleData():
             writer = csv.writer(file_stream)
             writer.writerow(a_list)
             
-
 
     def change_vehicle_condition(self, cond_string, id_str):
         ''' Opens the vehicle.csv file and selects a specific vehicle from it
