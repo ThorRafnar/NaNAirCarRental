@@ -358,6 +358,142 @@ class ContractUI():
         self.ui_helper.print_blank_line()
 
 
+    def modify_customer(self, original_customer, error_msg=""):
+        ''' 
+        shows all details of a customer, with indices and takes user choice in what to change, and changes it, 
+        when user confirms, sends an instance of the employee down to logic 
+        If an attribute has been changed, allows user to undo
+        '''
+        old_attr_list = []
+        customer = original_customer
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("Change customer information")
+            self.ui_helper.print_line("Please select an option:")
+            self.ui_helper.print_blank_line()
+            self.customer_change_view(customer)
+            if old_attr_list != []:         #Undo option if any changes have been made
+                self.ui_helper.print_line(f"    ({self.ui_helper.UNDO.upper()})ndo: Undo last changes")
+            else:
+                self.ui_helper.print_blank_line()
+            self.ui_helper.print_line(f"    ({self.ui_helper.SAVE.upper()})ave: Save Changes")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+            elif user_choice.lower() == self.ui_helper.BACK:
+                if old_attr_list != []:      #If the user has unsaved changes
+                    user_choice = self.unsaved_changes(customer)
+                    if user_choice.lower() in self.ui_helper.YES:
+                        return
+                    else:
+                        continue
+                else:
+                    return
+
+            else:
+
+                if user_choice == "1":
+                    old_attr_list.append(self.ui_helper.get_old_attributes(customer, "address"))        #Stores old values before changing
+                    setattr(customer, "address", f"<< ENTER NEW ADDRESS >>")
+                    customer.address = self.change_customer_attribute(customer, "address")
+
+                elif user_choice == "2":
+                    old_attr_list.append(self.ui_helper.get_old_attributes(customer, "postal_code"))    #Stores old values before changing
+                    setattr(customer, "postal_code", f"<< ENTER NEW POSTAL CODE >>")
+                    customer.postal_code = self.change_customer_attribute(customer, "postal_code")
+
+                elif user_choice == "3":
+                    old_attr_list.append(self.ui_helper.get_old_attributes(customer, "phone"))   #Stores old values before changing
+                    setattr(customer, "phone", f"<< ENTER NEW PHONE NR >>")
+                    customer.phone = self.change_customer_attribute(customer, "phone")
+
+                elif user_choice == "4":
+                    old_attr_list.append(self.ui_helper.get_old_attributes(customer, "email"))     #Stores old values before changing
+                    setattr(customer, "email", f"<< ENTER NEW EMAIL ADDRESS >>")
+                    customer.email = self.change_customer_attribute(customer, "email")
+
+                elif user_choice == "5":
+                    old_attr_list.append(self.ui_helper.get_old_attributes(customer, "country"))          #Stores old values before changing
+                    setattr(customer, "email", f"<< ENTER NEW COUNTRY >>")
+                    customer.email = self.change_customer_attribute(customer, "country")
+
+                elif user_choice == "6":
+                    old_attr_list.append(self.ui_helper.get_old_attributes(customer, "licenses"))      #Stores old values before changing
+                    customer.licenses = self.get_licences(customer)
+
+                elif user_choice.lower() == self.ui_helper.SAVE:
+                    changed_customer = self.confirm_changes(customer)
+                    if changed_customer != None:
+                        return changed_customer
+                    else:
+                        return original_customer
+
+                elif user_choice.lower() == self.ui_helper.UNDO and old_attr_list != []:
+                    ''' Undo the last changes stored in the old attribute list, and removes the last item in the list '''
+                    undo_key = old_attr_list[-1][0]
+                    undo_value = old_attr_list[-1][1]
+                    del old_attr_list[-1]
+                    setattr(customer, undo_key, undo_value)
+                    continue  
+
+    
+    def confirm_changes(self, customer):
+        ''' Ask user to confirm changes and modifies customer if yes '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.view_customer_details(customer)
+            self.ui_helper.print_line("Are you sure you want to save these changes? (y/n)")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print()
+            confirm_choice = input("Input: ")
+            if confirm_choice.lower() in self.ui_helper.YES:
+                self.logic_api.change_customer_info(customer)
+                return customer
+            else:
+                return None
+
+
+    def change_customer_attribute(self, customer, attribute, error_msg = ""):
+        ''' Changes and error checks a single attribute change, when modifying an employee '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("Change customer information")
+            self.ui_helper.print_line(f"Please enter a new {attribute}")
+            self.ui_helper.print_blank_line()
+            self.customer_change_view(customer)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            new_attr = input("Input: ")
+            new_attr = self.logic_api.check_attribute(new_attr, attribute)
+            if new_attr != None:
+                return new_attr
+            else:
+                error_msg = f"Please enter a valid {attribute}" 
+
+
+    def customer_change_view(self, customer):
+        ''' Displays Attributes of a customer and indices to change each attribute '''
+        self.ui_helper.print_line(f"        NAME:....................{customer.name}")
+        self.ui_helper.print_line(f"        SOCIAL SECURITY NR:......{customer.ssn}")
+        self.ui_helper.print_line(f"    1.  ADDRESS:.................{customer.address}")
+        self.ui_helper.print_line(f"    2.  POSTAL CODE:.............{customer.postal_code}")
+        self.ui_helper.print_line(f"    3.  PHONE NUMBER:...........{customer.phone}")
+        self.ui_helper.print_line(f"    4.  EMAIL:...................{customer.email}")
+        self.ui_helper.print_line(f"    5.  COUNTRY:.................{customer.country}")
+        self.ui_helper.print_line(f"    6.  LICENCES:................{customer.licenses}")
+        self.ui_helper.print_blank_line()
+
+
     def view_contract_details(self, the_contract):
         ''' Printable version of the contract '''
         currency = "Kr."
@@ -478,15 +614,17 @@ class ContractUI():
             self.ui_helper.print_blank_line()
             self.ui_helper.print_line("Select which licences the customer has")
             self.ui_helper.print_line("If the customer has more than one, enter them all, seperated by a dash(-)")
-            self.ui_helper.print_line("If the customer has none, input nothing and press enter")
+            self.ui_helper.print_line("If the customer has none, input 0")
             self.ui_helper.print_blank_line()
             for key, val in valid_licence_dict.items():
                 self.ui_helper.print_line(f"    {key}: {val} licence")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             user_choice = input("Input: ")
-            if user_choice == "":
-                setattr(a_customer, "license_type", "None")
+
+            if user_choice.lower() == "0":
+                return "None"
+
             elif user_choice.lower() == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
 
@@ -572,10 +710,12 @@ class ContractUI():
         if the_customer == None:    #If customer doesn't exists
             the_customer = self.create_customer(ssn)    #Creates new customer
     
-        conf = self.confirm_customer(the_customer)             #Asks user to confirm
+        confirm = self.confirm_customer(the_customer)             #Asks user to confirm
 
-        if conf.lower() not in self.ui_helper.YES:
-            return
+        if confirm.lower() in self.ui_helper.NO:
+            the_customer = self.modify_customer(the_customer)
+            if the_customer == None:                            #If user backs while creating customer
+                return
 
         the_employee, ssn = self.employee_for_contract() 
 
@@ -594,7 +734,7 @@ class ContractUI():
 
     
     def confirm_customer(self, the_customer, error_msg=""):
-        ''' Asks user if customer info is correct, and allows changes in everything except name and ssn '''
+        ''' Asks user if customer info is correct '''
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
@@ -607,7 +747,7 @@ class ContractUI():
 
     
     def confirm_employee(self, the_employee, error_msg=""):
-        ''' Asks user if employee info is correct, and allows changes in everything except name and ssn '''
+        ''' Asks user if employee info is correct '''
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()

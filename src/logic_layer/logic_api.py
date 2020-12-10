@@ -42,7 +42,7 @@ class LogicAPI():
         return self.employee_logic.register_employee(emp)
 
     def change_employee_info(self, emp):
-        ''' Sends a list containing ssn, attribute it wants to change and the changes for that attribute to data layer '''
+        ''' Sends an instance of a changed employee to data layer, and replaces it '''
         return self.employee_logic.change_employee_info(emp)
 
     # Vehicle logic

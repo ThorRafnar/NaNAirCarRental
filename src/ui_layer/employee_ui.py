@@ -246,14 +246,11 @@ class EmployeeUI():
 
 
     def change_employee_details(self, employee, error_msg=""):
-        ''' shows all details of an employee, with indices and takes user choice in what to change, and changes it, 
-        when user confirms, sends an instance of the employee down to logic '''
-        opt_address = "1"
-        opt_postal_code = "2"
-        opt_mobile = "3"
-        opt_home_phone = "4"
-        opt_email = "5"
-        opt_work_area = "6"
+        ''' 
+        shows all details of an employee, with indices and takes user choice in what to change, and changes it, 
+        when user confirms, sends an instance of the employee down to logic 
+        If an attribute has been changed, allows user to undo
+        '''
         old_attr_list = []
         while True:
             self.ui_helper.clear()
@@ -261,14 +258,7 @@ class EmployeeUI():
             self.ui_helper.print_line("Change employee")
             self.ui_helper.print_line("Please select an option:")
             self.ui_helper.print_blank_line()
-            self.ui_helper.print_line(f"        NAME:....................{employee.name}")
-            self.ui_helper.print_line(f"        SOCIAL SECURITY NR:......{employee.ssn}")
-            self.ui_helper.print_line(f"    {opt_address}.  ADDRESS:.................{employee.address}")
-            self.ui_helper.print_line(f"    {opt_postal_code}.  POSTAL CODE:.............{employee.postal_code}")
-            self.ui_helper.print_line(f"    {opt_mobile}.  MOBILE PHONE:...........{employee.mobile_phone}")
-            self.ui_helper.print_line(f"    {opt_home_phone}.  HOME PHONE:.............{employee.home_phone}")
-            self.ui_helper.print_line(f"    {opt_email}.  EMAIL:...................{employee.email}")
-            self.ui_helper.print_line(f"    {opt_work_area}.  WORK AREA:...............{employee.work_area}")
+            self.emp_change_view(employee)
             if old_attr_list != []:         #Undo option if any changes have been made
                 self.ui_helper.print_line(f"    ({self.ui_helper.UNDO.upper()})ndo: Undo last changes")
             else:
@@ -292,29 +282,35 @@ class EmployeeUI():
 
             else:
 
-                if user_choice == opt_address:
+                if user_choice == "1":
                     old_attr_list.append(self.ui_helper.get_old_attributes(employee, "address"))        #Stores old values before changing
-                    employee.address = input("Enter new address: ")
+                    setattr(employee, "address", f"<< ENTER NEW ADDRESS >>")
+                    employee.address = self.change_employee_attribute(employee, "address")
 
-                elif user_choice == opt_postal_code:
+                elif user_choice == "2":
                     old_attr_list.append(self.ui_helper.get_old_attributes(employee, "postal_code"))    #Stores old values before changing
-                    employee.postal_code = input("Enter new postal code: ")
+                    setattr(employee, "postal_code", f"<< ENTER NEW POSTAL CODE >>")
+                    employee.postal_code = self.change_employee_attribute(employee, "postal_code")
 
-                elif user_choice == opt_mobile:
+                elif user_choice == "3":
                     old_attr_list.append(self.ui_helper.get_old_attributes(employee, "mobile_phone"))   #Stores old values before changing
-                    employee.mobile_phone = input("Enter new mobile phone number: ")
+                    setattr(employee, "mobile_phone", f"<< ENTER NEW MOBILE PHONE NR >>")
+                    employee.mobile_phone = self.change_employee_attribute(employee, "mobile_phone")
 
-                elif user_choice == opt_home_phone:
+                elif user_choice == "4":
                     old_attr_list.append(self.ui_helper.get_old_attributes(employee, "home_phone"))     #Stores old values before changing
-                    employee.home_phone = input("Enter new home phone number: ")
+                    setattr(employee, "home_phone", f"<< ENTER NEW HOME PHONE NR >>")
+                    employee.home_phone = self.change_employee_attribute(employee, "home_phone")
 
-                elif user_choice == opt_email:
+                elif user_choice == "5":
                     old_attr_list.append(self.ui_helper.get_old_attributes(employee, "email"))          #Stores old values before changing
-                    employee.email = input("Enter new email address: ")
+                    setattr(employee, "email", f"<< ENTER NEW EMAIL ADDRESS >>")
+                    employee.email = self.change_employee_attribute(employee, "email")
 
-                elif user_choice == opt_work_area:
+                elif user_choice == "6":
                     old_attr_list.append(self.ui_helper.get_old_attributes(employee, "work_area"))      #Stores old values before changing
-                    employee.work_area = input("Enter new work area: ")
+                    setattr(employee, "work_area", f"<< ENTER NEW WORK AREA >>")
+                    employee.work_area = self.change_employee_attribute(employee, "work_area")
 
                 elif user_choice.lower() == self.ui_helper.SAVE:
                     self.confirm_changes(employee)
@@ -330,6 +326,41 @@ class EmployeeUI():
 
                 else:
                     error_msg = "Please select an option from the menu"
+
+    
+    def emp_change_view(self, employee):
+        ''' Displays Attributes of an employee and indices to change each attribute '''
+        self.ui_helper.print_line(f"        NAME:....................{employee.name}")
+        self.ui_helper.print_line(f"        SOCIAL SECURITY NR:......{employee.ssn}")
+        self.ui_helper.print_line(f"    1.  ADDRESS:.................{employee.address}")
+        self.ui_helper.print_line(f"    2.  POSTAL CODE:.............{employee.postal_code}")
+        self.ui_helper.print_line(f"    3.  MOBILE PHONE:...........{employee.mobile_phone}")
+        self.ui_helper.print_line(f"    4.  HOME PHONE:.............{employee.home_phone}")
+        self.ui_helper.print_line(f"    5.  EMAIL:...................{employee.email}")
+        self.ui_helper.print_line(f"    6.  WORK AREA:...............{employee.work_area}")
+        self.ui_helper.print_blank_line()
+        
+    
+    def change_employee_attribute(self, employee, attribute, error_msg = ""):
+        ''' Changes and error checks a single attribute change, when modifying an employee '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("Change employee")
+            self.ui_helper.print_line(f"Please enter a new {attribute}")
+            self.ui_helper.print_blank_line()
+            self.emp_change_view(employee)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            new_attr = input("Input: ")
+            new_attr = self.logic_api.check_attribute(new_attr, attribute)
+            if new_attr != None:
+                return new_attr
+            else:
+                error_msg = f"Please enter a valid {attribute}"
 
 
     def confirm_changes(self, employee):
