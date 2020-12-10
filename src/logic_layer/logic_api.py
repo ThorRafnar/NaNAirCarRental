@@ -207,6 +207,9 @@ class LogicAPI():
 
     def check_hours(self, hours):
         return self.logic_error_check.check_hours(hours)
+    
+    def check_if_only_number(self, number_str):
+        return self.logic_error_check.check_if_number(number_str)
 
     # Random Chuck Norris jokes logic
     def get_random_joke(self):
