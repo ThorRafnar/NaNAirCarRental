@@ -2,10 +2,11 @@ from datetime import datetime,date
 
 class ContractLogic():
 
-    def __init__(self, data_api, vehicle_logic, type_logic, destination_logic):
+    def __init__(self, data_api, vehicle_logic, type_logic, destination_logic, customer_logic):
         self.data_api = data_api
         self.vehicle_logic = vehicle_logic
         self.desination_logic = destination_logic
+        self.customer_logic = customer_logic
         self.type_logic = type_logic
         self.today = date.today().strftime('%d/%m/%Y')
 
@@ -151,31 +152,46 @@ class ContractLogic():
     def change_contract(self, contract):
         self.data_api.change_contract(contract)
 
-    def get_paid_and_unpaid_contracts(self, start_date, end_date):
+    def find_paid_and_unpaid_contracts(self, start_date, end_date):
         '''returns a dictonary of all paid contracts and unpaid contracts with in given time  '''
         d,m,y = int(start_date[:2]),int(start_date[3:5]),int(start_date[6:])
         e_d,e_m,e_y = int(end_date[:2]),int(end_date[3:5]),int(end_date[6:])
         start = date(y, m, d)
         end = date(e_y, e_m, e_d)
-        customer_bill_dict = {}
         contracts = self.get_all_contracts()
+        bill_dict = {}
 
         for contract in contracts:
             try:
                 d_r, m_r, y_r = int(contract.return_date[0:2]), int(contract.return_date[3:5]), int(contract.return_date[6:])
                 return_date = date(y_r, m_r, d_r)
+                customer = self.customer_logic.find_customer(contract.customer_ssn)
                 if start <= return_date <= end:
                     if contract.status == 'returned' or contract.status == 'paid':
                         if contract.status == 'returned':
                             contract.status = 'unpaid'
-                        if contract.status not in customer_bill_dict:
-                            customer_bill_dict[contract.status] = [contract]
+                        if customer.name not in bill_dict:
+                            bill_dict[customer.name] = [contract]
                         else:
-                            customer_bill_dict[contract.status].append(contract) 
+                            bill_dict[customer.name].append(contract) 
             except ValueError:  #if contract has no return date yet
                 pass
+        
+        return bill_dict
 
-        return customer_bill_dict
+    def get_paid_and_unpaid_contracts(self, start_date, end_date):
+        filtered_dict = self.find_paid_and_unpaid_contracts(start_date,end_date)
+
+        for customer in filtered_dict:
+            customer_dict = {}
+            for contract in filtered_dict[customer]:
+                if contract.status not in customer_dict:
+                    customer_dict[contract.status] = [contract]
+                else:
+                    customer_dict[contract.status].append(contract)
+                filtered_dict[customer] = customer_dict
+
+        return filtered_dict
 
 
     def get_active_contract(self, vehicle_id, location_iata):
