@@ -95,7 +95,8 @@ class UIStartMenu():
 
 
     def show_tasks(self, staff_type, error_msg=""):
-        ''' Shows available tasks, depending on user priviledge level '''     
+        ''' Shows available tasks, depending on user priviledge level '''
+        self.ui_helper.set_location(staff_type)     
         if staff_type not in self.priviledge_dict:
             self.priviledge_dict[staff_type] = "Airport Employee"
         priviledge = self.priviledge_dict[staff_type]

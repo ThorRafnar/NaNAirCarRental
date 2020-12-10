@@ -2,9 +2,10 @@ from datetime import datetime,date
 
 class ContractLogic():
 
-    def __init__(self, data_api, vehicle_logic, type_logic):
+    def __init__(self, data_api, vehicle_logic, type_logic, destination_logic):
         self.data_api = data_api
         self.vehicle_logic = vehicle_logic
+        self.desination_logic = destination_logic
         self.type_logic = type_logic
         self.today = date.today().strftime('%d/%m/%Y')
 
@@ -141,8 +142,10 @@ class ContractLogic():
                 return_date = date(y_r, m_r, d_r)
                 if start <= return_date <= end and contract.status.lower() == 'returned' and contract.customer_ssn == ssn:
                     ret_list.append(contract)
+
             except ValueError:  #If contact hasn't been returned, there is no return date
                 pass
+            
         return ret_list
 
     def change_contract(self, contract):
@@ -158,15 +161,34 @@ class ContractLogic():
         contracts = self.get_all_contracts()
 
         for contract in contracts:
-            d_r, m_r, y_r = int(contract.return_date[0:2]), int(contract.return_date[3:5]), int(contract.return_date[6:])
-            return_date = date(y_r, m_r, d_r)
-            if start <= return_date <= end:
-                if contract.status == 'returned' or contract.status == 'paid':
-                    if contract.status == 'returned':
-                        contract.status = 'unpaid'
-                    if contract.status not in customer_bill_dict:
-                        customer_bill_dict[contract.status] = [contract]
-                    else:
-                        customer_bill_dict[contract.status].append(contract)      
+            try:
+                d_r, m_r, y_r = int(contract.return_date[0:2]), int(contract.return_date[3:5]), int(contract.return_date[6:])
+                return_date = date(y_r, m_r, d_r)
+                if start <= return_date <= end:
+                    if contract.status == 'returned' or contract.status == 'paid':
+                        if contract.status == 'returned':
+                            contract.status = 'unpaid'
+                        if contract.status not in customer_bill_dict:
+                            customer_bill_dict[contract.status] = [contract]
+                        else:
+                            customer_bill_dict[contract.status].append(contract) 
+            except ValueError:  #if contract has no return date yet
+                pass
+
         return customer_bill_dict
 
+
+    def get_active_contract(self, vehicle_id, location_iata):
+        ''' Returns active contract for a given vehicle id in a location, returning none if none exists '''
+        contracts = self.get_all_contracts()
+        vehicle = self.vehicle_logic.find_vehicle(vehicle_id)
+        user_location = self.desination_logic.find_destination(location_iata)
+        if user_location.airport == vehicle.location:
+            for contract in contracts:
+                if contract.vehicle_id == vehicle_id and contract.status.lower() == "active":
+                    return contract
+
+            return None
+
+        else:
+            return None

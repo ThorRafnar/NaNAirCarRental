@@ -12,6 +12,12 @@ class UIHelper():
     def __init__(self, width, header_str):
         self.width = width
         self.header_string = header_str
+        self.user_location = None
+
+
+    def set_location(self, location):
+        ''' To keep track of where user is working, for returns and pickups '''
+        self.user_location = location
 
 
     def clear(self):

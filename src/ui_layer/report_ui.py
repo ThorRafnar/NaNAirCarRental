@@ -3,6 +3,7 @@ class ReportUI():
     ## FOR MENU SELECTION ##
     PROFIT_REPORTS = "Profits"
     UTILIZATION_REPORTS = "Utilization Reports"
+    BILL_REPORTS = "Billing information"
 
 
     def __init__(self, ui_helper, logic_api):

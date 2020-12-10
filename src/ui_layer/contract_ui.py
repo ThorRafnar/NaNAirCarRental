@@ -1006,42 +1006,46 @@ class ContractUI():
 
     def returns_menu(self):
         ''' Guides user through returning a vehicle '''
-        contract_list = []
+        returning_contract = None
+        options_list = [("R", "rentable"),("W", "workshop")]
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
-            self.ui_helper.print_line("Returning vehicle(s), enter vehicle ID:")
+            self.ui_helper.print_line("Returning vehicle, enter vehicle ID:")
             self.ui_helper.print_blank_line()
-            if contract_list != []:
-                self.ui_helper.print_centered_line_dash("<< RETURNING VEHICLES >>")
-                self.list_vehicle_and_contract_info(contract_list)
+            if returning_contract != None:
+                self.ui_helper.print_centered_line_dash("<< RETURNING VEHICLE >>")
+                self.list_vehicle_and_contract_info([returning_contract])
                 self.ui_helper.print_blank_line()
-                self.ui_helper.print_line(f"    ({self.ui_helper.SAVE.upper()})ave: Save changes")
-                self.ui_helper.print_line(f"    ({self.ui_helper.UNDO.upper()})ndo: Undo last change")
+                self.ui_helper.print_options(options_list, "What is the status of the returning vehicle?")
             else:
                 self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print()
             user_choice = input("Input: ")
+
             if user_choice.lower() == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
 
             elif user_choice.lower() == self.ui_helper.BACK:
                 return
 
-            elif user_choice.lower() == self.ui_helper.SAVE:
-                for contract in contract_list:
-                    self.logic_api.change_contract_status(contract.contract_id, "returned")
+            elif user_choice.lower() == "r":
+                self.logic_api.change_contract_status(returning_contract.contract_id, "returned")
+                self.logic_api.change_vehicle_condition(returning_contract.vehicle_id, "rentable")
                 self.vehicle_has_been_returned()
                 return
 
-            elif user_choice.lower() == self.ui_helper.UNDO:
-                contract_list.pop()
+            elif user_choice.lower() == "w":
+                self.logic_api.change_contract_status(returning_contract.contract_id, "returned")
+                self.logic_api.change_vehicle_condition(returning_contract.vehicle_id, "workshop")
+                self.vehicle_has_been_returned()
+                return
 
             else:
-                contracts = self.logic_api.get_contracts_by_attr(["vehicle_id", user_choice])
-                if contracts != []:
-                    contract_list.extend(contracts)
+                contract = self.logic_api.get_active_contract(user_choice, self.ui_helper.user_location)
+                if contract != None:
+                    returning_contract = contract
 
                 else:               #If vehicle contract doesn't exist
                     self.contract_not_found()
@@ -1077,7 +1081,7 @@ class ContractUI():
         ''' Displays that vehicle has been returned '''
         self.ui_helper.clear()
         self.ui_helper.print_header()
-        self.ui_helper.print_line("Vehicles have been returned.")
+        self.ui_helper.print_line("Vehicle has been returned.")
         self.ui_helper.print_line("Press enter to continue")
         self.ui_helper.print_blank_line()
         self.ui_helper.print_hash_line()

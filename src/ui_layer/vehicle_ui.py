@@ -287,8 +287,8 @@ class VehicleUI():
         ''' Asks user what to change vehicle status to and changes it '''
 
         options_dict = {
-            "1": "Rentable",
-            "2": "In workshop"
+            "1": "rentable",
+            "2": "workshop"
         }
         options_list = self.ui_helper.dict_to_list(options_dict)
         while True:
