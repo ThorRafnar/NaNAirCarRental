@@ -5,6 +5,7 @@ from ui_layer.vehicle_ui import VehicleUI
 from ui_layer.location_ui import LocationUI
 from ui_layer.contract_ui import ContractUI
 from ui_layer.report_ui import ReportUI
+from ui_layer.billing_ui import BillingUI
 
 class UIStartMenu():
 
@@ -17,6 +18,7 @@ class UIStartMenu():
         self.location_ui = LocationUI(self.ui_helper, self.logic_api, self.employee_ui, self.vehicle_ui)
         self.contract_ui = ContractUI(self.ui_helper, self.logic_api, self.employee_ui, self.vehicle_ui)
         self.report_ui = ReportUI(self.ui_helper, self.logic_api)
+        self.billing_ui = BillingUI(self.ui_helper, self.logic_api, self.contract_ui)
 
 
         self.priviledge_dict = {
@@ -36,13 +38,16 @@ class UIStartMenu():
                 "2": "Vehicles", 
                 "3": "Locations",
                 "4": "Contracts",
-                "5": "Reports"
+                "5": "Reports",
+                "6": "Billing"
             },
             "Office Employee": {
                 "1": "Employees",
                 "2": "Vehicles",
                 "3": "Locations",
-                "4": "Contracts"
+                "4": "Contracts",
+                "5": "Reports",
+                "6": "Billing"
             },
             "Airport Employee": {
                 "1": "Employees",
@@ -149,8 +154,10 @@ class UIStartMenu():
                         self.contract_ui.show_options()
                         
                     elif next_menu == "Reports":
-                        pass
                         self.report_ui.reports_menu()
+
+                    elif next_menu == "Billing":
+                        self.billing_ui.billing_menu()
                         
                     elif next_menu == "Pick ups":
                         self.contract_ui.pick_up_vehicle()

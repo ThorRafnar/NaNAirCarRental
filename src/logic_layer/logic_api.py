@@ -187,6 +187,9 @@ class LogicAPI():
         return self.utilization_logic.get_utilization_for_location(location)
 
     # ERROR logic
+    def check_attribute(self, attr_val, attr_key):
+        return self.logic_error_check.decide_what_error(attr_val, attr_key)
+
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)
 

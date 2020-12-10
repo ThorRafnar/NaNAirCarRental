@@ -193,7 +193,8 @@ class LogicErrorCheck():
             if char in string.punctuation:
                 return None
         return address.capitalize()
-    
+
+
 
     def decide_what_error(self, a_str, attribute):
         ''' Takes in a string then decides what error check needs to be done 
@@ -224,7 +225,15 @@ class LogicErrorCheck():
     # WORK AREA
         elif attribute.lower() == "work_area":
             return self.check_work_area(a_str)
-
+    # Vehicle type
+        elif attribute.lower() == "type":
+            return self.check_valid_vehicle_type(a_str)
+    # Year
+        elif attribute.lower() == "year":
+            return self.check_if_number(a_str)
+    # COLOR
+        elif attribute.lower() == "color":
+            return self.check_color(a_str)
     # If attribute is undefined then we do nothing.    
         else:
             return a_str

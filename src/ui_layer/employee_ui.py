@@ -114,7 +114,7 @@ class EmployeeUI():
             if ssn.lower() == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
             elif ssn.lower() == self.ui_helper.BACK:
-                return
+                return  None, None  #Because caller is expecting two variables
             
             ssn = self.logic_api.check_ssn(ssn)         #Formats and checks ssn, returning none if invalid
 
@@ -150,14 +150,19 @@ class EmployeeUI():
         if it doesn't, asks the user if they want to create it
         '''
         emp, ssn = self.check_if_employee_exists(self.FIND)
+
+        if ssn == None:     #If user wants to back
+            return          #go back
+
+        else:
             
-        if emp != None:                     #if the employee already exists
-            self.view_employee(emp)
-            return
-                
-        else:                                   #If the employee does not exist
-            self.emp_not_found(ssn)             #Tells user and asks if they want to create a new one
-            return
+            if emp != None:                     #if the employee already exists
+                self.view_employee(emp)
+                return
+                    
+            else:                                   #If the employee does not exist
+                self.emp_not_found(ssn)             #Tells user and asks if they want to create a new one
+                return
 
 
     def modify_employee(self, error_msg=""):
@@ -166,14 +171,19 @@ class EmployeeUI():
         if emp doesn't exist, asks if user wants to create it 
         '''
         emp, ssn = self.check_if_employee_exists(self.FIND)
-            
-        if emp != None:                     #if the employee exists
-            self.change_employee_details(emp)
-            return
+
+        if ssn == None:     #If user wants to back
+            return          #go back
+
+        else:
                 
-        else:                               #If employee doesn't exist
-            self.emp_not_found(ssn)         #Tells user and asks if they want to create a new one
-            return
+            if emp != None:                     #if the employee exists
+                self.change_employee_details(emp)
+                return
+                    
+            else:                               #If employee doesn't exist
+                self.emp_not_found(ssn)         #Tells user and asks if they want to create a new one
+                return
 
 
     def new_employee(self, error_msg=""):
@@ -182,14 +192,19 @@ class EmployeeUI():
         if it already exists, asks user if they want to modify
         '''
         emp, ssn = self.check_if_employee_exists(self.FIND)
-            
-        if emp != None:                     #if the employee already exists
-            self.emp_already_exists(emp)
-            return
+
+        if ssn == None:     #If user returned from check
+            return          #Just go back
+
+        else:
                 
-        else:                                   #If the employee does not exist
-            self.create_employee(ssn)             #Tells user and asks if they want to create a new one
-            return
+            if emp != None:                     #if the employee already exists
+                self.emp_already_exists(emp)
+                return
+                    
+            else:                                   #If the employee does not exist
+                self.create_employee(ssn)             #Tells user and asks if they want to create a new one
+                return
 
     
     def emp_already_exists(self, emp):
@@ -347,7 +362,7 @@ class EmployeeUI():
         return input("Input: ")
 
 
-    def create_employee(self, ssn):
+    def create_employee(self, ssn, error_msg =""):
         emp = Employee("", "", "", ssn, ".", ".", "", "")
         attribute_list = ["name", "address", "postal code", "mobile phone", "home phone", "email", "work area"]
         for attribute in attribute_list:
@@ -360,7 +375,7 @@ class EmployeeUI():
                 self.view_employee_details(emp)
                 self.ui_helper.print_blank_line()
                 self.ui_helper.print_footer()
-                print()
+                print(error_msg)
                 attr_value = input(f"Enter employee's {attribute}: ")
                 if attr_value.lower() == self.ui_helper.BACK:
                     back_choice = self.unsaved_changes(emp)
@@ -374,8 +389,12 @@ class EmployeeUI():
                     continue
 
                 else:
-                    setattr(emp, attr_key, attr_value)     #Sets attribute to input
-                    break
+                    attr_value = self.logic_api.check_attribute(attr_value, attr_key)
+                    if attr_value != None:
+                        setattr(emp, attr_key, attr_value)     #Sets attribute to input
+                        break
+                    else:
+                        error_msg = f"Please enter a valid {attribute}"
 
         self.ui_helper.clear()
         self.ui_helper.print_header()
