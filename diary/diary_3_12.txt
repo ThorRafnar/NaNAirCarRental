@@ -9,7 +9,7 @@ Við kláruðum að tengja employee og byrjuðum svo á vhicle.
 Festist í vinnu og gat lítið gert í dag, lagaði þó aðeins logic layer methods því ákveðið var að senda gögn niður ú UI öðruvísi en fyrir var áætlað.
 
 #Þorsteinn
-
+UIUIUI
 
 #Árni
 model layer / database
