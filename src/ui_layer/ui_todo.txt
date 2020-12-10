@@ -17,7 +17,7 @@ Contracts:
     3b. By customer
 
 Reports:
-    3. Billing
+    3. Billing Check
 
 
 
