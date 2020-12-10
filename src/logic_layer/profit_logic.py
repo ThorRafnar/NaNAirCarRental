@@ -25,10 +25,14 @@ class ProfitLogic():
         e_date = date(e_y, e_m, e_d)
 
         for profit in profits:
-            c_y, c_m, c_d = int(profit.date[0:4]), int(profit.date[5:7]), int(profit.date[8:])
-            check_date = date(c_y, c_m, c_d)
-            if s_date <= check_date <= e_date:
-                total += int(profit.total)
+            try:
+                c_y, c_m, c_d = int(profit.date[0:4]), int(profit.date[5:7]), int(profit.date[8:])
+                check_date = date(c_y, c_m, c_d)
+                if s_date <= check_date <= e_date:
+                    total += int(profit.total)
+            
+            except ValueError:
+                pass
 
         vehicle_profits = self.calculate_profits_by_vehicle(start_date, end_date)
         location_profits = self.calculate_profits_by_locataion(start_date, end_date)
@@ -45,10 +49,14 @@ class ProfitLogic():
         e_date = date(e_y, e_m, e_d)
         
         for profit in profits:
-            c_y, c_m, c_d = int(profit.date[0:4]), int(profit.date[5:7]), int(profit.date[8:])
-            check_date = date(c_y, c_m, c_d)
-            if s_date <= check_date <= e_date:
-                location_profits[profit.location] += int(profit.total)
+            try:
+                c_y, c_m, c_d = int(profit.date[0:4]), int(profit.date[5:7]), int(profit.date[8:])
+                check_date = date(c_y, c_m, c_d)
+                if s_date <= check_date <= e_date:
+                    location_profits[profit.location] += int(profit.total)
+            
+            except ValueError:
+                pass
 
         return location_profits
 
@@ -63,13 +71,18 @@ class ProfitLogic():
         e_date = date(e_y, e_m, e_d)
 
         for profit in profits:
-            c_y, c_m, c_d = int(profit.date[0:4]), int(profit.date[5:7]), int(profit.date[8:])
-            check_date = date(c_y, c_m, c_d)
-            if s_date <= check_date <= e_date:
-                if profit.vehicle_type not in vehicle_profits:
-                    vehicle_profits[profit.vehicle_type] = int(profit.total)
-                else:
-                    vehicle_profits[profit.vehicle_type] += int(profit.total)
+            try:
+                c_y, c_m, c_d = int(profit.date[0:4]), int(profit.date[5:7]), int(profit.date[8:])
+                check_date = date(c_y, c_m, c_d)
+                if s_date <= check_date <= e_date:
+                    if profit.vehicle_type not in vehicle_profits:
+                        vehicle_profits[profit.vehicle_type] = int(profit.total)
+                    else:
+                        vehicle_profits[profit.vehicle_type] += int(profit.total)
+            
+            except ValueError:
+                pass
+            
         return vehicle_profits
 
 
