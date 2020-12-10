@@ -141,8 +141,10 @@ class ContractLogic():
                 return_date = date(y_r, m_r, d_r)
                 if start <= return_date <= end and contract.status.lower() == 'returned' and contract.customer_ssn == ssn:
                     ret_list.append(contract)
+
             except ValueError:  #If contact hasn't been returned, there is no return date
                 pass
+            
         return ret_list
 
     def change_contract(self, contract):
