@@ -1,0 +1,4 @@
+Í dag var ákveðið að klára A og B kröfur fyrir logic layer og data layer, eftir það var sett stopp á logic og data og lögð áhersla á að UI nái að klára A og B áður en lengra er haldið. Sömuleiðis er vinna við skýrslu og kynningarmyndband komið á fullt. Stefnir allt í að það náist að klára UI hlutann fyrir A og B á morgun. staðan síðan tekin eftir það.
+
+# Arnór
+Þurfti að vinna í morgun og var ekki kominn inn fyrr en klukkan 13:50. Bætti upp það tap með vinnu vel fram á kvöld, lagði aðal áherslu á að klár utilization report virkni og vann síðan í bæði bætingum á virkni í logic layer fyrir UI teymið + refactoring vinnu á contract layer.
