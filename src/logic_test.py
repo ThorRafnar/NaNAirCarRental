@@ -36,7 +36,7 @@ r = LogicAPI()
 # # r.change_contract(hey)
 
 # hey = Contract("2",'320866-9910','250645-9999','2','01/12/2020','05/12/2020',"sadf","sadf","sadfafsd","sadf","sadf","sadfafsd" )
-
-# r.get_paid_and_unpaid_contracts("320866-9910", "01/12/2010", "01/12/2021")
-hey = r.get_paid_and_unpaid_contracts("01/12/2010", "01/12/2021")
-print(hey)
+veh_type = VehicleType('Light water','850')
+dest = Destination('Greenland', 'Nuuk', '+299 999 000', '10:00 - 16:00', 'GOH')
+test = r.get_filtered_vehicle('01/01/2020','01/01/2020',dest,veh_type)
+print(test[0].model)
