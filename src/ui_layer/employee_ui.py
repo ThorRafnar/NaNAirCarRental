@@ -170,7 +170,7 @@ class EmployeeUI():
         Gets ssn from user and checks if emp exists, if it does, goes to change employee details,
         if emp doesn't exist, asks if user wants to create it 
         '''
-        emp, ssn = self.check_if_employee_exists(self.FIND)
+        emp, ssn = self.check_if_employee_exists(self.CHANGE)
 
         if ssn == None:     #If user wants to back
             return          #go back
@@ -191,7 +191,7 @@ class EmployeeUI():
         Searches for an employee and if it does not exists, allows user to create.
         if it already exists, asks user if they want to modify
         '''
-        emp, ssn = self.check_if_employee_exists(self.FIND)
+        emp, ssn = self.check_if_employee_exists(self.CREATE)
 
         if ssn == None:     #If user returned from check
             return          #Just go back

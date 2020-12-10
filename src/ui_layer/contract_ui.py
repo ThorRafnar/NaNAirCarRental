@@ -665,7 +665,7 @@ class ContractUI():
                 return self.logic_api.find_customer(ssn), ssn
 
             else:
-                error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
+                error_msg = "Please provide a correctly formatted social security number, DDMMYY-NNNN"
 
     
     def employee_for_contract(self, error_msg=""):
@@ -705,6 +705,9 @@ class ContractUI():
 
         if the_customer == None:    #If customer doesn't exists
             the_customer = self.create_customer(ssn)    #Creates new customer
+        
+        if the_customer == None:
+            return
     
         confirm = self.confirm_customer(the_customer)             #Asks user to confirm
 
@@ -712,6 +715,12 @@ class ContractUI():
             the_customer = self.modify_customer(the_customer)
             if the_customer == None:                            #If user backs while creating customer
                 return
+
+        elif confirm.lower() == self.ui_helper.BACK:
+            return
+
+        elif confirm.lower() == self.ui_helper.QUIT:
+            self.ui_helper.quit_prompt()
 
         the_employee, ssn = self.employee_for_contract() 
 
@@ -736,10 +745,17 @@ class ContractUI():
             self.ui_helper.print_header()
             self.ui_helper.print_line("    Is this information correct? (y/n)")
             self.ui_helper.print_blank_line()
+            self.ui_helper.print_line("    (Y)es to continue")
+            self.ui_helper.print_line("    (N)o to change information")
+            self.ui_helper.print_blank_line()
             self.view_customer_details(the_customer)
             self.ui_helper.print_footer()
             print(error_msg)
-            return input("Input: ")
+            user_choice =input("Input: ")
+            if user_choice.lower() in [self.ui_helper.BACK, self.ui_helper.QUIT] or user_choice.lower() in self.ui_helper.YES or user_choice.lower() in self.ui_helper.NO:
+                return user_choice
+            else:
+                error_msg = "Please select a valid option"
 
     
     def confirm_employee(self, the_employee, error_msg=""):
