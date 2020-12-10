@@ -172,17 +172,22 @@ class LogicErrorCheck():
         else:
             month = date_str[3:5]
             year = date_str[6:]
-        
-        if int(month) > 12:
-            return None
 
-        if int(month) == 2 and int(day) > 29:   #Leap years are a lie
-            return None
-
-        if int(month) in shorter_months and int(day) > 30:
-            return None
+        try:
         
-        if int(day) > 31:
+            if int(month) > 12:
+                return None
+
+            if int(month) == 2 and int(day) > 29:   #Leap years are a lie
+                return None
+
+            if int(month) in shorter_months and int(day) > 30:
+                return None
+            
+            if int(day) > 31:
+                return None
+
+        except ValueError:
             return None
 
         return f"{day}/{month}/{year}"

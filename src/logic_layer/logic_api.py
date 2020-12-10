@@ -19,7 +19,7 @@ class LogicAPI():
         self.vehicle_logic = VehicleLogic(self.data_api,self.customer_logic)
         self.destination_logic = DestinationLogic(self.data_api)
         self.vehicle_type_logic = VehicleTypeLogic(self.data_api, self.vehicle_logic)
-        self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic, self.destination_logic)
+        self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic, self.destination_logic,self.customer_logic)
         self.logic_error_check = LogicErrorCheck(self.data_api)
         self.chuck_logic = ChuckLogic(self.data_api)
         self.profit_logic = ProfitLogic(self.data_api, self.destination_logic, self.vehicle_type_logic)

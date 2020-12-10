@@ -12,7 +12,8 @@ class ReportUI():
         self.logic_api = logic_api
         self.options_dict = {
             "1": self.PROFIT_REPORTS,
-            "2": self.UTILIZATION_REPORTS
+            "2": self.UTILIZATION_REPORTS,
+            "3": self.BILLS
         }
     
 # Menu section
@@ -40,8 +41,8 @@ class ReportUI():
                         self.uitilization_menu()
 
                     elif self.options_dict[user_choice] == self.BILLS:
-                        # Call a function wich deals with bills.
-                        pass
+
+                        self.bill_information_menu()
             else:
                 error_msg = "Please select an option from the menu"
 
@@ -188,7 +189,7 @@ class ReportUI():
         self.ui_helper.print_line("|" + ("_" * (grapth_width) + "|"))
 
         
-    def get_date(self, a_str):
+    def get_date(self, a_str, error_msg=""):
         ''' gets a date from user and error checks it '''
         while True:
             self.ui_helper.clear()
@@ -197,6 +198,7 @@ class ReportUI():
             self.ui_helper.print_line(f"    Enter {a_str} date: (dd/mm/yyyy)")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
+            print(error_msg)
             the_date = input("Input: ")
             if the_date == self.ui_helper.BACK:
                 return
@@ -205,8 +207,12 @@ class ReportUI():
                 self.ui_helper.quit_prompt()
 
             the_date = self.logic_api.check_date(the_date)  #Checks if valid
+
             if the_date != None:
                 return the_date
+
+            else:
+                error_msg = "Please enter a valid date (DD/MM/YYYY)"
 
     
 # Start of utilization section
@@ -315,9 +321,60 @@ class ReportUI():
     
 
 #Bill information section
-    def bill_information_menu(self):
+    def bill_information_menu(self, error_msg =""):
         ''' Allows user to see different billing reports, paid and unpaid '''
-        pass
+        start_date = self.get_date("start")
+        if start_date == None:
+            return
+
+        end_date = self.get_date("end")
+        if start_date == None:
+            return
+
+        #contracts_dict = self.logic_api.get_paid_and_unpaid_contracts(start_date, end_date)
+        contracts_dict = {
+            "Jón Stóri": {
+                "paid": [self.logic_api.find_contract("1"), self.logic_api.find_contract("2")],
+                "unpaid": [self.logic_api.find_contract("3"), self.logic_api.find_contract("4")]
+            }
+        }
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            contract_header = ["<< ID >>", "<< STATUS >>", "<< TOTAL PRICE >>", "<< TYPE >>", "<< VEHICLE >>", "<< NAME >>", "<< SSN >>", "<< START DATE >>", "<< RETURN DATE >>"]
+            self.ui_helper.n_columns(contract_header)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_centered_line_dash(f"<< BILLING FROM {start_date} TO {end_date} >>----------------------------")
+            self.ui_helper.print_blank_line()
+            for customer_name, contracts in contracts_dict.items():
+                self.ui_helper.print_line(f"    << Billing overview for {customer_name} >>")
+                self.ui_helper.print_line(f"PAID")
+                for contract in contracts["paid"]:
+
+                    self.print_bill(contract)
+                self.ui_helper.print_line(f"UNPAID")
+                for contract in contracts["unpaid"]:
+                    self.print_bill(contract)
+
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_input = input("Input: ")
+
+            if user_input.lower() == self.ui_helper.BACK:
+                return
+
+            elif user_input.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+
+            else:
+                error_msg = f"Please enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
 
 
+    def print_bill(self, contract):
+        ''' Prints a single contract for billing overview '''
+        vehicle = self.logic_api.find_vehicle(contract.vehicle_id)
+        customer = self.logic_api.find_customer(contract.customer_ssn)
+        contract_column = [contract.contract_id, contract.status, contract.total, vehicle.type, f"{vehicle.manufacturer} {vehicle.model}", customer.name, customer.ssn, contract.loan_date, contract.end_date]
+        self.ui_helper.n_columns(contract_column)
 
