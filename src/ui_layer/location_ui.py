@@ -72,7 +72,7 @@ class LocationUI():
                 return
 
             else:
-                return
+                error_msg = f"Please enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
 
 
     def find_location(self, error_msg=""):
@@ -99,7 +99,7 @@ class LocationUI():
                     return
 
                 else:
-                    self.no_location_found(airport_code)
+                    self.no_thing_found(airport_code)
                     return
 
     
@@ -119,6 +119,19 @@ class LocationUI():
 
             else:
                 return
+
+    
+    def no_employees(self):
+        ''' Informs user that no employees were found, enter to return '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line(f"    No employees found, press enter to return")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_hash_line()
+            print()
+            _x = input("Input: ")
+            return 
 
 
     def single_location_options(self, the_dest, error_msg=""):
@@ -155,38 +168,61 @@ class LocationUI():
                         
 
                     elif options_dict[user_choice] == view_vehicles:
-                        self.vehicle_ui.get_all_vehicles(the_dest)
+                        self.display_location_vehicles(the_dest)
 
             else:
                 error_msg = "Please select an option from the menu"
 
     
-    def display_location_vehicles(self, location):
+    def display_location_vehicles(self, location, error_msg =""):
         ''' Gets all vehicles in a given location and prints them out '''
-
-
-    def view_location_emps(self, the_dest, error_msg=""):
-        filter_attributes = [("work_area", the_dest.iata)]
-        emps = self.logic_api.get_filtered_employees(filter_attributes)
+        vehicle_list = self.logic_api.get_vehicle_by_location(location.airport)
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
-            self.employee_ui.print_employee_list(emps)
+            self.ui_helper.print_line(f"Vehicles in {location.airport}, {location.country}")
+            self.ui_helper.print_blank_line()
+            self.vehicle_ui.print_vehicle_list(vehicle_list)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
-            user_choice = self.ui_helper.get_user_menu_choice()
-            if user_choice != None:
-                if user_choice.lower() == self.ui_helper.BACK:
-                    return
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.BACK:
+                return
 
-                elif user_choice.lower() == self.ui_helper.QUIT:
-                    self.ui_helper.quit_prompt()
-                    
+            elif user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+                
+            else: 
+                error_msg = f"Please enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
+
+
+    def view_location_emps(self, the_dest, error_msg=""):
+        ''' Shows the location's employees, if any '''
+        filter_attributes = [("work_area", the_dest.iata)]
+        emps = self.logic_api.get_filtered_employees(filter_attributes)
+        if len(emps) > 0:
+            while True:
+                self.ui_helper.clear()
+                self.ui_helper.print_header()
+                self.employee_ui.print_employee_list(emps)
+                self.ui_helper.print_blank_line()
+                self.ui_helper.print_footer()
+                print(error_msg)
+                user_choice = self.ui_helper.get_user_menu_choice()
+                if user_choice != None:
+                    if user_choice.lower() == self.ui_helper.BACK:
+                        return
+
+                    elif user_choice.lower() == self.ui_helper.QUIT:
+                        self.ui_helper.quit_prompt()
+                        
+                    else:
+                        error_msg = "Please select an option from the menu"
                 else:
                     error_msg = "Please select an option from the menu"
-            else:
-                error_msg = "Please select an option from the menu"
+        else:
+            self.no_employees()
 
 
     def new_location(self, error_msg=""):
@@ -206,12 +242,15 @@ class LocationUI():
                 self.ui_helper.quit_prompt()
                 
             else:
+                iata = iata.upper()
                 the_dest = self.logic_api.find_destination(iata)
                 if the_dest == None: 
                     self.create_location(iata)
+                    return
 
                 else:
                     self.single_location_options(the_dest)
+                    return
 
 
     def create_location(self, iata, error_msg=""):

@@ -80,7 +80,7 @@ class UIStartMenu():
 
             else:
                 #Villuskilabod#
-                error_msg = "Please select an airport code from the list, or 9 to quit"
+                error_msg = f"Please select an airport code from the list, or {self.ui_helper.QUIT.upper()} to quit"
 
 
 

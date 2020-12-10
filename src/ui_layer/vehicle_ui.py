@@ -56,15 +56,7 @@ class VehicleUI():
                         
 
                     elif options_dict[user_choice] == self.FIND:
-
-                        while True:
-                            the_vehicle = self.find_vehicle()
-                            if the_vehicle != None:
-                                self.vehicle_options(the_vehicle)
-                                break
-                            else:
-                                self.vehicle_not_found()
-                                continue
+                        self.find_vehicle()
                             
                     elif options_dict[user_choice] == self.VIEW_ALL:
                         self.get_all_vehicles()
@@ -224,24 +216,26 @@ class VehicleUI():
                 self.ui_helper.quit_prompt() 
 
             else:   #Search for the vehicle in database
-                return self.logic_api.find_vehicle(vehicle_id)
+                the_vehicle = self.logic_api.find_vehicle(vehicle_id)
+                self.vehicle_options(the_vehicle)
+                return
 
 
     def vehicle_options(self, the_vehicle, error_msg=""):
         ''' Views a vehicle and asks user what to do '''
-        opt_change_status = "1"
+        opt_change_status = "C"
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
             self.ui_helper.print_line("    Vehicle details:")
             self.ui_helper.print_blank_line()
             self.view_vehicle_details(the_vehicle)
-            self.ui_helper.print_line(f"    {opt_change_status}. Change Vehicle Status")
+            self.ui_helper.print_line(f"    ({opt_change_status})hange: Change Vehicle Status")
             self.ui_helper.print_footer()
             print()
             user_choice = input("Input: ")
 
-            if user_choice == opt_change_status:
+            if user_choice.lower() == opt_change_status.lower():
                 self.change_vehicle_status(the_vehicle)
 
             elif user_choice.lower() == self.ui_helper.BACK:
