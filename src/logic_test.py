@@ -15,7 +15,11 @@ r = LogicAPI()
 # print(dest)
 # con = Contract(None,'320866-9910','250645-9999','2','01/12/2020','05/12/2020')
 # amm = r.create_new_contract(con)
+
+# r.get_unpaid_contracts('100998-2979','01/01/2020','01/01/2021')
+
 #blah = r.change_contract_status('5','paid')
+
 # ty = r.get_types_rate('Medium off-road')
 # print(ty)
 # loc = Destination('Greenland','Kulusuk','+299 999 200','10:30 - 15:30','KUS')
