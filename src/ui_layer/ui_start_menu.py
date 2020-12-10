@@ -22,7 +22,6 @@ class UIStartMenu():
 
 
         self.priviledge_dict = {
-            "ADM": "Administrator",
             "KEF": "Office Employee",
             "GOH": "Airport Employee",
             "KUS": "Airport Employee",
@@ -33,14 +32,6 @@ class UIStartMenu():
         
         #To make sure user can only select an option they are allowed to choose
         self.options_dict = {
-            "Administrator": {
-                "1": "Employees", 
-                "2": "Vehicles", 
-                "3": "Locations",
-                "4": "Contracts",
-                "5": "Reports",
-                "6": "Billing"
-            },
             "Office Employee": {
                 "1": "Employees",
                 "2": "Vehicles",

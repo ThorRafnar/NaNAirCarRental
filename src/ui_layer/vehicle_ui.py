@@ -15,18 +15,18 @@ class VehicleUI():
     
     def show_options(self, error_msg=""):
 
-        if self.ui_helper.header_string == "Office Employee" or self.ui_helper.header_string == "Administrator":
+        if self.ui_helper.header_string == "Office Employee":
             options_dict = {
-                "1": self.REGISTER, 
+                "1": self.VIEW_ALL,
                 "2": self.FIND, 
-                "3": self.VIEW_ALL,
-                "4": self.VEHICLE_RATES
+                "3": self.VEHICLE_RATES
             }
         else:
             options_dict = {
-                "1": self.REGISTER, 
-                "2": self.FIND, 
-                "3": self.VIEW_ALL
+                "1": self.VIEW_ALL,
+                "2": self.FIND,
+                "3": self.VEHICLE_RATES,
+                "4": self.REGISTER               
             }
 
         options_list = self.ui_helper.dict_to_list(options_dict)
