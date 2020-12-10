@@ -225,7 +225,6 @@ class ReportUI():
         valid_locations = self.logic_api.destinations_option_list()
         valid_locations.append(("ALL", "All locations"))
         valid_locations.remove(("KEF", "Reykjavik, Iceland"))
-        valid_locations.remove(("ADM", "Administrator"))
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
