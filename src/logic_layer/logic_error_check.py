@@ -186,7 +186,57 @@ class LogicErrorCheck():
             return None
 
         return f"{day}/{month}/{year}"
+    
+    def check_address(self, address):
+        address = address.strip()
+        for index, char in enumerate(address):
+            if char in string.punctuation:
+                return None
+        return address.capitalize()
 
+
+
+    def decide_what_error(self, a_str, attribute):
+        ''' Takes in a string then decides what error check needs to be done 
+        on that particular string. '''
+        length_of_ssn = 11
+    
+    # Phone
+        if attribute.lower() == "phone" or attribute.lower() == "mobile_phone" or attribute.lower() == "home_phone":
+            return self.check_phone(a_str)
+    # NAME
+        elif attribute.lower() == "name":
+            return self.check_name(a_str)
+    # ADDRESS
+        elif attribute.lower() == "address":
+            return self.check_address(a_str)
+    # EMAIL
+        elif attribute.lower() == "email":
+            return self.check_email(a_str)
+    # POSTAL CODE
+        elif attribute.lower() == "postal_code":
+            return self.check_if_number(a_str)
+    # SSN
+        elif attribute.lower() == "ssn":
+            return self.ssn_formatter(a_str)
+    # COUNTRY
+        elif attribute.lower() == "country":
+            return a_str.capitalize()
+    # WORK AREA
+        elif attribute.lower() == "work_area":
+            return self.check_work_area(a_str)
+    # Vehicle type
+        elif attribute.lower() == "type":
+            return self.check_valid_vehicle_type(a_str)
+    # Year
+        elif attribute.lower() == "year":
+            return self.check_if_number(a_str)
+    # COLOR
+        elif attribute.lower() == "color":
+            return self.check_color(a_str)
+    # If attribute is undefined then we do nothing.    
+        else:
+            return a_str
 
         
 

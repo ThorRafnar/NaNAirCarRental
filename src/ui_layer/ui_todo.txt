@@ -12,23 +12,13 @@ Locations menu:
 
         
 Contracts:
-    LOCATION, get available from logic
-
-    2. View contract
-        2. change contract dates
-        3. change contract vehicle
 
     3a. By status (paid/unpaid)
-
+    3b. By customer
 
 Reports:
-    2. Utilization Checkity check
-    3. Billing
+    3. Billing Check
 
-RAGGI :~)
-    Þeir eru aðeins að breyta vehicle types:
-                                                                                                                                          v-----------------t.d name, phone, ssn
-    Endilega hentu error checkinu í gang, gott ef það er hægt að kalla á fallið með attribute og streng, t.d. self.logic_api.check_attr(attribute, a_str)
-                                                                                                                                                    ^-----------user input
+
 
 

@@ -146,7 +146,7 @@ class VehicleUI():
 
     def register_vehicle(self, error_msg=""):
         new_vehicle = Vehicle("", "", "", "OK", "", "", "", "", None)
-        attribute_list = ["manufacturer", "model", "type", "year", "color", "licence_type", "location"]
+        attribute_list = ["manufacturer", "model", "type", "year", "color", "license_type", "location"]
         for attribute in attribute_list:
             while True:                                           #To make back and quit options functional
                 attr_key = attribute.replace(" ", "_")
@@ -157,7 +157,7 @@ class VehicleUI():
                 self.view_vehicle_details(new_vehicle)
                 self.ui_helper.print_blank_line()
                 self.ui_helper.print_footer()
-                print()
+                print(error_msg)
                 attr_value = input(f"Enter vehicles's {attribute}: ")
 
                 if attr_value.lower() == self.ui_helper.BACK.lower():
@@ -172,8 +172,13 @@ class VehicleUI():
                     continue
 
                 else:
-                    setattr(new_vehicle, attr_key, attr_value)     #Sets attribute to input
-                    break                                          #Goes to next value in for loop
+                    attr_value = self.logic_api.check_attribute(attr_value, attr_key)
+                    if attr_value != None:
+                        setattr(new_vehicle, attr_key, attr_value)     #Sets attribute to input
+                        break                                          #Goes to next value in for loop
+
+                    else:
+                        error_msg = f"Please enter a valid {attribute}"
             
         while True:
             self.ui_helper.clear()
@@ -385,6 +390,4 @@ class VehicleUI():
             self.ui_helper.n_columns([v_type, v_region, v_rate])
         self.ui_helper.print_blank_line()
         self.ui_helper.print_footer()
-
-
 

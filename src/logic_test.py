@@ -15,7 +15,11 @@ r = LogicAPI()
 # print(dest)
 # con = Contract(None,'320866-9910','250645-9999','2','01/12/2020','05/12/2020')
 # amm = r.create_new_contract(con)
+
 # r.get_unpaid_contracts('100998-2979','01/01/2020','01/01/2021')
+
+#blah = r.change_contract_status('5','paid')
+
 # ty = r.get_types_rate('Medium off-road')
 # print(ty)
 # loc = Destination('Greenland','Kulusuk','+299 999 200','10:30 - 15:30','KUS')
@@ -27,6 +31,12 @@ r = LogicAPI()
 # r.get_filtered_vehicle('28/11/2020', '01/12/2020',loc,veh)
 #r.change_contract_dates('4','02/12/2020','10/12/2020')
 
+# hey = Contract("1",'320866-9910','250645-9999','2','01/12/2020','05/12/2020',"sadf","sadf","sadfafsd","sadf","sadf","sadfafsd" )
+# r.get_utilization_for_location('Thorshavn')
+# # r.change_contract(hey)
 
-#r.filter_by_region('Kulusuk','01/12/2020','08/12/2020')
+# hey = Contract("2",'320866-9910','250645-9999','2','01/12/2020','05/12/2020',"sadf","sadf","sadfafsd","sadf","sadf","sadfafsd" )
 
+# r.get_paid_and_unpaid_contracts("320866-9910", "01/12/2010", "01/12/2021")
+hey = r.get_paid_and_unpaid_contracts("01/12/2010", "01/12/2021")
+print(hey)

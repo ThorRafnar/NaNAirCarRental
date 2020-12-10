@@ -143,8 +143,8 @@ class LogicAPI():
     def change_contract(self, cust):
         self.contract_logic.change_contract(cust)
     
-    def get_paid_and_unpaid_contracts(self, ssn, start_date, end_date):
-        return self.contract_logic.get_paid_and_unpaid_contracts(ssn, start_date, end_date)
+    def get_paid_and_unpaid_contracts(self, start_date, end_date):
+        return self.contract_logic.get_paid_and_unpaid_contracts(start_date, end_date)
     
     # Vehcile Types Logic
     def get_vehicle_types(self):
@@ -187,6 +187,9 @@ class LogicAPI():
         return self.utilization_logic.get_utilization_for_location(location)
 
     # ERROR logic
+    def check_attribute(self, attr_val, attr_key):
+        return self.logic_error_check.decide_what_error(attr_val, attr_key)
+
     def check_work_area(self,a_str):
         return self.logic_error_check.check_work_area(a_str)
 
