@@ -26,7 +26,7 @@ class VehicleTypeData:
                     row["rate"] = new_rate
                 file_list.append(row)
         
-        with open("data_layer/data_files/vehicle_type.csv","w",encoding="utf-8") as file_stream:
+        with open("data_layer/data_files/vehicle_type.csv","a+",encoding="utf-8", newline='') as file_stream:
             keys = file_list[0].keys()
             the_writer = csv.DictWriter(file_stream,keys)
             the_writer.writeheader()
