@@ -15,7 +15,7 @@ r = LogicAPI()
 # print(dest)
 # con = Contract(None,'320866-9910','250645-9999','2','01/12/2020','05/12/2020')
 # amm = r.create_new_contract(con)
-#blah = r.change_contract_status('5','paid')
+r.change_contract_status('6','paid')
 # ty = r.get_types_rate('Medium off-road')
 # print(ty)
 # loc = Destination('Greenland','Kulusuk','+299 999 200','10:30 - 15:30','KUS')
@@ -28,5 +28,5 @@ r = LogicAPI()
 #r.change_contract_dates('4','02/12/2020','10/12/2020')
 
 
-r.filter_by_region('Kulusuk','01/12/2020','08/12/2020')
+#r.filter_by_region('Kulusuk','01/12/2020','08/12/2020')
 
