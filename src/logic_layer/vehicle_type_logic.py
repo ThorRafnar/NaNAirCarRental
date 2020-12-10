@@ -27,10 +27,15 @@ class VehicleTypeLogic():
 
     def filter_by_region(self, reg, start_date, end_date):
         ''' returns a list of vehicle types available from given region '''
+        type_list = self.get_vehicle_types()
         vehicle_list = self.data_api.get_all_vehicles()
         availble_types = self.get_types_for_vehicles_location(reg, vehicle_list, start_date, end_date)
-        print(availble_types)
-        return availble_types
+        availble_list = []
+        for veh_type in type_list:
+            if veh_type.name in availble_types:
+                availble_list.append(veh_type)
+                
+        return availble_list
     
     def get_types_for_vehicles_location(self, location, a_list, start_date, end_date):
         types_available = []

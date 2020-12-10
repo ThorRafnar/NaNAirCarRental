@@ -4,3 +4,4 @@ ID,date,location,vehicle_type,manufacturer,model,pick_up,return_date
 2,04/12/2020,Thorshavn,Medium road,TAILG,Free Fly II,01/12/2020,04/12/2020
 2,08/12/2020,Thorshavn,Medium road,TAILG,Free Fly II,04/12/2020,08/12/2020
 3,08/12/2020,Thorshavn,Light off-road,Yedoo,Trexx,04/12/2020,08/12/2020
+2,10/12/2020,Longyearbyen,Light water,Kayman Kayaks,Crazy,10/12/2020,10/12/2020
