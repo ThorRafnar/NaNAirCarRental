@@ -331,31 +331,45 @@ class ReportUI():
         if start_date == None:
             return
 
-        #contracts_dict = self.logic_api.get_paid_and_unpaid_contracts(start_date, end_date)
-        contracts_dict = {
-            "Jón Stóri": {
-                "paid": [self.logic_api.find_contract("1"), self.logic_api.find_contract("2")],
-                "unpaid": [self.logic_api.find_contract("3"), self.logic_api.find_contract("4")]
-            }
-        }
+        contracts_dict = self.logic_api.get_paid_and_unpaid_contracts(start_date, end_date)
+
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
-            contract_header = ["<< ID >>", "<< STATUS >>", "<< TOTAL PRICE >>", "<< TYPE >>", "<< VEHICLE >>", "<< NAME >>", "<< SSN >>", "<< START DATE >>", "<< RETURN DATE >>"]
-            self.ui_helper.n_columns(contract_header)
-            self.ui_helper.print_blank_line()
-            self.ui_helper.print_centered_line_dash(f"<< BILLING FROM {start_date} TO {end_date} >>----------------------------")
-            self.ui_helper.print_blank_line()
-            for customer_name, contracts in contracts_dict.items():
-                self.ui_helper.print_line(f"    << Billing overview for {customer_name} >>")
-                self.ui_helper.print_line(f"PAID")
-                for contract in contracts["paid"]:
+            if len(contracts_dict) > 0:
+                contract_header = ["<< ID >>", "<< TOTAL PRICE >>", "<< BASE PRICE >>", "<< EXTENSIONS >>", "<< START DATE >>", "<< RETURN DATE >>"]
+                self.ui_helper.print_centered_line_dash(f"<< BILLING FROM {start_date} TO {end_date} >>----------------------------")
+                self.ui_helper.print_blank_line()
+                self.ui_helper.n_columns(contract_header)
+                self.ui_helper.print_blank_line()
+                for customer_name, contracts in contracts_dict.items():
+                    self.ui_helper.seperator()
+                    self.ui_helper.print_line(f"    << Billing overview for {customer_name} >>")
+                    self.ui_helper.print_blank_line()
 
-                    self.print_bill(contract)
-                self.ui_helper.print_line(f"UNPAID")
-                for contract in contracts["unpaid"]:
-                    self.print_bill(contract)
+                    if "paid" in contracts:
+                        self.ui_helper.print_centered_line_dash(f"<< PAID >>")
+                        self.ui_helper.print_blank_line()
+                        for contract in contracts["paid"]:
+                            self.print_bill(contract)
+                    else:
+                        pass
 
+                    self.ui_helper.print_blank_line()
+
+                    if "unpaid" in contracts:
+                        self.ui_helper.print_centered_line_dash(f"<< UNPAID >>")
+                        self.ui_helper.print_blank_line()
+                        for contract in contracts["unpaid"]:
+                            self.print_bill(contract)
+                    else:
+                        pass
+
+                    self.ui_helper.print_blank_line()
+                    self.ui_helper.seperator()
+            else:
+                self.ui_helper.print_line(f"No contracts from {start_date} to {end_date}")
+           
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
@@ -375,6 +389,6 @@ class ReportUI():
         ''' Prints a single contract for billing overview '''
         vehicle = self.logic_api.find_vehicle(contract.vehicle_id)
         customer = self.logic_api.find_customer(contract.customer_ssn)
-        contract_column = [contract.contract_id, contract.status, contract.total, vehicle.type, f"{vehicle.manufacturer} {vehicle.model}", customer.name, customer.ssn, contract.loan_date, contract.end_date]
+        contract_column = [contract.contract_id, contract.total, contract.base_price, contract.extensions, contract.loan_date, contract.end_date]
         self.ui_helper.n_columns(contract_column)
 

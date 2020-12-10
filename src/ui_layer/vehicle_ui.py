@@ -137,8 +137,8 @@ class VehicleUI():
 
 
     def register_vehicle(self, error_msg=""):
-        new_vehicle = Vehicle("", "", "", "OK", "", "", "", "", None)
-        attribute_list = ["manufacturer", "model", "type", "year", "color", "license_type", "location"]
+        new_vehicle = Vehicle("", "", "", "OK", "", "", "", self.ui_helper.user_location, None)
+        attribute_list = ["manufacturer", "model", "type", "year", "color", "license_type",]
         for attribute in attribute_list:
             while True:                                           #To make back and quit options functional
                 attr_key = attribute.replace(" ", "_")
@@ -164,13 +164,27 @@ class VehicleUI():
                     continue
 
                 else:
-                    attr_value = self.logic_api.check_attribute(attr_value, attr_key)
-                    if attr_value != None:
-                        setattr(new_vehicle, attr_key, attr_value)     #Sets attribute to input
-                        break                                          #Goes to next value in for loop
+                    if attribute == "type":                                                 #to allow user to create a new vehicle type if they want
+                        new_type = self.new_type_prompt(attr_value)
+                        new_type =  new_type.capitalize()
+                        if new_type != None:
+                            setattr(new_vehicle, attr_key, new_type)
+                            break
+                        
+                        else:
+                            error_msg = ""
+                            continue
+
+
 
                     else:
-                        error_msg = f"Please enter a valid {attribute}"
+                        attr_value = self.logic_api.check_attribute(attr_value, attr_key)
+                        if attr_value != None:
+                            setattr(new_vehicle, attr_key, attr_value)     #Sets attribute to input
+                            break   
+
+                        else:                                      #Goes to next value in for loop
+                            error_msg = f"Please enter a valid {attribute}"
             
         while True:
             self.ui_helper.clear()
@@ -434,21 +448,59 @@ class VehicleUI():
                     error_msg = "Please input a fee containing only numbers."
                     continue
     
-    def v_type_info_check(self, vehicle_type, error_msg=""):
-        error_msg = "Please enter y (for yes), n (for no), go back or quit the program."
-        type_str = "<< NAME >>"
-        type_rate_str = "<< RATE >>"
+    def v_type_info_check(self, vehicle_type):
         self.ui_helper.clear()
         self.ui_helper.print_header()
         self.ui_helper.print_blank_line()
         self.ui_helper.print_line("    Is this information correct? (y/n)")
         self.ui_helper.print_blank_line()
-        self.ui_helper.n_columns([type_str, type_rate_str])
         v_type = vehicle_type.name
         v_rate = vehicle_type.rate
-        self.ui_helper.n_columns([v_type, v_rate])
+        self.ui_helper.print_line("    {:.<36}{}".format(v_type, v_rate))
+        self.ui_helper.print_blank_line()
         self.ui_helper.print_hash_line()
-        user_choice = input("Input:")
+        print()
+        user_choice = input("Input: ")
         return user_choice
 
+    def new_type_prompt(self, type_name):
+        ''' Informs user that type doesnt exist, asks if they want to create one, returning the type name if they do and none if they don't '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line(f"Vehicle type: {type_name} doesn't exist, do you want to create it (y/n)")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print()
+            user_choice = input("Input: ")
+            if user_choice.lower() in self.ui_helper.YES:
+
+                while True:
+                    type_rate = self.new_vehicle_type_rate()
+                    if type_rate == None:
+                        return
+                    new_vehicle_type = VehicleType(type_name, type_rate)
+                    user_choice = self.v_type_info_check(new_vehicle_type)
+                    if user_choice != None:
+                        if user_choice.lower() == self.ui_helper.NO:
+                            return
+                        elif user_choice.lower() == self.ui_helper.BACK:
+                            return
+                        elif user_choice.lower() == self.ui_helper.QUIT:
+                            self.ui_helper.quit_prompt()
+                        elif user_choice.lower() in self.ui_helper.YES:
+                            self.logic_api.create_new_type(new_vehicle_type)
+                            return new_vehicle_type.name
+                        else:
+                            return
+                    else:
+                        error_msg = "Please choose an option from the menu."
+                    
+                
+
+            elif user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+
+            else:
+                return None
 # End of new vehicle type section

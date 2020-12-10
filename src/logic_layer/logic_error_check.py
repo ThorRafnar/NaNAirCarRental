@@ -76,14 +76,14 @@ class LogicErrorCheck():
         if len(ssn) == 10:
             for num in ssn:
                 if num.isnumeric() == False:
-                    ssn = None
+                    return None
 
             ssn = ssn[:6] + "-" + ssn[6:]
 
         elif len(ssn) == 11 and (ssn[6].isspace() or ssn[6] == "-"):
             for ind, num in enumerate(ssn):
                 if num.isnumeric() == False and ind != 6:
-                    ssn = None
+                    return None
 
             ssn = ssn[:6] + "-" + ssn[7:]
 
