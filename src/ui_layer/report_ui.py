@@ -3,7 +3,7 @@ class ReportUI():
     ## FOR MENU SELECTION ##
     PROFIT_REPORTS = "Profits"
     UTILIZATION_REPORTS = "Utilization Reports"
-    BILL_REPORTS = "Billing information"
+    BILLS = "Billing information"
 
 
     def __init__(self, ui_helper, logic_api):
@@ -223,7 +223,6 @@ class ReportUI():
     def get_location(self, error_msg=""):
         ''' Gets a location from user, allowing only valid existing locations '''
         valid_locations = self.logic_api.destinations_option_list()
-        valid_locations.append(("ALL", "All locations"))
         valid_locations.remove(("KEF", "Reykjavik, Iceland"))
         while True:
             self.ui_helper.clear()
@@ -255,13 +254,8 @@ class ReportUI():
         ''' Shows utilization reports per vehicle for either all locations or just one'''
         padding = 70
         scale_length = 100
-        
-        if location_name.lower() == "all":
-            util_logs = {}
-
-        else:
-            location = self.logic_api.find_destination(location_name)
-            util_logs = self.logic_api.get_utilization_for_location(location.airport)
+        location = self.logic_api.find_destination(location_name)
+        util_logs = self.logic_api.get_utilization_for_location(location.airport)
 
         if util_logs != {}:
 
@@ -269,10 +263,7 @@ class ReportUI():
                 self.ui_helper.clear()
                 self.ui_helper.print_header()
                 self.ui_helper.print_blank_line()
-                if location_name.lower() != "all":
-                    self.ui_helper.print_centered_line_dash(f"<< VEHICLE UTILIZATION IN {location.airport}, {location.country} >>---------------")
-                else:
-                    self.ui_helper.print_centered_line_dash(f"<< VEHICLE UTILIZATION IN ALL LOCATIONS >>---------------")
+                self.ui_helper.print_centered_line_dash(f"<< VEHICLE UTILIZATION IN {location.airport}, {location.country} >>---------------")
 
                 #DO NOT TOUCH THIS LINE!!!
                 header = "{: ^6}{: ^38}{: ^12}{: ^12}{: ^100}".format("ID", "MAKE, MODEL", "FIRST USE", "LAST RETURN", "UTILIZATION PERCENTAGE")
@@ -322,6 +313,11 @@ class ReportUI():
         _x = input("Input: ")
         return
     
+
+#Bill information section
+    def bill_information_menu(self):
+        ''' Allows user to see different billing reports, paid and unpaid '''
+        pass
 
 
 
