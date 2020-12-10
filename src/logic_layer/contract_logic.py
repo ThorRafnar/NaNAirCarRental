@@ -138,7 +138,7 @@ class ContractLogic():
         for contract in contracts:
             d_r, m_r, y_r = int(contract.return_date[0:2]), int(contract.return_date[3:5]), int(contract.return_date[6:])
             return_date = date(y_r, m_r, d_r)
-            if start <= return_date <= end and contract.status.lower() == 'returned' and contract.ssn == ssn:
+            if start <= return_date <= end and contract.status.lower() == 'returned' and contract.customer_ssn == ssn:
                 ret_list.append(contract)
         return ret_list
 

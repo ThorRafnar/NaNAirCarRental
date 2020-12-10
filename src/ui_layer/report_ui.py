@@ -3,7 +3,6 @@ class ReportUI():
     ## FOR MENU SELECTION ##
     PROFIT_REPORTS = "Profits"
     UTILIZATION_REPORTS = "Utilization Reports"
-    BILLS = "Bills"
 
 
     def __init__(self, ui_helper, logic_api):
@@ -12,8 +11,7 @@ class ReportUI():
         self.logic_api = logic_api
         self.options_dict = {
             "1": self.PROFIT_REPORTS,
-            "2": self.UTILIZATION_REPORTS,
-            "3": self.BILLS,
+            "2": self.UTILIZATION_REPORTS
         }
     
 # Menu section
@@ -324,5 +322,6 @@ class ReportUI():
         _x = input("Input: ")
         return
     
+
 
 

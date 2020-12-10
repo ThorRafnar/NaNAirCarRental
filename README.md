@@ -16,4 +16,9 @@ In the system there are three priviledge types, administrator, office and airpor
 Administrators and office employees can find and create destinations/locations but airport employees can only view a list of all airports.
 Admins and office can create contracts and modify them (start and end date or vehicle) or terminate them. Airport employees cannot
 
+Contracts can be modified, start date, end date and vehicle can be modified if the contract is pending.
+if the contract is active the end date can be modified but start and vehicle cannot.
+A contract can be terminated if and only it's status is pending. An active, returned or paid cannot be terminated.
 
+Contracts can be billed only if the status is returned. This is to prevent a person from paying and then extending the date or returning late.
+Because of this, contracts are paid in full every time, and all chanrges will have been calculate by then.
