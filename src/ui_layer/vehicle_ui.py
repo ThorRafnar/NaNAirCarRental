@@ -347,6 +347,7 @@ class VehicleUI():
                 v_type = vehicle_type.name
                 v_rate = vehicle_type.rate
                 self.ui_helper.print_line("{: >3}.  {:.<32}{}".format(str(ind + 1), v_type, v_rate))
+            available_options.append(("n", "new_type"))
             self.ui_helper.print_blank_line()
             self.ui_helper.print_line(f"    ({new_type.upper()})ew type: Create new vehicle type")
             self.ui_helper.print_footer()
@@ -361,7 +362,8 @@ class VehicleUI():
                     self.ui_helper.quit_prompt()
 
                 elif user_choice.lower() == new_type:
-                    pass
+                    self.new_vehicle_type()
+                    vehicle_type_list = self.logic_api.get_vehicle_types()   # To refresh list after creating a new one.
 
             else:
                 error_msg = "Please select an option from the list"
@@ -391,3 +393,82 @@ class VehicleUI():
         self.ui_helper.print_blank_line()
         self.ui_helper.print_footer()
 
+# Start of new vehicle type section    
+    def new_vehicle_type(self,error_msg=""):
+        ''' Creates a new vehicle type '''
+        error_msg = "Please choose an option from the menu."
+        attribute_list = ["name", "rate"]
+        while True:
+            type_name = self.new_vehicle_type_name()
+            type_rate = self.new_vehicle_type_rate()
+            if type_rate == None:
+                return
+            new_vehicle_type = VehicleType(type_name, type_rate)
+            user_choice = self.v_type_info_check(new_vehicle_type)
+            if user_choice != None:
+                if user_choice.lower() == self.ui_helper.NO:
+                    return
+                elif user_choice.lower() == self.ui_helper.BACK:
+                    return
+                elif user_choice.lower() == self.ui_helper.QUIT:
+                    self.ui_helper.quit_prompt()
+                elif user_choice.lower() in self.ui_helper.YES:
+                    self.logic_api.create_new_type(new_vehicle_type)
+                    return
+                else:
+                    return
+        else:
+            error_msg = "Please choose an option from the menu."
+            return
+
+
+    def new_vehicle_type_name(self):
+        self.ui_helper.clear()
+        self.ui_helper.print_header()
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("    Enter a new vehicle type name:")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_hash_line()
+        user_choice = input("Input: ")
+        return user_choice
+    
+    def new_vehicle_type_rate(self,error_msg=""):
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_line("    Enter a new rate for the vehicle type:")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.BACK:
+                return
+            elif user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+            else:
+                user_choice = self.logic_api.check_if_only_number(user_choice)
+                if user_choice != None:
+                    return user_choice
+                else:
+                    error_msg = "Please input a fee containing only numbers."
+                    continue
+    
+    def v_type_info_check(self, vehicle_type, error_msg=""):
+        error_msg = "Please enter y (for yes), n (for no), go back or quit the program."
+        type_str = "<< NAME >>"
+        type_rate_str = "<< RATE >>"
+        self.ui_helper.clear()
+        self.ui_helper.print_header()
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("    Is this information correct? (y/n)")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.n_columns([type_str, type_rate_str])
+        v_type = vehicle_type.name
+        v_rate = vehicle_type.rate
+        self.ui_helper.n_columns([v_type, v_rate])
+        self.ui_helper.print_hash_line()
+        user_choice = input("Input:")
+        return user_choice
+
+# End of new vehicle type section
