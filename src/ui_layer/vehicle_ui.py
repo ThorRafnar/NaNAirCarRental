@@ -353,6 +353,7 @@ class VehicleUI():
             self.ui_helper.print_footer()
             print(error_msg)
             user_choice = self.ui_helper.get_user_menu_choice(available_options)
+            options_dict = dict(available_options)
             if user_choice != None:
 
                 if user_choice.lower() == self.ui_helper.BACK:
@@ -365,33 +366,18 @@ class VehicleUI():
                     self.new_vehicle_type()
                     vehicle_type_list = self.logic_api.get_vehicle_types()   # To refresh list after creating a new one.
 
+                else:
+                    the_type = options_dict[user_choice].name
+                    the_rate = self.new_vehicle_type_rate()
+                    if the_rate == None:
+                        continue
+                    else:
+                        self.logic_api.change_types_rate(the_type, the_rate)
+                        vehicle_type_list = self.logic_api.get_vehicle_types()
+
             else:
                 error_msg = "Please select an option from the list"
         
-    
-    def change_vehicle_type_rate(self, id_str):
-        ''' Takes in a vehicle type id and changes the rate for 
-        that particular vehicle type.'''
-        # TODO Change this function, on hold.
-        vehicle_type_str = " << TYPE >>"
-        vehicle_region_str = " << REGION >>"
-        vehicle_rate_str = " << RATE >>"
-        # Remember to change this line
-        vehicle_type_list = self.logic_api.get_vehicle_types()
-        #
-        self.ui_helper.clear()
-        self.ui_helper.print_header()
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_line("    Enter a new rate for this particular vehicle type:")
-        self.ui_helper.print_blank_line()
-        self.ui_helper.n_columns([vehicle_type_str, vehicle_region_str, vehicle_rate_str])
-        for vehicle_type in vehicle_type_list:
-            v_type = vehicle_type.name
-            v_region = vehicle_type.regions
-            v_rate = vehicle_type.rate
-            self.ui_helper.n_columns([v_type, v_region, v_rate])
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
 
 # Start of new vehicle type section    
     def new_vehicle_type(self,error_msg=""):

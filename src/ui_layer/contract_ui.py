@@ -421,10 +421,6 @@ class ContractUI():
                     setattr(customer, "email", f"<< ENTER NEW COUNTRY >>")
                     customer.email = self.change_customer_attribute(customer, "country")
 
-                elif user_choice == "6":
-                    old_attr_list.append(self.ui_helper.get_old_attributes(customer, "licenses"))      #Stores old values before changing
-                    customer.licenses = self.get_licences(customer)
-
                 elif user_choice.lower() == self.ui_helper.SAVE:
                     changed_customer = self.confirm_changes(customer)
                     if changed_customer != None:
@@ -490,7 +486,7 @@ class ContractUI():
         self.ui_helper.print_line(f"    3.  PHONE NUMBER:...........{customer.phone}")
         self.ui_helper.print_line(f"    4.  EMAIL:...................{customer.email}")
         self.ui_helper.print_line(f"    5.  COUNTRY:.................{customer.country}")
-        self.ui_helper.print_line(f"    6.  LICENCES:................{customer.licenses}")
+        self.ui_helper.print_line(f"        LICENCES:................{customer.licenses}")
         self.ui_helper.print_blank_line()
 
 
