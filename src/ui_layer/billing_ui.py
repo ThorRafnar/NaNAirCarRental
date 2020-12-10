@@ -17,6 +17,7 @@ class BillingUI():
 
             if customer == None:
                 self.contract_ui.customer_not_found()
+                continue
             
             confirm = self.contract_ui.confirm_customer(customer)
             if confirm.lower() in self.ui_helper.YES:
