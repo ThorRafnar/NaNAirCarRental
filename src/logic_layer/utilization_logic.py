@@ -49,5 +49,12 @@ class UtilizationLogic():
     def calc_vehicle_utilization(self,start_date,end_date,loan_time):
         delta = end_date - start_date
         period = delta.days
-        util_rate = (loan_time/period) * 100
-        return round(util_rate)
+        if loan_time == 0:
+            loan_time = 1
+        if period == 0:
+            period = 1
+        if loan_time == 1 and period == 1:
+            return 100
+        else:
+            util_rate = (loan_time/period) * 100
+            return round(util_rate)
