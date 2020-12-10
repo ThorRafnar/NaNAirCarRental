@@ -1,0 +1,22 @@
+9.12
+Kæra dagbók það er svona nokkurn vegin same old same old. Þorsteinn og Ragnar vinna hörðum höndum að klára ui viðmótin og gengur það vel. 
+Arnór og Árni eru eiginlega búnir með logic og data og ætlum við að geyma breytingar þar nema tími gefist, þegar ui er tilbúið.
+Esther og Haffí eru svo að yfirfara skýrsluna og huga að kennslumyndbandinu.
+
+#Ragnar
+
+
+#Arnór
+
+
+#Þorsteinn
+UI er alveg að detta í mark. Reports viðmótið er komið. Contracts er alveg að verða bug free. Location, vehicle og employee 
+viðmótin eru öll skilahæf.
+
+#Árni
+
+
+#Hallfríður
+
+
+#Esther
