@@ -136,10 +136,13 @@ class ContractLogic():
 
         contracts = self.get_all_contracts()
         for contract in contracts:
-            d_r, m_r, y_r = int(contract.return_date[0:2]), int(contract.return_date[3:5]), int(contract.return_date[6:])
-            return_date = date(y_r, m_r, d_r)
-            if start <= return_date <= end and contract.status.lower() == 'returned' and contract.customer_ssn == ssn:
-                ret_list.append(contract)
+            try:
+                d_r, m_r, y_r = int(contract.return_date[0:2]), int(contract.return_date[3:5]), int(contract.return_date[6:])
+                return_date = date(y_r, m_r, d_r)
+                if start <= return_date <= end and contract.status.lower() == 'returned' and contract.customer_ssn == ssn:
+                    ret_list.append(contract)
+            except ValueError:  #If contact hasn't been returned, there is no return date
+                pass
         return ret_list
 
     def change_contract(self, contract):
