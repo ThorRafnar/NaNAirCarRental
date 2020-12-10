@@ -19,7 +19,7 @@ class LogicAPI():
         self.vehicle_logic = VehicleLogic(self.data_api,self.customer_logic)
         self.destination_logic = DestinationLogic(self.data_api)
         self.vehicle_type_logic = VehicleTypeLogic(self.data_api, self.vehicle_logic)
-        self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic)
+        self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic, self.destination_logic)
         self.logic_error_check = LogicErrorCheck(self.data_api)
         self.chuck_logic = ChuckLogic(self.data_api)
         self.profit_logic = ProfitLogic(self.data_api, self.destination_logic, self.vehicle_type_logic)
@@ -145,6 +145,9 @@ class LogicAPI():
     
     def get_paid_and_unpaid_contracts(self, start_date, end_date):
         return self.contract_logic.get_paid_and_unpaid_contracts(start_date, end_date)
+
+    def get_active_contract(self, vehicle_id, location_iata):
+        return self.contract_logic.get_active_contract(vehicle_id, location_iata)
     
     # Vehcile Types Logic
     def get_vehicle_types(self):
