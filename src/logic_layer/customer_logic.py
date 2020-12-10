@@ -18,9 +18,11 @@ class CustomerLogic():
                 break
         return cust_inst 
 
-    def change_customer_info(self, attribute_list):
+    def change_customer_info(self, customer):
         ''' Sends a list of attributes to data layer to change given attribute for given employee '''
-        return self.data_api.change_customer_info(attribute_list)
+        cust_string = f'{customer.name},{customer.ssn},{customer.address},{customer.postal_code},{customer.phone},{customer.email},{customer.country},{customer.licenses}'
+        cust_list = [customer.ssn, cust_string]
+        return self.data_api.change_customer_info(cust_list)
 
     def add_customer(self, cust):
         ''' Sends an instance of Customer class for new customer to data layer to write to database '''

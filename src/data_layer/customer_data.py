@@ -19,18 +19,18 @@ class CustomerData():
             cust_writer = csv.writer(file_stream)
             cust_writer.writerow(customer_list)
 
-    def change_customer_info(self, att_list):
+    def change_customer_info(self, atttribute_list):
         '''Takes in a list with attributes. Uses thous attributes to 
         change certain info about the customer '''
+        values = atttribute_list[1].split(",")
+        file_list = []
         with open("data_layer/data_files/customers.csv", "r", encoding='utf-8') as read_file:
             reader = csv.DictReader(read_file)
-            file_list = []
+            cust_ssn = atttribute_list[0]
             for row in reader:
-                # Key is the key for the attribute we want to change, and new is the new attribute
-                if row["ssn"] == att_list[0]:
-                    key = att_list[1]
-                    new = att_list[2]
-                    row[key] = new
+                if row["ssn"] == cust_ssn:
+                    for key, value in zip(row, values):
+                        row[key] = value
                 file_list.append(row)
                 
         with open("data_layer/data_files/customers.csv", "w", encoding='utf-8', newline='') as write_file:
