@@ -308,7 +308,7 @@ class ReportUI():
                     error_msg = f"Enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
 
         else:
-            self.no_data_to_report(f"No data to display in {location_iata}")
+            self.no_data_to_report(f"No data to display in {location.iata}")
             return
 
 

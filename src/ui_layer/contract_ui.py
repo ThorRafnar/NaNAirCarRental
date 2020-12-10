@@ -631,10 +631,25 @@ class ContractUI():
             else:
                 error_msg = "Please enter a valid date (DD/MM/YYYY)"
 
+
+    def no_vehicles_available(self, start_date, end_date, location):
+        ''' '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header()
+        self.ui_helper.print_line(f"No vehicles available in {location} from {start_date} to {end_date}")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_hash_line()
+        return input("Input: ")
+
     
     def get_vehicle_type(self, start_date, end_date, location,  error_msg=""):
         ''' Displays all vehicle types in a given location and allows user to choose '''
-        vehicle_types_list = self.logic_api.filter_by_region(location.airport, start_date, end_date)                                                                            
+        vehicle_types = self.logic_api.filter_by_region(location.airport, start_date, end_date)
+        if vehicle_types == []:
+            self.no_vehicles_available(start_date, end_date, location)
+            return
+
+        vehicle_type_list = [ (str(ind + 1), line) for ind, line in enumerate(vehicle_types)]                                                                          
         vehicle_type_dict = dict(vehicle_type_list)
         while True:
             self.ui_helper.clear()
