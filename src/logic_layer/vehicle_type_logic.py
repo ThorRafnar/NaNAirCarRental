@@ -38,6 +38,7 @@ class VehicleTypeLogic():
         return availble_list
     
     def get_types_for_vehicles_location(self, location, a_list, start_date, end_date):
+        ''' returns a list with all vehicle types with in certain location '''
         types_available = []
         for vehicle in a_list:
             if vehicle.location == location:
