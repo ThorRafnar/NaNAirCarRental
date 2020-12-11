@@ -357,8 +357,6 @@ class ReportUI():
 
     def print_bill(self, contract):
         ''' Prints a single contract for billing overview '''
-        vehicle = self.logic_api.find_vehicle(contract.vehicle_id)
-        customer = self.logic_api.find_customer(contract.customer_ssn)
         contract_column = [contract.contract_id, contract.total, contract.base_price, contract.extensions, contract.loan_date, contract.end_date]
         self.ui_helper.n_columns(contract_column)
 

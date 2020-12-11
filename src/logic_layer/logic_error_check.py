@@ -39,15 +39,23 @@ class LogicErrorCheck():
         
         return a_str
 
-    def check_work_area(self,a_str):
+    def check_iata(self,a_str):
+        ''' Checks that a string is a valid iata code that does not exist already, returning None if invalid and "1" if it already exists, otherwise returns the string in uppercase '''
         valid_dest = self.data_api.get_destinations()
         valid_work_areas = [getattr(dest,"iata") for dest in valid_dest]
-        valid_work_areas.append("Admin")
         for work_area in valid_work_areas:
             if a_str.lower() == work_area.lower():
-                return work_area
+                return "1"      # To know area exists
+
+        if len(a_str) != 3:    
+            return None
+
+        else:
+            for char in a_str:
+                if char.isalpha() == False:
+                    return None
             
-        return None
+            return a_str.upper()
 
     
     def check_hours(self, hours):

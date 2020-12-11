@@ -82,8 +82,6 @@ class UIStartMenu():
                 error_msg = f"Please select an airport code from the list, or {self.ui_helper.QUIT.upper()} to quit"
 
 
-
-
     def show_tasks(self, staff_type, error_msg=""):
         ''' Shows available tasks, depending on user priviledge level '''
         self.ui_helper.set_location(staff_type)     

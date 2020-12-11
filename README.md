@@ -1,7 +1,7 @@
 # NaNAirCarRental
 Verklegt námskeið 1, mvp group 22
 
-For best results, run the program in full screen, other sizes are  partly supported, but might cause issues.
+For best results, run the program in full screen, other sizes are  partly supported, but might cause issues. After starting, do not change terminal size
 
 Airport employees can register new vehicles.
 All staff types can view vehicles and their details.
@@ -37,3 +37,5 @@ Because of this, contracts are paid in full every time, and all chanrges will ha
 
 Airport employees can check out and return vehicles, and when returning the system makes sure that they are returning a valid vehicle for their location, 
 and that the vehicle is in an active contract
+
+When creating a contract, employee, vehicle or customer, if you go back, it will return to the menu before you started, losing your information.
