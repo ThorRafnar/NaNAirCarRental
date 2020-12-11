@@ -25,7 +25,10 @@ meaning each location has its own opening hours.
 Employees, customers and vehicles cannot be removed from the database through the program. Vehicles can be put in the workshop if they are unusable
 Contracts can be terminated and this will remove them from the database.
 
+All staff types can create, modify and list all other employees, per A demands.
+
 In the system there are two priviledge types, office and airport employee. They have different rights. 
+We intereperated the demands so that there only need to be two types. We initially planned to include admin access, but found it redunant in regards to B demands
 Office employees can find and create destinations/locations but airport employees can only view a list of all airports.
 Office employees can create contracts and modify them (start and end date or vehicle) or terminate them. Airport employees cannot
 
@@ -43,3 +46,6 @@ and that the vehicle is in an active contract
 Profits reports support only up to 13 vehicle types, before the formatting gets out of hand. Given more time this could be fixed but at the moment it is not feasible
 
 When creating a contract, employee, vehicle or customer, if you go back, it will return to the menu before you started, losing your information.
+
+No error checking is in place to make sure that start date is earlier than the end date. Given more time we would have implented such check but as of now, it is "allowed" but it will 
+calculate the price as a negative number. So just don't do that please.

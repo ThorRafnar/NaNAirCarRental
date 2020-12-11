@@ -61,7 +61,7 @@ class ContractUI():
                 error_msg = "Please select an option from the menu"
     
 
-    def returns_menu(self):
+    def returns_menu(self, error_msg=""):
         ''' Guides user through returning a vehicle '''
         returning_contract = None
         options_list = [("R", "rentable"),("W", "workshop")]
@@ -78,7 +78,7 @@ class ContractUI():
             else:
                 self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
-            print()
+            print(error_msg)
             user_choice = input("Input: ")
 
             if user_choice.lower() == self.ui_helper.QUIT:
@@ -99,13 +99,16 @@ class ContractUI():
                 self.vehicle_has_been_returned()
                 return
 
-            else:
+            elif user_choice.isnumeric():
                 contract = self.logic_api.get_active_contract(user_choice, self.ui_helper.user_location)
                 if contract != None:
                     returning_contract = contract
 
                 else:               #If vehicle contract doesn't exist
                     self.contract_not_found()
+            
+            else:
+                error_msg = "Please enter a valid vehicle ID"
 
 
     def pick_up_vehicle(self, error_msg=""):
@@ -133,7 +136,7 @@ class ContractUI():
                 the_customer = self.logic_api.find_customer(ssn)
 
                 if the_customer != None:
-                    conf_choice = self.confirm_customer(the_customer)
+                    conf_choice = self.confirm_customer(the_customer, False)
                     if conf_choice.lower() in self.ui_helper.YES:                   #If the customer is confirmed
                         
                         ### The contracts <3 ###
@@ -169,7 +172,7 @@ class ContractUI():
         if the_customer == None:
             return
     
-        confirm = self.confirm_customer(the_customer)             #Asks user to confirm
+        confirm = self.confirm_customer(the_customer, True)             #Asks user to confirm
 
         if confirm.lower() in self.ui_helper.NO:
             the_customer = self.modify_customer(the_customer)
@@ -190,6 +193,8 @@ class ContractUI():
         if the_employee == None:                                    #If emp doesn't exists, create it
             self.employee_ui.create_employee(ssn)
             the_employee = self.logic_api.find_employee(ssn)
+            if the_employee == None:
+                return
 
         conf = self.confirm_employee(the_employee)
         if conf.lower() not in self.ui_helper.YES:
@@ -472,12 +477,22 @@ class ContractUI():
         a_customer = self.logic_api.find_customer(a_contract.customer_ssn)
         a_vehicle = self.logic_api.find_vehicle(a_contract.vehicle_id)
         a_employee = self.logic_api.find_employee(a_contract.employee_ssn)
+        if a_contract.pickup_date == "":
+            pickup_date = "N/A"
+        else:
+            pickup_date = a_contract.pickup_date
+        if a_contract.return_date == "":
+            return_date = "N/A"
+        else:
+            return_date = a_contract.return_date
         self.ui_helper.seperator()
         self.ui_helper.print_line(f"    << CONTRACT ID {a_contract.contract_id} INFORMATION >>")
         self.ui_helper.print_blank_line()
         self.ui_helper.left_aligned_columns([f"       START DATE: {a_contract.loan_date}", f"END DATE: {a_contract.end_date}", f"LOCATION: {a_vehicle.location}", f"STATUS: {a_contract.status}"])
         self.ui_helper.print_blank_line()
         self.ui_helper.left_aligned_columns([f"       RATE: {self.logic_api.get_types_rate(a_vehicle.type)}",f"BASE PRICE: {a_contract.base_price}", f"TOTAL PRICE: {a_contract.total}", f"REGISTRATION DATE: {a_contract.contract_created}"])
+        self.ui_helper.print_blank_line()
+        self.ui_helper.left_aligned_columns([f"       PICK UP DATE: {pickup_date}",f"RETURN DATE: {return_date}", "", ""])
         self.ui_helper.print_blank_line()
         self.ui_helper.seperator()
         self.ui_helper.print_line("    << CUSTOMER >>")
@@ -486,7 +501,6 @@ class ContractUI():
         self.ui_helper.print_blank_line()
         self.ui_helper.left_aligned_columns([f"       ADDRESS: {a_customer.address}",f"POSTAL: {a_customer.postal_code}", f"COUNTRY: {a_customer.country}", ""])
         self.ui_helper.print_blank_line()
-
         if a_customer.licenses == "None":
             self.ui_helper.left_aligned_columns([f"       DRIVERS LICENCE [ ]", "DIVING LICENCE [ ]", "", ""])
         else:
@@ -675,15 +689,16 @@ class ContractUI():
                 error_msg = "Please provide a correctly formatted social security number, DDMMYY-NNNN"
 
 
-    def confirm_customer(self, the_customer, error_msg=""):     # This function is called in line 77
+    def confirm_customer(self, the_customer, changable_bool, error_msg=""):     # This function is called in line 77
         ''' Asks user if customer info is correct '''
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
             self.ui_helper.print_line("    Is this information correct? (y/n)")
             self.ui_helper.print_blank_line()
-            self.ui_helper.print_line("    (Y)es to continue")
-            self.ui_helper.print_line("    (N)o to change information")
+            if changable_bool:
+                self.ui_helper.print_line("    (Y)es to continue")
+                self.ui_helper.print_line("    (N)o to change information")
             self.ui_helper.print_blank_line()
             self.view_customer_details(the_customer)
             self.ui_helper.print_footer()

@@ -8,7 +8,7 @@ class LogicErrorCheck():
     def check_name(self,a_str):
         new_str = ""
         a_str = a_str.strip()
-        for index, char in enumerate(a_str):
+        for char in a_str:
             if char.isalpha():
                 if (new_str == "") or (new_str[-1].isspace()):
                     new_str += char.upper()
@@ -24,21 +24,17 @@ class LogicErrorCheck():
     def check_phone(self, a_str):
         # US and UK number length are the same or 11 in length but some areas
         # in UK have number length of 10.
-        IS_number_length = 7
-        US_number_length = 11
-        UK_number_length = 10
-        DK_number_length = 8
-        FI_number_length = 6    # Faroe islands
-        counter = 0
-        for char in a_str:
-            if char.isspace():
-                pass
-            else:
-                counter += 1
-        if counter != IS_number_length and counter != US_number_length and counter !=  UK_number_length and counter != DK_number_length and counter != FI_number_length:
+        if len(a_str) < 6:
             return None
+        elif len(a_str) > 18:
+            return None
+        else:
+            for char in a_str:
+                if char.isnumeric() == False and char.isspace() == False and char != "+":
+                    return None
         
         return a_str
+
 
     def check_iata(self,a_str):
         ''' Checks that a string is a valid iata code that does not exist already, returning None if invalid and "1" if it already exists, otherwise returns the string in uppercase '''
@@ -139,7 +135,7 @@ class LogicErrorCheck():
     #This function can be used whenever a string has to be only numbers with no spaces
     def check_if_number(self, a_str):
         try:
-            numb = int(a_str)
+            _num = int(a_str)
             return a_str
         except ValueError:
             return None
@@ -199,7 +195,7 @@ class LogicErrorCheck():
     
     def check_address(self, address):
         address = address.strip()
-        for index, char in enumerate(address):
+        for char in address:
             if char in string.punctuation:
                 return None
         return address.capitalize()
@@ -217,8 +213,7 @@ class LogicErrorCheck():
     def decide_what_error(self, a_str, attribute):
         ''' Takes in a string then decides what error check needs to be done 
         on that particular string. '''
-        length_of_ssn = 11
-    
+   
     # Phone
         if attribute.lower() == "phone" or attribute.lower() == "mobile_phone" or attribute.lower() == "home_phone":
             return self.check_phone(a_str)
