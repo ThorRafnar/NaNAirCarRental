@@ -42,6 +42,19 @@ class ContractLogic():
             if contract.customer_ssn == ssn:
                 customer_contracts.append(contract)
         return customer_contracts
+
+    def get_pending_contracts(self, ssn, location):
+        ''' Returns pending contracts by customer ssn '''
+        customer_contracts = self.view_customer_contracts(ssn)
+        destination = self.desination_logic.find_destination(location).airport
+        pending_contracts = []
+        for contract in customer_contracts:
+            contract_date = datetime.strptime(contract.loan_date, '%d/%m/%Y')
+            vehicle = self.vehicle_logic.find_vehicle(contract.vehicle_id)
+
+            if self.today >= contract_date and contract.status.lower() == 'pending' and vehicle.location.lower() == destination.lower():
+                pending_contracts.append(contract)
+        return pending_contracts
     
     def find_contract(self, cont_id):
         ''' Searches for a contract from given contract ID and returns an instance of contract class if found, else returns None '''

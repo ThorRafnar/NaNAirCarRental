@@ -132,6 +132,10 @@ class LogicAPI():
     def view_customer_contracts(self, ssn):
         ''' Gets ssn from UI and finds all contracts linked to that ssn in database and returns them as list of Contract classes '''
         return self.contract_logic.view_customer_contracts(ssn)
+
+    def get_pending_contracts(self, ssn, location):
+        ''' Returns pending contracts by customer ssn and location '''
+        return self.contract_logic.get_pending_contracts(ssn, location)
     
     def find_contract(self, contract_id):
         ''' Gets contract ID from UI and finds correct contract from given ID and returns the contract to UI if found, else returns None '''
