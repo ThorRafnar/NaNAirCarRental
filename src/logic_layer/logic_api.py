@@ -63,9 +63,8 @@ class LogicAPI():
         return self.vehicle_logic.change_vehicle_condition(vehicle_id, status)
 
     def availble_vehicles_by_location(self, location):
-
         '''returns all availble vehicles by location as instanses '''
-        return self.vehicle_logic.availble_vehicles_by_location(location))
+        return self.vehicle_logic.availble_vehicles_by_location(location)
 
     
     def get_filtered_vehicle(self,start_date,end_date,location,vehicle_type):
