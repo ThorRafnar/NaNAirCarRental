@@ -1,8 +1,9 @@
 import string
 
 class LogicErrorCheck():
-    def __init__(self, data_api):
+    def __init__(self, data_api, destination_logic):
         self.data_api = data_api
+        self.destination_logic = destination_logic
 
     def check_name(self,a_str):
         new_str = ""
@@ -207,6 +208,14 @@ class LogicErrorCheck():
                 return None
         return address.capitalize()
 
+    def check_work_area(self, a_str):
+        ''' Checks if a given string matches an existing work area '''
+        valid_areas = self.destination_logic.get_destinations()
+        for dest in valid_areas:
+            if dest.iata.lower() == a_str.lower():
+                return dest.iata
+
+        return None
 
 
     def decide_what_error(self, a_str, attribute):
