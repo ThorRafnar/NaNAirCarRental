@@ -2,19 +2,22 @@ from model_layer.vehicle import Vehicle
 from model_layer.vehicle_type import VehicleType
 
 class VehicleUI():
+# Constants
     REGISTER = "Register new vehicle"
     FIND = "Find a vehicle"
     VIEW_ALL = "View all vehicles"
     VEHICLE_RATES = "Vehicle rates"
 
     def __init__(self, ui_helper, logic_api):
+    # Use of logic_api and ui_helper is essential for the program
         self.logic_api = logic_api
         self.ui_helper = ui_helper
 
 
-    
+# Menu for the vehicle section part   
     def show_options(self, error_msg=""):
-
+        # Available options in vehicle section depends on what kind
+        # of employee is the user.
         if self.ui_helper.header_string == "Office Employee":
             options_dict = {
                 "1": self.VIEW_ALL,
@@ -67,7 +70,7 @@ class VehicleUI():
             else:
                 error_msg = "Please select an option from the menu"
 
-
+# Start of view all vehicles section
     def get_all_vehicles(self, error_msg=""):
         ''' Gets all vehicles from logic and calls print_vehicle_list, gets input from user to quit or back'''
         vehicles = self.logic_api.all_vehicles_to_list()
@@ -96,8 +99,9 @@ class VehicleUI():
 
             else:
                 error_msg = f"Please enter a valid vehicle ID, or {self.ui_helper.QUIT.upper()} to quit and {self.ui_helper.BACK.upper()} to go back"
-            
+# End of all vehicles section           
 
+# Start of help functions
     def vehicle_not_found(self):
         ''' Informs user that no vehicle was found, and to press enter to return'''
         self.ui_helper.clear()
@@ -134,8 +138,9 @@ class VehicleUI():
             location = vehicle.location
             id_nr = vehicle.id
             self.ui_helper.n_columns([id_nr, manu, model, vtype, year, color, status, licence, location])
+# End of help functions
 
-
+# Start of new/register vehicle section
     def register_vehicle(self, error_msg=""):
         new_vehicle = Vehicle("", "", "", "OK", "", "", "", self.ui_helper.user_location, None)
         attribute_list = ["manufacturer", "model", "type", "year", "color", "license_type",]
@@ -185,7 +190,7 @@ class VehicleUI():
 
                         else:                                      #Goes to next value in for loop
                             error_msg = f"Please enter a valid {attribute}"
-            
+        
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
@@ -212,8 +217,9 @@ class VehicleUI():
 
             else:
                 error_msg = "Please select an option, or enter 9 to quit and 0 to go back"
+# End of new/register vehicle section
 
-
+# Start of find vehicle section
     def find_vehicle(self):
         ''' takes vehicle id number from user and finds the vehicle, or none if it doesn't exist '''
         while True:
@@ -326,8 +332,9 @@ class VehicleUI():
 
                     else:
                         return
+# End of find vehicle section
                         
-            
+# Start of new vehicle type rate section       
     def confirm_status(self, a_vehicle):
         ''' Asks user to confirm new status, returning the user input '''
         self.ui_helper.clear()
@@ -385,7 +392,7 @@ class VehicleUI():
 
             else:
                 error_msg = "Please select an option from the list"
-        
+# End of new vehicle type rate section        
 
 # Start of new vehicle type section    
     def new_vehicle_type(self,error_msg=""):
