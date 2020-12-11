@@ -62,7 +62,7 @@ class ProfitLogic():
 
 
     def calculate_profits_by_vehicle(self, start_date, end_date):
-        ''' '''
+        ''' Calculated profite for each vehicle type during the give period '''
         vehicle_profits = self.create_vehicle_dictonary()
         profits = self.get_profits()
         d,m,y = int(start_date[:2]),int(start_date[3:5]),int(start_date[6:])
@@ -87,6 +87,7 @@ class ProfitLogic():
 
 
     def create_location_dictonary(self):
+        ''' Creates a location dictionary ''' #this is a stop sign
         dests = self.destination_logic.get_destinations()
         loc_dict = {}
         for location in dests:
@@ -95,6 +96,7 @@ class ProfitLogic():
 
 
     def create_vehicle_dictonary(self):
+        ''' Creates a vehicle dictionary ''' #this is a stop sign
         vehicles = self.vehicle_type_logic.get_vehicle_types()
         vehicle_dictonary = {}
         for vehicle in vehicles:

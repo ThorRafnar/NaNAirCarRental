@@ -49,3 +49,5 @@ When creating a contract, employee, vehicle or customer, if you go back, it will
 
 No error checking is in place to make sure that start date is earlier than the end date. Given more time we would have implented such check but as of now, it is "allowed" but it will 
 calculate the price as a negative number. So just don't do that please.
+
+If a vehicle has never been used, it will not show up in the utilization report, so if a vehicle is not there, the utilization is zero.

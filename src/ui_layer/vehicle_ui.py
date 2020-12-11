@@ -275,7 +275,7 @@ class VehicleUI():
         if self.ui_helper.user_location != "KEF":                                                       #Office staff cant change vehicle status
             opt_change_status = "C"
         else:
-            opt_change_status = None    #bugfix
+            opt_change_status = ""    #bugfix
 
         while True:
             self.ui_helper.clear()
@@ -436,26 +436,31 @@ class VehicleUI():
         error_msg = "Please choose an option from the menu."
         while True:
             type_name = self.new_vehicle_type_name()
-            type_rate = self.new_vehicle_type_rate()
-            if type_rate == None:
+            if type_name.lower() == self.ui_helper.BACK:
                 return
-            new_vehicle_type = VehicleType(type_name, type_rate)
-            user_choice = self.v_type_info_check(new_vehicle_type)
-            if user_choice != None:
-                if user_choice.lower() == self.ui_helper.NO:
+            elif type_name.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+            else:
+                type_rate = self.new_vehicle_type_rate()
+                if type_rate == None:
                     return
-                elif user_choice.lower() == self.ui_helper.BACK:
-                    return
-                elif user_choice.lower() == self.ui_helper.QUIT:
-                    self.ui_helper.quit_prompt()
-                elif user_choice.lower() in self.ui_helper.YES:
-                    self.logic_api.create_new_type(new_vehicle_type)
-                    return
+                new_vehicle_type = VehicleType(type_name, type_rate)
+                user_choice = self.v_type_info_check(new_vehicle_type)
+                if user_choice != None:
+                    if user_choice.lower() == self.ui_helper.NO:
+                        return
+                    elif user_choice.lower() == self.ui_helper.BACK:
+                        return
+                    elif user_choice.lower() == self.ui_helper.QUIT:
+                        self.ui_helper.quit_prompt()
+                    elif user_choice.lower() in self.ui_helper.YES:
+                        self.logic_api.create_new_type(new_vehicle_type)
+                        return
+                    else:
+                        return
                 else:
+                    error_msg = "Please choose an option from the menu."
                     return
-        else:
-            error_msg = "Please choose an option from the menu."
-            return
 
 
     def new_vehicle_type_name(self):
