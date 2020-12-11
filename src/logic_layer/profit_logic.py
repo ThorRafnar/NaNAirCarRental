@@ -91,7 +91,6 @@ class ProfitLogic():
         loc_dict = {}
         for location in dests:
             loc_dict[location.airport] = 0
-        print(loc_dict)
         return loc_dict
 
 

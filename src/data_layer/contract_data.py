@@ -20,6 +20,7 @@ class ContractData():
             writer.writerow(contr_list)
 
     def change_contract_attributes(self, attribute_list):
+        ''' overwrite certain attributes in database '''
         values = attribute_list[1].split(",")
         file_list = []
         with open("data_layer/data_files/contracts.csv","r",encoding="utf-8") as file_stream:
@@ -53,7 +54,6 @@ class ContractData():
 
     def change_contract(self,cont):
         ''' overwrites the contracts with "new" contract '''
-        #contract_id, customer_ssn, employee_ssn, vehicle_id, loan_date, end_date, base_price=None, contract_created=None, pickup_date=None, return_date=None, extensions=0, total=None, status='pending'
         cont_list = [cont.contract_id, cont.customer_ssn, cont.employee_ssn, cont.vehicle_id, cont.loan_date, cont.end_date, 
         cont.base_price, cont.contract_created, cont.pickup_date, cont.return_date, cont.extensions, cont.total, cont.status]
         file_list = []

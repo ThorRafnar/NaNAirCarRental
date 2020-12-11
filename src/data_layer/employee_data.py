@@ -20,9 +20,8 @@ class EmployeeData():
         with open("data_layer/data_files/employee.csv", 'a+',encoding="utf8",newline='') as file_stream:
             csvwriter = csv.writer(file_stream)
             csvwriter.writerow(a_list)
-        #test
+        
     def change_employee_info(self,atttribute_list):
-
         ''' Takes in a list with attributes, the attributes are values for what to change  '''
         values = atttribute_list[1].split(",")
         file_list = []

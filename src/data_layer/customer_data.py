@@ -4,6 +4,7 @@ import csv
 class CustomerData():
 
     def get_customers(self):
+        ''' returns a list with instances of all customers  '''
         cust_list = []
         with open("data_layer/data_files/customers.csv", encoding='utf-8') as file_stream:
             cust_reader = csv.DictReader(file_stream)

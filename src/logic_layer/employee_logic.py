@@ -32,7 +32,6 @@ class EmployeeLogic():
             if emp.ssn == new_ssn:
                 emp_inst = emp
                 break
-        #print(emp_inst)
         return emp_inst  
 
     def register_employee(self, emp):
