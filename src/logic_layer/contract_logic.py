@@ -81,16 +81,16 @@ class ContractLogic():
             self.add_utilization_log(cont) # Adds utilization log for vehicle in utilization.csv
             cont.total = self.get_contract_total_price(cont)
         elif cont.status == 'paid':
-            self.add_profit_log(cont)
+            self.add_profit_log(cont) # Adds profit log for contract in profit.csv
         elif cont.status == 'terminated':
-            self.data_api.terminate_contract(cont.contract_id)
+            self.data_api.terminate_contract(cont.contract_id) # Terminates contract from contracts.csv
 
         if cont.status != 'terminated':
-            self.change_contract(cont)
+            self.change_contract(cont) # Changes contract status if not terminated
             
     
     def calculate_number_of_days(self, start_date, end_date):
-        ''' Calculates how many days are between given dates '''
+        ''' Calculates how many days are between given dates, returns it as integer '''
         d,m,y = int(start_date[:2]),int(start_date[3:5]),int(start_date[6:])
         e_d,e_m,e_y = int(end_date[:2]),int(end_date[3:5]),int(end_date[6:])
         f_date = date(y, m, d)
@@ -118,18 +118,19 @@ class ContractLogic():
         return filtered_list
     
     def add_utilization_log(self, contract):
+        ''' Gets an instance of contract and creates a utilization log and adds it to utilization.csv '''
         vehicle = self.vehicle_logic.find_vehicle(contract.vehicle_id)
         util_list = [vehicle.id, self.today, vehicle.location, vehicle.type, vehicle.manufacturer, vehicle.model, contract.pickup_date, contract.return_date]
         self.data_api.add_utilization_log(util_list)
     
     def add_profit_log(self, contract):
+        ''' Gets an instance of contract and creates a profit log and adds it to profit.csv '''
         vehicle = self.vehicle_logic.find_vehicle(contract.vehicle_id)
         profit_log = [self.today,contract.contract_id,contract.base_price,contract.extensions,contract.total,vehicle.type,vehicle.location]
         self.data_api.add_profits(profit_log)
 
     def get_unpaid_contracts(self, ssn, start_date, end_date):
-        '''Retunrs a list of contracts instances that have yet to pay thair contract '''
-
+        '''Retunrs a list of contracts instances that have yet to pay their contract '''
         ret_list = [] 
         d,m,y = int(start_date[:2]),int(start_date[3:5]),int(start_date[6:])
         e_d,e_m,e_y = int(end_date[:2]),int(end_date[3:5]),int(end_date[6:])
@@ -150,10 +151,11 @@ class ContractLogic():
         return ret_list
 
     def change_contract(self, contract):
+        ''' Gets an instance of Contract class and sends it to data to be changed in database '''
         self.data_api.change_contract(contract)
 
     def find_paid_and_unpaid_contracts(self, start_date, end_date):
-        '''returns a dictonary of all paid contracts and unpaid contracts with in given time  '''
+        ''' finds all paid and unpaid contract for given time, returns as dictionary with customer name as key '''
         d,m,y = int(start_date[:2]),int(start_date[3:5]),int(start_date[6:])
         e_d,e_m,e_y = int(end_date[:2]),int(end_date[3:5]),int(end_date[6:])
         start = date(y, m, d)
@@ -180,6 +182,7 @@ class ContractLogic():
         return bill_dict
 
     def get_paid_and_unpaid_contracts(self, start_date, end_date):
+        ''' Fetches a dictionary of paid and unpaid contracts and returns it with dictionaries for paid and unpaid contract for all customers '''
         filtered_dict = self.find_paid_and_unpaid_contracts(start_date,end_date)
 
         for customer in filtered_dict:
