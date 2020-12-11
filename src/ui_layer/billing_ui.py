@@ -39,7 +39,7 @@ class BillingUI():
                     self.no_bills_found(customer)
 
             else:
-                continue
+                return
 
     
     def confirm_bills(self, bills_list, customer, start_date, end_date, error_msg=""):

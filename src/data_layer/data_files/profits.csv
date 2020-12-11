@@ -3,9 +3,9 @@ date,contract_id,base_price,extensions,total,vehicle_type,location
 2020-12-16,5,17600,13200.0,17600,Medium off-road,Tingwall
 2020-12-04,5,17600,13200.0,17600,Light road,Longyearbyen
 2020-12-03,5,17600,13200.0,17600,Light road,Kulusuk
-2020-12-11,5,17600,13200.0,17600,bla,Thorshavn
 2020-12-02,5,17600,13200.0,17600,Light off-road,Tingwall
 2020-12-01,5,17600,13200.0,17600,Light road,Thorshavn
 2020-12-12,5,17600,13200.0,17600,Medium water,Nuuk
 10/12/2020,6,3400,5100.0,8500,Light water,Longyearbyen
 10/12/2020,5,26400,0,26400,Light off-road,Nuuk
+11/12/2020,7,4250,0,4250,Light water,Thorshavn

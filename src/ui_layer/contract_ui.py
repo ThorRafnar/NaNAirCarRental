@@ -106,6 +106,54 @@ class ContractUI():
 
                 else:               #If vehicle contract doesn't exist
                     self.contract_not_found()
+
+
+    def pick_up_vehicle(self, error_msg=""):
+        ''' Menu for when a customer is picking up a vehicle, asks for ssn and goes through the steps '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("    Enter customer ssn:")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.BACK:
+                return
+
+            elif user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+
+            ssn = self.logic_api.check_ssn(user_choice)
+            if ssn == None:
+                error_msg = "Please enter a valid social security number (DDMMYY-NNNM)"
+                continue
+            
+            else:
+                the_customer = self.logic_api.find_customer(ssn)
+
+                if the_customer != None:
+                    conf_choice = self.confirm_customer(the_customer)
+                    if conf_choice.lower() in self.ui_helper.YES:                   #If the customer is confirmed
+                        
+                        ### The contracts <3 ###
+                        contract_list = self.logic_api.get_pending_contracts(ssn, self.ui_helper.user_location)
+                        if contract_list == []:
+                            self.contract_not_found()
+                            #No contract for this customer today
+
+                        else:
+                            returning_choice = self.customer_vehicle_selection(contract_list)   #To return to menu if user finished a task
+                            if returning_choice == self.ui_helper.BACK:
+                                return
+
+                    else:
+                        continue
+
+                else:                       #If customer is not found
+                    error_msg = "No customer with this ssn found!"
+                    continue
+
 # End of contract menu section
 
 # Start of new contract section
@@ -253,7 +301,6 @@ class ContractUI():
         else:
             return contract_id
     
-
 
 # End of find contract section
 
@@ -406,6 +453,7 @@ class ContractUI():
             else:
                 error_msg = "Please select an option from the menu"
 
+
     def view_full_display_contract(self, a_contract):
         ''' Shows full display view of contract, for single contract menu '''
         a_customer = self.logic_api.find_customer(a_contract.customer_ssn)
@@ -425,17 +473,19 @@ class ContractUI():
         self.ui_helper.print_blank_line()
         self.ui_helper.left_aligned_columns([f"       ADDRESS: {a_customer.address}",f"POSTAL: {a_customer.postal_code}", f"COUNTRY: {a_customer.country}", ""])
         self.ui_helper.print_blank_line()
+
         if a_customer.licenses == "None":
-            self.ui_helper.left_aligned_columns([f"       DRIVING LICENCE [ ]", "DIVING LICENCE [ ]", "", ""])
+            self.ui_helper.left_aligned_columns([f"       DRIVERS LICENCE [ ]", "DIVING LICENCE [ ]", "", ""])
         else:
-            if "Driving" in a_customer.licenses and "Diving" in a_customer.licenses:
-                self.ui_helper.left_aligned_columns([f"       DRIVING LICENCE [x]", "DIVING LICENCE [x]", "", ""])
-            elif "Driving" in a_customer.licenses and "Diving" not in a_customer.licenses:
-                self.ui_helper.left_aligned_columns([f"       DRIVING LICENCE [x]", "DIVING LICENCE [ ]", "", ""])
-            elif "Diving" in a_customer.licenses and "Driving" not in a_customer.licenses:
-                self.ui_helper.left_aligned_columns([f"       DRIVING LICENCE [ ]", "DIVING LICENCE [x]", "", ""])
+            if "drivers" in a_customer.licenses.lower() and "diving" in a_customer.licenses.lower():
+                self.ui_helper.left_aligned_columns([f"       DRIVERS LICENCE [x]", "DIVING LICENCE [x]", "", ""])
+            elif "drivers" in a_customer.licenses.lower() and "diving" not in a_customer.licenses.lower():
+                self.ui_helper.left_aligned_columns([f"       DRIVERS LICENCE [x]", "DIVING LICENCE [ ]", "", ""])
+            elif "diving" in a_customer.licenses.lower() and "drivers" not in a_customer.licenses.lower():
+                self.ui_helper.left_aligned_columns([f"       DRIVERS LICENCE [ ]", "DIVING LICENCE [x]", "", ""])
             else:
                 self.ui_helper.print_blank_line()
+
         self.ui_helper.print_blank_line()
         self.ui_helper.seperator()
         self.ui_helper.print_line("    << VEHICLE >>")
@@ -464,7 +514,6 @@ class ContractUI():
         self.ui_helper.print_line(f"        COUNTRY:.................{the_customer.country}")
         self.ui_helper.print_line(f"        LICENCES:................{the_customer.licenses}")
         self.ui_helper.print_blank_line()
-
 
 
     def customer_change_view(self, customer):
@@ -550,6 +599,7 @@ class ContractUI():
         self.ui_helper.print_line("  SIGNATURE:___________________________     DATE:________________")
         self.ui_helper.seperator()
 
+
     def print_contract(self, the_contract, error_msg =""):
         while True:
             old_width = self.ui_helper.width
@@ -571,7 +621,8 @@ class ContractUI():
 
             else:
                 error_msg = f"Enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
-    
+
+
     def compact_contract(self, a_contract):
         ''' Displays contract information in a compact format '''
         a_vehicle = self.logic_api.find_vehicle(a_contract.vehicle_id)
@@ -610,6 +661,7 @@ class ContractUI():
             else:
                 error_msg = "Please provide a correctly formatted social security number, DDMMYY-NNNN"
 
+
     def confirm_customer(self, the_customer, error_msg=""):     # This function is called in line 77
         ''' Asks user if customer info is correct '''
         while True:
@@ -628,6 +680,7 @@ class ContractUI():
                 return user_choice
             else:
                 error_msg = "Please select a valid option"
+
 
     def create_customer(self, ssn, error_msg =""):              # This function is called in line 72
         ''' Creates a new customer and passes it along to logic '''
@@ -666,7 +719,8 @@ class ContractUI():
 
         self.logic_api.add_customer(the_customer)
         return the_customer
-    
+
+
     def modify_customer(self, original_customer, error_msg=""): # This function is called in line 80
         ''' 
         shows all details of a customer, with indices and takes user choice in what to change, and changes it, 
@@ -744,7 +798,8 @@ class ContractUI():
                     del old_attr_list[-1]
                     setattr(customer, undo_key, undo_value)
                     continue
-    
+
+
     def change_customer_attribute(self, customer, attribute, error_msg = ""):   # This function is called multiple times in def modify_customer()
         ''' Changes and error checks a single attribute change, when modifying an employee '''
         while True:
@@ -810,6 +865,7 @@ class ContractUI():
 
             else:
                 error_msg = "Please provide a correcly formatted social security number, DDMMYY-NNNN"
+   
     
     def confirm_employee(self, the_employee, error_msg=""):     # This function calls the employeeUI class
         ''' Asks user if employee info is correct '''
@@ -1057,53 +1113,6 @@ class ContractUI():
             self.ui_helper.print_hash_line()
             return input("Input: ")
     
-
-    def pick_up_vehicle(self, error_msg=""):
-        ''' Menu for when a customer is picking up a vehicle, asks for ssn and goes through the steps '''
-        while True:
-            self.ui_helper.clear()
-            self.ui_helper.print_header()
-            self.ui_helper.print_line("    Enter customer ssn:")
-            self.ui_helper.print_blank_line()
-            self.ui_helper.print_footer()
-            print(error_msg)
-            user_choice = input("Input: ")
-            if user_choice.lower() == self.ui_helper.BACK:
-                return
-
-            elif user_choice.lower() == self.ui_helper.QUIT:
-                self.ui_helper.quit_prompt()
-
-            ssn = self.logic_api.check_ssn(user_choice)
-            if ssn == None:
-                error_msg = "Please enter a valid social security number (DDMMYY-NNNM)"
-                continue
-            
-            else:
-                the_customer = self.logic_api.find_customer(ssn)
-
-                if the_customer != None:
-                    conf_choice = self.confirm_customer(the_customer)
-                    if conf_choice.lower() in self.ui_helper.YES:                   #If the customer is confirmed
-                        
-                        ### The contracts <3 ###
-                        contract_list = self.logic_api.view_customer_contracts(ssn)
-                        if contract_list == []:
-                            pass
-                            #No contract for this customer today
-
-                        else:
-                            returning_choice = self.customer_vehicle_selection(contract_list)   #To return to menu if user finished a task
-                            if returning_choice == self.ui_helper.BACK:
-                                return
-
-                    else:
-                        continue
-
-                else:                       #If customer is not found
-                    error_msg = "No customer with this ssn found!"
-                    continue
-
 
     def customer_vehicle_selection(self, contract_list, error_msg=""):
         ''' Displays vehicles in a list and allows user to select (A)ll or one at a time to lend them out '''
