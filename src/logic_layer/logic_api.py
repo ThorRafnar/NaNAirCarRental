@@ -217,8 +217,8 @@ class LogicAPI():
     def check_attribute(self, attr_val, attr_key):
         return self.logic_error_check.decide_what_error(attr_val, attr_key)
 
-    def check_work_area(self,a_str):
-        return self.logic_error_check.check_work_area(a_str)
+    def check_iata(self,a_str):
+        return self.logic_error_check.check_iata(a_str)
 
     def check_date(self, date_str):
         return self.logic_error_check.check_date(date_str)
