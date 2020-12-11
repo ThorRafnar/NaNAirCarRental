@@ -191,21 +191,27 @@ class LogicAPI():
 
     # ERROR logic
     def check_attribute(self, attr_val, attr_key):
+        ''' Takes a value and key and checks what the attribute is and error checks accordingly '''
         return self.logic_error_check.decide_what_error(attr_val, attr_key)
 
     def check_iata(self,a_str):
+        ''' Checks if a string is a correctly formatted iata code, that doesn't exist in the system '''
         return self.logic_error_check.check_iata(a_str)
 
     def check_date(self, date_str):
+        ''' Checks that a date is valid '''
         return self.logic_error_check.check_date(date_str)
 
     def check_ssn(self, ssn):
+        ''' Checks that an ssn is valid '''
         return self.logic_error_check.ssn_formatter(ssn)
 
     def check_phone(self, phone):
+        ''' Checks that a phone number is valid '''
         return self.logic_error_check.check_phone(phone)
 
     def check_hours(self, hours):
+        ''' Checks if opening hours are correctly formatted '''
         return self.logic_error_check.check_hours(hours)
     
     def check_if_only_number(self, number_str):
