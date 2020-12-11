@@ -1,7 +1,8 @@
 from model_layer.employee import Employee
 
-
+# Only office employees have access to this part of the system
 class EmployeeUI():
+# Constants
     CREATE = "Create new employee"
     CHANGE = "Change employee information"
     FIND = "Find employee"
@@ -11,14 +12,14 @@ class EmployeeUI():
     def __init__(self, ui_helper, logic_api):
         self.logic_api = logic_api
         self.ui_helper = ui_helper
-        self.options_dict = {
+        self.options_dict = {   
             "1": self.CREATE, 
             "2": self.CHANGE, 
             "3": self.FIND,
             "4": self.VIEW_ALL
         }
 
-
+# Start of employee menu section
     def show_options(self, error_msg=""):
         options_list = self.ui_helper.dict_to_list(self.options_dict)
         
@@ -55,8 +56,9 @@ class EmployeeUI():
                     
             else:
                 error_msg = "Please select an option from the menu"
+# End of employee menu section
 
-
+# Start of view all employees section
     def get_employees(self, error_msg=""):
         ''' 
         Gets a list of all employees and displays them for the user, takes input from user,
@@ -83,8 +85,39 @@ class EmployeeUI():
                     error_msg = "Please select an option from the menu"
             else:
                 error_msg = "Please select an option from the menu"
+    
+    def print_employee_list(self, emp_list):
+        ''' Prints and overview of all employees, showing name, ssn, mobile nr, email and work area '''  
+
+        name_header = "<< NAME >>"
+        ssn_header = "<< SOCIAL SECURITY NR >>"
+        mobile_header = "<< MOBILE NR >>"
+        email_header = "<< E-MAIL >>"
+        work_area_header = "<< WORK AREA >>"
+        max_name_length = max(len(emp.name) for emp in emp_list)
+        max_email_length = max(len(emp.email) for emp in emp_list)
+        name_header = name_header + " " * (max_name_length - len(name_header))  #Padding name header to match names
+        self.ui_helper.print_line("Employee overview:")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.n_columns([name_header, ssn_header, mobile_header, email_header, work_area_header])
+        
+        for emp in emp_list:
+            name = emp.name
+            #pads name with spaces so that length is equal to the longest name
+            #Done to left align names
+            name = name + " " * (max_name_length - len(name))
+            ssn = emp.ssn
+            mobile = emp.mobile_phone
+            email = emp.email
+            #pads email with spaces so that length is equal to the longest email
+            #Done to left align names
+            email = email + " " * (max_email_length - len(email))
+            work_area = emp.work_area
+            self.ui_helper.n_columns([name, ssn, mobile, email, work_area])
+# End of view all employess section
 
 
+# Start of help functions within employee class
     def view_employee_details(self, employee):
         ''' shows all details of an employee '''
         self.ui_helper.print_line(f"        NAME:....................{employee.name}")
@@ -142,7 +175,7 @@ class EmployeeUI():
                 return
             else:
                 return
-
+# End of help functions within employee class
 
     def find_employee(self, error_msg=""):
         '''
@@ -452,33 +485,4 @@ class EmployeeUI():
         self.ui_helper.print_footer()
         input("Input: ")
 
-
-    def print_employee_list(self, emp_list):
-        ''' Prints and overview of all employees, showing name, ssn, mobile nr, email and work area '''  
-
-        name_header = "<< NAME >>"
-        ssn_header = "<< SOCIAL SECURITY NR >>"
-        mobile_header = "<< MOBILE NR >>"
-        email_header = "<< E-MAIL >>"
-        work_area_header = "<< WORK AREA >>"
-        max_name_length = max(len(emp.name) for emp in emp_list)
-        max_email_length = max(len(emp.email) for emp in emp_list)
-        name_header = name_header + " " * (max_name_length - len(name_header))  #Padding name header to match names
-        self.ui_helper.print_line("Employee overview:")
-        self.ui_helper.print_blank_line()
-        self.ui_helper.n_columns([name_header, ssn_header, mobile_header, email_header, work_area_header])
-        
-        for emp in emp_list:
-            name = emp.name
-            #pads name with spaces so that length is equal to the longest name
-            #Done to left align names
-            name = name + " " * (max_name_length - len(name))
-            ssn = emp.ssn
-            mobile = emp.mobile_phone
-            email = emp.email
-            #pads email with spaces so that length is equal to the longest email
-            #Done to left align names
-            email = email + " " * (max_email_length - len(email))
-            work_area = emp.work_area
-            self.ui_helper.n_columns([name, ssn, mobile, email, work_area])
         
