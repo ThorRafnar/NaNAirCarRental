@@ -98,6 +98,7 @@ class VehicleLogic():
         return is_available
 
     def match_licenses(self, customer_ssn, vehicle_id):
+        ''' checks if customers licenses matches the one needed for given vehicle '''
         cust = self.customer_logic.find_customer(customer_ssn)
         vehicle = self.find_vehicle(vehicle_id)
         customer_licenses = cust.licenses.split('-')
@@ -113,6 +114,7 @@ class VehicleLogic():
         return does_match
 
     def licenses_options_list(self):
+        ''' returns a list with licennse types '''
         vehicles_list = self.all_vehicles_to_list()
         licenses_list = []
         for vehicle in vehicles_list:
