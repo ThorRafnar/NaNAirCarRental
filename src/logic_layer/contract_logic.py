@@ -195,6 +195,10 @@ class ContractLogic():
         ''' Returns active contract for a given vehicle id in a location, returning none if none exists '''
         contracts = self.get_all_contracts()
         vehicle = self.vehicle_logic.find_vehicle(vehicle_id)
+
+        if vehicle == None: #Bugfix
+            return None     #IF vehicle is not found
+
         user_location = self.desination_logic.find_destination(location_iata)
         if user_location.airport == vehicle.location:
             for contract in contracts:

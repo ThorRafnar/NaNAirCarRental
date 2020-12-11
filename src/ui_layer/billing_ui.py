@@ -19,7 +19,7 @@ class BillingUI():
                 self.contract_ui.customer_not_found()
                 continue
             
-            confirm = self.contract_ui.confirm_customer(customer)
+            confirm = self.contract_ui.confirm_customer(customer, False)
             if confirm.lower() in self.ui_helper.YES:
                 
                 start_date = self.contract_ui.get_date("start")

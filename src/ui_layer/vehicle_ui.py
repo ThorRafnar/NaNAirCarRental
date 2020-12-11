@@ -272,19 +272,26 @@ class VehicleUI():
 
     def vehicle_options(self, the_vehicle, error_msg=""):
         ''' Views a vehicle and asks user what to do '''
-        opt_change_status = "C"
+        if self.ui_helper.user_location != "KEF":                                                       #Office staff cant change vehicle status
+            opt_change_status = "C"
+        else:
+            opt_change_status = None    #bugfix
+
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
             self.ui_helper.print_line("    Vehicle details:")
             self.ui_helper.print_blank_line()
             self.view_vehicle_details(the_vehicle)
-            self.ui_helper.print_line(f"    ({opt_change_status})hange: Change Vehicle Status")
+            if self.ui_helper.user_location != "KEF":                                                   #Office staff cant change vehicle status
+                self.ui_helper.print_line(f"    ({opt_change_status})hange: Change Vehicle Status")
+            else:
+                self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print()
             user_choice = input("Input: ")
 
-            if user_choice.lower() == opt_change_status.lower():
+            if user_choice.lower() == opt_change_status.lower() and self.ui_helper.user_location != "KEF":  #Office staff cant change vehicle status
                 self.change_vehicle_status(the_vehicle)
 
             elif user_choice.lower() == self.ui_helper.BACK:
@@ -330,8 +337,8 @@ class VehicleUI():
         ''' Asks user what to change vehicle status to and changes it '''
 
         options_dict = {
-            "1": "rentable",
-            "2": "workshop"
+            "R": "rentable",
+            "W": "workshop"
         }
         options_list = self.ui_helper.dict_to_list(options_dict)
         while True:
@@ -352,7 +359,7 @@ class VehicleUI():
                     self.ui_helper.quit_prompt()
 
                 elif user_choice in options_dict:
-                    setattr(a_vehicle, "status", options_dict[user_choice])
+                    setattr(a_vehicle, "status", options_dict[user_choice.upper()])
                     confirm_choice = self.confirm_status(a_vehicle)
 
                     if confirm_choice in self.ui_helper.YES:                                        #Saves changes if input is y or yes, not case sensetive
