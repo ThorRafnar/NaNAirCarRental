@@ -47,15 +47,14 @@ class VehicleLogic():
         ''' Sends vehicle id and condition status to data layer '''
         self.data_api.change_vehicle_condition(status, vehicle_id)
     
-    def list_vehicles_by_status(self, status):
+    def availble_vehicles_by_location(self, location):
         ''' Gets status to filter by from UI and finds vehicles by status in vehicle list '''
-        vehicle_list = self.all_vehicles_to_list()
-        status_list = []
-        for vehicle in vehicle_list:
-            if vehicle.status == status:
-                status_list.append(vehicle)
-        
-        return status_list
+        location_list = self.get_vehicle_by_location(location)
+        available_list = []
+        for vehicle in location_list:
+            if vehicle.status == 'rentable':
+                available_list.append(vehicle)
+        return available_list
     
     def get_filtered_vehicle(self,start_date,end_date,location,vehicle_type):
         ''' Filters vehicles to find if vehicle is available for rent '''
