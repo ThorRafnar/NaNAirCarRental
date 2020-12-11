@@ -28,7 +28,6 @@ class DestinationLogic():
             airport_text = '{}, {}'.format(dest.airport, dest.country)
             option_tuple = (dest.iata, airport_text)
             options_list.append(option_tuple)
-        print(options_list)
         return options_list
 
     def city_to_iata(self, city):
