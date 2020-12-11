@@ -23,12 +23,12 @@ class VehicleLogic():
         """ sends new vecicle to database to register """
         new_id = self.add_id_to_vehicle(new_vehicle)
         new_vehicle.id = new_id
-        airport = self.iata_to_airport(new_vehicle)
+        airport = self.iata_to_airport(new_vehicle) # Changes iata code given from UI to airport name to save in database
         new_vehicle.location = airport
         self.data_api.register_new_vehicle(new_vehicle)
     
     def add_id_to_vehicle(self, new_vehicle):
-        ''' Checks what is the last id in database and adds + 1 to add to new vehicle '''
+        ''' Checks what is the last id in database and adds 1 to add to new vehicle '''
         vehicle_list = self.all_vehicles_to_list()
         last_id = vehicle_list[-1].id
         new_id = int(last_id) + 1
@@ -76,12 +76,11 @@ class VehicleLogic():
 
         contract_list = self.data_api.list_all_contracts()
         veh_contracts = []
-        print(is_vehicle.status)
         if is_vehicle.status.lower() != 'workshop':
             for cont in contract_list:
                 if cont.vehicle_id == veh_id:
                     veh_contracts.append(cont)
-
+            # If vhe_contracts list is empty it means that the vehicle is available, if not empty it checks if vehicle is availble for given loan period. It checks if vehicle is assigned to another contract and if contract loan time or end date collide with given potential loan period the vehicle is not available.
             if not veh_contracts:
                 is_available = True
             else:
@@ -98,7 +97,7 @@ class VehicleLogic():
         return is_available
 
     def match_licenses(self, customer_ssn, vehicle_id):
-        ''' checks if customers licenses matches the one needed for given vehicle '''
+        ''' Checks if customer licenses match licenses requirements for given vehicle '''
         cust = self.customer_logic.find_customer(customer_ssn)
         vehicle = self.find_vehicle(vehicle_id)
         customer_licenses = cust.licenses.split('-')
@@ -114,7 +113,7 @@ class VehicleLogic():
         return does_match
 
     def licenses_options_list(self):
-        ''' returns a list with licennse types '''
+        ''' Returns to UI a list of licenses that are required for vehicles in vehicle.csv '''
         vehicles_list = self.all_vehicles_to_list()
         licenses_list = []
         for vehicle in vehicles_list:

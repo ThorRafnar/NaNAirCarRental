@@ -65,7 +65,6 @@ class LogicAPI():
     def availble_vehicles_by_location(self, location):
         '''returns all availble vehicles by location as instanses '''
         return self.vehicle_logic.availble_vehicles_by_location(location)
-
     
     def get_filtered_vehicle(self,start_date,end_date,location,vehicle_type):
         ''' Filters vehicles to find if vehicle is available for rent '''
