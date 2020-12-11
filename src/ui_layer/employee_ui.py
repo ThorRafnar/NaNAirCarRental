@@ -86,6 +86,7 @@ class EmployeeUI():
             else:
                 error_msg = "Please select an option from the menu"
     
+    
     def print_employee_list(self, emp_list):
         ''' Prints and overview of all employees, showing name, ssn, mobile nr, email and work area '''  
 

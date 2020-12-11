@@ -5,6 +5,13 @@ For best results, run the program in full screen, other sizes are  partly suppor
 
 Airport employees can register new vehicles.
 All staff types can view vehicles and their details.
+The view available option shows all vehicles in a given location that are currently rentable. Note that it does not take into account vehicles that might be 
+picked up later during that day or later that week, however when picking a vehicle in contracts, that is taken care of.
+If user is an airport employee they do not need to choose a location, and will see available vehicles in their location. KEF/office employees will need to choose
+a location to view.
+
+When creating a vehicle, if user enters a non existing vehicle type they will be informed that it doesn't exist and prompted if they want
+to create it. They will then decide the rate and confirm, and their new vehicle will have that as its type.
 
 Vehicle rates are the same across all locations  and differ only by vehicle type, eg. Medium water is the same price in Nuuk and Longyearbyen.
 They are changable and viewable by office employees and administrators, but not airport staff. All rates are in icelandic kronur (ISK / Kr.)

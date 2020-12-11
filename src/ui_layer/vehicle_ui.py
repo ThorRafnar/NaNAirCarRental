@@ -7,6 +7,7 @@ class VehicleUI():
     FIND = "Find a vehicle"
     VIEW_ALL = "View all vehicles"
     VEHICLE_RATES = "Vehicle rates"
+    AVAILABLE = "View available vehicles"
 
     def __init__(self, ui_helper, logic_api):
     # Use of logic_api and ui_helper is essential for the program
@@ -22,14 +23,16 @@ class VehicleUI():
             options_dict = {
                 "1": self.VIEW_ALL,
                 "2": self.FIND, 
-                "3": self.VEHICLE_RATES
+                "3": self.VEHICLE_RATES,
+                "4": self.AVAILABLE
             }
         else:
             options_dict = {
                 "1": self.VIEW_ALL,
                 "2": self.FIND,
                 "3": self.VEHICLE_RATES,
-                "4": self.REGISTER               
+                "4": self.AVAILABLE,
+                "5": self.REGISTER
             }
 
         options_list = self.ui_helper.dict_to_list(options_dict)
@@ -67,13 +70,33 @@ class VehicleUI():
                     elif options_dict[user_choice] == self.VEHICLE_RATES:
                         self.vehicle_rate_menu()
 
+                    elif options_dict[user_choice] == self.AVAILABLE:
+                        self.available_vehicles()
+
             else:
                 error_msg = "Please select an option from the menu"
 
-# Start of view all vehicles section
+# Start of list vehicles section
     def get_all_vehicles(self, error_msg=""):
-        ''' Gets all vehicles from logic and calls print_vehicle_list, gets input from user to quit or back'''
+        ''' Gets all vehicles from logic and calls list_vehicles menu, which gets input from user to quit or back'''
         vehicles = self.logic_api.all_vehicles_to_list()
+        self.list_vehicles_menu(vehicles)
+
+
+    def available_vehicles(self, error_msg=""):
+        ''' Gets available vehicles from logic, if user is an airport staff, gets vehicles from their location, if office, they have to select a location '''
+        if self.ui_helper.user_location.upper() != "KEF":
+            location = self.logic_api.find_destination(self.ui_helper.user_location).airport
+
+        else:
+            location = self.logic_api.find_destination(self.ui_helper.get_location("Select a location to view available vehicles:")).airport
+
+        vehicles = self.logic_api.availble_vehicles_by_location(location)
+        self.list_vehicles_menu(vehicles)
+
+    
+    def list_vehicles_menu(self, vehicles, error_msg=""):
+        ''' '''
         vehicle_dict = {vehicle.id: vehicle for vehicle in vehicles }               #Allows user to select a vehicle id from the list
         vehicle_list = self.ui_helper.dict_to_list(vehicle_dict)
         while True:            
@@ -99,7 +122,7 @@ class VehicleUI():
 
             else:
                 error_msg = f"Please enter a valid vehicle ID, or {self.ui_helper.QUIT.upper()} to quit and {self.ui_helper.BACK.upper()} to go back"
-# End of all vehicles section           
+# End of list section           
 
 # Start of help functions
     def vehicle_not_found(self):
@@ -398,7 +421,6 @@ class VehicleUI():
     def new_vehicle_type(self,error_msg=""):
         ''' Creates a new vehicle type '''
         error_msg = "Please choose an option from the menu."
-        attribute_list = ["name", "rate"]
         while True:
             type_name = self.new_vehicle_type_name()
             type_rate = self.new_vehicle_type_rate()
@@ -470,7 +492,7 @@ class VehicleUI():
         user_choice = input("Input: ")
         return user_choice
 
-    def new_type_prompt(self, type_name):
+    def new_type_prompt(self, type_name, error_msg=""):
         ''' Informs user that type doesnt exist, asks if they want to create one, returning the type name if they do and none if they don't '''
         while True:
             self.ui_helper.clear()
@@ -478,7 +500,7 @@ class VehicleUI():
             self.ui_helper.print_line(f"Vehicle type: {type_name} doesn't exist, do you want to create it (y/n)")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
-            print()
+            print(error_msg)
             user_choice = input("Input: ")
             if user_choice.lower() in self.ui_helper.YES:
 

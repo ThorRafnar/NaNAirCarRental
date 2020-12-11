@@ -9,8 +9,10 @@ class UIHelper():
     YES = ["y", "yes"]
     NO = ["n", "no"]
 
-    def __init__(self, width, header_str):
-        self.width = width
+    def __init__(self, logic_api, header_str):
+        size = os.get_terminal_size() 
+        self.width = size.columns - 1    #Screen width
+        self.logic_api = logic_api
         self.header_string = header_str
         self.user_location = None
 
@@ -210,6 +212,36 @@ class UIHelper():
             ret_str += "{: ^{width}}".format(a_string, width = col_width)
             
         return ret_str
+
+
+    def get_location(self, a_str, error_msg=""):
+        ''' Gets a location from user, allowing only valid existing locations '''
+        valid_locations = self.logic_api.destinations_option_list()
+        valid_locations.remove(("KEF", "Reykjavik, Iceland"))
+        while True:
+            self.clear()
+            self.print_header()
+            self.print_blank_line()
+            self.print_line(a_str)
+            for iata, location in valid_locations:
+                self.print_line(f"    {iata}: {location}")
+
+            self.print_blank_line()
+            self.print_footer()
+            user_choice = self.get_user_menu_choice(valid_locations)
+            if user_choice != None:
+
+                if user_choice.lower() == self.QUIT:
+                    self.quit_prompt()
+
+                elif user_choice.lower() == self.BACK:
+                    return
+
+                else:
+                    return user_choice
+
+            else:
+                error_msg = "Please select an option from the menu"
 
 """
 Roses are red
