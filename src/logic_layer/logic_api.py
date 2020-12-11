@@ -55,6 +55,7 @@ class LogicAPI():
         self.vehicle_logic.register_new_vehicle(new_vehicle)
 
     def find_vehicle(self, veh_id):
+        ''' Gets vehicle id from UI, looks for vehicle in database and returns an instance of Vehicle class if found, else returns None back to UI '''
         return self.vehicle_logic.find_vehicle(veh_id)
 
     def change_vehicle_condition(self, vehicle_id, status):
@@ -62,25 +63,34 @@ class LogicAPI():
         return self.vehicle_logic.change_vehicle_condition(vehicle_id, status)
 
     def availble_vehicles_by_location(self, location):
-        return self.vehicle_logic.availble_vehicles_by_location(location)
+
+        '''returns all availble vehicles by location as instanses '''
+        return self.vehicle_logic.availble_vehicles_by_location(location))
+
     
     def get_filtered_vehicle(self,start_date,end_date,location,vehicle_type):
+        ''' Filters vehicles to find if vehicle is available for rent '''
         return self.vehicle_logic.get_filtered_vehicle(start_date,end_date,location,vehicle_type)
     
     def match_licenses(self, customer_ssn, vehicle_id):
+        ''' checks if customer licenses is valid for givin vehicle '''
         return self.vehicle_logic.match_licenses(customer_ssn,vehicle_id)
     
     def licenses_options_list(self):
+        ''' returns a list with all licence types '''
         return self.vehicle_logic.licenses_options_list()
 
     def get_vehicle_by_location(self, location):
+        '''returns a list with instances of all vehicles in set location'''
         return self.vehicle_logic.get_vehicle_by_location(location)
 
     # Destination logic
     def get_destinations(self):
+        ''' Sends a list of destinations as instances of Destination class to UI '''
         return self.destination_logic.get_destinations()
     
     def find_destination(self, iata):
+        ''' Gets iata code from UI and checks if destination exists in database, returns an instance of Destination class for give destination if found, else returns None ''' 
         return self.destination_logic.find_destination(iata)
 
     def create_destination(self, destination):
@@ -88,9 +98,11 @@ class LogicAPI():
         return self.destination_logic.create_destination(destination)
     
     def destinations_option_list(self):
+        ''' Returns destinations attributes for use in UI start screen '''
         return self.destination_logic.destinations_option_list()
 
     def city_to_iata(self, city):
+        ''' retunrs iata code for given city '''
         return self.destination_logic.city_to_iata(city)
 
     # Customer Logic
@@ -99,6 +111,7 @@ class LogicAPI():
         return self.customer_logic.get_customers()
     
     def find_customer(self, ssn):
+        ''' returns a certain customer  '''
         return self.customer_logic.find_customer(ssn)
 
     def change_customer_info(self, attribute_list):
@@ -123,6 +136,7 @@ class LogicAPI():
         return self.contract_logic.view_customer_contracts(ssn)
     
     def get_pending_contracts(self, ssn):
+        ''' returns all pending contracts for given customer '''
         return self.contract_logic.get_pending_contracts(ssn)
     
     def find_contract(self, contract_id):
@@ -138,15 +152,19 @@ class LogicAPI():
         return self.contract_logic.get_contracts_by_attr(attr_list)
 
     def get_unpaid_contracts(self, ssn, start_date, end_date):
+        ''' returns unpaid contracts for certain customer for given time '''
         return self.contract_logic.get_unpaid_contracts( ssn, start_date, end_date)
 
     def change_contract(self, cust):
+        ''' returns a contract instanse down to db and overwrites the old one '''
         self.contract_logic.change_contract(cust)
     
     def get_paid_and_unpaid_contracts(self, start_date, end_date):
+        ''' returns all paid and unpaid contracts for given time '''
         return self.contract_logic.get_paid_and_unpaid_contracts(start_date, end_date)
 
     def get_active_contract(self, vehicle_id, location_iata):
+        ''' Returns active contract for a given vehicle id in a location, returning none if none exists '''
         return self.contract_logic.get_active_contract(vehicle_id, location_iata)
     
     # Vehcile Types Logic
@@ -163,6 +181,7 @@ class LogicAPI():
         return self.vehicle_type_logic.change_types_rate(type_name, new_rate)
     
     def get_types_rate(self, selected_type):
+        ''' Searches for a vehicle type and returns it rate '''
         return self.vehicle_type_logic.get_types_rate(selected_type)
 
     def filter_by_region(self, reg, start_date, end_date):
@@ -171,22 +190,29 @@ class LogicAPI():
 
     #Profits Logic
     def get_profits(self):
+        ''' returns all profits as instances in a list  '''
         return self.profit_logic.get_profits()
 
     def calculate_profits(self,start_date, end_date):
+        ''' returns a total profits for given time as int. this function also calls calculate_profits_by_location
+        and  calculate_profits_by_location and returns it as well in a list'''
         return self.profit_logic.calculate_profits(start_date, end_date)
 
     def calculate_profits_by_location(self, start_date, end_date):
+        ''' returns a ditconary with profit for each location for the given time '''
         return self.profit_logic.calculate_profits_by_locataion(start_date, end_date)
 
     def caluclate_profits_by_vehicle(self, start_date, end_date):
+        ''' returns a ditconary with profit for each vehicle for the given time '''
         return self.profit_logic.calculate_profits_by_vehicle(start_date, end_date)
 
     # Utilization logic
     def get_utilization_logs(self):
+        ''' returns a list of all utilization instances '''
         return self.utilization_logic.get_utilization_logs()
     
     def get_utilization_for_location(self, location):
+        ''' returns a list of all utilization instances for given location'''
         return self.utilization_logic.get_utilization_for_location(location)
 
     # ERROR logic
@@ -209,6 +235,7 @@ class LogicAPI():
         return self.logic_error_check.check_hours(hours)
     
     def check_if_only_number(self, number_str):
+        ''' checs  if a_string is a number'''
         return self.logic_error_check.check_if_number(number_str)
 
     # Random Chuck Norris jokes logic
