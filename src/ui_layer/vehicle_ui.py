@@ -7,6 +7,7 @@ class VehicleUI():
     FIND = "Find a vehicle"
     VIEW_ALL = "View all vehicles"
     VEHICLE_RATES = "Vehicle rates"
+    AVAILABLE = "View available vehicles"
 
     def __init__(self, ui_helper, logic_api):
     # Use of logic_api and ui_helper is essential for the program
@@ -22,14 +23,16 @@ class VehicleUI():
             options_dict = {
                 "1": self.VIEW_ALL,
                 "2": self.FIND, 
-                "3": self.VEHICLE_RATES
+                "3": self.VEHICLE_RATES,
+                "4": self.AVAILABLE
             }
         else:
             options_dict = {
                 "1": self.VIEW_ALL,
                 "2": self.FIND,
                 "3": self.VEHICLE_RATES,
-                "4": self.REGISTER               
+                "4": self.AVAILABLE,
+                "5": self.REGISTER
             }
 
         options_list = self.ui_helper.dict_to_list(options_dict)
@@ -67,13 +70,32 @@ class VehicleUI():
                     elif options_dict[user_choice] == self.VEHICLE_RATES:
                         self.vehicle_rate_menu()
 
+                    elif options_dict[user_choice] == self.AVAILABLE:
+                        self.available_vehicles()
+
             else:
                 error_msg = "Please select an option from the menu"
 
-# Start of view all vehicles section
+# Start of list vehicles section
     def get_all_vehicles(self, error_msg=""):
-        ''' Gets all vehicles from logic and calls print_vehicle_list, gets input from user to quit or back'''
+        ''' Gets all vehicles from logic and calls list_vehicles menu, which gets input from user to quit or back'''
         vehicles = self.logic_api.all_vehicles_to_list()
+        self.list_vehicles_menu(vehicles)
+
+
+    def available_vehicles(self, error_msg=""):
+        ''' Gets available vehicles from logic, if user is an airport staff, gets vehicles from their location, if office, they have to select a location '''
+        if self.ui_helper.user_location.upper() != "KEF":
+            vehicles = self.logic_api.all_vehicles_to_list()
+
+        else:
+            location = self.ui_helper.get_location("Select a location to view available vehicles:")
+            vehicles = self.logic_api.get_vehicle_by_location(location)
+        self.list_vehicles_menu(vehicles)
+
+    
+    def list_vehicles_menu(self, vehicles, error_msg=""):
+        ''' '''
         vehicle_dict = {vehicle.id: vehicle for vehicle in vehicles }               #Allows user to select a vehicle id from the list
         vehicle_list = self.ui_helper.dict_to_list(vehicle_dict)
         while True:            
@@ -99,7 +121,7 @@ class VehicleUI():
 
             else:
                 error_msg = f"Please enter a valid vehicle ID, or {self.ui_helper.QUIT.upper()} to quit and {self.ui_helper.BACK.upper()} to go back"
-# End of all vehicles section           
+# End of list section           
 
 # Start of help functions
     def vehicle_not_found(self):
