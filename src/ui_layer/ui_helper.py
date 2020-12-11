@@ -1,4 +1,5 @@
 import os
+import time
 
 class UIHelper():
 
@@ -63,6 +64,7 @@ class UIHelper():
     def print_hash_line(self):
         print("#" * self.width)
 
+
     def print_line_2_strings(self, a_str, b_str):
         """ Prints a line of length width, takes two strings and aligns them on either side, 3 spaces from the edge, | """
         half_a = self.width // 2
@@ -79,13 +81,15 @@ class UIHelper():
         """ prints header of width width, takes a string as parameter for a display message """
         employee_type = f"<< {self.header_string} >>"
         comp_str = "Nan Air Rentals"
-        version = "Vol 1.0"
+        ascii_top = "     o                               o__,    "
+        ascii_mid = "  {,-O._#       ,-'¨¨¨\\__          0_..<###> "
+        ascii_bot = " ( )#/*( )`     '-O----O-'        <_/______/ "
         self.print_hash_line()
-        self.print_line_2_strings(comp_str, version)
-        self.print_line(employee_type)
+        self.print_line_2_strings(comp_str, ascii_top)
+        self.print_line_2_strings("", ascii_mid)
+        self.print_line_2_strings(employee_type, ascii_bot)
         self.print_hash_line()
         self.print_blank_line()
-
 
 
     def print_options(self, options_list, opt_str=""):
@@ -122,6 +126,7 @@ class UIHelper():
         self.print_blank_line()
         self.print_hash_line()
 
+
     def get_user_menu_choice(self, options_list=None):
         """
         Gets a choice from the user
@@ -136,6 +141,7 @@ class UIHelper():
             return user_choice
         else:
             return None
+
 
     def n_columns(self, string_list):
         '''
@@ -152,6 +158,7 @@ class UIHelper():
             print("{: ^{width}}".format(a_string, width = col_width), end="")
             
         print("|")
+
 
     def print_centered_line(self, a_str):
         ''' prints a string centered on the screen '''
@@ -178,6 +185,7 @@ class UIHelper():
         user_choice = input("Enter choice: ")
         if user_choice.lower() in self.YES:
             self.clear()
+            self.sledding()
             quit()
         else:
             return
@@ -199,6 +207,7 @@ class UIHelper():
     def dict_to_list(self, options_dict):
         ''' converts a dictionary to a list and returns it '''
         return [(k, v) for k, v in options_dict.items()]
+
 
     def n_columns_width(self, columns, wid):
         ''' Formats n columns in a given width, returns a string'''
@@ -228,6 +237,7 @@ class UIHelper():
 
             self.print_blank_line()
             self.print_footer()
+            print(error_msg)
             user_choice = self.get_user_menu_choice(valid_locations)
             if user_choice != None:
 
@@ -242,6 +252,24 @@ class UIHelper():
 
             else:
                 error_msg = "Please select an option from the menu"
+
+
+    def sledding(self):
+        ''' Prints a sled for 2 seconds '''
+        self.print_header()
+        self.print_line("    o")
+        self.print_line("    /\\")
+        self.print_line("   (ツ)                                                  (\_\_^__o                 (\_\_^__o")
+        self.print_line("   | \‾‾''''.....      __ ......................___ .... `-'/ `_/.........___.......'/ `_/")
+        self.print_line("   \\ |     __  __''''' ) )                     '`--\\______/  |           '`--\\______/  |")
+        self.print_line("    |‾\\____||__||_____/ /                 '        /      |  |      '        /      |  |")
+        self.print_line("   / _/________________/   _-__      `    .  '  -`/.-‾‾‾‾‾'\\^-'`    .  '  -`/.-‾‾‾‾‾'\\^-'   _‿_--__")
+        self.print_line("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾⁀⁀‾‾‾    ‾‾‾‾‾‾‾‾‾⁀‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾       ‾‾‾‾‾‾‾‾‾‾")
+        self.print_line("    Quitting...")
+        self.print_blank_line()
+        self.print_hash_line()
+        time.sleep(2)
+        self.clear()
 
 """
 Roses are red

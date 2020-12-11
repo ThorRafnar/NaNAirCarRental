@@ -17,6 +17,20 @@ class ReportUI():
         }
     
 # Menu section
+    def show_options(self, error_msg=""):
+        options_list = self.ui_helper.dict_to_list(self.options_dict)
+        self.ui_helper.clear()
+        self.ui_helper.print_header()
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_line("Select Task:")
+        for option in options_list:
+            self.ui_helper.print_line(f"    {option[0]}. {option[1]}")
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+        print(error_msg)
+        return self.ui_helper.get_user_menu_choice(options_list)
+
+
     def reports_menu(self, error_msg = ""):
         ''' Shows the option menu from the reports section'''
         while True:
@@ -74,20 +88,7 @@ class ReportUI():
                     return
         else:
             return
-    
-
-    def show_options(self, error_msg=""):
-        options_list = self.ui_helper.dict_to_list(self.options_dict)
-        self.ui_helper.clear()
-        self.ui_helper.print_header()
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_line("Select Task:")
-        for option in options_list:
-            self.ui_helper.print_line(f"    {option[0]}. {option[1]}")
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
-        print(error_msg)
-        return self.ui_helper.get_user_menu_choice(options_list)
+       
 # End of menu section
 
 # Start of profit section
