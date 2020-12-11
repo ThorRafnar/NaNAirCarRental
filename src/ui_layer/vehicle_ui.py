@@ -96,7 +96,7 @@ class VehicleUI():
 
     
     def list_vehicles_menu(self, vehicles, error_msg=""):
-        ''' '''
+        ''' Shows a list of vehicles '''
         vehicle_dict = {vehicle.id: vehicle for vehicle in vehicles }               #Allows user to select a vehicle id from the list
         vehicle_list = self.ui_helper.dict_to_list(vehicle_dict)
         while True:            
@@ -165,7 +165,7 @@ class VehicleUI():
 
 # Start of new/register vehicle section
     def register_vehicle(self, error_msg=""):
-        new_vehicle = Vehicle("", "", "", "OK", "", "", "", self.ui_helper.user_location, None)
+        new_vehicle = Vehicle("", "", "", "rentable", "", "", "", self.ui_helper.user_location, None)
         attribute_list = ["manufacturer", "model", "type", "year", "color", "license_type",]
         for attribute in attribute_list:
             while True:                                           #To make back and quit options functional
@@ -178,7 +178,7 @@ class VehicleUI():
                 self.ui_helper.print_blank_line()
                 self.ui_helper.print_footer()
                 print(error_msg)
-                attr_value = input(f"Enter vehicles's {attribute}: ")
+                attr_value = input(f"Input: ")
 
                 if attr_value.lower() == self.ui_helper.BACK.lower():
                     back_choice = self.unsaved_changes(new_vehicle)
@@ -193,16 +193,22 @@ class VehicleUI():
 
                 else:
                     if attribute == "type":                                                 #to allow user to create a new vehicle type if they want
-                        new_type = self.new_type_prompt(attr_value)
-                        new_type =  new_type.capitalize()
-                        if new_type != None:
-                            setattr(new_vehicle, attr_key, new_type)
-                            break
+                        temp_type = self.logic_api.check_attribute(attr_value, "type")
+                        if temp_type != None:
+                            new_type = temp_type
+                        else:
+                            new_type = self.new_type_prompt(attr_value)
+
+                        if new_type == None:
+                            return
+
+                        elif new_type.lower() == "no":
+                            continue
                         
                         else:
-                            error_msg = ""
-                            continue
-
+                            new_type =  new_type.capitalize()
+                            setattr(new_vehicle, attr_key, new_type)
+                            break
 
 
                     else:
@@ -492,6 +498,7 @@ class VehicleUI():
         user_choice = input("Input: ")
         return user_choice
 
+
     def new_type_prompt(self, type_name, error_msg=""):
         ''' Informs user that type doesnt exist, asks if they want to create one, returning the type name if they do and none if they don't '''
         while True:
@@ -511,25 +518,28 @@ class VehicleUI():
                     new_vehicle_type = VehicleType(type_name, type_rate)
                     user_choice = self.v_type_info_check(new_vehicle_type)
                     if user_choice != None:
-                        if user_choice.lower() == self.ui_helper.NO:
-                            return
-                        elif user_choice.lower() == self.ui_helper.BACK:
-                            return
+                        if user_choice.lower() == self.ui_helper.BACK:
+                            return 
+
                         elif user_choice.lower() == self.ui_helper.QUIT:
                             self.ui_helper.quit_prompt()
+
                         elif user_choice.lower() in self.ui_helper.YES:
                             self.logic_api.create_new_type(new_vehicle_type)
                             return new_vehicle_type.name
+
                         else:
                             return
                     else:
                         error_msg = "Please choose an option from the menu."
                     
-                
-
             elif user_choice.lower() == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
+                continue
 
+            elif user_choice.lower() in self.ui_helper.NO:  #If user doesnt want to create
+                return "no"
+            
             else:
                 return None
 # End of new vehicle type section
