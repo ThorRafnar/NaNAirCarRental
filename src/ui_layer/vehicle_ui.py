@@ -86,11 +86,12 @@ class VehicleUI():
     def available_vehicles(self, error_msg=""):
         ''' Gets available vehicles from logic, if user is an airport staff, gets vehicles from their location, if office, they have to select a location '''
         if self.ui_helper.user_location.upper() != "KEF":
-            vehicles = self.logic_api.all_vehicles_to_list()
+            location = self.logic_api.find_destination(self.ui_helper.user_location).airport
 
         else:
-            location = self.ui_helper.get_location("Select a location to view available vehicles:")
-            vehicles = self.logic_api.get_vehicle_by_location(location)
+            location = self.logic_api.find_destination(self.ui_helper.get_location("Select a location to view available vehicles:")).airport
+
+        vehicles = self.logic_api.availble_vehicles_by_location(location)
         self.list_vehicles_menu(vehicles)
 
     
