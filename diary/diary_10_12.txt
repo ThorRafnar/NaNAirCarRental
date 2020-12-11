@@ -1,0 +1,4 @@
+Kæra dagbók, Dagurinn var fjandi góður, við náðum að klára allar A og B kröfur fyrir data, logic og ui sem er frábært. Stelpurnar okkar hafa unnið hörðum höndum að skýrslunni og myndbandinu sem og aðstoðað við að finna bugga. Við enduðum daginn á að setja á code freeze og verður morgundagurinn nýttur í aflúsun og klára myndband og skýrslu.
+
+# Arnór
+Vann við að klára logic layer, lagfæra hluti fyrir UI í logic og síðan aðstoða við aflúsun í lok kvölds.
