@@ -218,42 +218,12 @@ class ReportUI():
 # Start of utilization section
     def uitilization_menu(self):
         ''' Gets location and then shows utilization report for it '''
-        location = self.get_location()
+        location = self.ui_helper.get_location("Select location for utilization report:")
         if location != None:
             self.show_utilization_report(location)
             
         else:
             return
-
-
-    def get_location(self, error_msg=""):
-        ''' Gets a location from user, allowing only valid existing locations '''
-        valid_locations = self.logic_api.destinations_option_list()
-        valid_locations.remove(("KEF", "Reykjavik, Iceland"))
-        while True:
-            self.ui_helper.clear()
-            self.ui_helper.print_header()
-            self.ui_helper.print_blank_line()
-            self.ui_helper.print_line("Select location for utilization report:")
-            for iata, location in valid_locations:
-                self.ui_helper.print_line(f"    {iata}: {location}")
-
-            self.ui_helper.print_blank_line()
-            self.ui_helper.print_footer()
-            user_choice = self.ui_helper.get_user_menu_choice(valid_locations)
-            if user_choice != None:
-
-                if user_choice.lower() == self.ui_helper.QUIT:
-                    self.ui_helper.quit_prompt()
-
-                elif user_choice.lower() == self.ui_helper.BACK:
-                    return
-
-                else:
-                    return user_choice
-
-            else:
-                error_msg = "Please select an option from the menu"
     
 
     def show_utilization_report(self, location_name, error_msg=""):
