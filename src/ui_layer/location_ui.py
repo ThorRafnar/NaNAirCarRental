@@ -1,6 +1,7 @@
 from model_layer.destination import Destination
 
 class LocationUI():
+    # Constants
     CREATE = "Create new location"
     FIND = "Find a location"
     VIEW_ALL = "View all locations"
@@ -18,6 +19,7 @@ class LocationUI():
             "3": self.VIEW_ALL,
         }
 
+# Menu section for locations
     def show_options(self, error_msg=""):
         ''' Main loop in location ui, displays options and allows user to select a task '''
         options_list = self.ui_helper.dict_to_list(self.options_dict)
@@ -50,30 +52,87 @@ class LocationUI():
 
             else:
                 error_msg = "Please select an option from the menu"
+# End of menu section
 
+# Start of new location option section
 
-    def view_location_list(self, location_list, error_msg = ""):
-        ''' Displays a list of locations, allows user to enter iata to view more '''
-        headers = ["<< COUNTRY >>", "<< CITY >>", "<< PHONE >>", "<< OPENING HOURS >>", "<< IATA >>"]
+    def new_location(self, error_msg=""):
+        ''' Gets user input for all components of a destination and creates it, if it exists, shows the location's menu '''
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
-            self.ui_helper.n_columns(headers)
-            for location in location_list:
-                self.ui_helper.n_columns([location.country, location.airport, location.phone, location.hours, location.iata])
+            self.ui_helper.print_line("    Enter airport code (IATA)")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
-            user_choice = input("Input: ")
-            if user_choice.lower() == self.ui_helper.QUIT:
-                self.ui_helper.quit_prompt()
+            iata = input("Input: ")
+            iata = self.logic_api.check_iata(iata)
+            if iata == None:
+                error_msg = "Please enter a valid IATA code (e.g. AEY / KEF)"
+                continue
+            elif iata == "1":
+                error_msg = "This IATA code already exists"
+                continue
 
-            elif user_choice.lower() == self.ui_helper.BACK:
+            if iata.lower() == self.ui_helper.BACK:
                 return
 
+            elif iata.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+                
             else:
-                error_msg = f"Please enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
+                iata = iata.upper()
+                the_dest = self.logic_api.find_destination(iata)
+                if the_dest == None: 
+                    self.create_location(iata)
+                    return
 
+                else:
+                    self.single_location_options(the_dest)
+                    return
+
+
+    def create_location(self, iata, error_msg=""):
+        ''' Creates a new location with an airport code '''
+        the_dest = Destination("", "", ".", "", iata)
+        the_dest.country = self.get_country(the_dest)
+        if the_dest.country == None:
+            return
+
+        the_dest.airport = self.get_city(the_dest)
+        if the_dest.airport == None:
+            return
+
+        the_dest.phone = self.get_phone(the_dest)
+        if the_dest.phone == None:
+            return
+
+        the_dest.hours = self.get_hours(the_dest)
+        if the_dest.hours == None:
+            return
+
+        self.confirm_dest(the_dest)
+    
+
+    def confirm_dest(self, the_dest):
+        ''' Asks user if they want to save their location/destination '''
+        self.ui_helper.clear()
+        self.ui_helper.print_header()
+        self.display_location(the_dest)
+        self.ui_helper.print_blank_line()
+        self.ui_helper.print_footer()
+        print("Confirm changes (y/n)?")
+        user_choice = input("Input: ")
+        if user_choice.lower() in self.ui_helper.YES:
+            self.logic_api.create_destination(the_dest)
+            return
+        else:
+            return
+
+
+# End of new location section
+
+# Start of find location section
 
     def find_location(self, error_msg=""):
         """ Asks user for airportcode and returns a destination instance """
@@ -101,9 +160,9 @@ class LocationUI():
                 else:
                     self.no_thing_found(airport_code)
                     return
-
     
-    def no_location_found(self, iata, error_msg =""):
+
+    def no_thing_found(self, iata, error_msg =""):
         ''' Informs user that no location was found, and asks if they want to create one '''
         while True:
             self.ui_helper.clear()
@@ -114,25 +173,42 @@ class LocationUI():
             print(error_msg)
             user_choice = input("Input: ")
             if user_choice.lower() in self.ui_helper.YES:
-                self.create_location(iata)
+                self.create_location(iata)  # This function is in new location section
                 return
 
             else:
                 return
 
-    
-    def no_employees(self):
-        ''' Informs user that no employees were found, enter to return '''
+# End of find location section
+
+# Start of view all locations section
+
+    def view_location_list(self, location_list, error_msg = ""):
+        ''' Displays a list of locations, allows user to enter iata to view more '''
+        headers = ["<< COUNTRY >>", "<< CITY >>", "<< PHONE >>", "<< OPENING HOURS >>", "<< IATA >>"]
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
-            self.ui_helper.print_line(f"    No employees found, press enter to return")
+            self.ui_helper.n_columns(headers)
+            for location in location_list:
+                self.ui_helper.n_columns([location.country, location.airport, location.phone, location.hours, location.iata])
             self.ui_helper.print_blank_line()
-            self.ui_helper.print_hash_line()
-            print()
-            _x = input("Input: ")
-            return 
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
 
+            elif user_choice.lower() == self.ui_helper.BACK:
+                return
+
+            else:
+                error_msg = f"Please enter {self.ui_helper.QUIT.upper()} to quit or {self.ui_helper.BACK.upper()} to go back"
+
+# End of view all locations section
+
+
+# Functions that print out in some way locations // Besides view_location_list function
 
     def single_location_options(self, the_dest, error_msg=""):
         ''' Displays a single location and displays options, allows user to select a task '''
@@ -173,7 +249,7 @@ class LocationUI():
             else:
                 error_msg = "Please select an option from the menu"
 
-    
+
     def display_location_vehicles(self, location, error_msg =""):
         ''' Gets all vehicles in a given location and prints them out '''
         vehicle_list = self.logic_api.get_vehicle_by_location(location.airport)
@@ -223,56 +299,31 @@ class LocationUI():
                     error_msg = "Please select an option from the menu"
         else:
             self.no_employees()
+    
+
+    def display_location(self, the_dest):
+        ''' Displays locations attributes at the correct indentation '''
+        self.ui_helper.print_line(f"    COUNTRY:............{the_dest.country}")
+        self.ui_helper.print_line(f"    CITY:...............{the_dest.airport}")
+        self.ui_helper.print_line(f"    PHONE:.............{the_dest.phone}")
+        self.ui_helper.print_line(f"    OPNENING HOURS:.....{the_dest.hours}")
+        self.ui_helper.print_line(f"    IATA:...............{the_dest.iata}")
+# End of printing funcitons
 
 
-    def new_location(self, error_msg=""):
-        ''' Gets user input for all components of a destination and creates it, if it exists, shows the location's menu '''
+# Helper function section
+
+    def no_employees(self):
+        ''' Informs user that no employees were found, enter to return '''
         while True:
             self.ui_helper.clear()
             self.ui_helper.print_header()
-            self.ui_helper.print_line("    Enter airport code (iata)")
+            self.ui_helper.print_line(f"    No employees found, press enter to return")
             self.ui_helper.print_blank_line()
-            self.ui_helper.print_footer()
-            print(error_msg)
-            iata = input("Input: ")
-            if iata.lower() == self.ui_helper.BACK:
-                return
-
-            elif iata.lower() == self.ui_helper.QUIT:
-                self.ui_helper.quit_prompt()
-                
-            else:
-                iata = iata.upper()
-                the_dest = self.logic_api.find_destination(iata)
-                if the_dest == None: 
-                    self.create_location(iata)
-                    return
-
-                else:
-                    self.single_location_options(the_dest)
-                    return
-
-
-    def create_location(self, iata, error_msg=""):
-        ''' Creates a new location with an airport code '''
-        the_dest = Destination("", "", ".", "", iata)
-        the_dest.country = self.get_country(the_dest)
-        if the_dest.country == None:
-            return
-
-        the_dest.airport = self.get_city(the_dest)
-        if the_dest.airport == None:
-            return
-
-        the_dest.phone = self.get_phone(the_dest)
-        if the_dest.phone == None:
-            return
-
-        the_dest.hours = self.get_hours(the_dest)
-        if the_dest.hours == None:
-            return
-
-        self.confirm_dest(the_dest)
+            self.ui_helper.print_hash_line()
+            print()
+            _x = input("Input: ")
+            return 
 
 
     def get_country(self, the_dest, error_msg=""):
@@ -372,27 +423,6 @@ class LocationUI():
                 else:
                     error_msg = "Please enter opening hours in a valid format, eg. 08:15 - 12:30"
 
-
-    def confirm_dest(self, the_dest):
-        ''' Asks user if they want to save their location/destination '''
-        self.ui_helper.clear()
-        self.ui_helper.print_header()
-        self.display_location(the_dest)
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
-        print("Confirm changes (y/n)?")
-        user_choice = input("Input: ")
-        if user_choice.lower() in self.ui_helper.YES:
-            self.logic_api.create_destination(the_dest)
-            return
-        else:
-            return
+# End of helper functions section
 
 
-    def display_location(self, the_dest):
-        ''' Displays locations attributes at the correct indentation '''
-        self.ui_helper.print_line(f"    COUNTRY:............{the_dest.country}")
-        self.ui_helper.print_line(f"    CITY:...............{the_dest.airport}")
-        self.ui_helper.print_line(f"    PHONE:.............{the_dest.phone}")
-        self.ui_helper.print_line(f"    OPNENING HOURS:.....{the_dest.hours}")
-        self.ui_helper.print_line(f"    IATA:...............{the_dest.iata}")
