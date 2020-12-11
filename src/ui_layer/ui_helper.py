@@ -256,20 +256,71 @@ class UIHelper():
 
     def sledding(self):
         ''' Prints a sled for 2 seconds '''
-        self.print_header()
-        self.print_line("    o")
-        self.print_line("    /\\")
-        self.print_line("   (ツ)                                                  (\_\_^__o                 (\_\_^__o")
-        self.print_line("   | \‾‾''''.....      __ ......................___ .... `-'/ `_/.........___.......'/ `_/")
-        self.print_line("   \\ |     __  __''''' ) )                     '`--\\______/  |           '`--\\______/  |")
-        self.print_line("    |‾\\____||__||_____/ /                 '        /      |  |      '        /      |  |")
-        self.print_line("   / _/________________/   _-__      `    .  '  -`/.-‾‾‾‾‾'\\^-'`    .  '  -`/.-‾‾‾‾‾'\\^-'   _‿_--__")
-        self.print_line("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾⁀⁀‾‾‾    ‾‾‾‾‾‾‾‾‾⁀‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾       ‾‾‾‾‾‾‾‾‾‾")
-        self.print_line("    Quitting...")
-        self.print_blank_line()
-        self.print_hash_line()
-        time.sleep(2)
-        self.clear()
+        for i in range(10):
+            
+            self.print_header()
+            self.print_line("    o")
+            self.print_line("    /\\")
+            self.print_line("   (ツ)                                                  (\_\_^__o                 (\_\_^__o")
+            self.print_line("   | \‾‾''''.....      __ ......................___ .... `-'/ `_/.........___.......'/ `_/")
+            self.print_line("   \\ |     __  __''''' ) )                     '`--\\______/  |           '`--\\______/  |")
+            self.print_line("    |‾\\____||__||_____/ /                 '        /      |  |      '        /      |  |")
+            self.print_line("   / _/________________/   _-__      `    .  '  -`/.-‾‾‾‾‾'\\^-'`    .  '  -`/.-‾‾‾‾‾'\\^-'   _‿_--__")
+            self.print_line("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾⁀⁀‾‾‾    ‾‾‾‾‾‾‾‾‾⁀‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾       ‾‾‾‾‾‾‾‾‾‾")
+            if i % 3 == 0:
+                self.print_line("    Quitting.")
+            elif i % 3 == 1:
+                self.print_line("    Quitting..")
+            else:
+                self.print_line("    Quitting...")
+            self.print_blank_line()
+            self.print_hash_line()
+            time.sleep(0.2)
+            self.clear()
+
+
+    def sledding(self):
+        ''' Prints a sled for 2 seconds '''
+        for i in range(10):
+            
+            self.print_header()
+
+            if i % 3 == 0:
+                
+                self.print_line("    o")
+                self.print_line("    /\\")
+                self.print_line("   (ツ)                                                  (\_\_^__o                 (\_\_^__o")
+                self.print_line("   | \‾‾''''''......    __ ......................___ .... `-'/ `_/.........___.......'/ `_/")
+                self.print_line("   \\ |     __  __  ''' ) )                     '`--\\______/  |           '`--\\______/  |")
+                self.print_line("    |‾\\____||__||_____/ /                 '        /      |  |      '        /      |  |")
+                self.print_line("   / _/________________/   _-__      `    .  '  -`/.-‾‾‾‾‾'\\^-'`    .  '  -`/.-‾‾‾‾‾'\\^-'   _‿_--__")
+                self.print_line("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾⁀⁀‾‾‾    ‾‾‾‾‾‾‾‾‾⁀‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾       ‾‾‾‾‾‾‾‾‾‾")
+                self.print_line("    Quitting.")
+            elif i % 3 == 1:
+                self.print_line("    o")
+                self.print_line("    /\\")
+                self.print_line("   (ツ)                                                  (\_\_^__o                 (\_\_^__o")
+                self.print_line("   | \‾‾''''''.....     __ ......................___ .... `-'/ `_/.........___.......'/ `_/")
+                self.print_line("   \\ |     __  __ '''' ) )                     '`--\\______/  |           '`--\\______/  |")
+                self.print_line("    |‾\\____||__||_____/ /              .  '        /      |  |      '        /      |  |")
+                self.print_line("   / _/________________/   _-__      `    .  '  -`/.-‾‾‾‾‾'|^-|`    .  '  -`/.-‾‾‾‾‾'\\^-'   _‿_--__")
+                self.print_line("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾⁀⁀‾‾‾    ‾‾‾‾‾‾‾‾‾⁀‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾       ‾‾‾‾‾‾‾‾‾‾")
+                self.print_line("    Quitting..")
+            else:
+                self.print_line("    o")
+                self.print_line("    /\\")
+                self.print_line("   (ツ)                                                  (\_\_^__o                 (\_\_^__o")
+                self.print_line("   | \‾‾''''.....       __ ......................___ .... `-'/ `_/.........___.......'/ `_/")
+                self.print_line("   \\ |     __  __''''' ) )                     '`--\\______/  |           '`--\\______/  |")
+                self.print_line("    |‾\\____||__||_____/ /               '          /      |  |      '        /      |  |")
+                self.print_line("   / _/________________/   _-__      `    .  '  -`/.-‾‾‾‾‾'\\^-'`    .  '  -`/.-‾‾‾‾‾'|^-|   _‿_--__")
+                self.print_line("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾⁀⁀‾‾‾    ‾‾‾‾‾‾‾‾‾⁀‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾       ‾‾‾‾‾‾‾‾‾‾")
+                self.print_line("    Quitting...")
+            self.print_blank_line()
+            self.print_hash_line()
+            time.sleep(0.2)
+            self.clear()
+            
 
 """
 Roses are red

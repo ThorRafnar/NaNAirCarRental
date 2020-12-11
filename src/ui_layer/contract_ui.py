@@ -299,24 +299,28 @@ class ContractUI():
         else:
             return
     
-    def get_contract_id(self):
+    def get_contract_id(self, error_msg =""):
         ''' Gets contract id from user '''
-        self.ui_helper.clear()
-        self.ui_helper.print_header()
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_line("    Enter contract ID")
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
-        print()
-        contract_id = input("Input: ")
-        if contract_id.lower() == self.ui_helper.QUIT:
-            self.ui_helper.quit_prompt()
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_line("    Enter contract ID")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            contract_id = input("Input: ")
+            if contract_id.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
 
-        elif contract_id.lower() == self.ui_helper.BACK:
-            return
+            elif contract_id.lower() == self.ui_helper.BACK:
+                return None
+            
+            elif contract_id.isnumeric() == False:
+                error_msg = "Enter a valid contract ID"
 
-        else:
-            return contract_id
+            else:
+                return contract_id
     
 
 # End of find contract section
@@ -325,29 +329,33 @@ class ContractUI():
 
     def list_contracts(self, contract_list, error_msg=""):
         ''' Lists all contracts in a compact view and allows user to choose one to view '''
-        self.ui_helper.clear()
-        self.ui_helper.print_header()
-        self.ui_helper.print_line("    Enter contract ID for more information")
-        self.ui_helper.print_blank_line()
-        contract_header = ["<< ID >>", "<< STATUS >>", "<< TOTAL PRICE >>", "<< TYPE >>", "<< VEHICLE >>", "<< NAME >>", "<< SSN >>", "<< START DATE >>", "<< RETURN DATE >>"]
-        self.ui_helper.n_columns(contract_header)
-        for contract in contract_list:
-            self.compact_contract(contract)
-        self.ui_helper.print_blank_line()
-        self.ui_helper.print_footer()
-        print(error_msg)
-        user_choice = input("Input: ")
-        if user_choice.lower() == self.ui_helper.BACK:
-            return
-        elif user_choice.lower() == self.ui_helper.QUIT:
-            self.ui_helper.quit_prompt()
-        else:
-            the_contract = self.logic_api.find_contract(user_choice)
-            if the_contract != None:
-                self.single_contract_options(the_contract)      # This function is in view contract section
-
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("    Enter contract ID for more information")
+            self.ui_helper.print_blank_line()
+            contract_header = ["<< ID >>", "<< STATUS >>", "<< TOTAL PRICE >>", "<< TYPE >>", "<< VEHICLE >>", "<< NAME >>", "<< SSN >>", "<< START DATE >>", "<< RETURN DATE >>"]
+            self.ui_helper.n_columns(contract_header)
+            for contract in contract_list:
+                self.compact_contract(contract)
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            
+            error_msg = ""                              #Reset between iterations
+            
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.BACK:
+                return
+            elif user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
             else:
-                error_msg = "Please enter a valid contract ID"
+                the_contract = self.logic_api.find_contract(user_choice)
+                if the_contract != None:
+                    self.single_contract_options(the_contract)      # This function is in view contract section
+
+                else:
+                    error_msg = "Please enter a valid contract ID"
 # End of view all contract functions
 
 # Start of view contract by customer sections
@@ -1274,8 +1282,7 @@ class ContractUI():
                 return date_str
             else:
                 error_msg = "Please enter a valid date (DD/MM/YYYY)"
-
-              
+           
     
     def contracts_activated(self):
         ''' Confirm screen to tell user contracts have been activated '''

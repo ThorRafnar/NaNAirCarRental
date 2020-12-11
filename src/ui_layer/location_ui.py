@@ -66,6 +66,13 @@ class LocationUI():
             self.ui_helper.print_footer()
             print(error_msg)
             iata = input("Input: ")
+
+            if iata.lower() == self.ui_helper.BACK:
+                return
+
+            elif iata.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+
             iata = self.logic_api.check_iata(iata)
             if iata == None:
                 error_msg = "Please enter a valid IATA code (e.g. AEY / KEF)"
@@ -73,12 +80,6 @@ class LocationUI():
             elif iata == "1":
                 error_msg = "This IATA code already exists"
                 continue
-
-            if iata.lower() == self.ui_helper.BACK:
-                return
-
-            elif iata.lower() == self.ui_helper.QUIT:
-                self.ui_helper.quit_prompt()
                 
             else:
                 iata = iata.upper()
@@ -143,14 +144,13 @@ class LocationUI():
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
             print(error_msg)
-            airport_code = input("Input: ")
-            
+            airport_code = input("Input: ")            
             if airport_code.lower() == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
 
             elif airport_code.lower() == self.ui_helper.BACK:
                 return 
-
+ 
             else:
                 the_dest = self.logic_api.find_destination(airport_code.upper())
                 if the_dest != None:
@@ -158,8 +158,14 @@ class LocationUI():
                     return
 
                 else:
-                    self.no_thing_found(airport_code)
-                    return
+                    airport_code = self.logic_api.check_iata(airport_code)
+                    if airport_code == None:
+                        error_msg = "Please enter a valid IATA (eg. AEY, KEF)"
+                        continue
+
+                    else:
+                        self.no_thing_found(airport_code)
+                        return
     
 
     def no_thing_found(self, iata, error_msg =""):
