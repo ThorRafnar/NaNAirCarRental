@@ -20,7 +20,7 @@ class LogicAPI():
         self.destination_logic = DestinationLogic(self.data_api)
         self.vehicle_type_logic = VehicleTypeLogic(self.data_api, self.vehicle_logic)
         self.contract_logic = ContractLogic(self.data_api,self.vehicle_logic,self.vehicle_type_logic, self.destination_logic,self.customer_logic)
-        self.logic_error_check = LogicErrorCheck(self.data_api)
+        self.logic_error_check = LogicErrorCheck(self.data_api, self.destination_logic)
         self.chuck_logic = ChuckLogic(self.data_api)
         self.profit_logic = ProfitLogic(self.data_api, self.destination_logic, self.vehicle_type_logic)
         self.utilization_logic = UtilizationLogic(self.data_api)
@@ -160,6 +160,9 @@ class LogicAPI():
     def get_active_contract(self, vehicle_id, location_iata):
         ''' Returns active contract for a given vehicle id in a location, returning none if none exists '''
         return self.contract_logic.get_active_contract(vehicle_id, location_iata)
+
+    def set_contract_id(self):
+        return str(self.contract_logic.set_contract_id() - 1)
     
     # Vehcile Types Logic
     def get_vehicle_types(self):

@@ -213,15 +213,27 @@ class ContractUI():
             return
 
         location = self.get_location()
+
+        if location == None:
+            return
+        
+        else:
+            location = self.logic_api.find_destination(location)
+
         vehicle_type = self.get_vehicle_type(the_contract.loan_date, the_contract.end_date, location)
+
+        if vehicle_type == None:
+            return
+
         the_vehicle_id = self.choose_vehicle(the_contract.customer_ssn, the_contract.loan_date, the_contract.end_date, location, vehicle_type)
         if the_vehicle_id.lower() == self.ui_helper.BACK.lower():
             return
 
         the_contract.vehicle_id = the_vehicle_id
-        self.single_contract_options(the_contract)
         self.logic_api.create_new_contract(the_contract)
-
+        the_contract.contract_id = self.logic_api.set_contract_id()     #To refresh contract information
+        self.single_contract_options(the_contract)
+        
     
     def get_licences(self, a_customer, error_msg=""): 
         ''' Displays valid licences, numbered and asks user to inpur which licences the customer has, then adds them as an attribute, seperated by a dash (-)'''
@@ -434,6 +446,7 @@ class ContractUI():
                             return
                 
                 elif user_choice.lower() == printable:
+                    a_contract = self.logic_api.find_contract(a_contract.contract_id)           #To refresh contract information
                     self.print_contract(a_contract)
 
                 elif user_choice.lower() in contract_options_dict:       #Actual options
@@ -1222,31 +1235,7 @@ class ContractUI():
         
     def get_location(self, error_msg=""):
         ''' Gets a location from the user '''
-        valid_locations = self.logic_api.destinations_option_list()
-        while True:
-            self.ui_helper.clear()
-            self.ui_helper.print_header()
-            self.ui_helper.print_line("Enter contract location")
-            for iata, location in valid_locations:
-                if iata != "ADM" and iata != "KEF":
-                    self.ui_helper.print_line(f"    {iata}: {location}")
-                else:
-                    valid_locations.remove((iata, location))
-            self.ui_helper.print_blank_line()
-            self.ui_helper.print_footer()
-            print(error_msg)
-            user_input = self.ui_helper.get_user_menu_choice(valid_locations)
-            if user_input.lower() == self.ui_helper.QUIT:
-                self.ui_helper.quit_prompt()
-
-            elif user_input.lower() == self.ui_helper.BACK:
-                return
-
-            location = self.logic_api.find_destination(user_input)
-            if location != None:
-                return location
-            else:
-                error_msg = "Please enter a valid location (IATA)"
+        return self.ui_helper.get_location("Enter select a location:")
 
     
     def get_date(self, date_type_str, error_msg=""):
