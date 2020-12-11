@@ -1,6 +1,8 @@
 # NaNAirCarRental
 Verklegt námskeið 1, mvp group 22
 
+To run the program, cd to src and run the command "python3 run.py"
+
 For best results, run the program in full screen, other sizes are  partly supported, but might cause issues. After starting, do not change terminal size
 
 Airport employees can register new vehicles.
