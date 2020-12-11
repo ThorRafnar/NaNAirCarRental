@@ -421,7 +421,6 @@ class VehicleUI():
     def new_vehicle_type(self,error_msg=""):
         ''' Creates a new vehicle type '''
         error_msg = "Please choose an option from the menu."
-        attribute_list = ["name", "rate"]
         while True:
             type_name = self.new_vehicle_type_name()
             type_rate = self.new_vehicle_type_rate()
@@ -493,7 +492,7 @@ class VehicleUI():
         user_choice = input("Input: ")
         return user_choice
 
-    def new_type_prompt(self, type_name):
+    def new_type_prompt(self, type_name, error_msg=""):
         ''' Informs user that type doesnt exist, asks if they want to create one, returning the type name if they do and none if they don't '''
         while True:
             self.ui_helper.clear()
@@ -501,7 +500,7 @@ class VehicleUI():
             self.ui_helper.print_line(f"Vehicle type: {type_name} doesn't exist, do you want to create it (y/n)")
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
-            print()
+            print(error_msg)
             user_choice = input("Input: ")
             if user_choice.lower() in self.ui_helper.YES:
 

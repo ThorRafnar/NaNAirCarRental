@@ -9,10 +9,9 @@ from ui_layer.billing_ui import BillingUI
 
 class UIStartMenu():
 
-    def __init__(self, width):
-        self.width = width              #Screen width
+    def __init__(self):            
         self.logic_api = LogicAPI()
-        self.ui_helper = UIHelper(self.logic_api, self.width, "Welcome") #<- Starting header string
+        self.ui_helper = UIHelper(self.logic_api, "Welcome") #<- Starting header string
         self.employee_ui = EmployeeUI(self.ui_helper, self.logic_api)
         self.report_ui = ReportUI(self.ui_helper, self.logic_api)
         self.vehicle_ui = VehicleUI(self.ui_helper, self.logic_api)
