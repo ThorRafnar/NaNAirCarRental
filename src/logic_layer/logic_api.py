@@ -133,10 +133,6 @@ class LogicAPI():
         ''' Gets ssn from UI and finds all contracts linked to that ssn in database and returns them as list of Contract classes '''
         return self.contract_logic.view_customer_contracts(ssn)
     
-    def get_pending_contracts(self, ssn):
-        ''' returns all pending contracts for given customer '''
-        return self.contract_logic.get_pending_contracts(ssn)
-    
     def find_contract(self, contract_id):
         ''' Gets contract ID from UI and finds correct contract from given ID and returns the contract to UI if found, else returns None '''
         return self.contract_logic.find_contract(contract_id)
@@ -145,10 +141,6 @@ class LogicAPI():
         ''' Gets id of contract and changes to that contract status and send to data layer for changes to be made '''
         return self.contract_logic.change_contract_status(contract_id, status)
     
-    def get_contracts_by_attr(self, attr_list):
-        ''' Gets a list containing an attribute to filter by and the value to filter it from '''
-        return self.contract_logic.get_contracts_by_attr(attr_list)
-
     def get_unpaid_contracts(self, ssn, start_date, end_date):
         ''' returns unpaid contracts for certain customer for given time '''
         return self.contract_logic.get_unpaid_contracts( ssn, start_date, end_date)
@@ -187,28 +179,12 @@ class LogicAPI():
         return self.vehicle_type_logic.filter_by_region(reg, start_date, end_date)
 
     #Profits Logic
-    def get_profits(self):
-        ''' returns all profits as instances in a list  '''
-        return self.profit_logic.get_profits()
-
     def calculate_profits(self,start_date, end_date):
         ''' returns a total profits for given time as int. this function also calls calculate_profits_by_location
         and  calculate_profits_by_location and returns it as well in a list'''
         return self.profit_logic.calculate_profits(start_date, end_date)
 
-    def calculate_profits_by_location(self, start_date, end_date):
-        ''' returns a ditconary with profit for each location for the given time '''
-        return self.profit_logic.calculate_profits_by_locataion(start_date, end_date)
-
-    def caluclate_profits_by_vehicle(self, start_date, end_date):
-        ''' returns a ditconary with profit for each vehicle for the given time '''
-        return self.profit_logic.calculate_profits_by_vehicle(start_date, end_date)
-
     # Utilization logic
-    def get_utilization_logs(self):
-        ''' returns a list of all utilization instances '''
-        return self.utilization_logic.get_utilization_logs()
-    
     def get_utilization_for_location(self, location):
         ''' returns a list of all utilization instances for given location'''
         return self.utilization_logic.get_utilization_for_location(location)

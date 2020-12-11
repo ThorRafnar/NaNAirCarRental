@@ -43,17 +43,6 @@ class ContractLogic():
                 customer_contracts.append(contract)
         return customer_contracts
     
-    def get_pending_contracts(self, ssn):
-        ''' Returns pending contracts by customer ssn '''
-        customer_contracts = self.view_customer_contracts(ssn)
-        pending_contracts = []
-        for contract in customer_contracts:
-            contract_date = datetime.strptime(contract.loan_date, '%d/%m/%Y')
-            
-            if self.today >= contract_date and contract.status.lower() == 'pending':
-                pending_contracts.append(contract)
-        return pending_contracts
-    
     def find_contract(self, cont_id):
         ''' Searches for a contract from given contract ID and returns an instance of contract class if found, else returns None '''
         contracts_list = self.get_all_contracts()
