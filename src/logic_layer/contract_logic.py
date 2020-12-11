@@ -110,14 +110,6 @@ class ContractLogic():
     def get_contract_total_price(self, contract):
         ''' Adds extensions with base price to calculate total price '''
         return int(contract.base_price) + int(contract.extensions)
-
-    def get_contracts_by_attr(self, attr_list):
-        ''' Returns a list of contracts from given attributes '''
-        col = attr_list[0]
-        value = attr_list[1]
-        contracts_list = self.get_all_contracts()
-        filtered_list = [c for c in contracts_list if getattr(c, col).lower() == value.lower()]
-        return filtered_list
     
     def add_utilization_log(self, contract):
         ''' Gets an instance of contract and creates a utilization log and adds it to utilization.csv '''
