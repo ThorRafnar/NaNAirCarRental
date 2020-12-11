@@ -106,6 +106,54 @@ class ContractUI():
 
                 else:               #If vehicle contract doesn't exist
                     self.contract_not_found()
+
+
+    def pick_up_vehicle(self, error_msg=""):
+        ''' Menu for when a customer is picking up a vehicle, asks for ssn and goes through the steps '''
+        while True:
+            self.ui_helper.clear()
+            self.ui_helper.print_header()
+            self.ui_helper.print_line("    Enter customer ssn:")
+            self.ui_helper.print_blank_line()
+            self.ui_helper.print_footer()
+            print(error_msg)
+            user_choice = input("Input: ")
+            if user_choice.lower() == self.ui_helper.BACK:
+                return
+
+            elif user_choice.lower() == self.ui_helper.QUIT:
+                self.ui_helper.quit_prompt()
+
+            ssn = self.logic_api.check_ssn(user_choice)
+            if ssn == None:
+                error_msg = "Please enter a valid social security number (DDMMYY-NNNM)"
+                continue
+            
+            else:
+                the_customer = self.logic_api.find_customer(ssn)
+
+                if the_customer != None:
+                    conf_choice = self.confirm_customer(the_customer)
+                    if conf_choice.lower() in self.ui_helper.YES:                   #If the customer is confirmed
+                        
+                        ### The contracts <3 ###
+                        contract_list = self.logic_api.get_pending_contracts(ssn, self.ui_helper.user_location)
+                        if contract_list == []:
+                            self.contract_not_found()
+                            #No contract for this customer today
+
+                        else:
+                            returning_choice = self.customer_vehicle_selection(contract_list)   #To return to menu if user finished a task
+                            if returning_choice == self.ui_helper.BACK:
+                                return
+
+                    else:
+                        continue
+
+                else:                       #If customer is not found
+                    error_msg = "No customer with this ssn found!"
+                    continue
+
 # End of contract menu section
 
 # Start of new contract section
@@ -1057,53 +1105,6 @@ class ContractUI():
             self.ui_helper.print_hash_line()
             return input("Input: ")
     
-
-    def pick_up_vehicle(self, error_msg=""):
-        ''' Menu for when a customer is picking up a vehicle, asks for ssn and goes through the steps '''
-        while True:
-            self.ui_helper.clear()
-            self.ui_helper.print_header()
-            self.ui_helper.print_line("    Enter customer ssn:")
-            self.ui_helper.print_blank_line()
-            self.ui_helper.print_footer()
-            print(error_msg)
-            user_choice = input("Input: ")
-            if user_choice.lower() == self.ui_helper.BACK:
-                return
-
-            elif user_choice.lower() == self.ui_helper.QUIT:
-                self.ui_helper.quit_prompt()
-
-            ssn = self.logic_api.check_ssn(user_choice)
-            if ssn == None:
-                error_msg = "Please enter a valid social security number (DDMMYY-NNNM)"
-                continue
-            
-            else:
-                the_customer = self.logic_api.find_customer(ssn)
-
-                if the_customer != None:
-                    conf_choice = self.confirm_customer(the_customer)
-                    if conf_choice.lower() in self.ui_helper.YES:                   #If the customer is confirmed
-                        
-                        ### The contracts <3 ###
-                        contract_list = self.logic_api.view_customer_contracts(ssn)
-                        if contract_list == []:
-                            pass
-                            #No contract for this customer today
-
-                        else:
-                            returning_choice = self.customer_vehicle_selection(contract_list)   #To return to menu if user finished a task
-                            if returning_choice == self.ui_helper.BACK:
-                                return
-
-                    else:
-                        continue
-
-                else:                       #If customer is not found
-                    error_msg = "No customer with this ssn found!"
-                    continue
-
 
     def customer_vehicle_selection(self, contract_list, error_msg=""):
         ''' Displays vehicles in a list and allows user to select (A)ll or one at a time to lend them out '''
