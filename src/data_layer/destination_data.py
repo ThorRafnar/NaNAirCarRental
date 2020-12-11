@@ -19,6 +19,7 @@ class DestinationData():
             return dest_list
 
     def create_destination(self, dest):
+        '''Creates a new destination in database '''
         new_dest_list = [dest.country, dest.airport, dest.phone, dest.hours, dest.iata]
         with open("data_layer/data_files/destinations.csv", 'a+', encoding='utf-8', newline="") as file_stream:
             destwriter = csv.writer(file_stream)

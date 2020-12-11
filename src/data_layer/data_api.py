@@ -24,9 +24,11 @@ class DataAPI():
     # profits functions
 
     def add_profits(self, a_list):
+        ''' adds profit to profit.csv '''
         return self.profits_data.add_profits(a_list)
 
     def get_profits(self):
+        ''' returns a list with all profits '''
         return self.profits_data.get_profits()
 
     # Employee functions
@@ -100,22 +102,28 @@ class DataAPI():
         self.contract_data.new_contract(contr)
 
     def change_contract_attributes(self, attribute_list):
+        ''' changes contract attributes in database '''
         self.contract_data.change_contract_attributes(attribute_list)
 
     def terminate_contract(self, contract_id):
+        ''' treminates contract '''
         self.contract_data.terminate_contract(contract_id)
 
     def change_contract(self, cust):
+        ''' changes contract in database '''
         self.contract_data.change_contract(cust)
     
 
     # Utilization data
     def add_utilization_log(self, a_list):
+        ''' writes utilization log down in database '''
         self.utilization_data.add_utilization_log(a_list)
     
     def get_utilization(self):
+        ''' returns all utilizations from database '''
         return self.utilization_data.get_utilization()
 
     # Chuck jokes
     def get_jokes(self):
+        ''' returns all chucks jokes in a list '''
         return self.chuck_data.get_jokes()
