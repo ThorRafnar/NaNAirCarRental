@@ -407,7 +407,7 @@ class LocationUI():
             self.display_location(the_dest)
             self.ui_helper.print_blank_line()
             self.ui_helper.print_footer()
-            print()
+            print(error_msg)
             hours = input("Enter location's opening hours (HH:MM - HH:MM): ")
             if hours.lower() == self.ui_helper.BACK:
                 return

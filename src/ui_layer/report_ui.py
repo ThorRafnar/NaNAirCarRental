@@ -202,7 +202,7 @@ class ReportUI():
             print(error_msg)
             the_date = input("Input: ")
             if the_date == self.ui_helper.BACK:
-                return
+                return None
 
             elif the_date == self.ui_helper.QUIT:
                 self.ui_helper.quit_prompt()
@@ -296,11 +296,11 @@ class ReportUI():
         ''' Allows user to see different billing reports, paid and unpaid '''
         start_date = self.get_date("start")
         if start_date == None:
-            return
+            return None
 
         end_date = self.get_date("end")
-        if start_date == None:
-            return
+        if end_date == None:
+            return None
 
         contracts_dict = self.logic_api.get_paid_and_unpaid_contracts(start_date, end_date)
 

@@ -457,6 +457,7 @@ class EmployeeUI():
                     attr_value = self.logic_api.check_attribute(attr_value, attr_key)
                     if attr_value != None:
                         setattr(emp, attr_key, attr_value)     #Sets attribute to input
+                        error_msg = ""
                         break
                     else:
                         error_msg = f"Please enter a valid {attribute}"
