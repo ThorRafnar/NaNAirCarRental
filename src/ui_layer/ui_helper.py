@@ -9,9 +9,10 @@ class UIHelper():
     YES = ["y", "yes"]
     NO = ["n", "no"]
 
-    def __init__(self, logic_api, width, header_str):
+    def __init__(self, logic_api, header_str):
+        size = os.get_terminal_size() 
+        self.width = size.columns - 1    #Screen width
         self.logic_api = logic_api
-        self.width = width
         self.header_string = header_str
         self.user_location = None
 
@@ -231,7 +232,7 @@ class UIHelper():
             if user_choice != None:
 
                 if user_choice.lower() == self.QUIT:
-                    self.ui_helper.quit_prompt()
+                    self.quit_prompt()
 
                 elif user_choice.lower() == self.BACK:
                     return
