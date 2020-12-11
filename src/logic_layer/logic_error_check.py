@@ -162,13 +162,9 @@ class LogicErrorCheck():
         return None
     
     def check_color(self, a_str):
-        # These are the valid colors for the system
-        valid_colors = ["blue","green","purple","grey","black","white","orange","yellow","pink","brown"]
-        if a_str.lower() in valid_colors:
-            return a_str.lower()
-        else:
-            return None
-    
+        ''' error check cancelled, go home '''
+        return a_str
+
 
     def check_date(self, date_str):
         ''' checks if a date is correctly formatted and returns none if it is not '''
