@@ -38,4 +38,6 @@ Because of this, contracts are paid in full every time, and all chanrges will ha
 Airport employees can check out and return vehicles, and when returning the system makes sure that they are returning a valid vehicle for their location, 
 and that the vehicle is in an active contract
 
+Profits reports support only up to 13 vehicle types, before the formatting gets out of hand. Given more time this could be fixed but at the moment it is not feasible
+
 When creating a contract, employee, vehicle or customer, if you go back, it will return to the menu before you started, losing your information.
