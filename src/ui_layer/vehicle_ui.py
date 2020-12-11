@@ -89,7 +89,11 @@ class VehicleUI():
             location = self.logic_api.find_destination(self.ui_helper.user_location).airport
 
         else:
-            location = self.logic_api.find_destination(self.ui_helper.get_location("Select a location to view available vehicles:")).airport
+            dest = self.ui_helper.get_location("Select a location to view available vehicles:")
+            if dest == None:
+                return
+            else:
+                location = self.logic_api.find_destination(dest).airport
 
         vehicles = self.logic_api.availble_vehicles_by_location(location)
         self.list_vehicles_menu(vehicles)
@@ -266,6 +270,8 @@ class VehicleUI():
 
             else:   #Search for the vehicle in database
                 the_vehicle = self.logic_api.find_vehicle(vehicle_id)
+                if the_vehicle == None:
+                    self.vehicle_not_found()
                 self.vehicle_options(the_vehicle)
                 return
 
@@ -473,6 +479,7 @@ class VehicleUI():
         user_choice = input("Input: ")
         return user_choice
     
+
     def new_vehicle_type_rate(self,error_msg=""):
         while True:
             self.ui_helper.clear()
@@ -495,6 +502,7 @@ class VehicleUI():
                     error_msg = "Please input a fee containing only numbers."
                     continue
     
+
     def v_type_info_check(self, vehicle_type):
         self.ui_helper.clear()
         self.ui_helper.print_header()
