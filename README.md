@@ -17,7 +17,8 @@ to create it. They will then decide the rate and confirm, and their new vehicle 
 
 Vehicle rates are the same across all locations  and differ only by vehicle type, eg. Medium water is the same price in Nuuk and Longyearbyen.
 They are changable and viewable by office employees and administrators, but not airport staff. All rates are in icelandic kronur (ISK / Kr.)
-Any staff type can view and change vehicle rates.
+Any staff type can view and change vehicle rates. If rates are updated the existing contracts prices are not updated, however, if the customer returns late
+the extra charges will be based on the new rate.
 
 Locations' opening hours are an attribute of each location (destination). Opening hours are different for each location (but allows duplicates), 
 meaning each location has its own opening hours.
