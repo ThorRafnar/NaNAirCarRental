@@ -314,8 +314,8 @@ class ReportUI():
                 self.ui_helper.print_blank_line()
                 for customer_name, contracts in contracts_dict.items():
                     self.ui_helper.seperator()
-                    self.ui_helper.print_line(f"    << Billing overview for {customer_name} >>")
                     self.ui_helper.print_blank_line()
+                    self.ui_helper.print_line(f"    << Billing overview for {customer_name} >>")
 
                     if "paid" in contracts:
                         self.ui_helper.print_centered_line_dash(f"<< PAID >>")
